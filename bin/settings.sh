@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# Project specific settings value
 
 if [ -n "${BASH_SOURCE}" ]
 then

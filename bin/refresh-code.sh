@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+# This shell script only re-build the main.py and aws_tools source code
+# to Alfred Workflow preference directory, without install any dependencies
+#
+# It allows developer to quickly test the latest code with real Alfred UI
+# You should run this script everything you update your source code
 
 dir_bin="$( cd "$(dirname "$0")" ; pwd -P )"
 dir_project_root="$(dirname "${dir_bin}")"

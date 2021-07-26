@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# Install dependency for your python virtualenv
 
 dir_here="$( cd "$(dirname "$0")" ; pwd -P )"
 dir_project_root="$(dirname "${dir_here}")"

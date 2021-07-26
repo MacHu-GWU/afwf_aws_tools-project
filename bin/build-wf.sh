@@ -1,4 +1,11 @@
 #!/bin/bash
+#
+# Build Alfred Workflow release from source code.
+# Basically it creates:
+#
+# - ${dir_workflow}/main.py
+# - ${dir_workflow}/lib
+# - ${dir_workflow}/workflow
 
 dir_here="$( cd "$(dirname "$0")" ; pwd -P )"
 dir_project_root="$(dirname "${dir_here}")"
