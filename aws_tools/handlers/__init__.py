@@ -12,6 +12,7 @@ handler_func_mapper = {
     "set_profile": set_profile.set_profile,
     "select_region": set_profile.select_region,
     "set_region": set_profile.set_region,
+    "set_default_profile": set_profile.set_default_profile,
     "s3_list_bucket": s3.list_bucket,
 }
 

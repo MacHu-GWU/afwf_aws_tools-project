@@ -2,62 +2,138 @@
 
 from __future__ import unicode_literals, print_function
 import attr
+import typing
 from pathlib_mate import Path
 import ConfigParser
 
-
-# @attr.s
-# class AWSProfile(object):
-#     name = attr.ib()  # type: str
-#     aws_access_key_id = attr.ib()  # type: str
-#     aws_secret_access_key = attr.ib()  # type: str
-#     region = attr.ib()  # type: str
-#     output = attr.ib()  # type: str
-#     aws_session_token = attr.ib(default=None)  # type: str
+HOME = Path.home()
+PATH_DEFAULT_AWS_CREDENTIAL_FILE = Path(HOME, ".aws", "credentials")
+PATH_DEFAULT_AWS_CONFIG_FILE = Path(HOME, ".aws", "config")
 
 
-def read_all_aws_profile():
+class SectionNotFoundError(ValueError): pass
+
+
+def read_all_section_name(config_file):
     """
-    :rtype: list[AWSProfile]
-
+    :type config_file: absolute path of the config file
+    :param config_file:
+    :rtype: typing.List[str]
     :return:
     """
+    config = ConfigParser.ConfigParser()
+    config.read(config_file)
+    return config.sections()
 
-    HOME = Path.home()
 
-    aws_credential_file = Path(HOME, ".aws", "credentials")
-    # aws_config_file = Path(HOME, ".aws", "config")
+def read_all_profile_name_from_credential_file(aws_credential_file=PATH_DEFAULT_AWS_CREDENTIAL_FILE.abspath):
+    return read_all_section_name(aws_credential_file)
 
+
+def read_all_profile_name_from_config_file(aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath):
+    return read_all_section_name(aws_config_file)
+
+
+def read_all_aws_profile(aws_credential_file=PATH_DEFAULT_AWS_CREDENTIAL_FILE.abspath):
+    """
+    :type aws_credential_file: str
+    :rtype: list[str]
+    :return:
+    """
     aws_credential = ConfigParser.ConfigParser()
-    aws_credential.readfp(open(aws_credential_file.abspath))
-
-    # aws_config = ConfigParser.ConfigParser()  # type:
-    # aws_config.readfp(open(aws_config_file.abspath))
+    aws_credential.read(aws_credential_file)
 
     aws_profile_list = list()  # type: list[str]
 
     aws_credential_sections = aws_credential.sections()
-    # aws_config_sections = aws_config.sections()
 
     for cred_section_name in aws_credential_sections:
-        credential_data = dict(aws_credential.items(cred_section_name))
-        # config_section_name = "profile {}".format(cred_section_name)
-        # if config_section_name not in aws_config_sections:
-        #     print("[{}] not found in ~/.aws/config file".format(config_section_name))
-        #     continue
-        # config_data = dict(aws_config.items(config_section_name))
-        # aws_profile = AWSProfile(
-        #     name=cred_section_name,
-        #     aws_access_key_id=credential_data.get("aws_access_key_id"),
-        #     aws_secret_access_key=credential_data.get("aws_secret_access_key"),
-        #     region=config_data.get("region"),
-        #     output=config_data.get("output"),
-        #     aws_session_token=credential_data.get("aws_session_token"),
-        # )
         aws_profile = cred_section_name
         aws_profile_list.append(aws_profile)
 
     return aws_profile_list
+
+
+def replace_section(config_file,
+                    source_section_name,
+                    target_section_name):
+    """
+    Replace a config section values (target_section_name) with the value of
+    another config section (source_section_name). For example,
+
+    ``replace_section_and_return_content("config.ini", "default", "sec1")``
+    will do this:
+
+    before::
+
+        [sec1]
+        k = 1
+
+        [sec2]
+        k = 2
+        flag = 1
+
+    after::
+
+        [default]
+        k = 1
+
+        [sec1]
+        k = 1
+
+        [sec2]
+        k = 2
+        flag = 1
+    """
+    config = ConfigParser.ConfigParser()
+    config.read(config_file)
+
+    if source_section_name not in config.sections():
+        raise SectionNotFoundError
+
+    target_section_line = "[{}]".format(target_section_name)
+    with open(config_file, "rb") as f:
+        content = f.read().decode("utf-8")
+        new_lines = list()
+        append_flag = True
+        is_in_target_section_flag = False
+        found_target_section_flag = False
+        for line in content.split("\n"):
+            line = line.strip()
+            # locate the target_section_name
+            if line == target_section_line:
+                # update the target_section_name section
+                new_lines.append(line)
+                for option_name in config.options(source_section_name):
+                    option_value = config.get(source_section_name, option_name)
+                    new_lines.append("{} = {}".format(option_name, option_value))
+
+                is_in_target_section_flag = True
+                found_target_section_flag = True
+                append_flag = False
+
+            # encounter next section after the target_section_name
+            if is_in_target_section_flag and (line.startswith("[") and line.endswith("]")) and (
+                    line != target_section_line):
+                new_lines.append("")  # add an empty line
+                is_in_target_section_flag = False
+                append_flag = True
+
+            if append_flag:
+                print(line)
+                new_lines.append(line)
+
+    # create a new target_section_name if it doesn't exist
+    if not found_target_section_flag:
+        new_lines.append(target_section_line)
+        for option_name in config.options(source_section_name):
+            option_value = config.get(source_section_name, option_name)
+            new_lines.append("{} = {}".format(option_name, option_value))
+        new_lines.append("")  # add an empty line
+
+    with open(config_file, "wb") as f:
+        f.write("\n".join(new_lines).encode("utf-8"))
+
 
 # Go https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html#Concepts.RegionsAndAvailabilityZones.Regions
 # Copy the data
