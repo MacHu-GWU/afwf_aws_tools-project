@@ -18,4 +18,4 @@ rm -r "${dir_workflow}/lib/${package_name}-${package_version}.dist-info"
 rm "${dir_workflow}/main.py"
 
 ${bin_pip} install "${dir_project_root}" --no-dependencies --target="${dir_workflow}/lib"
-cp "${dir_project_root}/main.py" "mak${dir_workflow}/main.py"
+cp "${dir_project_root}/main.py" "${dir_workflow}/main.py"
