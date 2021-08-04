@@ -146,7 +146,7 @@ def set_default_profile(wf, args=None):
         replace_section(
             config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
             source_section_name="profile {}".format(profile_name),
-            target_section_name="profile default",
+            target_section_name="default",
         )
 
     return wf
