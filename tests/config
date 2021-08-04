@@ -1,0 +1,12 @@
+[profile p1]
+# comment for p1
+region = us-east-1
+output = json
+
+[profile p2]
+region = us-east-1
+output = json
+
+[profile p3]
+region = us-east-1
+output = json
