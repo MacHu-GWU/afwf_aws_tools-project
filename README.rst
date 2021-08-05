@@ -27,7 +27,11 @@ MFA Auth Based on One of the AWS Named Profile
 
 For security concern, **some organization requires MFA auth before using AWS API Key**. In other words, you need to run ``aws sts get-session-token --serial-number arn-of-the-mfa-device --token-code code-from-token`` commands and manually update your ``~/.aws/credentials`` file and use your new temporary named profile. (Official document can be found here https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/)
 
-This workflow allows you to type: ``aws-mfa-auth ${your_base_named_profile} ${six_digits_mfa_token_from_your_phone}``. Then a new aws profile ``${your_base_named_profile}_mfa`` (with ``_mfa`` surfix) will be instantly ready to use.
+This workflow allows you to type::
+
+    aws-mfa-auth ${your_base_named_profile} ${six_digits_mfa_token_from_your_phone}
+
+Then a new aws profile ``${your_base_named_profile}_mfa`` (with ``_mfa`` surfix) will be instantly ready to use.
 
 
 Install
