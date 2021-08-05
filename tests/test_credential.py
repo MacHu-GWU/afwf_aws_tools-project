@@ -4,7 +4,7 @@ import unittest
 import ConfigParser
 from pathlib_mate import Path
 from aws_tools.credential import (
-    read_all_section_name, read_all_aws_profile, replace_section
+    read_all_section_name, replace_section, mfa_auth,
 )
 
 
@@ -75,6 +75,9 @@ class Test(unittest.TestCase):
             config.get("profile default", "region"),
             config.get("profile p2", "region"),
         )
+
+    def test_mfa_auth(self):
+        mfa_auth(aws_profile="aws_data_lab_sanhe", mfa_code="111111", hours=24)
 
 
 if __name__ == '__main__':

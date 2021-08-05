@@ -8,12 +8,14 @@ from . import (
 from workflow import Workflow3, ICON_ERROR
 
 handler_func_mapper = {
-    "select_profile": set_profile.select_profile,
-    "set_profile": set_profile.set_profile,
-    "select_region": set_profile.select_region,
-    "set_region": set_profile.set_region,
-    "set_default_profile": set_profile.set_default_profile,
-    "s3_list_bucket": s3.list_bucket,
+    set_profile.select_profile.__name__: set_profile.select_profile,
+    set_profile.set_profile.__name__: set_profile.set_profile,
+    set_profile.select_region.__name__: set_profile.select_region,
+    set_profile.set_region.__name__: set_profile.set_region,
+    set_profile.set_default_profile.__name__: set_profile.set_default_profile,
+    set_profile.mfa_auth_select_profile.__name__: set_profile.mfa_auth_select_profile,
+    set_profile.mfa_auth_execute_mfa.__name__: set_profile.mfa_auth_execute_mfa,
+    s3.list_bucket.__name__: s3.list_bucket,
 }
 
 def handler(wf):

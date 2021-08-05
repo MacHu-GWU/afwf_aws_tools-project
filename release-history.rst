@@ -4,7 +4,7 @@ Release and Version History
 ==============================================================================
 
 
-0.0.3 (TODO)
+0.0.4 (TODO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
@@ -13,6 +13,13 @@ Release and Version History
 **Bugfixes**
 
 **Miscellaneous**
+
+
+0.0.3 (2021-08-04)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- add ``aws-mfa-auth`` workflow, allow quick set a new mfa auth named profile using a base named profile and your six digits mfa token.
 
 
 0.0.2 (2021-08-04)

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals, print_function
-import attr
 import typing
 from pathlib_mate import Path
 import ConfigParser
@@ -120,7 +119,6 @@ def replace_section(config_file,
                 append_flag = True
 
             if append_flag:
-                print(line)
                 new_lines.append(line)
 
     # create a new target_section_name if it doesn't exist
@@ -135,32 +133,131 @@ def replace_section(config_file,
         f.write("\n".join(new_lines).encode("utf-8"))
 
 
-# Go https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html#Concepts.RegionsAndAvailabilityZones.Regions
-# Copy the data
-# Go https://www.tablesgenerator.com/markdown_tables
-# File -> Paste Table data, delete other columns, keep only first two columns
-all_regions = [
-    ("US East (Ohio)", "us-east-2"),
-    ("US East (N. Virginia)", "us-east-1"),
-    ("US West (N. California)", "us-west-1"),
-    ("US West (Oregon)", "us-west-2"),
-    ("Africa (Cape Town)", "af-south-1"),
-    ("Asia Pacific (Hong Kong)", "ap-east-1"),
-    ("Asia Pacific (Mumbai)", "ap-south-1"),
-    ("Asia Pacific (Osaka)", "ap-northeast-3"),
-    ("Asia Pacific (Seoul)", "ap-northeast-2"),
-    ("Asia Pacific (Singapore)", "ap-southeast-1"),
-    ("Asia Pacific (Sydney)", "ap-southeast-2"),
-    ("Asia Pacific (Tokyo)", "ap-northeast-1"),
-    ("Canada (Central)", "ca-central-1"),
-    ("Europe (Frankfurt)", "eu-central-1"),
-    ("Europe (Ireland)", "eu-west-1"),
-    ("Europe (London)", "eu-west-2"),
-    ("Europe (Milan)", "eu-south-1"),
-    ("Europe (Paris)", "eu-west-3"),
-    ("Europe (Stockholm)", "eu-north-1"),
-    ("Middle East (Bahrain)", "me-south-1"),
-    ("South America (São Paulo)", "sa-east-1"),
-    ("AWS GovCloud (US-East)", "us-gov-east-1"),
-    ("AWS GovCloud (US-West)", "us-gov-west-1"),
-]
+def overwrite_section(config_file,
+                      section_name,
+                      data):
+    """
+    Overwrite a config section values (section_name) with the key, value pairs
+     defined in data. For example,
+
+    ``overwrite_section("config.ini", "default", [("k1", "v1"), ("k2", "v2"))``
+    will do this:
+
+    before::
+
+        [sec1]
+        k = 1
+
+        [sec2]
+        k = 2
+        flag = 1
+
+    after::
+
+        [sec1]
+        k = 1
+
+        [sec2]
+        k = 2
+        flag = 1
+
+        [default]
+        k1 = v1
+        k2 = v2
+    """
+    section_line = "[{}]".format(section_name)
+    with open(config_file, "rb") as f:
+        content = f.read().decode("utf-8")
+        new_lines = list()
+        append_flag = True
+        is_in_section_flag = False
+        found_section_flag = False
+        for line in content.split("\n"):
+            line = line.strip()
+            # locate the target_section_name
+            if line == section_line:
+                # update the target_section_name section
+                new_lines.append(line)
+                for key, value in data:
+                    new_lines.append("{} = {}".format(key, value))
+
+                is_in_section_flag = True
+                found_section_flag = True
+                append_flag = False
+
+            # encounter next section after the target_section_name
+            if is_in_section_flag and (line.startswith("[") and line.endswith("]")) and (
+                    line != section_line):
+                new_lines.append("")  # add an empty line
+                is_in_section_flag = False
+                append_flag = True
+
+            if append_flag:
+                new_lines.append(line)
+
+    # create a new target_section_name if it doesn't exist
+    if not found_section_flag:
+        new_lines.append(section_line)
+        for key, value in data:
+            new_lines.append("{} = {}".format(key, value))
+        new_lines.append("")  # add an empty line
+
+    with open(config_file, "wb") as f:
+        f.write("\n".join(new_lines).encode("utf-8"))
+
+
+def mfa_auth(aws_profile, mfa_code, hours=12):
+    """
+
+    :param aws_profile:
+    :return:
+    """
+    import boto3
+
+    boto_ses = boto3.session.Session(profile_name=aws_profile)
+    sts = boto_ses.client("sts")
+
+    response = sts.get_caller_identity()
+    user_arn = response["Arn"]
+    mfa_arn = user_arn.replace(":user/", ":mfa/", 1)
+
+    # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sts.html#STS.Client.get_session_token
+    response = sts.get_session_token(
+        SerialNumber=mfa_arn,
+        TokenCode=mfa_code,
+        DurationSeconds=hours*3600,
+    )
+    aws_access_key_id = response["Credentials"]["AccessKeyId"]
+    aws_secret_access_key = response["Credentials"]["SecretAccessKey"]
+    aws_session_token = response["Credentials"]["SessionToken"]
+
+    data = [
+        ("aws_access_key_id", aws_access_key_id),
+        ("aws_secret_access_key", aws_secret_access_key),
+        ("aws_session_token", aws_session_token),
+    ]
+
+    new_aws_profile = "{}_mfa".format(aws_profile)
+    overwrite_section(
+        config_file=PATH_DEFAULT_AWS_CREDENTIAL_FILE.abspath,
+        section_name=new_aws_profile,
+        data=data,
+    )
+
+    config = ConfigParser.ConfigParser()
+    config.read(PATH_DEFAULT_AWS_CONFIG_FILE.abspath)
+
+    config_section_name = "profile {}".format(aws_profile)
+    if config_section_name not in config.sections():
+        raise SectionNotFoundError
+
+    data = [
+        (option_name, config.get(config_section_name, option_name))
+        for option_name in config.options(config_section_name)
+    ]
+
+    overwrite_section(
+        config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
+        section_name="profile {}_mfa".format(aws_profile),
+        data=data,
+    )
