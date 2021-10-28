@@ -14,12 +14,14 @@ bin_pip="${dir_venv}/bin/pip"
 
 source "${dir_here}/settings.sh"
 
-rm -r "${dir_workflow}/lib"
 rm -r "${dir_workflow}/workflow"
+rm -r "${dir_workflow}/lib"
+rm -r "${dir_workflow}/icons"
 rm "${dir_workflow}/main.py"
 rm "${dir_workflow}/version"
 
 ${bin_pip} install -r "${dir_project_root}/requirements-alfred-workflow.txt" --target="${dir_workflow}"
 ${bin_pip} install "${dir_project_root}" --target="${dir_workflow}/lib"
+cp -R "${dir_project_root}/icons" "${dir_workflow}/icons"
 cp "${dir_project_root}/main.py" "${dir_workflow}/main.py"
 cp "${dir_project_root}/version" "${dir_workflow}/version"

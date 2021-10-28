@@ -38,38 +38,30 @@ Term:
 - example: ``"aws e"``
 - behavior: filter main services based on the query, for example, ec2, ecr, ecs, ...
 - tab: auto complete to ``"aws ec2-"``
-- enter: open the aws service console in browser for the selected main service, for example, ``https://console.aws.amazon.com/ec2/v2/home``
+- enter: open the selected main service in browser, for example, ``https://console.aws.amazon.com/ec2/v2/home``
 
 ``"aws ec2-"``:
 
 - behavior: list all related sub services, for example, ec2-instances, ec2-securitygroups, ec2-ebsvolumes, ... first item is always the main service ifself, for example ``https://console.aws.amazon.com/ec2/v2/home``
 - tab: do nothing
-- enter: open the selected main or sub service console in browser for the selected sub service, for example, ``https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances: ``
+- enter: open the selected main or sub service console in browser, for example, ``https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:``
 
 ``"aws ec2-{query}"``:
 
 - example: ``"aws ec2-ins"``
 - behavior: filter sub services based on the query, for example, ec2-instances.
 - tab: auto complete to ``"aws ec2-instances "``
-- enter: open the aws service console in browser for the selected sub service, for example, ``https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances: ``
+- enter: open the aws service console in browser for the selected sub service, for example, ``https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:``
 
 ``"aws ec2-instances "``
 
-- behavior: list all related resources, for example, list of security group name and ids. first item is always the sub service itself, for example, ``https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances: ``
+- behavior: list all related resources, for example, list of security group name and ids. first item is always the sub service itself, for example, ``https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:``
 - tab: do nothing
-- enter: open the selected sub service console in browser for the selected sub service, for example, ``https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances: ``
+- enter: open the selected sub service console in browser, for example, ``https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:``
 
 ``"aws ec2-instances {query}"``
 
 - example: ``"aws ec2-instances dev"``
 - behavior: filter resources based on the query, for example, ec2-instances tag:name=infra-dev
-- tab:
-- enter:
-
-- behavior:
-- tab:
-- enter:
-
-- behavior:
-- tab:
-- enter:
+- tab: auto complete to the full name of the resource (or other identifier)
+- enter: open the selected resource iin browser
