@@ -11,6 +11,9 @@ DIR_WORKFLOW_ROOT = DIR_AWS_TOOLS.parent.parent
 PATH_CONSOLE_URLS_YAML = Path(DIR_WORKFLOW_ROOT, "console-urls.yml")
 
 DIR_HOME = Path().home()
+PATH_DEFAULT_AWS_CONFIG_FILE = Path(DIR_HOME, ".aws", "config")
+PATH_DEFAULT_AWS_CREDENTIAL_FILE = Path(DIR_HOME, ".aws", "credentials")
+
 DIR_AWS_TOOL_USER_DATA = Path(DIR_HOME, ".alfred-aws-tools")
 DIR_MAIN_SERVICE_INDEX = Path(DIR_AWS_TOOL_USER_DATA, "main-service-whoosh_index")
 DIR_SUB_SERVICE_INDEX = Path(DIR_AWS_TOOL_USER_DATA, "sub-service-whoosh_index")
