@@ -4,6 +4,8 @@ import pytest
 import ConfigParser
 from aws_tools.credential import (
     read_all_section_name, replace_section, overwrite_section,
+    read_aws_profile_list_from_config,
+    read_aws_profile_list_from_config_with_cache,
     set_named_profile_as_default, mfa_auth,
 )
 from aws_tools.tests import setup_test_config_and_credential_file
@@ -66,6 +68,18 @@ class Test:
         config.read(PATH_TEST_CREDENTIALS_FILE.abspath)
         assert config.get("p3", "aws_access_key_id") == "CCCCCC"
         assert config.has_option("p3", "aws_session_token") is False
+
+    def test_read_aws_profile_list_from_config(self):
+        profile_list = read_aws_profile_list_from_config(
+            aws_config_file=PATH_TEST_CONFIG_FILE.abspath
+        )
+        assert profile_list == ["default", "p1", "p2", "p3"]
+
+    def test_read_aws_profile_list_from_config_with_cache(self):
+        profile_list = read_aws_profile_list_from_config_with_cache(
+            aws_config_file=PATH_TEST_CONFIG_FILE.abspath
+        )
+        assert profile_list == ["default", "p1", "p2", "p3"]
 
     # def test_set_named_profile_as_default(self):
     #     set_named_profile_as_default("aws_data_lab_sanhe")

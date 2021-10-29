@@ -60,6 +60,7 @@ from .paths import (
     PATH_DEFAULT_AWS_CONFIG_FILE,
     PATH_DEFAULT_AWS_CREDENTIALS_FILE,
 )
+from .cache import cache, CacheKeys
 
 
 class SectionNotFoundError(ValueError):
@@ -259,10 +260,42 @@ def overwrite_section(config_file,
         f.write("\n".join(new_lines).encode("utf-8"))
 
 
+def read_aws_profile_list_from_config(
+        aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
+):
+    """
+    :type aws_config_file: str
+    """
+    aws_profile_list_from_config = read_all_section_name(aws_config_file)
+    aws_profile_list_from_config = [
+        aws_profile[8:] if aws_profile.startswith("profile ") else aws_profile
+        for aws_profile in aws_profile_list_from_config
+    ]
+    return aws_profile_list_from_config
+
+
+def read_aws_profile_list_from_config_with_cache(
+        aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
+        expire=1,
+):
+    """
+    :type aws_config_file: str
+    :type expire: int
+    """
+    return cache.fast_get(
+        key=CacheKeys.aws_profile_list_from_config,
+        callable=read_aws_profile_list_from_config,
+        kwargs=dict(
+            aws_config_file=aws_config_file,
+        ),
+        expire=expire,
+    )
+
+
 def set_named_profile_as_default(
         aws_profile,
         aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
-        aws_credentials_file=PATH_DEFAULT_AWS_CREDENTIALS_FILE.abspath
+        aws_credentials_file=PATH_DEFAULT_AWS_CREDENTIALS_FILE.abspath,
 ):  # pragma: no cover
     if aws_profile == "default":
         return

@@ -49,6 +49,7 @@ htmlcov/
 .tox/
 .coverage
 .coverage.*
+coverage.annotate/
 .cache
 .pytest_cache/
 nosetests.xml

@@ -7,25 +7,30 @@ from workflow import Workflow3, ICON_ERROR, ICON_HELP
 from . import (
     aws,
     aws_profile,
-    # s3,
 )
 from .aws_profile import aws_profile_handlers
+from .aws_tools import aws_tools_handlers
 
-handler_func_mapper = {
-    aws_profile_handlers.mh_select_aws_profile_to_set_as_default.__name__: aws_profile_handlers.mh_select_aws_profile_to_set_as_default,
-    aws_profile_handlers.mh_set_default_aws_profile.__name__: aws_profile_handlers.mh_set_default_aws_profile,
-    aws_profile_handlers.mh_select_aws_profile_for_mfa_auth.__name__: aws_profile_handlers.mh_select_aws_profile_for_mfa_auth,
-    aws_profile_handlers.mh_execute_mfa_auth.__name__: aws_profile_handlers.mh_execute_mfa_auth,
-    # set_profile.set_default_profile.__name__: set_profile.aws_set_default_profile,
-    aws.aws.__name__: aws.aws,
+handler_func_mapper = {}
 
-    # aws_profile.set_profile.__name__: aws_profile.set_profile,
-    # aws_profile.select_region.__name__: aws_profile.select_region,
-    # aws_profile.set_region.__name__: aws_profile.set_region,
-    # aws_profile.mfa_auth_select_profile.__name__: aws_profile.mfa_auth_select_profile,
-    # aws_profile.mfa_auth_execute_mfa.__name__: aws_profile.mfa_auth_execute_mfa,
-    # s3.list_bucket.__name__: s3.list_bucket,
-}
+def _add(handler_func):
+    """
+    add a handler function to mapper
+
+    :type handler_func: callable
+    """
+    handler_func_mapper[handler_func.__name__] = handler_func
+
+# --- aws_tools
+_add(aws_tools_handlers.mh_clear_aws_tools_cache)
+
+# --- aws_profile
+_add(aws_profile_handlers.mh_select_aws_profile_to_set_as_default)
+_add(aws_profile_handlers.mh_set_default_aws_profile)
+_add(aws_profile_handlers.mh_select_aws_profile_for_mfa_auth)
+_add(aws_profile_handlers.mh_execute_mfa_auth)
+_add(aws_profile_handlers.mh_select_aws_profile_to_set_as_aws_tools_default)
+_add(aws_profile_handlers.mh_set_aws_profile_as_aws_tools_default)
 
 
 def debug_args(wf):
