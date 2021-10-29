@@ -2,13 +2,14 @@
 
 from __future__ import unicode_literals
 import workflow
-from .. import icons
+from ..icons import HotIcons
 from ..credential import (
-    PATH_DEFAULT_AWS_CREDENTIAL_FILE,
     PATH_DEFAULT_AWS_CONFIG_FILE,
+    PATH_DEFAULT_AWS_CREDENTIAL_FILE,
     read_all_profile_name_from_credential_file,
     read_all_profile_name_from_config_file,
     replace_section,
+    overwrite_section,
     mfa_auth,
 )
 from ..constants import (
@@ -17,62 +18,67 @@ from ..constants import (
 from ..settings import settings, SettingKeys
 
 
-def select_profile(wf, args=None):
-    """
-    Return list of available aws named profile to select.
+class AWSProfileHandlers:
+    aws_config_file = PATH_DEFAULT_AWS_CONFIG_FILE
+    aws_credential_file = PATH_DEFAULT_AWS_CREDENTIAL_FILE
 
-    Return profile name as argument.
+    def select_aws_profile(self, wf, query_str=None):
+        """
+        Return list of available aws named profile to select.
 
-    :type wf: workflow.Workflow3
-    :type args: list[str]
-    """
-    if args is None:
-        args = wf.args[1:]
+        Return profile name as argument.
 
-    n_args = len(args)
+        :type wf: workflow.Workflow3
+        :type args: list[str]
+        """
+        if args is None:
+            args = wf.args[1:]
 
-    # Case: /usr/bin/python main.py select_profile
-    if n_args == 0:
-        aws_profile_list_from_credential = read_all_profile_name_from_credential_file()
-        aws_profile_list_from_config = read_all_profile_name_from_config_file()
-        good_item_lst = list()
-        bad_item_lst = list()
-        for aws_profile in aws_profile_list_from_credential:
-            aws_profile_in_config = aws_profile if aws_profile == "default" else "profile {}".format(aws_profile)
-            if aws_profile_in_config not in aws_profile_list_from_config:
-                item_dct = dict(
-                    title="[{}] not found in config file".format(aws_profile_in_config),
-                    subtitle="Open ~/.aws/config file",
-                    autocomplete=aws_profile,
-                    arg=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
-                    valid=True,
-                    icon=workflow.ICON_ERROR,
-                )
-                bad_item_lst.append(item_dct)
-            else:
-                item_dct = dict(
-                    title=aws_profile,
-                    subtitle="set current aws named profile to: [{}]".format(aws_profile),
-                    autocomplete=aws_profile,
-                    arg="{} {}".format(
-                        set_default_profile.__name__,
-                        aws_profile,
-                    ),
-                    valid=True,
-                    icon=icons.ICON_IAM,
-                )
-                good_item_lst.append(item_dct)
+        n_args = len(args)
 
-        for item_dct in good_item_lst:
-            wf.setvar("action", FollowUpActionKey.run_script)
-            wf.add_item(**item_dct)
+        # Case: /usr/bin/python main.py select_profile
+        if n_args == 0:
+            aws_profile_list_from_credential = read_all_profile_name_from_credential_file()
+            aws_profile_list_from_config = read_all_profile_name_from_config_file()
+            good_item_lst = list()
+            bad_item_lst = list()
+            for aws_profile in aws_profile_list_from_credential:
+                aws_profile_in_config = aws_profile if aws_profile == "default" else "profile {}".format(aws_profile)
+                if aws_profile_in_config not in aws_profile_list_from_config:
+                    item_dct = dict(
+                        title="[{}] not found in config file".format(aws_profile_in_config),
+                        subtitle="Open ~/.aws/config file",
+                        autocomplete=aws_profile,
+                        arg=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
+                        valid=True,
+                        icon=workflow.ICON_ERROR,
+                    )
+                    bad_item_lst.append(item_dct)
+                else:
+                    item_dct = dict(
+                        title=aws_profile,
+                        subtitle="set current aws named profile to: [{}]".format(aws_profile),
+                        autocomplete=aws_profile,
+                        arg="{} {}".format(
+                            set_default_profile.__name__,
+                            aws_profile,
+                        ),
+                        valid=True,
+                        icon=icons.ICON_IAM,
+                    )
+                    good_item_lst.append(item_dct)
 
-        for item_dct in bad_item_lst:
-            wf.setvar("action", FollowUpActionKey.open_file)
-            wf.add_item(**item_dct)
+            for item_dct in good_item_lst:
+                wf.setvar("action", FollowUpActionKey.run_script)
+                wf.add_item(**item_dct)
 
-    return wf
+            for item_dct in bad_item_lst:
+                wf.setvar("action", FollowUpActionKey.open_file)
+                wf.add_item(**item_dct)
 
+        return wf
+
+aws_profile_handlers = AWSProfileHandlers()
 
 def set_profile(wf, args=None):
     """
@@ -135,7 +141,7 @@ def set_region(wf, args=None):
     return wf
 
 
-def set_default_profile(wf, args=None):
+def aws_set_default_profile(wf, query=None):
     """
     Update the ~/.aws/credentials and ~/.aws/config file, set default profile
     to one of named profile
@@ -143,10 +149,11 @@ def set_default_profile(wf, args=None):
     :type wf: workflow.Workflow3
     :type args: list[str]
     """
-    if args is None:
-        args = wf.args[1:]
+    if query is None:
+        query = wf.args[1]
 
-    n_args = len(args)
+    if len(query) == 0:  #
+        select_profile(wf)
 
     if len(args) == 1:
         profile_name = args[0]
@@ -341,4 +348,3 @@ def mfa_auth_execute_mfa(wf, args=None):
         raise Exception
 
     return wf
-

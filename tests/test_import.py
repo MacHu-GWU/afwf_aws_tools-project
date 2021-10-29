@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 
-import unittest
+import pytest
 
-class TestImport(unittest.TestCase):
+
+class TestImport:
     def test(self):
-        from aws_tools.handlers import handler
+        import aws_tools.handlers as _
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+    import os
+
+    basename = os.path.basename(__file__)
+    pytest.main([basename, "-s", "--tb=native"])

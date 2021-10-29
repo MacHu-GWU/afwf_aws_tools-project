@@ -1,84 +1,77 @@
 # -*- coding: utf-8 -*-
 
-import unittest
+import pytest
 import ConfigParser
-from pathlib_mate import Path
 from aws_tools.credential import (
-    read_all_section_name, replace_section, mfa_auth,
+    read_all_section_name, replace_section, overwrite_section, mfa_auth,
+)
+from aws_tools.tests import setup_test_config_and_credential_file
+from aws_tools.tests.paths import (
+    P_TEST_CONFIG_FILE,
+    P_TEST_CREDENTIALS_FILE,
 )
 
 
-class Test(unittest.TestCase):
+class Test:
+    def setup_method(self, method):
+        setup_test_config_and_credential_file()
+
     def test_read_all_section_name(self):
-        aws_credential_file = Path(__file__).change(new_basename="credentials").abspath
-        section_name_list = read_all_section_name(aws_credential_file)
-        self.assertTrue({"p1", "p2", "p3"}.issubset(set(section_name_list)))
+        section_name_list = read_all_section_name(P_TEST_CONFIG_FILE.abspath)
+        assert {"default", "profile p1", "profile p2", "profile p3"} \
+            .issubset(set(section_name_list))
 
-    def test_set_default_profile(self):
-        aws_credential_file = Path(__file__).change(new_basename="credentials").abspath
-
-        # first replace
+    def test_replace_section(self):
+        # replace an existing section
         replace_section(
-            config_file=aws_credential_file,
-            source_section_name="p1",
-            target_section_name="default",
-        )
-
-        config = ConfigParser.ConfigParser()
-        config.read(aws_credential_file)
-        self.assertEqual(
-            config.get("default", "aws_access_key_id"),
-            config.get("p1", "aws_access_key_id"),
-        )
-
-        # second replace
-        replace_section(
-            config_file=aws_credential_file,
-            source_section_name="p2",
-            target_section_name="default",
-        )
-
-        config = ConfigParser.ConfigParser()
-        config.read(aws_credential_file)
-        self.assertEqual(
-            config.get("default", "role_arn"),
-            config.get("p2", "role_arn"),
-        )
-
-    def test_set_default_profile_for_config(self):
-        aws_config_file = Path(__file__).change(new_basename="config").abspath
-
-        # first replace
-        replace_section(
-            config_file=aws_config_file,
+            config_file=P_TEST_CONFIG_FILE.abspath,
             source_section_name="profile p1",
-            target_section_name="profile default",
+            target_section_name="default",
         )
-
         config = ConfigParser.ConfigParser()
-        config.read(aws_config_file)
-        self.assertEqual(
-            config.get("profile default", "region"),
-            config.get("profile p1", "region"),
-        )
+        config.read(P_TEST_CONFIG_FILE.abspath)
+        assert config.get("default", "region") \
+               == config.get("profile p1", "region")
 
-        # second replace
+        # create a new section if target_section_name not exists
         replace_section(
-            config_file=aws_config_file,
+            config_file=P_TEST_CONFIG_FILE.abspath,
             source_section_name="profile p2",
-            target_section_name="profile default",
+            target_section_name="profile p2_copy",
         )
-
         config = ConfigParser.ConfigParser()
-        config.read(aws_config_file)
-        self.assertEqual(
-            config.get("profile default", "region"),
-            config.get("profile p2", "region"),
-        )
+        config.read(P_TEST_CONFIG_FILE.abspath)
+        assert config.get("profile p2", "role_arn") \
+               == config.get("profile p2_copy", "role_arn")
 
-    def test_mfa_auth(self):
-        mfa_auth(aws_profile="aws_data_lab_sanhe", mfa_code="111111", hours=24)
+    def test_overwrite_section(self):
+        # create a new section if section_name not exists
+        overwrite_section(
+            config_file=P_TEST_CREDENTIALS_FILE.abspath,
+            section_name="p2",
+            data=[("aws_access_key_id", "BBB"), ("aws_secret_access_key", "BBB")]
+        )
+        config = ConfigParser.ConfigParser()
+        config.read(P_TEST_CREDENTIALS_FILE.abspath)
+        assert config.get("p2", "aws_access_key_id") == "BBB"
+
+        # overwrite an existing section
+        overwrite_section(
+            config_file=P_TEST_CREDENTIALS_FILE.abspath,
+            section_name="p3",
+            data=[("aws_access_key_id", "CCCCCC"), ("aws_secret_access_key", "CCCCCC")]
+        )
+        config = ConfigParser.ConfigParser()
+        config.read(P_TEST_CREDENTIALS_FILE.abspath)
+        assert config.get("p3", "aws_access_key_id") == "CCCCCC"
+        assert config.has_option("p3", "aws_session_token") is False
+
+    # def test_mfa_auth(self):
+    #     mfa_auth(aws_profile="aws_data_lab_sanhe", mfa_code="757563", hours=24)
 
 
 if __name__ == "__main__":
-    unittest.main()
+    import os
+
+    basename = os.path.basename(__file__)
+    pytest.main([basename, "-s", "--tb=native"])

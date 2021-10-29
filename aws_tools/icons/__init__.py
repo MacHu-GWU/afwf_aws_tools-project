@@ -5,10 +5,6 @@ from pathlib_mate import Path
 HERE = Path(__file__).parent
 DIR_ICONS = HERE.parent.parent.change(new_dirname="icons")
 
-ICON_AWS = Path(HERE, "aws.png").abspath
-ICON_IAM = Path(HERE, "iam.png").abspath
-ICON_S3 = Path(HERE, "s3.png").abspath
-
 
 class Icons:
     Arch_Category_AR_VR = "Arch-Category_AR-VR_64.png"
@@ -714,3 +710,8 @@ class Icons:
     @classmethod
     def abspath(cls, filename):
         return Path(DIR_ICONS, filename).abspath
+
+
+class HotIcons:
+    aws = Path(HERE, "aws.png").abspath
+    iam = Icons.abspath(Icons.Arch_AWS_Identity_and_Access_Management)

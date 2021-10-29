@@ -1,27 +1,81 @@
 # -*- coding: utf-8 -*-
 
 """
+This module implements the simple read / write / update for ``~/aws/credentials``
+and ``~/aws/config`` files.
+
+They are both in ``named config file`` format::
+
+    [section_name]
+    key1 = value1
+    key2 = value2
+    ...
 
 Reference: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
+
+FAQ:
+
+- Q: Why use line level editing instead of loading config file to python dict,
+    process it, then dump?
+- A: because with load and dump, you lose all comments.
+
+**Chinese Doc**
+
+config 和 credentials 文件的不同之处:
+
+1. config 不保存敏感信息. 主要保存 region, output.
+2. credentials 保存敏感信息. 主要保存 Access Key 和 Secret Key. 又或是临时的 session token.
+3. 两者的 default profile 都是 [default] 但是其他 named profile
+    在 config 中是 [profile profile_name], 而 credentials 中则是 [profile_name]
+
+对于 assumed role 的情况要特别注意:
+
+1. 已有一个 profile ``a``, 同时创建了 named profile ``b`` 用于测试 assumed role,
+    在 cli 中我们用 --profile b 来显式指定. 此时只需要在 config 文件中创建这个
+    named profile, 而无需在 credentials 中创建. 因为 config 会定义 source_profile,
+    只要 credentials 文件中有这个 source_profile 即可.
+    并且 profile ``b`` 中的 region 可以和 ``a`` 中的不同.
+2. 已有一个 profile ``a``, 同时用 ``default`` profile 来测试 assumed role,
+    在 cli 中我们不用 --profile, 直接使用 default. 此时需要在 config 和 credentials
+    中同时创建 [default] 这个 named profile. config 中的 region 如果和 ``a`` 中的不同,
+    会没有效果. 而 credential 中也必须创建 [default] 其中的
+    credential 和 ``a`` 中的一样, 不然会找不到 credential.
+
+结论: 避免在 default 中使用 assumed role!
+
+对于 mfa temp profile 的情况也要特别注意:
+
+该情况等于是创建了个临时的新的 profile, 新的 profile 的 credential 是通过用原始的
+    profile 执行 sts 命令获得的. 所以需要在 config 和 credentials 中都创建
+    named profile, 而 credentials 中多了 ``aws_session_token = ...`` 一行.
+    当然 config 中的 region 可以和原来的不一样.
+
+结论: 避免在 default 中使用 mfa temp profile
 """
 
 from __future__ import unicode_literals, print_function
 import typing
-from pathlib_mate import Path
 import ConfigParser
+from .paths import (
+    PATH_DEFAULT_AWS_CONFIG_FILE,
+    PATH_DEFAULT_AWS_CREDENTIAL_FILE,
+)
 
-HOME = Path.home()
-PATH_DEFAULT_AWS_CREDENTIAL_FILE = Path(HOME, ".aws", "credentials")
-PATH_DEFAULT_AWS_CONFIG_FILE = Path(HOME, ".aws", "config")
 
-
-class SectionNotFoundError(ValueError): pass
+class SectionNotFoundError(ValueError):
+    """
+    Raise when failed to access a section in a named config file.
+    """
+    pass
 
 
 def read_all_section_name(config_file):
     """
-    :type config_file: absolute path of the config file
-    :param config_file:
+    Return the list of all section name in a named config file.
+
+    :type config_file: str
+    :param config_file: absolute path of the config file
+
     :rtype: typing.List[str]
     :return:
     """
@@ -30,11 +84,21 @@ def read_all_section_name(config_file):
     return config.sections()
 
 
-def read_all_profile_name_from_credential_file(aws_credential_file=PATH_DEFAULT_AWS_CREDENTIAL_FILE.abspath):
+def read_all_profile_name_from_credential_file(
+        aws_credential_file=PATH_DEFAULT_AWS_CREDENTIAL_FILE.abspath
+):
+    """
+    Return the list of all section name in ~/.aws/credential file.
+    """
     return read_all_section_name(aws_credential_file)
 
 
-def read_all_profile_name_from_config_file(aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath):
+def read_all_profile_name_from_config_file(
+        aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath
+):
+    """
+    Return the list of all section name in ~/.aws/config file.
+    """
     return read_all_section_name(aws_config_file)
 
 
@@ -100,7 +164,7 @@ def replace_section(config_file,
     config.read(config_file)
 
     if source_section_name not in config.sections():
-        raise SectionNotFoundError
+        raise SectionNotFoundError(source_section_name)
 
     target_section_line = "[{}]".format(target_section_name)
     with open(config_file, "rb") as f:
@@ -150,7 +214,8 @@ def overwrite_section(config_file,
                       data):
     """
     Overwrite a config section values (section_name) with the key, value pairs
-     defined in data. For example::
+     defined in data. If the section_name doesn't exists before, create it.
+     For example::
 
         overwrite_section(
             "config.ini",
@@ -223,7 +288,7 @@ def overwrite_section(config_file,
         f.write("\n".join(new_lines).encode("utf-8"))
 
 
-def mfa_auth(aws_profile, mfa_code, hours=12):
+def mfa_auth(aws_profile, mfa_code, hours=12):  # pragma: no cover
     """
     Given a root ``aws_profile``, do MFA authentication with ``mfa_code``,
     create / update the new aws profile ``${aws_profile}_mfa`` using the returned
@@ -233,8 +298,11 @@ def mfa_auth(aws_profile, mfa_code, hours=12):
     :param aws_profile: The source AWS profile which has MFA enabled
     :param mfa_code: six digit MFA code
     :param hours: time-to-expire hours.
-    :return:
     """
+    # step1, get access key, secret key, session token
+    if aws_profile == "default":
+        raise ValueError
+
     import boto3
 
     boto_ses = boto3.session.Session(profile_name=aws_profile)
@@ -248,39 +316,28 @@ def mfa_auth(aws_profile, mfa_code, hours=12):
     response = sts.get_session_token(
         SerialNumber=mfa_arn,
         TokenCode=mfa_code,
-        DurationSeconds=hours*3600,
+        DurationSeconds=hours * 3600,
     )
     aws_access_key_id = response["Credentials"]["AccessKeyId"]
     aws_secret_access_key = response["Credentials"]["SecretAccessKey"]
     aws_session_token = response["Credentials"]["SessionToken"]
 
+    # update ~/.aws/credentials file
+    new_aws_profile = "{}_mfa".format(aws_profile)
     data = [
         ("aws_access_key_id", aws_access_key_id),
         ("aws_secret_access_key", aws_secret_access_key),
         ("aws_session_token", aws_session_token),
     ]
-
-    new_aws_profile = "{}_mfa".format(aws_profile)
     overwrite_section(
         config_file=PATH_DEFAULT_AWS_CREDENTIAL_FILE.abspath,
         section_name=new_aws_profile,
         data=data,
     )
 
-    config = ConfigParser.ConfigParser()
-    config.read(PATH_DEFAULT_AWS_CONFIG_FILE.abspath)
-
-    config_section_name = "profile {}".format(aws_profile)
-    if config_section_name not in config.sections():
-        raise SectionNotFoundError
-
-    data = [
-        (option_name, config.get(config_section_name, option_name))
-        for option_name in config.options(config_section_name)
-    ]
-
-    overwrite_section(
+    # update ~/.aws/config file
+    replace_section(
         config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
-        section_name="profile {}_mfa".format(aws_profile),
-        data=data,
+        source_section_name="profile {}".format(aws_profile),
+        target_section_name="profile {}_mfa".format(aws_profile),
     )
