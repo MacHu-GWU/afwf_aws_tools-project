@@ -713,4 +713,4 @@ class Icons:
 
     @classmethod
     def abspath(cls, filename):
-        return Path(DIR_ICONS, filename.abspath)
+        return Path(DIR_ICONS, filename).abspath

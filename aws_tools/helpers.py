@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+import json
 import random
 import string
 from typing import List
@@ -47,3 +48,11 @@ def tokenize(text):
             if chunk2.strip():
                 chunks.append(chunk2)
     return chunks
+
+
+def json_dumps(dct):
+    return json.dumps(dct, encoding="utf-8", ensure_ascii=False)
+
+
+def json_loads(dct):
+    return json.loads(dct, encoding="utf-8")

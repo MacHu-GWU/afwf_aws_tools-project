@@ -80,5 +80,5 @@ class Test(unittest.TestCase):
         mfa_auth(aws_profile="aws_data_lab_sanhe", mfa_code="111111", hours=24)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

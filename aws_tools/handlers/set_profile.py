@@ -14,7 +14,7 @@ from ..credential import (
 from ..constants import (
     all_regions, FollowUpActionKey,
 )
-from ..settings import settings, Keys
+from ..settings import settings, SettingKeys
 
 
 def select_profile(wf, args=None):
@@ -83,7 +83,7 @@ def set_profile(wf, args=None):
         args = wf.args[1:]
 
     n_args = len(args)
-    settings[Keys.aws_profile] = args[0]
+    settings[SettingKeys.aws_profile] = args[0]
 
     return wf
 
@@ -130,7 +130,7 @@ def set_region(wf, args=None):
         args = wf.args[1:]
 
     n_args = len(args)
-    settings[Keys.aws_region] = args[0]
+    settings[SettingKeys.aws_region] = args[0]
 
     return wf
 

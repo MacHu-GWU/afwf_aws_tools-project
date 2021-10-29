@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-from . import (
-    set_profile,
-    s3,
-)
+import traceback
 from workflow import Workflow3, ICON_ERROR
 
+from . import (
+    aws,
+    set_profile,
+    # s3,
+)
+
 handler_func_mapper = {
+    aws.aws.__name__: aws.aws,
     set_profile.select_profile.__name__: set_profile.select_profile,
     set_profile.set_profile.__name__: set_profile.set_profile,
     set_profile.select_region.__name__: set_profile.select_region,
@@ -15,8 +19,9 @@ handler_func_mapper = {
     set_profile.set_default_profile.__name__: set_profile.set_default_profile,
     set_profile.mfa_auth_select_profile.__name__: set_profile.mfa_auth_select_profile,
     set_profile.mfa_auth_execute_mfa.__name__: set_profile.mfa_auth_execute_mfa,
-    s3.list_bucket.__name__: s3.list_bucket,
+    # s3.list_bucket.__name__: s3.list_bucket,
 }
+
 
 def handler(wf):
     """
@@ -39,4 +44,11 @@ def handler(wf):
         )
         return wf
 
-    return handler_func_mapper[key](wf)
+    try:
+        return handler_func_mapper[key](wf)
+    except: # 对于 handler 级别的错误, 捕捉异常并展现之
+        wf._items = []
+        lines = traceback.format_exc().splitlines()
+        for line in lines:
+            wf.add_item(title=line, arg=line, icon=ICON_ERROR)
+        return wf

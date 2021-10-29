@@ -6,8 +6,8 @@ from typing import List, Tuple, Dict
 from datetime import datetime
 from .. import icons
 from ..credential import read_all_aws_profile
-from ..boto_ses import create_boto_ses
-from ..settings import settings, Keys
+from ..sdk import create_boto_ses
+from ..settings import settings, SettingKeys
 from ..helpers import tokenize
 
 

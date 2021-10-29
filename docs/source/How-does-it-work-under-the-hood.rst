@@ -18,8 +18,11 @@ Alfred Input Box Behavior
 
 Term:
 
-- main service: top level aws service, for example: ec2, s3, ...
-- sub service: secondary level aws service that related to specific main service, for example: ec2-instances, ec2-securitygroups, ...
+- ``main service``: top level aws service, for example: ec2, s3, ...
+- ``sub service``: secondary level aws service that related to specific main service, for example: ec2-instances, ec2-securitygroups, ...
+- ``main service id``:
+- ``sub service id``:
+
 
 ``"aws"``:
 
@@ -65,3 +68,17 @@ Term:
 - behavior: filter resources based on the query, for example, ec2-instances tag:name=infra-dev
 - tab: auto complete to the full name of the resource (or other identifier)
 - enter: open the selected resource iin browser
+
+
+
+
+AWS Resource Filter
+------------------------------------------------------------------------------
+
+``AWS Resource Filter`` is a group of python function that takes query string as input, returns list of metadata of AWS Resources. For example, a function ``def instances(query_str):`` in ``ec2.py`` file implements logic that parses the query string, makes the API call, and returns metadata of many EC2 instances.
+
+
+
+
+
+

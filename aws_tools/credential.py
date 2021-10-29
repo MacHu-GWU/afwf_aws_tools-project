@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+"""
+
+Reference: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
+"""
+
 from __future__ import unicode_literals, print_function
 import typing
 from pathlib_mate import Path
@@ -35,6 +40,8 @@ def read_all_profile_name_from_config_file(aws_config_file=PATH_DEFAULT_AWS_CONF
 
 def read_all_aws_profile(aws_credential_file=PATH_DEFAULT_AWS_CREDENTIAL_FILE.abspath):
     """
+    Return list of aws profile detected in
+
     :type aws_credential_file: str
     :rtype: list[str]
     :return:
@@ -58,9 +65,14 @@ def replace_section(config_file,
                     target_section_name):
     """
     Replace a config section values (target_section_name) with the value of
-    another config section (source_section_name). For example,
+    another config section (source_section_name). For example::
 
-    ``replace_section_and_return_content("config.ini", "default", "sec1")``
+        replace_section_and_return_content(
+            "config.ini",
+            "default",
+            "sec1"
+        )
+
     will do this:
 
     before::
@@ -138,9 +150,14 @@ def overwrite_section(config_file,
                       data):
     """
     Overwrite a config section values (section_name) with the key, value pairs
-     defined in data. For example,
+     defined in data. For example::
 
-    ``overwrite_section("config.ini", "default", [("k1", "v1"), ("k2", "v2"))``
+        overwrite_section(
+            "config.ini",
+            "default",
+            [("k1", "v1"), ("k2", "v2")
+        )
+
     will do this:
 
     before::
@@ -208,8 +225,14 @@ def overwrite_section(config_file,
 
 def mfa_auth(aws_profile, mfa_code, hours=12):
     """
+    Given a root ``aws_profile``, do MFA authentication with ``mfa_code``,
+    create / update the new aws profile ``${aws_profile}_mfa`` using the returned
+    temp token. This function will update the ``~/.aws/credential`` and
+    ``~/.aws/config`` file inplace.
 
-    :param aws_profile:
+    :param aws_profile: The source AWS profile which has MFA enabled
+    :param mfa_code: six digit MFA code
+    :param hours: time-to-expire hours.
     :return:
     """
     import boto3

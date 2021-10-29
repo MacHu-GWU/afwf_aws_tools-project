@@ -1,0 +1,2796 @@
+# Ranking scale 1 ~ 9, 9 is the top
+# 9 = most important infrastructure service, such as: ec2, s3, vpc, iam
+# 6 = per category main service, such as: rds, dynamodb in database; athena, kinesis, glue, EMR in analytics, lambda in compute
+# 3 = other service
+---
+- id: alexa
+  name: Alexa for Business
+  description: Empower your organization with voice
+  url: "/a4b/home#"
+
+- id: amplify
+  name: Amplify
+  description: Develop & deploy cloud-powered mobile and web apps
+  url: "/amplify/home#/home"
+
+- id: apigateway
+  name: API Gateway
+  description: Build, Deploy and Manage APIs
+  url: /apigateway/main/apis#
+  weight: 6
+  sub_services:
+    - id: apis
+      name: APIs
+      url: /apigateway/main/apis#
+    - id: customdomainnames
+      name: Custom domain names
+      url: /apigateway/main/publish/domain-names#
+    - id: vpclinks
+      name: VPC links
+      url: /apigateway/main/vpc-links/list#
+
+- id: appstream
+  name: AppStream 2.0
+  description: Stream desktop applications securely to any web browser
+  url: "/appstream2/home#"
+
+- id: appsync
+  name: AppSync
+  description: Real-Time Data Sync Using GraphQL for Mobile & Web Apps, Online or Offline
+  url: "/appsync/home#/"
+
+- id: artifact
+  name: Artifact
+  description: AWS Compliance Reports and Agreements
+  globally: true
+  url: /artifact/home
+  sub_services:
+    - id: agreements
+      name: Agreements
+      url: /artifact/agreements/accounts
+    - id: reports
+      name: Reports
+      url: /artifact/reports
+
+- id: athena
+  name: Athena
+  description: Query Data in S3 using SQL
+  url: "/athena/home#/query-editor"
+  weight: 6
+  top20: true
+
+- id: autoscaling
+  name: Auto Scaling
+  description: AWS Auto Scaling enables you to quickly scale your entire application on AWS
+  url: "/awsautoscaling/home#dashboard"
+
+- id: backup
+  name: Backup
+  description: centrally manage and automate backups across AWS services
+  url: "/backup/home#/dashboard"
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: "/backup/home#/dashboard"
+    - id: backupvaults
+      name: Backup vaults
+      url: "/backup/home#/backupvaults"
+    - id: backupplans
+      name: Backup plans
+      url: "/backup/home#/backupplan"
+    - id: protectedresources
+      name: Protected resources
+      url: "/backup/home#/resources"
+    - id: jobs
+      name: Jobs
+      url: "/backup/home#/jobs/backup"
+    - id: settings
+      name: Settings
+      url: "/backup/home#/settings"
+    - id: crossaccountmonitoring
+      name: Cross-account monitoring
+      url: "/backup/home#/organization/monitoring/backup"
+    - id: backuppolicies
+      name: Backup policies
+      url: "/backup/home#/organization/policies"
+
+- id: batch
+  name: Batch
+  description: Run Batch Jobs at Any Scale
+  url: "/batch/home#"
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: /batch/home#dashboard
+    - id: jobs
+      name: Jobs
+      url: /batch/home#jobs
+    - id: jobdefinitions
+      name: Job definitions
+      url: /batch/home#job-definition
+    - id: jobqueues
+      name: Job queues
+      url: /batch/home#queues
+    - id: computeenvironments
+      name: Compute environments
+      url: /batch/home#compute-environments
+    - id: wizard
+      name: Wizard
+      url: /batch/home#wizard
+
+- id: blockchain
+  name: Blockchain
+  description: Easily create and manage scalable blockchain networks
+  url: "/managedblockchain/home#"
+  sub_services:
+    - id: networks
+      name: Networks
+      url: /managedblockchain/home#networks
+    - id: invitations
+      name: Invitations
+      url: /managedblockchain/home#invitations
+
+- id: billing
+  name: Billing
+  description: Access, analyze, and control your AWS costs and usage
+  globally: true
+  url: /billing/home
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: "/billing/home#/"
+    - id: bills
+      name: Bills
+      url: "/billing/home#/bills"
+    - id: payments
+      name: Payments
+      url: "/billing/home#/paymentsoverview"
+    - id: credits
+      name: Credits
+      url: "/billing/home#/credits"
+    - id: purchaseorders
+      name: Purchase orders
+      url: "/billing/home#/purchaseorders"
+    - id: reports
+      name: Cost & Usage Reports
+      url: "/billing/home#/reports"
+    - id: costcategories
+      name: Cost Categories
+      url: "/billing/home#/costcategories"
+    - id: tags
+      name: Cost allocation tags
+      url: "/billing/home#/tags"
+    - id: costexplorer
+      name: Cost Explorer
+      url: "/billing/home#/costexplorer"
+    - id: budgets
+      name: Budgets
+      url: "/billing/home#/budgets"
+    - id: budgetsreports
+      name: Budgets Reports
+      url: "/billing/home#/budgets/reports"
+    - id: savingsplans
+      name: Savings Plans
+      url: "/cost-reports/home#/savings-plans/overview"
+    - id: preferences
+      name: Billing preferences
+      url: "/billing/home#/preferences"
+    - id: paymentmethods
+      name: Payment methods
+      url: "/billing/home#/paymentmethods"
+    - id: consolidatedbilling
+      name: Consolidated billing
+      url: "/organizations/home"
+    - id: taxsettings
+      name: Tax settings
+      url: "/billing/home#/tax"
+
+- id: acm
+  name: Certificate Manager
+  short_name: ACM
+  description: Provision, Manage, and Deploy SSL/TLS Certificates
+  url: "/acm/home#/"
+  sub_services:
+    - id: certificatemanager
+      name: Certificate manager
+      url: "/acm/home#/"
+    - id: privatecas
+      name: Private certificate authorities
+      url: "/acm-pca/home#/"
+
+- id: chime
+  name: Chime
+  description: Amazon Chime is a communications service that transforms online meetings
+  url: https://console.chime.aws.amazon.com
+  globally: true
+
+- id: cloud9
+  name: Cloud9
+  description: A Cloud IDE for Writing, Running, and Debugging Code
+  url: "/cloud9/home#"
+  weight: 3
+
+- id: cloudformation
+  name: CloudFormation
+  short_name: CF
+  description: Create and Manage Resources with Templates
+  url: "/cloudformation/home#/stacks"
+  weight: 6
+  top20: true
+  sub_services:
+    - id: stacks
+      name: Stacks
+      url: "/cloudformation/home#/stacks"
+    - id: stacksets
+      name: StackSets
+      url: "/cloudformation/home#/stacksets"
+    - id: designer
+      name: Designer
+      url: "/cloudformation/designer/home"
+
+- id: cloudfront
+  name: CloudFront
+  description: Global Content Delivery Network
+  globally: true
+  url: '/cloudfront/home#'
+  weight: 6
+  sub_services:
+    - id: distributions
+      name: Distributions
+      url: "/cloudfront/home#"
+    - id: policies
+      name: Policies
+      url: "/cloudfront/v2/home#/policies"
+    - id: cachestatistics
+      name: Cache statistics
+      url: "/cloudfront/home#cache_stat_reports:"
+    - id: monitoring
+      name: Monitoring
+      url: "/cloudfront/v2/home#/monitoring"
+    - id: alarms
+      name: Alarms
+      url: "/cloudfront/home#alarms:"
+    - id: popularobjects
+      name: Popular objects
+      url: "/cloudfront/home#popular_urls:"
+    - id: referrers
+      name: Top referrers
+      url: "/cloudfront/home#referers_report:"
+    - id: usage
+      name: Usage
+      url: "/cloudfront/home#usage_reports:"
+    - id: viewers
+      name: Viewers
+      url: "/cloudfront/home#viewers_reports:"
+    - id: oai
+      name: Origin access identity
+      url: "/cloudfront/home#oai:"
+    - id: publickey
+      name: Public key
+      url: "/cloudfront/home#publickey:"
+    - id: fle
+      name: Field-level encryption
+      url: "/cloudfront/home#fle:"
+
+- id: cloudhsm
+  name: CloudHSM
+  description: Managed Hardware Security Modules in the Cloud
+  url: /cloudhsm/home#/clusters
+  sub_services:
+    - id: clusters
+      name: Clusters
+      url: /cloudhsm/home#/clusters
+    - id: backups
+      name: Backups
+      url: /cloudhsm/home#/backups
+
+- id: cloudmap
+  name: Cloud Map
+  description: Build a dynamic map of your cloud
+  url: /cloudmap/home#namespaces
+  sub_services:
+    - id: namespaces
+      name: Namespaces
+      url: /cloudmap/home#namespaces
+
+- id: cloudsearch
+  name: CloudSearch
+  description: Managed Search Service
+  url: "/cloudsearch/home#"
+
+- id: cloudtrail
+  name: CloudTrail
+  description: Track User Activity and API Usage
+  url: /cloudtrail/home#/dashboard
+  weight: 6
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: /cloudtrail/home#/dashboard
+    - id: eventhistory
+      name: Event history
+      url: /cloudtrail/home#/events
+    - id: insights
+      name: Insights
+      url: /cloudtrail/home#/insights
+    - id: trails
+      name: Trails
+      url: /cloudtrail/home#/trails
+
+- id: cloudwatch
+  name: CloudWatch
+  description: Monitor Resources and Applications
+  url: "/cloudwatch/home#"
+  weight: 6
+  sub_services:
+    - id: home
+      name: Home
+      url: "/cloudwatch/home#"
+    - id: dashboards
+      name: Dashboards
+      url: "/cloudwatch/home#dashboards:"
+    - id: alarms
+      name: Alarms
+      url: "/cloudwatch/home#alarmsV2:"
+    - id: loggroups
+      name: Log groups
+      url: "/cloudwatch/home#logsV2:log-groups"
+    - id: loginsights
+      name: Log insights
+      url: "/cloudwatch/home#logsV2:logs-insights"
+    - id: metrics
+      name: Metrics
+      url: "/cloudwatch/home#metricsV2:graph=~()"
+    - id: servicelensmap
+      name: ServiceLens – Service Map
+      url: "/cloudwatch/home#servicelens:map"
+    - id: servicelenstracing
+      name: ServiceLens – Tracing
+      url: "/cloudwatch/home#servicelens:traces"
+    - id: containerinsightsresources
+      name: Container Insights – Resources
+      url: "/cloudwatch/home#container-insights:infrastructure"
+    - id: containerinsightsperformance
+      name: Container Insights – Performance
+      url: "/cloudwatch/home#container-insights:performance"
+    - id: syntheticscanaries
+      name: Synthetics – Canaries
+      url: "/cloudwatch/home#synthetics:canary/list"
+    - id: contributorinsights
+      name: Contributor Insights
+      url: "/cloudwatch/home#contributorinsights:"
+    - id: settings
+      name: Settings
+      url: "/cloudwatch/home#settings:"
+    - id: dashboards
+      name: Dashboards
+      url: "/cloudwatch/home#dashboards:"
+
+- id: codeartifact
+  name: CodeArtifact
+  description: Secure, scalable, and cost-effective artifact management
+  url: /codesuite/codeartifact/domains#
+  sub_services:
+    - id: domains
+      name: Domains
+      url: /codesuite/codeartifact/domains#
+    - id: repositories
+      name: Repositories
+      url: /codesuite/codeartifact/repositories#
+
+- id: codebuild
+  name: CodeBuild
+  description: Build and Test Code
+  url: /codesuite/codebuild/projects#
+  weight: 6
+  sub_services:
+    - id: projects
+      name: Build projects
+      url: /codesuite/codebuild/projects#
+    - id: buildhistory
+      name: Build history
+      url: /codesuite/codebuild/builds/build-history#
+    - id: reportgroups
+      name: Report groups
+      url: /codesuite/codebuild/testReports/reportGroups#
+    - id: reporthistory
+      name: Report history
+      url: /codesuite/codebuild/testReports/reports#
+    - id: accountmetrics
+      name: Account metrics
+      url: /codesuite/codebuild/metrics#
+
+
+- id: codecommit
+  name: CodeCommit
+  description: Store Code in Private Git Repositories
+  url: /codesuite/codecommit/repositories#
+  weight: 6
+  sub_services:
+    - id: repositories
+      name: Repositories
+      url: /codesuite/codecommit/repositories#
+    - id: approvalruletemplates
+      name: Approval rule templates
+      url: /codesuite/codecommit/approval-rule-templates#
+
+- id: codedeploy
+  name: CodeDeploy
+  description: Automate Code Deployments
+  url: /codesuite/codedeploy/deployments#
+  weight: 6
+  sub_services:
+    - id: deployments
+      name: Deployments
+      url: /codesuite/codedeploy/deployments#
+    - id: applications
+      name: Applications
+      url: /codesuite/codedeploy/applications#
+    - id: deploymentconfigurations
+      name: Deployment configurations
+      url: /codesuite/codedeploy/deployment-configs#
+    - id: onpremisesinstances
+      name: On-premises instances
+      url: /codesuite/codedeploy/on-premises-instances#
+
+
+- id: codepipeline
+  name: CodePipeline
+  description: Release Software using Continuous Delivery
+  url: /codesuite/codepipeline/pipelines#
+  weight: 6
+  sub_services:
+    - id: pipelines
+      name: Pipelines
+      url: /codesuite/codepipeline/pipelines#
+
+- id: developertools
+  name: Developer Tools
+  url: /codesuite/settings/notifications#
+  description: Host code, build, test, and deploy your applications to AWS
+  search_terms:
+    - codesuite
+  sub_services:
+    - id: notifications
+      name: Notifications
+      url: /codesuite/settings/notifications#
+    - id: connections
+      name: Connections
+      url: /codesuite/settings/connections#
+
+- id: codestar
+  name: Codestar
+  description: Develop, build and deploy applications
+  url: "/codesuite/codestar/projects#"
+  sub_services:
+    - id: projects
+      name: Projects
+      url: "/codesuite/codestar/projects#"
+
+- id: cognito
+  name: Cognito
+  description: User Identity and App Data Synchronization
+  url: "/cognito/home#"
+  weight: 6
+
+- id: comprehend
+  name: Comprehend
+  description: Analyze Unstructured Text
+  url: /comprehend/home#home
+  sub_services:
+    - id: realtimeanalysis
+      name: Real-time analysis
+      url: /comprehend/home#home
+    - id: analysisjobs
+      name: Analysis jobs
+      url: /comprehend/home#analysis
+    - id: customclassification
+      name: Custom classification
+      url: /comprehend/home#classification
+    - id: customentityrecognition
+      name: Custom entity recognition
+      url: /comprehend/home#entity-recognition
+    - id: medicalrealtimeanalysis
+      name: Real-time analysis
+      url: /comprehend/home#try-comprehend-medical
+    - id: medicalanalysisjobs
+      name: Analysis jobs
+      url: /comprehend/home#medical-analysis
+
+- id: config
+  name: Config
+  description: Track Resource Inventory and Changes
+  url: "/config/home#"
+
+- id: connect
+  name: Connect
+  description: managed contact center that enables engagement at any scale
+  url: "/connect/home#"
+
+- id: controltower
+  name: Control Tower
+  description: set up and govern your multi-account AWS environment
+  url: "/controltower/home#"
+
+- id: costmanagement
+  name: Cost Management
+  description: Visualize and Explore Your AWS Costs and Usage
+  url: /cost-management/home#/dashboard
+  globally: true
+  weight: 6
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: /cost-management/home#/dashboard
+    - id: costexplorer
+      name: Cost Explorer
+      url: /cost-management/home#/custom
+    - id: reports
+      name: Reports
+      url: /cost-management/home#/reports/overview
+    - id: budgets
+      name: Budgets
+      url: /billing/home#/budgets
+    - id: costanomalydetection
+      name: Cost Anomaly Detection
+      url: /cost-management/home#/anomaly-detection
+    - id: rightsizingrecommendations
+      name: Rightsizing recommendations
+      url: /cost-management/home#/rightsizing
+    - id: savingsplans
+      name: Savings plans
+      url: /cost-management/home#/savings-plans/overview
+    - id: inventory
+      name: Inventory
+      url: /cost-management/home#/savings-plans/inventory
+    - id: savingsplansrecommendations
+      name: Savings Plans Recommendations
+      url: /cost-management/home#/savings-plans/recommendations
+    - id: purchasesavingsplans
+      name: Purchase Savings Plans
+      url: /cost-management/home#/savings-plans/purchase
+    - id: savingsplansutilizationreport
+      name: Savings Plans Utilization report
+      url: /cost-management/home#/savings-plans/utilization
+    - id: savingsplanscoveragereport
+      name: Savings Plans Coverage report
+      url: /cost-management/home#/savings-plans/coverage
+    - id: savingsplanscart
+      name: Savings Plans Cart
+      url: /cost-management/home#/savings-plans/cart
+    - id: reservations
+      name: Reservations
+      url: /cost-management/home#/ri/dashboard
+    - id: reservationsrecommendations
+      name: Reversations Recommendations
+      url: /cost-management/home#/recommendations
+    - id: reservationsutilizationreport
+      name: Reversations Utilization report
+      url: /cost-management/home#/ri/utilization
+    - id: reservationscoveragereport
+      name: Reversations Coverage report
+      url: /cost-management/home#/ri/coverage
+    - id: preferences
+      name: Preferences
+      url: /cost-management/home#/settings
+
+
+- id: datapipeline
+  name: Data Pipeline
+  description: Orchestration for Data-Driven Workflows
+  url: "/datapipeline/home#"
+
+- id: datasync
+  name: DataSync
+  description: DataSync simplifies, automates, and accelerates moving data
+  url: /datasync/home#/tasks
+  sub_services:
+    - id: tasks
+      name: Tasks
+      url: /datasync/home#/tasks
+    - id: history
+      name: History
+      url: /datasync/home#/history
+    - id: locations
+      name: Locations
+      url: /datasync/home#/locations
+    - id: agents
+      name: Agents
+      url: /datasync/home#/agents
+
+- id: deeplens
+  name: DeepLens
+  description: Deep Learning Enabled Video Camera
+  url: /deeplens/home#projects
+  sub_services:
+    - id: projects
+      name: Projects
+      url: /deeplens/home#projects
+    - id: devices
+      name: Devices
+      url: /deeplens/home#devices
+    - id: models
+      name: Models
+      url: /deeplens/home#models
+    - id: recipes
+      name: Recipes
+      url: /deeplens/home#recipes
+
+- id: devicefarm
+  name: Device Farm
+  description: Test Android, iOS, and Web Apps on Real Devices in the Cloud
+  globally: true
+  url: /devicefarm/home#/mobile/projects
+  sub_services:
+    - id: mobileprojects
+      name: Mobile Projects
+      url: /devicefarm/home#/mobile/projects
+    - id: mobiledeviceslots
+      name: Mobile device slots
+      url: /devicefarm/home#/mobile/deviceslots
+    - id: mobileprivatedevices
+      name: Mobile private devices
+      url: /devicefarm/home#/mobile/privatedevices
+    - id: browserprojects
+      name: Browser projects
+      url: /devicefarm/home#/browser/projects
+
+- id: directconnect
+  name: Direct Connect
+  description: Dedicated Network Connection to AWS
+  url: /directconnect/v2/home#/connections
+  globally: true
+  sub_services:
+    - id: connections
+      name: Connections
+      url: /directconnect/v2/home#/connections
+    - id: virtualinterfaces
+      name: Virtual interfaces
+      url: /directconnect/v2/home#/virtual-interfaces
+    - id: lags
+      name: LAGs
+      url: /directconnect/v2/home#/lags
+    - id: directconnectgateways
+      name: Direct Connect gateways
+      url: /directconnect/v2/home#/dxgateways
+    - id: virtualprivategateways
+      name: Virtual private gateways
+      url: /directconnect/v2/home#/virtual-gateways
+    - id: transitgateways
+      name: Transit gateways
+      url: /directconnect/v2/home#/transit-gateways
+
+- id: directoryservice
+  name: Directory Service
+  description: Host and Manage Active Directory
+  url: /directoryservicev2/identity#!/directories
+  sub_services:
+    - id: activedirectories
+      name: Active Directories
+      url: /directoryservicev2/identity#!/directories
+    - id: directoriessharedwithme
+      name: Active Directories shared with me
+      url: /directoryservicev2/home#!/directories-shared-with-me
+    - id: clouddirectories
+      name: Cloud Directories
+      url: /directoryservicev2/home#!/cloud-directories
+    - id: cloudschemas
+      name: Cloud Schemas
+      url: /directoryservicev2/home#!/cloud-schemas
+
+- id: dms
+  name: Database Migation Service
+  short_name: DMS
+  description: Managed Database Migration Service
+  url: /dms/v2/home#dashboard
+  weight: 6
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: /dms/v2/home#dashboard
+    - id: databasemigrationtasks
+      name: Database migration tasks
+      url: /dms/v2/home#tasks
+    - id: replicationinstances
+      name: Replication instances
+      url: /dms/v2/home#replicationInstances
+    - id: endpoints
+      name: Endpoints
+      url: /dms/v2/home#endpointList
+    - id: certificates
+      name: Certificates
+      url: /dms/v2/home#certificate
+    - id: subnetgroups
+      name: Subnet groups
+      url: /dms/v2/home#subnetGroup
+    - id: events
+      name: Events
+      url: /dms/v2/home#EventList
+    - id: eventsubscriptions
+      name: Event subscriptions
+      url: /dms/v2/home#EventSubscriptionList
+    - id: notifications
+      name: Notifications
+      url: /dms/v2/home#Notifications
+
+- id: documentdb
+  name: DocumentDB
+  description: Fully-managed MongoDB-compatible database service
+  url: /docdb/home#dashboard
+  weight: 3
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: /docdb/home#dashboard
+    - id: clusters
+      name: Clusters
+      url: /docdb/home#clusters
+    - id: snapshots
+      name: Snapshots
+      url: /docdb/home#snapshots
+    - id: subnetgroups
+      name: Subnet groups
+      url: /docdb/home#subnetGroups
+    - id: parametergroups
+      name: Parameter groups
+      url: /docdb/home#parameterGroups
+    - id: eventsubscriptions
+      name: Event Subscriptions
+      url: /docdb/home#eventSubscriptions
+    - id: events
+      name: Events
+      url: /docdb/home#events
+    - id: what'snew
+      name: What's New
+      url: /docdb/home#whats-new
+    - id: tutorials
+      name: Tutorials
+      url: /docdb/home#tutorials-page
+
+- id: dynamodb
+  name: DynamoDB
+  description: Managed NoSQL Database
+  url: "/dynamodbv2/home#dashboard"
+  weight: 7
+  top20: true
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: "/dynamodbv2/home#dashboard"
+    - id: tables
+      name: Tables
+      url: "/dynamodbv2/home#tables"
+    - id: items
+      name: Items
+      url: "/dynamodbv2/home#item-explorer"
+    - id: partiqleditor
+      name: PartiQL editor
+      url: "/dynamodbv2/home#partiql-editor"
+    - id: backups
+      name: Backups
+      url: "/dynamodbv2/home#list-backups"
+    - id: exportstos3
+      name: Exports to S3
+      url: "/dynamodbv2/home#exports"
+    - id: reservedcapacity
+      name: Reserved capacity
+      url: "/dynamodbv2/home#reserved-capacity"
+    - id: daxclusters
+      name: DAX Clusters
+      url: "/dynamodbv2/home#dax-clusters"
+    - id: daxsubnetgroups
+      name: DAX Subnet groups
+      url: "/dynamodbv2/home#dax-subnet-groups-list"
+    - id: daxparametergroups
+      name: DAX Parameter groups
+      url: "/dynamodbv2/home#dax-parameter-groups-list"
+    - id: daxevents
+      name: DAX Events
+      url: "/dynamodbv2/home#dax-events"
+
+- id: ec2
+  name: Elastic Cloud Compute
+  short_name: EC2
+  description: Virtual Servers in the Cloud
+  url: "/ec2/home#Home:"
+  weight: 9
+  top20: true
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: "/ec2/home#Home:"
+    - id: events
+      name: Events
+      url: "/ec2/home#Events:"
+    - id: tags
+      name: Tags
+      url: "/ec2/home#Tags:"
+    - id: limits
+      name: Limits
+      url: "/ec2/home#Limits:"
+    - id: instances
+      name: Instances
+      url: "/ec2/v2/home#Instances:"
+      weight: 9
+    - id: instancetypes
+      name: Instance Types
+      url: "/ec2/v2/home#InstanceTypes:"
+    - id: launchtemplates
+      name: Launch Templates
+      url: "/ec2/home#LaunchTemplates:"
+      weight: 5
+    - id: spotrequests
+      name: Spot Requests
+      url: "/ec2sp"
+    - id: savingsplans
+      name: Savings Plans
+      url: "/ec2/home#SavingsPlans:"
+    - id: reservedinstances
+      name: Reserved Instances
+      url: "/ec2/home#ReservedInstances:"
+    - id: dedicatedhosts
+      name: Dedicated Hosts
+      url: "/ec2/home#Hosts:"
+    - id: scheduledinstances
+      name: Scheduled Instances
+      url: "/ec2sp/v2/si/home"
+    - id: capacityreservations
+      name: Capacity Reservations
+      url: "/ec2sp/v2/home/#/cr/reservations"
+    - id: amis
+      name: AMIs
+      url: "/ec2/home#Images:"
+      weight: 7
+    - id: volumes
+      name: Volume
+      short_name: EBS
+      url: "/ec2/home#Volumes:"
+      weight: 7
+    - id: snapshots
+      name: Snapshots
+      url: "/ec2/home#Snapshots:"
+    - id: lifecyclemanager
+      name: Lifecycle Manager
+      url: "/ec2/home#Lifecycle:"
+    - id: securitygroups
+      name: Security Groups
+      short_name: SG
+      url: "/ec2/v2/home#SecurityGroups:"
+      weight: 8
+    - id: elasticips
+      name: Elastic IPs
+      short_name: EIP
+      url: "/ec2/home#Addresses:"
+      weight: 5
+    - id: placementgroups
+      name: Placement Groups
+      url: "/ec2/home#PlacementGroups:"
+    - id: keypairs
+      name: Key Pairs
+      url: "/ec2/home#KeyPairs:"
+      weight: 5
+    - id: networkinterfaces
+      name: Network Interfaces
+      url: "/ec2/home#NIC:"
+    - id: loadbalancers
+      name: Load Balancers
+      short_name: LB
+      url: "/ec2/home#LoadBalancers:"
+      weight: 6
+    - id: targetgroups
+      name: Target Groups
+      short_name: TG
+      url: "/ec2/home#TargetGroups:"
+    - id: launchconfigs
+      name: Launch Configurations
+      url: "/ec2autoscaling/home#/lc"
+    - id: autoscalinggroups
+      name: Auto Scaling Groups
+      short_name: ASG
+      url: "/ec2autoscaling/home#/details"
+      weight: 6
+
+- id: ecr
+  name: Elastic Container Registry
+  short_name: ECR
+  description: Fully-managed Docker container registry
+  url: "/ecr/repositories#"
+  weight: 6
+  top20: true
+  sub_services:
+    - id: repositories
+      name: Repositories
+      url: "/ecr/repositories#"
+    - id: registries
+      name: Registries
+      url: "/ecr/registries#"
+    - id: publicgallery
+      name: Public gallery
+      url: https://gallery.ecr.aws/
+
+- id: ecs
+  name: Elastic Container Service
+  short_name: ECS
+  description: Run and Manage Docker Containers
+  url: "/ecs/home#/clusters"
+  weight: 6
+  sub_services:
+    - id: clusters
+      name: Clusters
+      url: "/ecs/home#/clusters"
+    - id: taskdefinitions
+      name: Task Definitions
+      url: "/ecs/home#/taskDefinitions"
+    - id: settings
+      name: Account settings
+      url: "/ecs/home#/settings"
+
+- id: efs
+  name: Elastic File Storage
+  short_name: EFS
+  description: Managed File Storage for EC2
+  url: "/efs/home#/file-systems"
+  weight: 6
+  sub_services:
+    - id: filesystems
+      name: File systems
+      url: "/efs/home#/file-systems"
+    - id: accesspoints
+      name: Access points
+      url: "/efs/home#/access-points"
+    - id: settings
+      name: Settings
+      url: "/efs/home#/settings"
+
+- id: eks
+  name: Elastic Kubernetes Service
+  short_name: EKS
+  description: Managed Kubernetes on AWS
+  url: /eks/home#/clusters
+  weight: 3
+  sub_services:
+    - id: clusters
+      name: Clusters
+      url: "/eks/home#/clusters"
+
+- id: elasticache
+  name: ElastiCache
+  description: In-Memory Cache
+  url: "/elasticache/home#"
+  weight: 3
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: "/elasticache/home#"
+    - id: memcached
+      name: Memcached
+      url: "/elasticache/home#memcached:"
+    - id: redis
+      name: Redis
+      url: "/elasticache/home#redis:"
+    - id: globalcluster
+      name: Global Datastore
+      url: "/elasticache/home#global-cluster:"
+    - id: serviceupdates
+      name: Service Updates
+      url: "/elasticache/home#service-updates:"
+    - id: reservedcachenodes
+      name: Reserved Cache Nodes
+      url: "/elasticache/home#reserved-cache-nodes:"
+    - id: snapshots
+      name: Backups
+      url: "/elasticache/home#snapshots:"
+    - id: parametergroups
+      name: Parameter Groups
+      url: "/elasticache/home#param-groups:"
+    - id: users
+      name: User Management
+      url: "/elasticache/home#users:"
+    - id: usergroups
+      name: User Group Management
+      url: "/elasticache/home#user-groups:"
+    - id: subnetgroups
+      name: Subnet Groups
+      url: "/elasticache/home#cache-subnet-groups:"
+    - id: events
+      name: Events
+      url: "/elasticache/home#events:"
+    - id: clientdownload
+      name: ElastiCache Cluster Client
+      url: "/elasticache/home#client-download:"
+
+- id: elasticbeanstalk
+  name: Elastic Beanstalk
+  description: Run and Manage Web Apps
+  url: "/elasticbeanstalk/home#/environments"
+  sub_services:
+    - id: environments
+      name: Environments
+      url: "/elasticbeanstalk/home#/environments"
+    - id: applications
+      name: Applications
+      url: "/elasticbeanstalk/home#/applications"
+    - id: changehistory
+      name: Change history
+      url: "/elasticbeanstalk/home/changeHistory"
+
+- id: ess
+  name: Elasticsearch Service
+  short_name: ESS
+  description: Run and Scale Elasticsearch Clusters
+  search_terms:
+    - elasticsearch
+  url: "/es/home#"
+
+- id: elastictranscoder
+  name: Elastic Transcoder
+  description: Easy-to-Use Scalable Media Transcoding
+  url: "/elastictranscoder/home#"
+
+- id: emr
+  name: Elastic Map Reduce
+  short_name: EMR
+  description: Managed Hadoop Framework
+  search_terms:
+    - hadoop
+    - mapreduce
+  url: "/elasticmapreduce/home#cluster-list:"
+  weight: 6
+  sub_services:
+    - id: clusters
+      name: Clusters
+      url: "/elasticmapreduce/home#cluster-list:"
+    - id: notebooks
+      name: Notebooks
+      url: "/elasticmapreduce/home#notebooks-list:"
+    - id: gitrepositories
+      name: Git repositories
+      url: "/elasticmapreduce/home#git-repositories-list:"
+    - id: securityconfigurations
+      name: Security configurations
+      url: "/elasticmapreduce/home#security-configurations-list:"
+    - id: blockpublicaccess
+      name: Block public access
+      url: "/elasticmapreduce/home#block-public-access:"
+    - id: vpcsubnets
+      name: VPC subnets
+      url: "/elasticmapreduce/home#manage-subnets:"
+    - id: events
+      name: Events
+      url: "/elasticmapreduce/home#events:"
+    - id: virtualclusters
+      name: Virtual clusters
+      url: "/elasticmapreduce/home#virtual-cluster-list:"
+
+- id: eventbridge
+  name: EventBridge
+  description: Serverless event bus that connects application data from your own apps, SaaS, and AWS services
+  url: /events/home#/events
+  sub_services:
+    - id: events
+      name: Events
+      url: /events/home#/events
+    - id: eventbuses
+      name: Event buses
+      url: /events/home#/eventbuses
+    - id: rules
+      name: Rules
+      url: /events/home#/rules
+    - id: archives
+      name: Archives
+      url: /events/home#/archives
+    - id: replays
+      name: Replays
+      url: /events/home#/replays
+    - id: integration
+      name: Integration
+      url: /events/home#/integration
+    - id: partnereventsources
+      name: Partner event sources
+      url: /events/home#/partners
+    - id: apidestinations
+      name: API destinations
+      url: /events/home#/apidestinations
+    - id: schemaregistry
+      name: Schema registry
+      url: /events/home#/schemaregistry
+    - id: schemas
+      name: Schemas
+      url: /events/home#/schemas
+
+- id: forecast
+  name: Forecast
+  description: fully-managed service for accurate time-series forecasting
+  url: "/forecast/home#"
+
+- id: freertos
+  name: FreeRTOS
+  description: IoT Operating System for Microcontrollers
+  url: "/freertos/home#"
+
+- id: fsx
+  name: FSx
+  description: Fully managed third-party file systems optimized for a variety of workloads
+  url: /fsx/home#file-systems
+  sub_services:
+    - id: filesystems
+      name: File systems
+      url: /fsx/home#file-systems
+    - id: backups
+      name: Backups
+      url: /fsx/home#backups
+    - id: datarepositorytasks
+      name: Data repository tasks
+      url: /fsx/home#data-repository-tasks
+
+- id: gamelift
+  name: GameLift
+  description: Deploy and Scale Session-based Multiplayer Games
+  url: "/gamelift/home#"
+
+- id: glacier
+  name: S3 Glacier
+  description: Archive Storage in the Cloud
+  url: "/glacier/home#"
+  weight: 6
+
+- id: globalaccelerator
+  name: Global Accelerator
+  description: Improve your application’s availability and performance using the AWS Global Network
+  url: "/ec2/v2/home#GlobalAcceleratorDashboard"
+
+- id: glue
+  name: Glue
+  description: fully managed ETL (extract, transform, and load) service
+  url: /glue/home#catalog:tab=databases
+  weight: 6
+  sub_services:
+    - id: databases
+      name: Databases
+      url: /glue/home#catalog:tab=databases
+    - id: tables
+      name: Tables
+      url: /glue/home#catalog:tab=tables
+    - id: connections
+      name: Connections
+      url: /glue/home#catalog:tab=connections
+    - id: crawlers
+      name: Crawlers
+      url: /glue/home#catalog:tab=crawlers
+    - id: classifiers
+      name: Classifiers
+      url: /glue/home#catalog:tab=classifiers
+    - id: schemaregistries
+      name: Schema registries
+      url: /glue/home#catalog:tab=schemaRegistries
+    - id: schemas
+      name: Schemas
+      url: /glue/home#catalog:tab=schemas
+    - id: settings
+      name: Settings
+      url: /glue/home#catalog:tab=settings
+    - id: awsgluestudio
+      name: AWS Glue Studio
+      url: /gluestudio/home#/
+    - id: blueprints
+      name: Blueprints
+      url: /glue/home#etl:tab=blueprints
+    - id: workflows
+      name: Workflows
+      url: /glue/home#etl:tab=workflows
+    - id: jobs
+      name: Jobs
+      url: /glue/home#etl:tab=jobs
+    - id: mltransforms
+      name: ML Transforms
+      url: /glue/home#etl:tab=mlTransforms
+    - id: triggers
+      name: Triggers
+      url: /glue/home#etl:tab=triggers
+    - id: devendpoints
+      name: Dev endpoints
+      url: /glue/home#etl:tab=devEndpoints
+    - id: notebooks
+      name: Notebooks
+      url: /glue/home#etl:tab=notebooks
+    - id: securityconfigurations
+      name: Security configurations
+      url: '/glue/home#securityConfigurations:'
+
+- id: lakeformation
+  name: Lake Formation
+  short_name: LF
+  description: Create and manage data lakes with centralized access control across Amazon Web Services
+  url: /lakeformation/home#firstRun
+  weight: 6
+  sub_services:
+    - id: dashboard
+      name: dashboard
+      url: /lakeformation/home#dashboard
+    - id: databases
+      name: Databases
+      url: /lakeformation/home#databases
+    - id: tables
+      name: Tables
+      url: /lakeformation/home#tables
+    - id: datalakelocations
+      name: Data lake locatons
+      url: /lakeformation/home#register-list
+    - id: administrativerolesandtasks
+      name: Administrative roles and tasks
+      url: /lakeformation/home#administrative-roles-and-tasks
+    - id: lftags
+      name: LF tags
+      url: /lakeformation/home#policy-tags
+    - id: lftagspermissions
+      name: Tag permissions
+      url: /lakeformation/home#tag-permissions
+    - id: datalakepermissions
+      name: Data lake permissions
+      url: /lakeformation/home#permissions-list
+    - id: datalocationpermissions
+      name: Data location permissions
+      url: /lakeformation/home#location-permissions
+
+- id: groundstation
+  name: Ground Station
+  description: Communicate with satellites
+  url: /groundstation/home#/contacts
+  sub_services:
+    - id: contacts
+      name: Contacts
+      url: /groundstation/home#/contacts
+    - id: satellitesandresources
+      name: Satellites and resources
+      url: /groundstation/home#/resources
+
+- id: guardduty
+  name: GuardDuty
+  description: Intelligent Threat Detection to Protect Your AWS Accounts and Workloads
+  url: /guardduty/home#/findings
+  sub_services:
+    - id: findings
+      name: Findings
+      url: /guardduty/home#/findings
+    - id: usage
+      name: Usage
+      url: /guardduty/home#/usage
+    - id: settings
+      name: Settings
+      url: /guardduty/home#/settings
+    - id: lists
+      name: Lists
+      url: /guardduty/home#/lists
+    - id: s3protection
+      name: S3 Protection
+      url: /guardduty/home#/s3-protection
+    - id: accounts
+      name: Accounts
+      url: /guardduty/home#/linked-accounts
+
+- id: iam
+  name: Identity and Access Management
+  short_name: IAM
+  description: Manage User Access and Encryption Keys
+  globally: true
+  url: "/iam/home#/home"
+  weight: 9
+  top20: true
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: "/iam/home#/home"
+    - id: usergroups
+      name: User groups
+      url: "/iamv2/home#/groups"
+    - id: users
+      name: Users
+      url: "/iamv2/home#/users"
+    - id: roles
+      name: Roles
+      url: "/iamv2/home#/roles"
+    - id: policies
+      name: Policies
+      url: "/iamv2/home#/policies"
+    - id: identityproviders
+      name: Identity providers
+      url: "/iamv2/home#/identity_providers"
+    - id: accountsettings
+      name: Account settings
+      url: "/iam/home#/account_settings"
+    - id: credentialreport
+      name: Credential report
+      url: "/iam/home#/credential_report"
+    - id: organizationactivity
+      name: Organization activity
+      url: "/iam/home#/organizations/ServiceActivity"
+    - id: scps
+      name: Service control policies (SCPs)
+      url: "/iam/home#/organizations/ServiceControlPolicies"
+
+- id: accessanalyzer
+  name: Access Analyzer
+  description: Monitor access to resources
+  url: "/access-analyzer/home#/rules"
+  search_terms:
+    - iam
+  sub_services:
+    - id: archiverules
+      name: Archive rules
+      url: "/access-analyzer/home#/rules"
+    - id: analyzers
+      name: Analyzers
+      url: "/access-analyzer/home#/analyzers"
+    - id: settings
+      name: Settings
+      url: "/access-analyzer/home#/settings"
+
+- id: inspector
+  name: Inspector
+  description: Analyze Application Security
+  url: "/inspector/home#"
+
+# TODO consolidate IoT services into sub-services
+- id: iot1click
+  name: IoT 1-Click
+  description:  Trigger AWS Lambda functions from simple devices
+  url: "/iot1click/home#"
+
+- id: iotanalytics
+  name: IoT Analytics
+  description: Collect, preprocess, store, analyze and visualize data of IoT devices
+  url: "/iotanalytics/home#"
+
+- id: iot
+  name: IoT Core
+  description: Connect Devices to the Cloud
+  url: "/iot/home#"
+
+- id: iotdevicedefender
+  name: IoT Device Defender
+  description: Connect Devices to the Cloud
+  url: "/devicedefender/home#"
+
+- id: iotdevicemanagement
+  name: IoT Device Management
+  description: Securely Manage Fleets as Small as One Device, or as Broad as Millions of Devices
+  url: "/iotdm/home#"
+
+- id: iotevents
+  name: IoT Events
+  description: Monitor device fleets for changes and trigger alerts to respond
+  url: "/iotevents/home#"
+
+- id: iotgreengrass
+  name: IoT Greengrass
+  description: Deploy and run code on your devices
+  url: "/iotgreengrass/home#"
+
+- id: iotsitewise
+  name: IoT SiteWise
+  description: Data driven decisions in Industrial operations
+  url: "/iotsitewise/home#"
+
+- id: iotthingsgraph
+  name: IoT Things Graph
+  description: Easily connect devices and web services to build IoT applications
+  url: "/thingsgraph/home#"
+
+- id: msk
+  name: Managed Streaming for Apache Kafka
+  short_name: MSK
+  description: Fully managed, highly available, and secure service for Apache Kafka
+  url: /msk/home#/clusters
+  sub_services:
+    - id: clusters
+      name: Clusters
+      url: /msk/home#/clusters
+    - id: clusterconfigurations
+      name: Cluster configurations
+      url: /msk/home#/configurations
+
+- id: kms
+  name: Key Management Service
+  short_name: KMS
+  description: Securely Generate and Manage AWS Encryption Keys
+  url: /kms/home#/kms/defaultKeys
+  weight: 6
+  sub_services:
+    - id: awsmanagedkeys
+      name: AWS managed keys
+      url: /kms/home#/kms/defaultKeys
+    - id: customermanagedkeys
+      name: Customer managed keys
+      url: /kms/home#/kms/keys
+    - id: customkeystores
+      name: Custom key stores
+      url: /kms/home#/kms/customStores
+
+- id: kinesis
+  name: Kinesis
+  description: Work with Real-Time Streaming Data
+  url: "/kinesis/home#dashboard"
+  weight: 6
+  top20: true
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: "/kinesis/home#dashboard"
+    - id: datastreams
+      name: Data streams
+      url: "/kinesis/home#/streams/list"
+    - id: firehose
+      name: Firehose delivery streams
+      url: "/firehose/home#/dashboard/list"
+    - id: videostreams
+      name: Video streams
+      url: "/kinesisvideo/home"
+    - id: analytics
+      name: Analytics applications
+      url: "/kinesisanalytics/home#/applications/dashboard"
+
+- id: lambda
+  name: Lambda
+  description: Run Code without Thinking about Servers
+  url: "/lambda/home#/discover"
+  weight: 6
+  top20: true
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: "/lambda/home#/discover"
+    - id: applications
+      name: Applications
+      url: "/lambda/home#/applications"
+    - id: functions
+      name: Functions
+      url: "/lambda/home#/functions"
+    - id: layers
+      name: Layers
+      url: "/lambda/home#/layers"
+
+- id: lex
+  name: Lex
+  description: Build Voice and Text Chatbots
+  url: "/lexv2/home#bots"
+
+- id: licensemanager
+  name: License Manager
+  description: Set rules to manage, discover, and report third-party license usage proactively
+  url: "/license-manager/home#"
+
+- id: lightsail
+  name: Lightsail
+  description: Launch and Manage Virtual Private Servers
+  url: https://lightsail.aws.amazon.com/ls/webapp/home
+
+- id: macie
+  name: Macie
+  description: Amazon Macie classifies and secures your business-critical content.
+  url: "/macie/home#"
+
+- id: managedservices
+  name: Managed Services
+  description: IT operations management for AWS
+  url: "/managedservices/home#"
+
+- id: marketplace
+  name: Marketplace Subscriptions
+  description: Digital catalog where you can find, buy, and deploy software
+  globally: true
+  url: /marketplace/home#/subscriptions
+  sub_services:
+    - id: subscriptions
+      name: Manage subscriptions
+      url: /marketplace/home#/subscriptions
+    - id: discoverproducts
+      name: Discover products
+      url: /marketplace/home#/search
+    - id: settings
+      name: Settings
+      url: /marketplace/home#/settings
+
+- id: mediaconnect
+  name: MediaConnect
+  description: Reliable, secure, and flexible transport for live video
+  url: "/mediaconnect/home#"
+
+- id: mediaconvert
+  name: MediaConvert
+  description: Convert file-based content for broadcast and multiscreen delivery
+  url: /mediaconvert/home#/jobs/list
+  sub_services:
+    - id: jobs
+      name: Jobs
+      url: /mediaconvert/home#/jobs/list
+    - id: outputpresets
+      name: Output presets
+      url: /mediaconvert/home#/presets/list
+    - id: jobtemplates
+      name: Job templates
+      url: /mediaconvert/home#/templates/list
+    - id: queues
+      name: Queues
+      url: /mediaconvert/home#/queues/list
+    - id: certificates
+      name: Certificates
+      url: /mediaconvert/home#/certificates
+    - id: account
+      name: Account
+      url: /mediaconvert/home#/account
+
+- id: medialive
+  name: MediaLive
+  description: Convert video inputs into live outputs for broadcast and streaming delivery
+  url: /medialive/home#!/inputs
+  sub_services:
+    - id: inputs
+      name: Inputs
+      url: /medialive/home#!/inputs
+    - id: inputsecuritygroups
+      name: Input security groups
+      url: /medialive/home#!/inputSecurityGroups
+    - id: channels
+      name: Channels
+      url: /medialive/home#!/channels
+    - id: devices
+      name: Devices
+      url: /medialive/home#!/devices
+    - id: multiplexes
+      name: Multiplexes
+      url: /medialive/multiplex#/
+    - id: reservations
+      name: Reservations
+      url: /medialive/home#!/reservations
+    - id: workflowwizard
+      name: Workflow Wizard
+      url: /medialive/home#!/workflows
+
+- id: mediapackage
+  name: MediaPackage
+  description: Deliver video to many devices using just-in-time format conversion
+  url: /mediapackage/home#/channels
+  sub_services:
+    - id: channels
+      name: Channels
+      url: /mediapackage/home#/channels
+    - id: harvestjobs
+      name: Harvest jobs
+      url: /mediapackage/home#/harvest-jobs
+    - id: vodpackaginggroups
+      name: Video on demand Packaging groups
+      url: /mediapackagevod/home#/packaging_groups
+    - id: vodassets
+      name: Video on demand Assets
+      url: /mediapackagevod/home#/assets
+
+- id: mediastore
+  name: MediaStore
+  description: Store and deliver video assets for live or on-demand media workflows
+  url: "/mediastore/home#"
+
+- id: mediatailor
+  name: MediaTailor
+  description: Personalize and monetize multiscreen content with server-side ad insertion
+  url: /mediatailor/home#/controlpanel
+  sub_services:
+    - id: configurations
+      name: Configurations
+      url: /mediatailor/home#/controlpanel
+    - id: sourcelocations
+      name: Source locations
+      url: /mediatailor/home#/source-locations
+    - id: channels
+      name: Channels
+      url: /mediatailor/home#/channels
+
+- id: migrationhub
+  name: Migration Hub
+  description: Simplify and accelerate the migration of your data centers to AWS
+  url: "/migrationhub/home#"
+
+- id: mq
+  name: MQ
+  description: Managed message broker service for Apache ActiveMQ
+  search_terms:
+    - activemq
+  url: /amazon-mq/home#/brokers
+  sub_services:
+    - id: brokers
+      name: Brokers
+      url: /amazon-mq/home#/brokers
+    - id: configurations
+      name: Configurations
+      url: /amazon-mq/home#/configurations
+
+- id: neptune
+  name: Neptune
+  description: Fast, reliable graph database built for the cloud
+  url: '/neptune/home#databases:'
+  weight: 3
+  sub_services:
+    - id: databases
+      name: Databases
+      url: '/neptune/home#databases:'
+    - id: clusters
+      name: Clusters
+      url: '/neptune/home#dbclusters:'
+    - id: snapshots
+      name: Snapshots
+      url: '/neptune/home#db-snapshots:'
+    - id: reservedinstances
+      name: Reserved instances
+      url: '/neptune/home#reserved-instance-list:'
+    - id: notebooks
+      name: Notebooks
+      url: '/neptune/home#notebooks:'
+    - id: subnetgroups
+      name: Subnet groups
+      url: '/neptune/home#db-subnet-groups:'
+    - id: parametergroups
+      name: Parameter groups
+      url: '/neptune/home#parameter-groups:'
+    - id: events
+      name: Events
+      url: '/neptune/home#events:'
+    - id: eventsubscriptions
+      name: Event subscriptions
+      url: '/neptune/home#event-subscriptions-list:'
+    - id: notifications
+      name: Notifications
+      url: '/neptune/home#notifications:'
+
+- id: timestream
+  name: Timestream
+  description: Fast, scalable, and serverless time series database
+  url: '/timestream/home'
+  weight: 3
+  sub_services:
+    - id: databases
+      name: Databases
+      url: '/timestream/home#databases'
+    - id: tables
+      name: Tables
+      url: '/timestream/home#tables'
+    - id: queryeditor
+      name: Query editor
+      url: '/timestream/home#query-editor:'
+    - id: monitoring
+      name: Monitoring
+      url: '/timestream/home#monitoring'
+
+- id: memorydb
+  name: Memorydb for Redis
+  description: Redis-compatible, durable, in-memory database service for ultra-fast performance
+  url: '/memorydb/home'
+  weight: 3
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: '/memorydb/home#/dashboard'
+    - id: cluster
+      name: Clusters
+      url: '/memorydb/home#/clusters'
+    - id: snapshots
+      name: Snapshots
+      url: '/memorydb/home#/snapshots'
+    - id: users
+      name: Users
+      url: '/memorydb/home#/users'
+
+- id: opsworks
+  name: OpsWorks
+  description: Configuration Management with Chef and Puppet
+  globally: true
+  url: /opsworks/home#/dashboard
+  sub_services:
+    - id: stacks
+      name: Stacks
+      url: /opsworks/home#/dashboard
+    - id: users
+      name: Users
+      url: /opsworks/home#/users
+    - id: settings
+      name: Settings
+      url: /opsworks/home#/mysettings
+    - id: chef
+      name: Chef Automate servers
+      url: /opsworks/cm/home?owc=chefautomate#/chef/
+    - id: puppet
+      name: Puppet Enterprise servers
+      url: /opsworks/cm/home?owc=puppet#/puppet/
+
+- id: organizations
+  name: Organizations
+  description: Policy-based management for multiple AWS accounts.
+  globally: true
+  url: /organizations/v2/home/invitations
+
+- id: personalize
+  name: Personalize
+  description: easily add real-time recommendations to your apps
+  url: /personalize/home#datasetGroups
+
+- id: pinpoint
+  name: Pinpoint
+  description: Engage Users via Email, SMS, Push & Analytics
+  url: /pinpoint/home#/apps
+  sub_services:
+    - id: allprojects
+      name: All projects
+      url: /pinpoint/home#/apps
+    - id: messagetemplates
+      name: Message templates
+      url: /pinpoint/home#/templates/overview
+    - id: machinelearningmodels
+      name: Machine learning models
+      url: /pinpoint/home#/recommenders
+    - id: deliverabilitydashboard
+      name: Deliverability dashboard
+      url: /pinpoint/home#/deliverability/overview
+    - id: smsandvoice
+      name: SMS and voice
+      url: /pinpoint/home#/sms-account-settings
+
+- id: polly
+  name: Polly
+  description: Turn Text into Lifelike Speech
+  url: /polly/home/SynthesizeSpeech#
+  sub_services:
+    - id: texttospeech
+      name: Text-to-Speech
+      url: /polly/home/SynthesizeSpeech#
+    - id: lexicons
+      name: Lexicons
+      url: /polly/home/Lexicons#
+    - id: s3synthesistasks
+      name: S3 synthesis tasks
+      url: /polly/home/SynthesisTasks#
+
+- id: quicksight
+  name: QuickSight
+  description:  Fast, easy to use business analytics
+  url: https://quicksight.aws.amazon.com/
+  weight: 6
+
+- id: rds
+  name: Relational Database Service
+  short_name: RDS
+  description: Managed Relational Database Service
+  url: "/rds/home#"
+  weight: 7
+  top20: true
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: "/rds/home#"
+    - id: databases
+      name: Databases
+      url: "/rds/home#databases:"
+    - id: queryeditor
+      name: Query Editor
+      url: "/rds/home#query-editor:"
+    - id: performanceinsights
+      name: Performance Insights
+      url: "/rds/home#performance-insights-v20206:"
+    - id: snapshots
+      name: Snapshots
+      url: "/rds/home#snapshots-list:"
+    - id: automatedbackups
+      name: Automated backups
+      url: "/rds/home#automatedbackups:"
+    - id: reservedinstances
+      name: Reserved instances
+      url: "/rds/home#reserved-instance-list:"
+    - id: proxies
+      name: Proxies
+      url: "/rds/home#proxies:"
+    - id: subnetgroups
+      name: Subnet groups
+      url: "/rds/home#db-subnet-groups-list:"
+    - id: optiongroups
+      name: Option groups
+      url: "/rds/home#option-groups-list:"
+    - id: events
+      name: Events
+      url: "/rds/home#event-list:"
+    - id: eventsubscriptions
+      name: Event subscriptions
+      url: "/rds/home#event-subscriptions:"
+    - id: recommendations
+      name: Recommendations
+      url: "/rds/home#recommendations:"
+    - id: certificateupdate
+      name: Certificate update
+      url: "/rds/home#ca-cert-update:"
+
+- id: redshift
+  name: Redshift
+  description: Fast, Simple, Cost-Effective Data Warehousing
+  url: "/redshiftv2/home#dashboard"
+  weight: 6
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: "/redshiftv2/home#dashboard"
+    - id: clusters
+      name: Clusters
+      url: "/redshiftv2/home#clusters"
+    - id: reservednodes
+      name: Reserved nodes
+      url: "/redshiftv2/home#reserved-nodes"
+    - id: snapshots
+      name: Snapshots
+      url: "/redshiftv2/home#snapshots"
+    - id: queries
+      name: Queries
+      url: "/redshiftv2/home#queries"
+    - id: queryeditor
+      name: Query editor
+      url: "/redshiftv2/home#query-editor:"
+    - id: datashares
+      name: Data shares
+      url: "/redshiftv2/home#data-shares"
+    - id: config
+      name: Configurations
+      url: "/redshiftv2/home#configurations"
+    - id: workloadmanagement
+      name: Workload management
+      url: "/redshiftv2/home#workload-management"
+    - id: subnetgroups
+      name: Subnet groups
+      url: "/redshiftv2/home#subnet-groups"
+    - id: hsm
+      name: HSM connections
+      url: "/redshiftv2/home#hsm?tab=hsmConnections"
+    - id: tags
+      name: Manage tags
+      url: "/redshiftv2/home#manage-tags"
+    - id: marketplace
+      name: Marketplace
+      url: "/redshiftv2/home#marketplace"
+    - id: advisor
+      name: Advisor recommendations
+      url: "/redshiftv2/home#recommendations"
+    - id: alarms
+      name: Alarms
+      url: "/redshiftv2/home#alarms"
+    - id: events
+      name: Events
+      url: "/redshiftv2/home#events"
+    - id: eventsubscriptions
+      name: Event subscriptions
+      url: "/redshiftv2/home#event-subscriptions"
+    - id: alarms
+      name: Alarms
+      url: "/redshiftv2/home#alarms"
+
+- id: rekognition
+  name: Rekognition
+  description: Search and Analyze Images
+  url: /rekognition/custom-labels#/
+  sub_services:
+    - id: usecustomlabels
+      name: Use Custom Labels
+      url: /rekognition/custom-labels#/
+    - id: labeldetection
+      name: Label detection
+      url: /rekognition/home#/label-detection
+    - id: imagemoderation
+      name: Image moderation
+      url: /rekognition/home#/image-moderation
+    - id: facialanalysis
+      name: Facial analysis
+      url: /rekognition/home#/face-detection
+    - id: celebrityrecognition
+      name: Celebrity recognition
+      url: /rekognition/home#/celebrity-detection
+    - id: facecomparison
+      name: Face comparison
+      url: /rekognition/home#/face-comparison
+    - id: textinimage
+      name: Text in image
+      url: /rekognition/home#/text-detection
+    - id: ppedetection
+      name: PPE detection
+      url: /rekognition/home#/ppe
+    - id: videoanalysis
+      name: Video analysis
+      url: /rekognition/home#/video-analysis
+    - id: metrics
+      name: Metrics
+      url: /rekognition/home#/usage-metrics
+
+- id: ram
+  name: Resource Access Manager
+  description: Share AWS resources with other accounts or AWS Organizations
+  url: '/ram/home#OwnedResourceShares:'
+  sub_services:
+    - id: ownedresourceshares
+      name: Owned resource shares
+      url: '/ram/home#OwnedResourceShares:'
+    - id: ownedresources
+      name: Owned resources
+      url: '/ram/home#OwnedResources:'
+    - id: ownedprincipals
+      name: Owned principals
+      url: '/ram/home#OwnedPrincipals:'
+    - id: sharedresourceshares
+      name: Shared resource shares
+      url: '/ram/home#SharedResourceShares:'
+    - id: sharedresources
+      name: Shared resources
+      url: '/ram/home#SharedResources:'
+    - id: sharedprincipals
+      name: Shared principals
+      url: '/ram/home#SharedPrincipals:'
+    - id: permissionslibrary
+      name: Permissions library
+      url: '/ram/home#Permissions:'
+    - id: settings
+      name: Settings
+      url: '/ram/home#Settings:'
+
+- id: robomaker
+  name: RoboMaker
+  description: Develop, test, and deploy intelligent robotics applications
+  url: /robomaker/home#ides
+  sub_services:
+    - id: developmentenvironments
+      name: Development environments
+      url: /robomaker/home#ides
+    - id: robotapplications
+      name: Robot applications
+      url: /robomaker/home#robotApplications
+    - id: simulationapplications
+      name: Simulation applications
+      url: /robomaker/home#simulationApplications
+    - id: worldtemplates
+      name: World templates
+      url: /robomaker/home#worldTemplates
+    - id: worlds
+      name: Worlds
+      url: /robomaker/home#worlds
+    - id: generationjobs
+      name: Generation jobs
+      url: /robomaker/home#worldGenerationJobs
+    - id: exportjobs
+      name: Export jobs
+      url: /robomaker/home#worldExportJobs
+    - id: simulationjobs
+      name: Simulation jobs
+      url: /robomaker/home#simulationJobs
+    - id: simulationjobbatches
+      name: Simulation job batches
+      url: /robomaker/home#simulationJobBatches
+    - id: robots
+      name: Robots
+      url: /robomaker/home#robots
+    - id: fleets
+      name: Fleets
+      url: /robomaker/home#fleets
+    - id: deployments
+      name: Deployments
+      url: /robomaker/home#deployments
+    - id: sampleapplications
+      name: Sample applications
+      url: /robomaker/home#sampleSimulationJobs
+
+- id: route53
+  name: Route 53
+  description: Scalable DNS and Domain Name Registration
+  globally: true
+  url: "/route53/v2/home#Dashboard"
+  weight: 6
+  sub_services:
+    - id: dashboard
+      name: "Dashboard"
+      url: "/route53/v2/home#Dashboard"
+    - id: hostedzones
+      name: "Hosted zones"
+      url: "/route53/v2/hostedzones#"
+    - id: healthchecks
+      name: "Health checks"
+      url: "/route53/healthchecks/home#"
+    - id: trafficpolicies
+      name: "Traffic policies"
+      url: "/route53/trafficflow/home#"
+    - id: policyrecords
+      name: "Policy records"
+      url: "/route53/trafficflow/home#/records"
+    - id: registereddomains
+      name: "Registered domains"
+      url: "/route53/home#DomainListing:"
+    - id: domainrequests
+      name: "Pending requests"
+      url: "/route53/home#DomainRequests:"
+
+- id: s3
+  name: Simple Storage Service
+  short_name: S3
+  description: Scalable Storage in the Cloud
+  globally: true
+  url: /s3/home
+  weight: 9
+  top20: true
+  sub_services:
+    - id: buckets
+      name: Buckets
+      url: "/s3/home"
+    - id: batchoperations
+      name: Batch Operations
+      url: "/s3/jobs"
+    - id: accessanalyzer
+      name: Access Analyzer
+      url: "/s3/access"
+    - id: settings
+      name: Account settings
+      url: "/s3/settings"
+
+- id: sagemaker
+  name: SageMaker
+  description: Build, Train, and Deploy Machine Learning Models
+  url: "/sagemaker/home#"
+  weight: 6
+  top20: true
+
+- id: secretsmanager
+  name: Secrets Manager
+  description: Easily rotate, manage, and retrieve secrets throughout their lifecycle
+  url: "/secretsmanager/home#!/listSecrets"
+  weight: 6
+
+- id: securityhub
+  name: Security Hub
+  description: AWS’s security and compliance center
+  url: "/securityhub/home#"
+
+- id: serverlessrepo
+  name: Serverless Application Repository
+  description: Assemble, deploy, and share serverless applications within teams or publicly
+  url: /serverlessrepo/home#/available-applications
+  sub_services:
+    - id: availableapplications
+      name: Available applications
+      url: /serverlessrepo/home#/available-applications
+    - id: publishedapplications
+      name: Published applications
+      url: /serverlessrepo/home#/published-applications
+
+- id: servermigrationservice
+  name: Server Migration Service
+  description: Migrate on-premises servers to AWS
+  url: "/servermigration/home#"
+  weight: 6
+
+- id: servicecatalog
+  name: Service Catalog
+  description: allows organizations to manage approved catalogs of IT resources and make them available to employees via a personalized portal.
+  url: /servicecatalog/home#products
+  sub_services:
+    - id: products
+      name: Products
+      url: /servicecatalog/home#products
+    - id: provisionedproducts
+      name: Provisioned products
+      url: /servicecatalog/home#provisioned-products
+    - id: gettingstartedlibrary
+      name: Getting started library
+      url: /servicecatalog/home#getting-started-library
+    - id: adminproducts
+      name: Admin products
+      url: /servicecatalog/home#admin-products
+    - id: portfolios
+      name: Portfolios
+      url: /servicecatalog/home#portfolios
+    - id: tagoptionslibrary
+      name: TagOptions library
+      url: /servicecatalog/home#tag-options
+    - id: serviceactions
+      name: Service actions
+      url: /servicecatalog/home#service-actions/
+    - id: preferences
+      name: Preferences
+      url: /servicecatalog/home#preferences
+    - id: introduction
+      name: Introduction
+      url: /servicecatalog/home#appregistry
+    - id: applications
+      name: Applications
+      url: /servicecatalog/home#applications/
+    - id: attributegroups
+      name: Attribute groups
+      url: /servicecatalog/home#attribute-groups/
+
+- id: ses
+  name: Simple Email Service
+  short_name: SES
+  description: Email Sending and Receiving Service
+  url: "/ses/home#"
+
+- id: swf
+  name: Simple Workflow Service
+  short_name: SWF
+  description: Workflow Service for Coordinating Application Components
+  url: "/swf/home#"
+
+- id: transfer
+  name: Transfer for SFTP
+  description: Fully-managed SFTP service for Amazon S3
+  url: "/transfer/home#"
+
+- id: singlesignon
+  name: Single Sign-On
+  short_name: SSO
+  description: Manage Single Sign-On (SSO) Access to AWS Accounts and Business Applications
+  url: "/singlesignon/home#"
+
+- id: snowfamily
+  name: Snow Family
+  description: Process data at the edge and migrate data into and out of AWS
+  search_terms:
+    - snowball
+    - snowcone
+    - snowmobile
+  url: /snowfamily/home#/jobs
+  sub_services:
+    - id: jobs
+      name: Jobs
+      url: /snowfamily/home#/jobs
+    - id: createjob
+      name: Create job
+      url: /snowfamily/home#/change-request/create
+    - id: prepaidjobs
+      name: Prepaid jobs
+      url: /snowfamily/home#/prepaidjobs
+
+
+- id: sns
+  name: Simple Notification Service
+  short_name: SNS
+  description: SNS Pub/Sub, Mobile Push and SMS
+  url: "/sns/v3/home#/dashboard"
+  weight: 8
+  top20: true
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: "/sns/v3/home#/dashboard"
+    - id: topics
+      name: Topics
+      url: "/sns/v3/home#/topics"
+    - id: subscriptions
+      name: Subscriptions
+      url: "/sns/v3/home#/subscriptions"
+    - id: pushnotifications
+      name: Push Notifications
+      url: "/sns/v3/home#/mobile/push-notifications"
+    - id: textmessaging
+      name: Text Messaging (SMS)
+      url: "/sns/v3/home#/mobile/text-messaging"
+    - id: originationnumbers
+      name: Origination numbers
+      url: "/sns/v3/home#/mobile/origination-identities"
+
+- id: sqs
+  name: Simple Queue Service
+  short_name: SQS
+  description: SQS Managed Message Queues
+  url: "/sqs/v2/home#/queues"
+  weight: 8
+  top20: true
+  sub_services:
+    - id: queues
+      name: Queues
+      url: "/sqs/v2/home#/queues"
+
+- id: stepfunctions
+  name: Step Functions
+  description: Coordinate Distributed Applications
+  url: /states/home#/statemachines
+  weight: 6
+  sub_services:
+    - id: statemachines
+      name: State machines
+      url: /states/home#/statemachines
+    - id: activities
+      name: Activities
+      url: /states/home#/activities
+    - id: dataflowsimulator
+      name: Data flow simulator
+      url: /states/home#/simulator
+    - id: featurespotlight
+      name: Feature spotlight
+      url: /states/home#/spotlight
+    - id: localdevelopment
+      name: Local Development
+      url: /states/home#/local-development
+
+- id: mwaa
+  name: Amazon Managed Workflows for Apache Airflow
+  short_name: mwaa
+  description: Run Apache Airflow without provisioning or managing servers
+  url: /mwaa/home#home?landingPageCheck=1
+  weight: 3
+
+- id: storagegateway
+  name: Storage Gateway
+  description: Hybrid Storage Integration
+  url: /storagegateway/home#/gateways
+  sub_services:
+    - id: gateways
+      name: Gateways
+      url: /storagegateway/home#/gateways
+    - id: fileshares
+      name: File shares
+      url: /storagegateway/home#/file-shares
+    - id: filesystems
+      name: FSx file systems
+      url: /storagegateway/home#/file-systems
+    - id: volumes
+      name: Volumes
+      url: /storagegateway/home#/volumes
+    - id: pools
+      name: Pools
+      url: /storagegateway/home#/pools
+    - id: tapes
+      name: Tapes
+      url: /storagegateway/home#/tapes
+    - id: hardware
+      name: Hardware
+      url: /storagegateway/home#/hardware
+
+- id: sumerian
+  name: Sumerian
+  description: Build VR, AR, and 3D applications
+  url: "/sumerianv2/home#"
+
+- id: systemsmanager
+  name: Systems Manager
+  short_name: ssm
+  description: Gain operational insights and take action on AWS resources
+  url: /systems-manager/explorer#
+  weight: 6
+  sub_services:
+    - id: explorer
+      name: Explorer
+      url: /systems-manager/explorer#
+    - id: opscenter
+      name: OpsCenter
+      url: /systems-manager/opsitems#
+    - id: cloudwatchdashboard
+      name: CloudWatch Dashboard
+      url: /systems-manager/resource-groups/cloudwatch#
+    - id: phd
+      name: PHD
+      url: /systems-manager/insights/personalHealthDashboard#
+    - id: incidentmanager
+      name: Incident Manager
+      url: /systems-manager/incidents/home#
+    - id: applicationmanager
+      name: Application Manager
+      url: /systems-manager/appmanager#
+    - id: appconfig
+      name: AppConfig
+      url: /systems-manager/appconfig#
+    - id: parameterstore
+      name: Parameter Store
+      url: /systems-manager/parameters#
+    - id: changemanager
+      name: Change Manager
+      url: /systems-manager/change-manager#
+    - id: automation
+      name: Automation
+      url: /systems-manager/automation#
+    - id: changecalendar
+      name: Change Calendar
+      url: /systems-manager/change-calendar#
+    - id: maintenancewindows
+      name: Maintenance Windows
+      url: /systems-manager/maintenance-windows#
+    - id: fleetmanager
+      name: Fleet Manager
+      url: /systems-manager/managed-instances#
+    - id: compliance
+      name: Compliance
+      url: /systems-manager/compliance#
+    - id: inventory
+      name: Inventory
+      url: /systems-manager/inventory#
+    - id: hybridactivations
+      name: Hybrid Activations
+      url: /systems-manager/activations#
+    - id: sessionmanager
+      name: Session Manager
+      url: /systems-manager/session-manager#
+    - id: runcommand
+      name: Run Command
+      url: /systems-manager/run-command#
+    - id: statemanager
+      name: State Manager
+      url: /systems-manager/state-manager#
+    - id: patchmanager
+      name: Patch Manager
+      url: /systems-manager/patch-manager#
+    - id: distributor
+      name: Distributor
+      url: /systems-manager/distributor#
+
+- id: support
+  name: Support
+  description: Support the success and operational health of your AWS solutions
+  globally: true
+  url: /support/home
+
+- id: transcribe
+  name: Transcribe
+  description: Powerful Speech Recognition
+  url: "/transcribe/home#"
+
+- id: translate
+  name: Translate
+  description: Translate Text in Real-time
+  url: /translate/home#metrics
+  sub_services:
+    - id: metrics
+      name: Metrics
+      url: /translate/home#metrics
+    - id: realtimetranslation
+      name: Real-time translation
+      url: /translate/home#translation
+    - id: batchtranslation
+      name: Batch translation
+      url: /translate/home#batch-translation
+    - id: customterminology
+      name: Custom terminology
+      url: /translate/home#terminology
+    - id: paralleldata
+      name: Parallel data
+      url: /translate/home#parallel-data
+
+- id: trustedadvisor
+  name: Trusted Advisor
+  description: Optimize Performance and Security
+  globally: true
+  url: /trustedadvisor/home#/dashboard
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: /trustedadvisor/home#/dashboard
+    - id: costoptimization
+      name: Cost Optimization
+      url: /trustedadvisor/home#/category/cost-optimizing
+    - id: performance
+      name: Performance
+      url: /trustedadvisor/home#/category/performance
+    - id: security
+      name: Security
+      url: /trustedadvisor/home#/category/security
+    - id: faulttolerance
+      name: Fault Tolerance
+      url: /trustedadvisor/home#/category/fault-tolerance
+    - id: servicelimits
+      name: Service Limits
+      url: /trustedadvisor/home#/category/service-limits
+    - id: preferences
+      name: Preferences
+      url: /trustedadvisor/home#/preferences
+
+- id: vpc
+  name: Virtual Private Cloud
+  description: Isolated Cloud Resources
+  url: "/vpc/home#dashboard:"
+  weight: 9
+  top20: true
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: "/vpc/home#dashboard:"
+    - id: vpcs
+      name: Your VPCs
+      url: "/vpc/home#vpcs:"
+    - id: subnets
+      name: Subnets
+      url: "/vpc/home#subnets:"
+    - id: routetables
+      name: Route Tables
+      url: "/vpc/home#RouteTables:"
+    - id: internetgateways
+      name: Internet Gateways
+      url: "/vpc/home#igws:"
+    - id: egressonlyinternetgateways
+      name: Egress Only Internet Gateways
+      url: "/vpc/home#EgressOnlyInternetGateways:"
+    - id: carrier gateways
+      name: Carrier Gateways
+      url: "/vpc/home#CarrierGateways:"
+    - id: dhcpoptions
+      name: DHCP Options Sets
+      url: "/vpc/home#dhcpOptions:"
+    - id: elasticips
+      name: Elastic IPs
+      url: "/vpc/home#Addresses:"
+    - id: managedprefixlists
+      name: Managed Prefix Lists
+      url: "/vpc/home#ManagedPrefixLists:"
+    - id: endpoints
+      name: Endpoints
+      url: "/vpc/home#Endpoints:"
+    - id: endpointservices
+      name: Endpoint Services
+      url: "/vpc/home#EndpointServices:"
+    - id: natgateways
+      name: NAT Gateways
+      url: "/vpc/home#NatGateways:"
+    - id: peeringconnections
+      name: Peering Connections
+      url: "/vpc/home#PeeringConnections:"
+    - id: networkacls
+      name: Network ACLs
+      url: "/vpc/home#acls:"
+    - id: securitygroups
+      name: Security Groups
+      url: "/vpc/home#SecurityGroups:"
+    - id: reachabilityanalyzer
+      name: Reachability Analyzer
+      url: "/vpc/home#ReachabilityAnalyzer:"
+    - id: rulegroups
+      name: Rule Groups
+      url: "/vpc/home#DNSFirewallRuleGroups:"
+    - id: domainlists
+      name: Domain Lists
+      url: "/vpc/home#DNSFirewallDomainLists:"
+    - id: firewalls
+      name: Firewalls
+      url: "/vpc/home#NetworkFirewalls:"
+    - id: firewallpolicies
+      name: Firewall policies
+      url: "/vpc/home#NetworkFirewallPolicies:"
+    - id: networkfirewallrulegroups
+      name: Network Firewall rule groups
+      url: "/vpc/home#NetworkFirewallRuleGroups:"
+    - id: customergateways
+      name: Customer Gateways
+      url: "/vpc/home#CustomerGateways:"
+    - id: virtualprivategateways
+      name: Virtual Private Gateways
+      url: "/vpc/home#VpnGateways:"
+    - id: vpnconnections
+      name: Site-to-Site VPN Connections
+      url: "/vpc/home#VpnConnections:"
+    - id: clientvpnendpoints
+      name: Client VPN Endpoints
+      url: "/vpc/home#ClientVPNEndpoints:"
+    - id: transitgateways
+      name: Transit Gateways
+      url: "/vpc/home#TransitGateways:"
+    - id: transitgatewayattachments
+      name: Transit Gateway Attachments
+      url: "/vpc/home#TransitGatewayAttachments:"
+    - id: transitgatewayroutetables
+      name: Transit Gateway Route Tables
+      url: "/vpc/home#TransitGatewayRouteTables:"
+    - id: transitgatewaymulticast
+      name: Transit Gateway Multicast
+      url: "/vpc/home#TransitGatewayMulticastDomains:"
+    - id: networkmanager
+      name: Network Manager
+      url: "/vpc/home#networkmanager:"
+    - id: mirrorsessions
+      name: Mirror Sessions
+      url: "/vpc/home#TrafficMirrorSessions:"
+    - id: mirrortargets
+      name: Mirror Targets
+      url: "/vpc/home#TrafficMirrorTargets:"
+    - id: mirrorfilters
+      name: Mirror Filters
+      url: "/vpc/home#TrafficMirrorFilters:"
+    - id: settings
+      name: Settings
+      url: "/vpc/home#Settings:"
+
+
+- id: waf
+  name: Web Application Firewall & Shield
+  short_name: WAF
+  description: Protects Against DDoS Attacks and Malicious Web Traffic
+  globally: true
+  url: "/wafv2/homev2/web-acls"
+  sub_services:
+    - id: webacls
+      name: Web ACLs
+      url: "/wafv2/homev2/web-acls"
+    - id: ipsets
+      name: IP sets
+      url: "/wafv2/homev2/ip-sets"
+    - id: regexpatternsets
+      name: Regex pattern sets
+      url: "/wafv2/homev2/regex-pattern-sets"
+    - id: rulegroups
+      name: Rule groups
+      url: "/wafv2/homev2/rule-groups"
+    - id: marketplace
+      name: AWS Marketplace
+      url: "/wafv2/homev2/marketplace"
+
+- id: wellarchitectedtool
+  name: Well-Architected Tool
+  description: Learn best practices, measure, and improve your workloads
+  url: /wellarchitected/home#/dashboard
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: /wellarchitected/home#/dashboard
+    - id: workloadinvitations
+      name: Workload invitations
+      url: /wellarchitected/home#/invitations
+    - id: workloads
+      name: Workloads
+      url: /wellarchitected/home#/workloads
+
+- id: worklink
+  name: WorkLink
+  description: Enable secure mobile access to internal websites and web apps
+  url: "/worklink/home#/fleets"
+
+- id: workmail
+  name: WorkMail
+  description: Secure Email and Calendaring Service
+  url: "/workmail/v2/home#/organizations"
+
+- id: workspaces
+  name: WorkSpaces
+  description: Desktops in the Cloud
+  url: "/workspaces/home#"
+
+- id: xray
+  name: X-Ray
+  description: Analyze and Debug Your Applications
+  url: "/xray/home#"
+
+- id: appmesh
+  name: App Mesh
+  description: Application-level networking for all your services
+  url: "/appmesh/meshes#"
+
+- id: augmentedai
+  name: Augmented AI
+  description: Easy implement human review of machine learning predictions
+  url: "/a2i/home#"
+
+- id: braket
+  name: Braket
+  description: Explore and experiment with quantum computing
+  url: /braket/home#/devices
+  sub_services:
+    - id: devices
+      name: Devices
+      url: /braket/home#/devices
+    - id: notebooks
+      name: Notebooks
+      url: /braket/home#/notebooks
+    - id: tasks
+      name: Tasks
+      url: /braket/home#/tasks
+    - id: announcements
+      name: Announcements
+      url: /braket/home#/announcements
+
+- id: mcs
+  name: Keyspaces (for Apache Cassandra)
+  description: A scalable, highly available, and managed Apache Cassandra–compatible database service
+  url: /keyspaces/home#dashboard
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: /keyspaces/home#dashboard
+    - id: keyspaces
+      name: Keyspaces
+      url: /keyspaces/home#keyspaces
+    - id: tables
+      name: Tables
+      url: /keyspaces/home#tables
+    - id: cqleditor
+      name: CQL editor
+      url: /keyspaces/home#cql-editor
+
+- id: codeguru
+  name: CodeGuru
+  description: Intelligent recommendations for building and running modern applications
+  url: /codeguru/dashboard#
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: /codeguru/dashboard#
+    - id: ciworkflows
+      name: CI workflows
+      url: /codeguru/reviewer/#/ciworkflows
+    - id: repositories
+      name: Repositories
+      url: /codeguru/reviewer/#/associations
+    - id: codereviews
+      name: Code reviews
+      url: /codeguru/reviewer/#/codereviews
+    - id: profilinggroups
+      name: Profiling groups
+      url: /codeguru/profiler/search#
+
+- id: computeoptimizer
+  name: Compute Optimizer
+  description: Recommend optimal AWS Compute resources for your workloads
+  globally: true
+  url: /compute-optimizer/home
+
+- id: deepracer
+  name: DeepRacer
+  description: Fully autonomous 1/18th scale race car, driven by machine learning
+  url: /deepracer/home#league
+  sub_services:
+    - id: awsvirtualcircuit
+      name: AWS Virtual Circuit
+      url: /deepracer/home#league
+    - id: communityraces
+      name: Community races
+      url: /deepracer/home#communityRaces
+    - id: racerprofile
+      name: Your racer profile
+      url: /deepracer/home#racerProfile
+    - id: models
+      name: Your models
+      url: /deepracer/home#models
+    - id: garage
+      name: Your garage
+      url: /deepracer/home#garage
+
+- id: detective
+  name: Detective
+  description: Investigate and analyse possible security issues
+  url: "/detective/home#"
+
+- id: ec2imagebuilder
+  name: EC2 Image Builder
+  description: A managed service to automate build, customize and deploy OS images
+  url: /imagebuilder/home#/pipelines
+  sub_services:
+    - id: imagepipelines
+      name: Image pipelines
+      url: /imagebuilder/home#/pipelines
+    - id: images
+      name: Images
+      url: /imagebuilder/home#/images
+    - id: components
+      name: Components
+      url: /imagebuilder/home#/components
+    - id: imagerecipes
+      name: Image recipes
+      url: /imagebuilder/home#/imageRecipes
+    - id: containerrecipes
+      name: Container recipes
+      url: /imagebuilder/home#/containerRecipes
+    - id: infrastructureconfiguration
+      name: Infrastructure configuration
+      url: /imagebuilder/home#/infraConfigurations
+    - id: distributionsettings
+      name: Distribution settings
+      url: /imagebuilder/home#/distributionSettings
+
+- id: frauddetector
+  name: Fraud Detector
+  description: Detect more online fraud faster with machine learning
+  url: /frauddetector/home#getDetectors
+  sub_services:
+    - id: detectors
+      name: Detectors
+      url: /frauddetector/home#getDetectors
+    - id: models
+      name: Models
+      url: /frauddetector/home#getModels
+    - id: events
+      name: Events
+      url: /frauddetector/home#getEventTypes
+    - id: entities
+      name: Entities
+      url: /frauddetector/home#entityTypes
+    - id: outcomes
+      name: Outcomes
+      url: /frauddetector/home#getOutcomes
+    - id: labels
+      name: Labels
+      url: /frauddetector/home#getLabels
+    - id: variables
+      name: Variables
+      url: /frauddetector/home#getVariables
+    - id: searchpastpredictions
+      name: Search past predictions
+      url: /frauddetector/home#auditEvaluations
+    - id: batchpredictions
+      name: Batch predictions
+      url: /frauddetector/home#getBatchPredictions
+
+- id: kendra
+  name: Kendra
+  description: Highly accurate enterprise search powered by machine learning
+  url: "/kendra/home#indexes"
+
+- id: qldb
+  name: QLDB
+  description: Fully managed ledger database
+  url: /qldb/home#ledger-list
+  sub_services:
+    - id: ledgers
+      name: Ledgers
+      url: /qldb/home#ledger-list
+    - id: queryeditor
+      name: Query editor
+      url: /qldb/home#query-editor
+    - id: streams
+      name: Streams
+      url: /qldb/home#stream-list
+    - id: export
+      name: Export
+      url: /qldb/home#export-job-list
+    - id: verification
+      name: Verification
+      url: /qldb/home#verification
+
+- id: outpost
+  name: Outposts
+  description: Run AWS Services On Premises
+  url: /outposts/home#Outposts
+  sub_services:
+    - id: outposts
+      name: Outposts
+      url: /outposts/home#Outposts
+    - id: sites
+      name: Sites
+      url: /outposts/home#Sites
+    - id: localgateways
+      name: Local gateways
+      url: /outposts/home#LocalGateways
+    - id: localgatewayroutetables
+      name: Local gateway route tables
+      url: /outposts/home#LocalGatewayRouteTables
+    - id: orders
+      name: Orders
+      url: /outposts/home#Orders
+    - id: outpostscatalog
+      name: Outposts catalog
+      url: /outposts/home#Catalog
+
+- id: iq
+  name: IQ
+  description: Complete projects faster with help from third-party AWS Certified experts
+  url: https://iq.aws.amazon.com/
+
+- id: chatbot
+  name: Chatbot
+  description: ChatOps for AWS
+  globally: true
+  url: /chatbot/home#/chat-clients
+  sub_services:
+    - id: configuredclients
+      name: Configured clients
+      url: /chatbot/home#/chat-clients
+    - id: amazonchime
+      name: Amazon Chime
+      url: /chatbot/home#/chat-clients/chime/configurations
+
+- id: launchwizard
+  name: Launch Wizard
+  description: Size, configure, and deploy third-party applications on AWS
+  url: /launchwizard/home#SqlDeployment
+  sub_services:
+    - id: mssqlserver
+      name: MS SQL Server
+      url: /launchwizard/home#SqlDeployment
+    - id: sap
+      name: SAP
+      url: /launchwizard/home#SapDeployment
+    - id: activedirectory
+      name: Active Directory
+      url: /launchwizard/home#AdDeployment
+
+- id: status
+  name: Status
+  description: Get a personalized view of AWS service health
+  url: https://status.aws.amazon.com/

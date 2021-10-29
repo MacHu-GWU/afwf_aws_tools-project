@@ -20,3 +20,5 @@ idna==2.10
 chardet==4.0.0
 requests==2.25.1
 typing==3.7.4.3
+whoosh==2.7.4
+PyYAML==5.4.1
