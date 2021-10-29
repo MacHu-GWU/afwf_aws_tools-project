@@ -8,13 +8,11 @@ region = us-east-1
 output = json
 
 [profile p2]
-region = us-east-1
+region = us-east-2
 output = json
+role_arn = arn:aws:iam::111122223333:role/fake-role-name
+source_profile = p1 # comment for p2
 
 [profile p3]
-region = us-east-1
-output = json
-
-[profile default]
-region = us-east-1
+region = us-east-3
 output = json
