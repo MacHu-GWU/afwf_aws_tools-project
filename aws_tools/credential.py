@@ -58,7 +58,7 @@ import typing
 import ConfigParser
 from .paths import (
     PATH_DEFAULT_AWS_CONFIG_FILE,
-    PATH_DEFAULT_AWS_CREDENTIAL_FILE,
+    PATH_DEFAULT_AWS_CREDENTIALS_FILE,
 )
 
 
@@ -67,6 +67,18 @@ class SectionNotFoundError(ValueError):
     Raise when failed to access a section in a named config file.
     """
     pass
+
+
+def load_config(config_file):
+    """
+    Use ConfigParser standard lib to load a config file.
+
+    :rtype: ConfigParser.ConfigParser
+    """
+
+    config = ConfigParser.ConfigParser()
+    config.read(config_file)
+    return config
 
 
 def read_all_section_name(config_file):
@@ -79,49 +91,8 @@ def read_all_section_name(config_file):
     :rtype: typing.List[str]
     :return:
     """
-    config = ConfigParser.ConfigParser()
-    config.read(config_file)
+    config = load_config(config_file)
     return config.sections()
-
-
-def read_all_profile_name_from_credential_file(
-        aws_credential_file=PATH_DEFAULT_AWS_CREDENTIAL_FILE.abspath
-):
-    """
-    Return the list of all section name in ~/.aws/credential file.
-    """
-    return read_all_section_name(aws_credential_file)
-
-
-def read_all_profile_name_from_config_file(
-        aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath
-):
-    """
-    Return the list of all section name in ~/.aws/config file.
-    """
-    return read_all_section_name(aws_config_file)
-
-
-def read_all_aws_profile(aws_credential_file=PATH_DEFAULT_AWS_CREDENTIAL_FILE.abspath):
-    """
-    Return list of aws profile detected in
-
-    :type aws_credential_file: str
-    :rtype: list[str]
-    :return:
-    """
-    aws_credential = ConfigParser.ConfigParser()
-    aws_credential.read(aws_credential_file)
-
-    aws_profile_list = list()  # type: list[str]
-
-    aws_credential_sections = aws_credential.sections()
-
-    for cred_section_name in aws_credential_sections:
-        aws_profile = cred_section_name
-        aws_profile_list.append(aws_profile)
-
-    return aws_profile_list
 
 
 def replace_section(config_file,
@@ -288,7 +259,32 @@ def overwrite_section(config_file,
         f.write("\n".join(new_lines).encode("utf-8"))
 
 
-def mfa_auth(aws_profile, mfa_code, hours=12):  # pragma: no cover
+def set_named_profile_as_default(
+        aws_profile,
+        aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
+        aws_credentials_file=PATH_DEFAULT_AWS_CREDENTIALS_FILE.abspath
+):  # pragma: no cover
+    if aws_profile == "default":
+        return
+    replace_section(
+        config_file=aws_config_file,
+        source_section_name="profile {}".format(aws_profile),
+        target_section_name="default",
+    )
+    replace_section(
+        config_file=aws_credentials_file,
+        source_section_name=aws_profile,
+        target_section_name="default",
+    )
+
+
+def mfa_auth(
+        aws_profile,
+        mfa_code,
+        hours=12,
+        aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
+        aws_credentials_file=PATH_DEFAULT_AWS_CREDENTIALS_FILE.abspath,
+):  # pragma: no cover
     """
     Given a root ``aws_profile``, do MFA authentication with ``mfa_code``,
     create / update the new aws profile ``${aws_profile}_mfa`` using the returned
@@ -330,14 +326,14 @@ def mfa_auth(aws_profile, mfa_code, hours=12):  # pragma: no cover
         ("aws_session_token", aws_session_token),
     ]
     overwrite_section(
-        config_file=PATH_DEFAULT_AWS_CREDENTIAL_FILE.abspath,
+        config_file=aws_credentials_file,
         section_name=new_aws_profile,
         data=data,
     )
 
     # update ~/.aws/config file
     replace_section(
-        config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
+        config_file=aws_config_file,
         source_section_name="profile {}".format(aws_profile),
         target_section_name="profile {}_mfa".format(aws_profile),
     )

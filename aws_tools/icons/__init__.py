@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from pathlib_mate import Path
+import workflow
+from ..paths import DIR_ICONS
 
 HERE = Path(__file__).parent
-DIR_ICONS = HERE.parent.parent.change(new_dirname="icons")
 
 
 class Icons:
@@ -709,9 +710,16 @@ class Icons:
 
     @classmethod
     def abspath(cls, filename):
+        """
+        :rtype: str
+        """
         return Path(DIR_ICONS, filename).abspath
 
 
 class HotIcons:
     aws = Path(HERE, "aws.png").abspath
     iam = Icons.abspath(Icons.Arch_AWS_Identity_and_Access_Management)
+
+    help = workflow.ICON_HELP
+    info = workflow.ICON_INFO
+    error = workflow.ICON_ERROR

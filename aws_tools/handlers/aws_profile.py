@@ -2,27 +2,82 @@
 
 from __future__ import unicode_literals
 import workflow
+import typing
+from pathlib_mate import Path
+from ..cache import cache, CacheKeys
 from ..icons import HotIcons
 from ..credential import (
     PATH_DEFAULT_AWS_CONFIG_FILE,
-    PATH_DEFAULT_AWS_CREDENTIAL_FILE,
-    read_all_profile_name_from_credential_file,
-    read_all_profile_name_from_config_file,
+    PATH_DEFAULT_AWS_CREDENTIALS_FILE,
+    read_all_section_name,
     replace_section,
-    overwrite_section,
+    set_named_profile_as_default,
     mfa_auth,
 )
 from ..constants import (
     all_regions, FollowUpActionKey,
 )
 from ..settings import settings, SettingKeys
+from fuzzywuzzy import process
 
 
 class AWSProfileHandlers:
-    aws_config_file = PATH_DEFAULT_AWS_CONFIG_FILE
-    aws_credential_file = PATH_DEFAULT_AWS_CREDENTIAL_FILE
+    aws_config_file = PATH_DEFAULT_AWS_CONFIG_FILE  # type: Path
+    aws_credentials_file = PATH_DEFAULT_AWS_CREDENTIALS_FILE  # type: Path
 
-    def select_aws_profile(self, wf, query_str=None):
+    def _read_aws_profile_from_config(self):
+        """
+        :rtype: typing.List[str]
+        """
+        aws_profile_list_from_config = read_all_section_name(self.aws_config_file.abspath)
+        aws_profile_list_from_config = [
+            aws_profile[8:] if aws_profile.startswith("profile ") else aws_profile
+            for aws_profile in aws_profile_list_from_config
+        ]
+        return aws_profile_list_from_config
+
+    # ------- aws-set-default-profile keyword implementation ---
+    def mh_set_default_aws_profile(self, wf, query_str):
+        set_named_profile_as_default(aws_profile=query_str)
+        return wf
+
+    def ib_select_aws_profile_for_default(self, wf, list_of_profile):
+        wf.setvar("action", FollowUpActionKey.run_script)
+        for aws_profile in list_of_profile:
+            wf.add_item(
+                title=aws_profile,
+                subtitle="set the default profile to: [{}]".format(aws_profile),
+                autocomplete=aws_profile,
+                arg="{} {}".format(
+                    self.mh_set_default_aws_profile.__name__,
+                    aws_profile,
+                ),
+                icon=HotIcons.iam,
+                valid=True,
+            )
+        return wf
+
+    def sh_show_all_aws_profile(self, wf, item_builder):
+        """
+        :type item_builder: callable
+        """
+        aws_profile_list_from_config = self._read_aws_profile_from_config()
+        item_builder(wf, aws_profile_list_from_config)
+        return wf
+
+    def sh_show_filtered_aws_profile(self, wf, query_str, item_builder):
+        """
+        :type item_builder: callable
+        """
+        aws_profile_list_from_config = self._read_aws_profile_from_config()
+        filtered_aws_profile_list = [
+            tp[0]
+            for tp in process.extract(query_str.strip(), aws_profile_list_from_config, limit=20)
+        ]
+        item_builder(wf, filtered_aws_profile_list)
+        return wf
+
+    def mh_select_aws_profile_to_set_as_default(self, wf, query_str):
         """
         Return list of available aws named profile to select.
 
@@ -31,54 +86,152 @@ class AWSProfileHandlers:
         :type wf: workflow.Workflow3
         :type args: list[str]
         """
-        if args is None:
-            args = wf.args[1:]
-
-        n_args = len(args)
-
-        # Case: /usr/bin/python main.py select_profile
-        if n_args == 0:
-            aws_profile_list_from_credential = read_all_profile_name_from_credential_file()
-            aws_profile_list_from_config = read_all_profile_name_from_config_file()
-            good_item_lst = list()
-            bad_item_lst = list()
-            for aws_profile in aws_profile_list_from_credential:
-                aws_profile_in_config = aws_profile if aws_profile == "default" else "profile {}".format(aws_profile)
-                if aws_profile_in_config not in aws_profile_list_from_config:
-                    item_dct = dict(
-                        title="[{}] not found in config file".format(aws_profile_in_config),
-                        subtitle="Open ~/.aws/config file",
-                        autocomplete=aws_profile,
-                        arg=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
-                        valid=True,
-                        icon=workflow.ICON_ERROR,
-                    )
-                    bad_item_lst.append(item_dct)
-                else:
-                    item_dct = dict(
-                        title=aws_profile,
-                        subtitle="set current aws named profile to: [{}]".format(aws_profile),
-                        autocomplete=aws_profile,
-                        arg="{} {}".format(
-                            set_default_profile.__name__,
-                            aws_profile,
-                        ),
-                        valid=True,
-                        icon=icons.ICON_IAM,
-                    )
-                    good_item_lst.append(item_dct)
-
-            for item_dct in good_item_lst:
-                wf.setvar("action", FollowUpActionKey.run_script)
-                wf.add_item(**item_dct)
-
-            for item_dct in bad_item_lst:
-                wf.setvar("action", FollowUpActionKey.open_file)
-                wf.add_item(**item_dct)
-
+        if bool(query_str) is False:
+            self.sh_show_all_aws_profile(
+                wf,
+                item_builder=self.ib_select_aws_profile_for_default,
+            )
+        else:
+            self.sh_show_filtered_aws_profile(
+                wf,
+                query_str,
+                item_builder=self.ib_select_aws_profile_for_default,
+            )
         return wf
 
+    # ------- aws-mfa-auth keyword implementation ---
+    def mh_execute_mfa_auth(self, wf, query_str):
+        """
+        Update the ~/.aws/credentials and ~/.aws/config file, create / update
+        the new mfa profile
+
+        :type wf: workflow.Workflow3
+        :type query_str: str
+        """
+        args = query_str.split(" ")
+        if len(args) == 2:
+            profile_name, mfa_token = args
+            mfa_auth(aws_profile=profile_name, mfa_code=mfa_token)
+        else:
+            raise ValueError()
+        return wf
+
+    def ib_select_aws_profile_for_mfa(self, wf, list_of_profile):
+        wf.setvar("action", FollowUpActionKey.run_script)
+        for aws_profile in list_of_profile:
+            wf.add_item(
+                title=aws_profile,
+                subtitle="Use base profile [{}] for MFA auth".format(aws_profile),
+                autocomplete="{} ".format(aws_profile),
+                arg="{} {}".format(
+                    self.mh_execute_mfa_auth.__name__,
+                    aws_profile,
+                ),
+                icon=HotIcons.iam,
+                valid=True,
+            )
+        return wf
+
+    def mh_select_aws_profile_for_mfa_auth(self, wf, query_str):
+        if bool(query_str) is False:
+            self.sh_show_all_aws_profile(
+                wf,
+                item_builder=self.ib_select_aws_profile_for_mfa,
+            )
+            return wf
+
+        args = query_str.split(" ")
+        if len(args) == 1:
+            self.sh_show_filtered_aws_profile(
+                wf,
+                query_str,
+                item_builder=self.ib_select_aws_profile_for_mfa,
+            )
+        elif len(args) == 2:
+            profile_name, mfa_token = args
+            aws_profile_list_from_config = cache.fast_get(
+                key=CacheKeys.aws_profile_list_from_config,
+                callable=self._read_aws_profile_from_config,
+                expire=10,
+            )
+            if profile_name not in aws_profile_list_from_config:  # example: "a_invalid_profile a_mfa_token"
+                # display helper info
+                wf.add_item(
+                    title="'{}' is not a valid named profile!".format(profile_name),
+                    subtitle="below is list of valid profile",
+                    icon=workflow.ICON_ERROR,
+                    valid=True,
+                )
+                for _profile_name in aws_profile_list_from_config:
+                    wf.add_item(
+                        title=_profile_name,
+                        subtitle="hit 'Tab' to choose this profile",
+                        autocomplete="{} ".format(_profile_name),
+                        icon=HotIcons.iam,
+                        valid=True
+                    )
+            elif bool(mfa_token) is False:  # example: "a_valid_profile "
+                wf.setvar("action", FollowUpActionKey.open_url)
+                wf.add_item(
+                    title="Enter your six digits MFA Token",
+                    subtitle="Doc https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
+                    arg="https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
+                    icon=HotIcons.iam,
+                    valid=True,
+                )
+            else:
+                if len(mfa_token) < 6:  # example: "a_valid_profile 123"
+                    wf.setvar("action", FollowUpActionKey.open_url)
+                    wf.add_item(
+                        title="Enter your six digits MFA Token '{}'".format(mfa_token),
+                        subtitle="Doc https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
+                        arg="https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
+                        icon=HotIcons.iam,
+                        valid=True,
+                    )
+                elif len(mfa_token) > 6:  # example: "a_valid_profile 123456789"
+                    wf.setvar("action", FollowUpActionKey.open_url)
+                    wf.add_item(
+                        title="MFA Token has to be 6 digits!".format(mfa_token),
+                        subtitle="Doc https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
+                        arg="https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
+                        icon=HotIcons.error,
+                        valid=True,
+                    )
+                elif not mfa_token.isdigit():  # example: "a_valid_profile abcdef"
+                    wf.setvar("action", FollowUpActionKey.open_url)
+                    wf.add_item(
+                        title="MFA Token has to be 6 digits!".format(mfa_token),
+                        subtitle="Doc https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
+                        arg="https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
+                        icon=HotIcons.error,
+                        valid=True,
+                    )
+                else:  # example: "a_valid_profile 123456"
+                    wf.setvar("action", FollowUpActionKey.run_script)
+                    wf.add_item(
+                        title="Do MFA auth using token '{}'".format(mfa_token),
+                        subtitle="hit 'Enter' to execute MFA auth",
+                        arg="{} {} {}".format(
+                            self.mh_execute_mfa_auth.__name__,
+                            profile_name,
+                            mfa_token,
+                        ),
+                        icon=HotIcons.iam,
+                        valid=True,
+                    )
+        else:
+            wf.add_item(
+                title="Invalid arg: '{}'".format(query_str),
+                subtitle="valid arg: '{aws_profile_name} {six_digit_mfa_token}'",
+                icon=workflow.ICON_ERROR,
+                valid=True,
+            )
+        return wf
+
+
 aws_profile_handlers = AWSProfileHandlers()
+
 
 def set_profile(wf, args=None):
     """
@@ -159,7 +312,7 @@ def aws_set_default_profile(wf, query=None):
         profile_name = args[0]
         if profile_name != "default":
             replace_section(
-                config_file=PATH_DEFAULT_AWS_CREDENTIAL_FILE.abspath,
+                config_file=PATH_DEFAULT_AWS_CREDENTIALS_FILE.abspath,
                 source_section_name=profile_name,
                 target_section_name="default",
             )
@@ -168,182 +321,6 @@ def aws_set_default_profile(wf, query=None):
                 source_section_name="profile {}".format(profile_name),
                 target_section_name="default",
             )
-    else:
-        raise Exception
-
-    return wf
-
-
-def mfa_auth_select_profile(wf, args=None):
-    """
-    Update the ~/.aws/credentials and ~/.aws/config file, set default profile
-    to one of named profile
-
-    :type wf: workflow.Workflow3
-    :type args: list[str]
-    """
-    if args is None:
-        args = wf.args[1:]
-
-    n_args = len(args)
-
-    aws_profile_list_from_credential = read_all_profile_name_from_credential_file()
-    aws_profile_list_from_credential = [
-        aws_profile
-        for aws_profile in aws_profile_list_from_credential if not aws_profile.endswith("_mfa")
-    ]
-    aws_profile_list_from_config = read_all_profile_name_from_config_file()
-
-    good_item_lst = list()
-    bad_item_lst = list()
-    good_aws_profile_list = list()
-    bad_aws_profile_list = list()
-    for aws_profile in aws_profile_list_from_credential:
-        aws_profile_in_config = aws_profile if aws_profile == "default" else "profile {}".format(aws_profile)
-
-        if aws_profile_in_config not in aws_profile_list_from_config:
-            item_dct = dict(
-                title="[{}] not found in config file".format(aws_profile_in_config),
-                subtitle="Open ~/.aws/config file",
-                autocomplete=aws_profile,
-                arg=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
-                valid=True,
-                icon=workflow.ICON_ERROR,
-            )
-            bad_item_lst.append(item_dct)
-            bad_aws_profile_list.append(aws_profile)
-        else:
-            item_dct = dict(
-                title=aws_profile,
-                subtitle="Use base profile '{}' for MFA auth".format(aws_profile),
-                autocomplete=aws_profile,
-                arg=aws_profile,
-                valid=True,
-                icon=icons.ICON_IAM,
-            )
-            good_item_lst.append(item_dct)
-            good_aws_profile_list.append(aws_profile)
-
-    all_item_lst = good_item_lst + bad_item_lst
-
-    # No argument behavior
-    # Case: /usr/bin/python main.py mfa_auth_select_profile
-    if n_args == 0:
-        for item_dct in good_item_lst:
-            wf.setvar("action", FollowUpActionKey.run_script)
-            wf.add_item(**item_dct)
-
-        for item_dct in bad_item_lst:
-            wf.setvar("action", FollowUpActionKey.open_file)
-            wf.add_item(**item_dct)
-
-    # Case: /usr/bin/python main.py mfa_auth_select_profile ${aws_profile}
-    elif len(args) == 1:
-        aws_profile = args[0]
-
-        # ${profile_name_part} is a valid
-        if aws_profile in good_aws_profile_list:
-            wf.setvar("action", FollowUpActionKey.open_url)
-            wf.add_item(
-                title="Enter your six digits MFA Token",
-                subtitle="Doc https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
-                arg="https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
-                valid=True,
-                icon=icons.ICON_IAM,
-            )
-        elif aws_profile in bad_aws_profile_list:
-            wf.setvar("action", FollowUpActionKey.open_file)
-            wf.add_item(
-                title="[profile {}] not found in config file".format(aws_profile),
-                subtitle="Open ~/.aws/config file, check '{}'".format(aws_profile),
-                arg=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
-                valid=True,
-                icon=workflow.ICON_ERROR,
-            )
-        else:
-            all_item_lst = [
-                item_dct
-                for item_dct in all_item_lst
-                if aws_profile in item_dct["title"]
-            ]
-            if len(all_item_lst):
-                for item_dct in all_item_lst:
-                    wf.add_item(**item_dct)
-            else:
-                wf.setvar("action", FollowUpActionKey.open_file)
-                wf.add_item(
-                    title="'{}' is not a valid named profile!".format(aws_profile),
-                    subtitle="Open ~/.aws/credentials file, check '{}'".format(aws_profile),
-                    arg=PATH_DEFAULT_AWS_CREDENTIAL_FILE.abspath,
-                    valid=True,
-                    icon=workflow.ICON_ERROR,
-                )
-
-    # Case: /usr/bin/python main.py mfa_auth_select_profile ${aws_profile} ${mfa_code}
-    elif len(args) == 2:
-        aws_profile = args[0]
-        # ${aws_profile} is a good profile name in ~/.aws/credentials
-        if aws_profile not in good_aws_profile_list:
-            wf.setvar("action", FollowUpActionKey.open_file)
-            wf.add_item(
-                title="'{}' is not a valid named profile!".format(aws_profile),
-                subtitle="Open ~/.aws/credentials file, check '{}'".format(aws_profile),
-                arg=PATH_DEFAULT_AWS_CREDENTIAL_FILE.abspath,
-                valid=True,
-                icon=workflow.ICON_ERROR,
-            )
-            return wf
-
-        mfa_code = args[1]
-        if len(mfa_code) != 6:
-            wf.add_item(
-                title="Enter your six digits MFA Token",
-                subtitle="'{}' is not a valid MFA token".format(mfa_code),
-                arg="https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
-                valid=True,
-                icon=icons.ICON_IAM,
-            )
-        else:
-            wf.setvar("action", FollowUpActionKey.run_script)
-            wf.add_item(
-                title="Create '{}_mfa' MFA profile".format(aws_profile),
-                subtitle="",
-                arg="{} {} {}".format(
-                    mfa_auth_execute_mfa.__name__,
-                    aws_profile,
-                    mfa_code,
-                ),
-                valid=True,
-                icon=icons.ICON_IAM,
-            )
-    else:
-        wf.add_item(
-            title="Too many arguments!",
-            arg="",
-            valid=True,
-            icon=workflow.ICON_ERROR,
-        )
-
-    return wf
-
-
-def mfa_auth_execute_mfa(wf, args=None):
-    """
-    Update the ~/.aws/credentials and ~/.aws/config file, create / update
-    the new mfa profile
-
-    :type wf: workflow.Workflow3
-    :type args: list[str]
-    """
-    if args is None:
-        args = wf.args[1:]
-
-    n_args = len(args)
-
-    if len(args) == 2:
-        aws_profile = args[0]
-        mfa_code = args[1]
-        mfa_auth(aws_profile=aws_profile, mfa_code=mfa_code)
     else:
         raise Exception
 

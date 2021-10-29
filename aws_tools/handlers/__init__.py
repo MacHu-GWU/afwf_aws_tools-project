@@ -12,7 +12,10 @@ from . import (
 from .aws_profile import aws_profile_handlers
 
 handler_func_mapper = {
-    aws_profile_handlers.select_aws_profile.__name__: aws_profile_handlers.select_aws_profile,
+    aws_profile_handlers.mh_select_aws_profile_to_set_as_default.__name__: aws_profile_handlers.mh_select_aws_profile_to_set_as_default,
+    aws_profile_handlers.mh_set_default_aws_profile.__name__: aws_profile_handlers.mh_set_default_aws_profile,
+    aws_profile_handlers.mh_select_aws_profile_for_mfa_auth.__name__: aws_profile_handlers.mh_select_aws_profile_for_mfa_auth,
+    aws_profile_handlers.mh_execute_mfa_auth.__name__: aws_profile_handlers.mh_execute_mfa_auth,
     # set_profile.set_default_profile.__name__: set_profile.aws_set_default_profile,
     aws.aws.__name__: aws.aws,
 
@@ -54,13 +57,15 @@ def handler(wf):
     1. wf
     2. query_str
     """
-    if wf.args != 1:
+    if len(wf.args) != 1:
         wf.add_item(
             title="Workflow arguments has to have exact one arg!",
             subtitle="correct format = '${handler_id} ${query_str}'",
             icon=ICON_ERROR,
             valid=True,
         )
+        debug_args(wf)
+        return wf
 
     arg = wf.args[0]
     if " " not in arg:
@@ -70,8 +75,10 @@ def handler(wf):
             icon=ICON_ERROR,
             valid=True,
         )
+        debug_args(wf)
+        return wf
 
-    handler_id, query_str = arg.split(" ")
+    handler_id, query_str = arg.split(" ", 1)
     query_str = query_str.lstrip()
 
     if handler_id not in handler_func_mapper:
