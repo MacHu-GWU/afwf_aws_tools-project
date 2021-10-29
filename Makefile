@@ -18,6 +18,13 @@ pip-dev-install: ## Install This Package in Editable Mode
 	bash ./bin/pip-dev-install.sh
 
 
+req-test: ## Install Test Dependencies
+	bash ./bin/req-test.sh
+
+cov: ## ** Run Code Coverage test
+	bash ./bin/test-cov.sh
+
+
 build-wf: ## Build Alfred Workflow
 	bash ./bin/build-wf.sh
 

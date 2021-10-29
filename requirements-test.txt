@@ -1,0 +1,16 @@
+backports.functools-lru-cache==1.6.4
+configparser==4.0.2
+contextlib2==0.6.0.post1
+funcsigs==1.0.2
+importlib-metadata==2.1.1
+more-itertools==5.0.0
+packaging==20.9
+pathlib2==2.3.6
+pluggy==0.13.1
+py==1.10.0
+pyparsing==2.4.7
+wcwidth==0.2.5
+zipp==1.2.0
+pytest==4.6.11
+coverage==5.5
+pytest-cov==2.12.1

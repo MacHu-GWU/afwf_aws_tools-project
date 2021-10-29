@@ -13,6 +13,6 @@ dir_project_root="$(dirname "${dir_bin}")"
 package_name="aws_tools"
 
 # Update this manually. Right click your workflow in Alfred Workflow view, then click open in finder.
-dir_workflow="/Users/sanhehu/Google Drive/Alfred Setting/Alfred.alfredpreferences/workflows/user.workflow.9137626C-55D8-41FA-BC5C-BD03048E1979"
+dir_workflow="/Users/sanhehu/Documents/Alfred-Preferences/Alfred.alfredpreferences/workflows/user.workflow.E98A19AC-882C-47FF-AB13-6CB4C86DA93F/Alfred_Workflow-1.40.0.dist-info"
 
 package_version="$(python ${dir_project_root}/${package_name}/_version.py)"
