@@ -22,6 +22,8 @@ def main(wf):
 
         注意, 所有的第三方库的导入都要放在 main 函数内, 因为直到创建 Workflow 实例时,
         lib 目录才会被添加到系统路径中去. 在这之前所有的第三方库都无法被找到.
+
+    :type wf: Workflow3
     """
     from aws_tools.handlers import handler
 
@@ -32,8 +34,18 @@ def main(wf):
     json_dump(wf_output_file, wf.obj)
     # json_dump(wf_output_file, wf.args)
 
-    wf = handler(wf)
+    # from aws_tools.alfred import ActionEnum
+    # item = wf.add_item(title="test", subtitle="my_sub", arg="touch \"/Users/sanhehu/airflow/my folder/good.txt\"", valid=True)
+    # item.setvar("action", "run-script")
+    # # item.setvar("open_file_path", "/Users/sanhehu/airflow")
+    # item.setvar("cmd", "touch /Users/sanhehu/airflow/good.txt")
 
+    # item.setvar("action", ActionEnum.copy)
+    # item.add_modifier(
+    #     key="cmd", subtitle="v1", arg="v2", valid=None,
+    # )
+
+    wf = handler(wf)
     wf.send_feedback()
 
 

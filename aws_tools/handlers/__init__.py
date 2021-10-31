@@ -2,12 +2,11 @@
 
 from __future__ import unicode_literals
 import traceback
-from workflow import Workflow3, ICON_ERROR, ICON_HELP
+from workflow import Workflow3
 
-from . import (
-    aws,
-    aws_profile,
-)
+from ..icons import HotIcons
+from ..constants import FollowUpActionKey
+from .aws import aws_handlers
 from .aws_profile import aws_profile_handlers
 from .aws_tools import aws_tools_handlers
 
@@ -23,6 +22,7 @@ def _add(handler_func):
 
 # --- aws_tools
 _add(aws_tools_handlers.mh_clear_aws_tools_cache)
+_add(aws_tools_handlers.mh_info)
 
 # --- aws_profile
 _add(aws_profile_handlers.mh_select_aws_profile_to_set_as_default)
@@ -31,23 +31,43 @@ _add(aws_profile_handlers.mh_select_aws_profile_for_mfa_auth)
 _add(aws_profile_handlers.mh_execute_mfa_auth)
 _add(aws_profile_handlers.mh_select_aws_profile_to_set_as_aws_tools_default)
 _add(aws_profile_handlers.mh_set_aws_profile_as_aws_tools_default)
+_add(aws_profile_handlers.mh_select_aws_region_to_set_as_aws_tools_default)
+_add(aws_profile_handlers.mh_set_aws_region_as_aws_tools_default)
 
+# --- aws
+_add(aws_handlers.mh_aws)
 
 def debug_args(wf):
+    from ..paths import PATH_ERROR_TRACEBACK
     wf.add_item(
         title="args = {}".format(wf.args),
-        icon=ICON_HELP,
+        icon=HotIcons.error,
         valid=True,
     )
 
 
 def debug_traceback(wf):
-    lines = traceback.format_exc().splitlines()
+    from ..paths import PATH_ERROR_TRACEBACK
+
+    traceback_msg = traceback.format_exc()
+    PATH_ERROR_TRACEBACK.write_bytes(traceback_msg)
+
+    lines = traceback_msg.splitlines()
+    wf.setvar("action", FollowUpActionKey.open_file)
+    wf.add_item(
+        title="ERROR! hit 'Enter' to open error traceback log",
+        subtitle=PATH_ERROR_TRACEBACK.abspath,
+        arg=PATH_ERROR_TRACEBACK.abspath,
+        icon=HotIcons.error,
+        valid=True,
+    )
+
+    wf.setvar("action", "")
     for line in lines:
         wf.add_item(
             title=line,
             arg=line,
-            icon=ICON_ERROR,
+            icon=HotIcons.error,
             valid=True,
         )
     return wf
@@ -61,12 +81,14 @@ def handler(wf):
 
     1. wf
     2. query_str
+
+    :type wf: Workflow3
     """
     if len(wf.args) != 1:
         wf.add_item(
             title="Workflow arguments has to have exact one arg!",
             subtitle="correct format = '${handler_id} ${query_str}'",
-            icon=ICON_ERROR,
+            icon=HotIcons.error,
             valid=True,
         )
         debug_args(wf)
@@ -77,7 +99,7 @@ def handler(wf):
         wf.add_item(
             title="Invalid workflow arguments",
             subtitle="correct format = '${handler_id} ${query_str}'",
-            icon=ICON_ERROR,
+            icon=HotIcons.error,
             valid=True,
         )
         debug_args(wf)
@@ -89,7 +111,7 @@ def handler(wf):
     if handler_id not in handler_func_mapper:
         wf.add_item(
             title="'{}' is not a valid handler identifier!".format(handler_id),
-            icon=ICON_ERROR,
+            icon=HotIcons.error,
             valid=True,
         )
 

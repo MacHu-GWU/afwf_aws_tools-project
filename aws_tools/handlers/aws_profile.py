@@ -13,6 +13,7 @@ from ..credential import (
 from ..constants import (
     FollowUpActionKey,
 )
+from ..alfred import ItemArgs
 from ..settings import settings, SettingKeys
 from .item_builder import item_builders
 from .item_filter import item_filters
@@ -46,7 +47,7 @@ class AWSProfileHandlers(object):
         """
         aws_profile_list = item_filters.aws_profile(
             query_str=query_str,
-            aws_config_file=self.aws_config_file.parent,
+            aws_config_file=self.aws_config_file.abspath,
         )
         item_builders.select_aws_profile_as_default(
             wf=wf,
@@ -83,6 +84,7 @@ class AWSProfileHandlers(object):
         :type query_str: str
         """
         args = query_str.split(" ")
+        help_url = "https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/"
         if len(args) == 1:
             aws_profile_list = item_filters.aws_profile(
                 query_str=query_str,
@@ -117,65 +119,68 @@ class AWSProfileHandlers(object):
                         valid=True
                     )
             elif bool(mfa_token) is False:  # example: "a_valid_profile "
-                wf.setvar("action", FollowUpActionKey.open_url)
-                wf.add_item(
+                item_arg = ItemArgs(
                     title="Enter your six digits MFA Token",
-                    subtitle="Doc https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
-                    arg="https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
+                    subtitle="Doc: {}".format(help_url),
                     icon=HotIcons.iam,
                     valid=True,
                 )
+                item_arg.open_browser(help_url)
+                item_arg.add_to_wf(wf)
             else:
                 if len(mfa_token) < 6:  # example: "a_valid_profile 123"
-                    wf.setvar("action", FollowUpActionKey.open_url)
-                    wf.add_item(
+                    item_arg = ItemArgs(
                         title="Enter your six digits MFA Token '{}'".format(mfa_token),
-                        subtitle="Doc https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
-                        arg="https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
+                        subtitle="Doc: {}".format(help_url),
                         icon=HotIcons.iam,
                         valid=True,
                     )
+                    item_arg.open_browser(help_url)
+                    item_arg.add_to_wf(wf)
                 elif len(mfa_token) > 6:  # example: "a_valid_profile 123456789"
-                    wf.setvar("action", FollowUpActionKey.open_url)
-                    wf.add_item(
+                    item_arg = ItemArgs(
                         title="MFA Token has to be 6 digits!".format(mfa_token),
-                        subtitle="Doc https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
-                        arg="https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
+                        subtitle="Doc: {}".format(help_url),
                         icon=HotIcons.error,
                         valid=True,
                     )
+                    item_arg.open_browser(help_url)
+                    item_arg.add_to_wf(wf)
                 elif not mfa_token.isdigit():  # example: "a_valid_profile abcdef"
-                    wf.setvar("action", FollowUpActionKey.open_url)
-                    wf.add_item(
+                    item_arg = ItemArgs(
                         title="MFA Token has to be 6 digits!".format(mfa_token),
-                        subtitle="Doc https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
-                        arg="https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/",
+                        subtitle="Doc: {}".format(help_url),
                         icon=HotIcons.error,
                         valid=True,
                     )
+                    item_arg.open_browser(help_url)
+                    item_arg.add_to_wf(wf)
                 else:  # example: "a_valid_profile 123456"
-                    wf.setvar("action", FollowUpActionKey.run_script)
-                    wf.add_item(
+                    cmd = "{} {} {}".format(
+                        self.mh_execute_mfa_auth.__name__,
+                        profile_name,
+                        mfa_token,
+                    )
+                    item_arg = ItemArgs(
                         title="Do MFA auth using token '{}'".format(mfa_token),
                         subtitle="hit 'Enter' to execute MFA auth",
-                        arg="{} {} {}".format(
-                            self.mh_execute_mfa_auth.__name__,
-                            profile_name,
-                            mfa_token,
-                        ),
                         icon=HotIcons.iam,
                         valid=True,
                     )
+                    item_arg.run_script(cmd)
+                    item_arg.notify(title="create/update mfa profile", subtitle="{}_mfa".format(profile_name))
+                    item_arg.add_to_wf(wf)
         else:
-            wf.add_item(
+            item_arg = ItemArgs(
                 title="Invalid arg: '{}'".format(query_str),
                 subtitle="valid arg: '{aws_profile_name} {six_digit_mfa_token}'",
                 icon=HotIcons.error,
                 valid=True,
             )
+            item_arg.add_to_wf(wf)
         return wf
 
-    # ------ aws-tool-set-default-profile script filter implementation ------
+    # ------ aws-tool-set-profile script filter implementation ------
     def mh_set_aws_profile_as_aws_tools_default(self, wf, query_str):
         """
         :type wf: Workflow3
@@ -199,5 +204,27 @@ class AWSProfileHandlers(object):
         )
         return wf
 
+    # ------ aws-tool-set-region script filter implementation ------
+    def mh_set_aws_region_as_aws_tools_default(self, wf, query_str):
+        """
+        :type wf: Workflow3
+        :type query_str: str
+        """
+        settings[SettingKeys.aws_region] = query_str
+
+    def mh_select_aws_region_to_set_as_aws_tools_default(self, wf, query_str):
+        """
+        :type wf: Workflow3
+        :type query_str: str
+        """
+        all_regions = item_filters.aws_region(
+            query_str=query_str,
+        )
+        item_builders.set_aws_region_as_aws_tools_default(
+            wf=wf,
+            all_regions=all_regions,
+            set_default_aws_region_handler_id=self.mh_set_aws_region_as_aws_tools_default.__name__,
+        )
+        return wf
 
 aws_profile_handlers = AWSProfileHandlers()

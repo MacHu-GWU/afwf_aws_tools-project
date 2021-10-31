@@ -30,10 +30,32 @@ class TestAWSProfileHandlers(object):
         assert config.get("default", "region") == "us-east-1"
 
     def test_mh_set_aws_profile_as_aws_tools_default(self):
+        before_profile = settings.get(SettingKeys.aws_profile)
+
         aws_profile_handlers.mh_set_aws_profile_as_aws_tools_default(
             wf=self.wf, query_str="my_profile",
         )
         assert settings[SettingKeys.aws_profile] == "my_profile"
+        aws_profile_handlers.mh_set_aws_profile_as_aws_tools_default(
+            wf=self.wf, query_str=None,
+        )
+        assert settings[SettingKeys.aws_profile] == None
+
+        settings[SettingKeys.aws_profile] = before_profile
+
+    def test_mh_set_aws_region_as_aws_tools_default(self):
+        before_region = settings.get(SettingKeys.aws_region)
+
+        aws_profile_handlers.mh_set_aws_region_as_aws_tools_default(
+            wf=self.wf, query_str="my_region",
+        )
+        assert settings[SettingKeys.aws_region] == "my_region"
+        aws_profile_handlers.mh_set_aws_region_as_aws_tools_default(
+            wf=self.wf, query_str=None,
+        )
+        assert settings[SettingKeys.aws_region] == None
+
+        settings[SettingKeys.aws_region] = before_region
 
     def test_mh_select_aws_profile_for_mfa_auth(self):
         aws_profile_handlers.mh_select_aws_profile_for_mfa_auth(

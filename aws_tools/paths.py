@@ -40,6 +40,7 @@ if env == Env.local_dev:
 elif env == Env.alfred:
     PATH_CONSOLE_URLS_YAML = Path(DIR_WORKFLOW_ROOT, "console-urls.yml")  # type: Path
     DIR_ICONS = Path(DIR_WORKFLOW_ROOT, "icons")  # type: Path
+    PATH_ERROR_TRACEBACK = Path(DIR_WORKFLOW_ROOT, "error.txt") # type: Path
 
 # --- user data in ${HOME} directory ---
 DIR_HOME = Path().home()  # type: Path

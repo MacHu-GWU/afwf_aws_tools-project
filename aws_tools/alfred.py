@@ -7,15 +7,36 @@ https://pypi.org/project/Alfred-Workflow/
 
 from __future__ import print_function, unicode_literals
 import attr
-from workflow.workflow3 import Workflow3
+import typing
+from workflow.workflow3 import Workflow3, Item3
 
-Workflow3.add_item()
+
+# Alfred variables helpers
+# Ref: https://www.deaxnishe.net/alfred-workflow/api/index.html?highlight=quicklookurl#workflow-variables
+class VarKeyEnum(object):
+    na = "na"
+    open_file = "open_file"
+    open_file_path = "open_file_path"
+    open_browser = "open_browser"
+    open_browser_url = "open_browser_url"
+    run_script = "run_script"
+    copy_text = "copy_text"
+    copy_text_content = "copy_text_content"
+    notify = "notify"
+    notify_title = "notify_title"
+    notify_subtitle = "notify_subtitle"
+
+
+class VarValueEnum(object):
+    y = "y"
+    n = "n"
 
 
 @attr.s
 class ItemArgs(object):
     """
-    A data class provides key value access pattern.
+    A data class provides key value access pattern. It is the keyword arguments
+    of ``Workflow3.add_item``.
 
     There's a ``workflow.workflow3.Item3`` class, why another class?
 
@@ -43,10 +64,70 @@ class ItemArgs(object):
     copytext = attr.ib(default=None)
     quicklookurl = attr.ib(default=None)
     match = attr.ib(default=None)
-
-    def to_dict(self):
-        return attr.asdict(self)
+    variables = attr.ib(factory=dict)  # type: dict
 
     @classmethod
     def from_dict(cls, dct):
+        """
+        Factory method that create an instance from python dict.
+        """
         return cls(**dct)
+
+    def to_dict(self):
+        """
+        Serialize to python dict.
+
+        :rtype: dict
+        """
+        return attr.asdict(self)
+
+    def add_to_wf(self, wf):
+        """
+        Convert it to a ``Item3`` object and add to ``Workflow3``.
+
+        :type wf: Workflow3
+        :rtype: Item3
+        """
+        dct = self.to_dict()
+        del dct["variables"]
+        item = wf.add_item(**dct)
+        for k, v in self.variables.items():
+            item.setvar(k, v)
+        return item
+
+    # Set variable in a human friendly way.
+    def open_file(self, path):
+        """
+        Add follow up action that open a file in default application.
+        """
+        self.variables[VarKeyEnum.open_file] = VarValueEnum.y
+        self.variables[VarKeyEnum.open_file_path] = path
+
+    def open_browser(self, url):
+        """
+        Add follow up action that open a url in default web browser.
+        """
+        self.variables[VarKeyEnum.open_browser] = VarValueEnum.y
+        self.variables[VarKeyEnum.open_browser_url] = url
+
+    def copy_text(self, content):
+        """
+        Add follow up action that copy a text to clipboard.
+        """
+        self.variables[VarKeyEnum.copy_text] = VarValueEnum.y
+        self.variables[VarKeyEnum.copy_text_content] = content
+
+    def notify(self, title, subtitle=""):
+        """
+        Add follow up action that send a MacOS notification.
+        """
+        self.variables[VarKeyEnum.notify] = VarValueEnum.y
+        self.variables[VarKeyEnum.notify_title] = title
+        self.variables[VarKeyEnum.notify_subtitle] = subtitle
+
+    def run_script(self, cmd):
+        """
+        Add follow up action that run a command in bash.
+        """
+        self.variables[VarKeyEnum.run_script] = VarValueEnum.y
+        self.arg = cmd

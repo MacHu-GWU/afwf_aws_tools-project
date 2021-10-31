@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 import boto3
 from .settings import settings, SettingKeys
 
-
 class SDK(object):
     """
     AWS boto3 SDK helper class. Simplify boto session, service client creation
@@ -19,11 +18,14 @@ class SDK(object):
     def boto_ses(self):
         """
         Create the boto3 session for Alfred Workflow handler.
+
+        :rtype: boto3.session.Session
         """
+
         if self._boto_ses is None:
             self._boto_ses = boto3.session.Session(
-                profile_name=settings[SettingKeys.aws_profile],
-                region_name=settings[SettingKeys.aws_region],
+                profile_name=settings.get(SettingKeys.aws_profile),
+                region_name=settings.get(SettingKeys.aws_region),
             )
         return self._boto_ses
 

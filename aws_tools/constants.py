@@ -34,6 +34,9 @@ all_regions = [
 
 
 class FollowUpActionKey:
+    na = "na"
     open_file = "open-file"
     open_url = "open-url"
     run_script = "run-script"
+    copy = "copy"
+    notify = "notify"

@@ -7,7 +7,7 @@ from ..paths import DIR_ICONS
 HERE = Path(__file__).parent
 
 
-class Icons:
+class Icons: # pragma: no cover
     Arch_Category_AR_VR = "Arch-Category_AR-VR_64.png"
     Arch_Category_AWS_Cost_Management = "Arch-Category_AWS-Cost-Management_64.png"
     Arch_Category_Analytics = "Arch-Category_Analytics_64.png"
