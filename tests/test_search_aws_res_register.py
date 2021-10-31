@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from aws_tools.search.aws_res import register
+from aws_tools.search.aws_res import reg
 
 
 def test_register():
-    register.get("ec2-instances").list_res()
+    reg.get("ec2-instances").list_res()
 
 
 if __name__ == "__main__":

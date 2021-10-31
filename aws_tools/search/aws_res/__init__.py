@@ -1,40 +1,24 @@
 # -*- coding: utf-8 -*-
 
+from ...register import Registry
 from ..aws_resources import AwsResourceSearcher
 
 
-class Register(object):
-    """
-    """
-
-    def __init__(self):
-        self.mapper = dict()
-
-    def register_searcher(self, searcher):
+class AwsResourceSearcherRegistry(Registry):
+    def get_key(self, obj):
         """
-        :type searcher_class: AwsResourceSearcher
+        :type obj: AwsResourceSearcher
+        :rtype: str
         """
-        if searcher.id is None:
-            raise ValueError
-        if searcher.id in self.mapper:
-            raise ValueError
-        self.mapper[searcher.id] = searcher
-
-    def get(self, id):
-        """
-        :rtype: AwsResourceSearcher
-        """
-        if id not in self.mapper:
-            raise KeyError
-        return self.mapper[id]
-
-    def has_id(self, id):
-        return id in self.mapper
+        return obj.id
 
 
-register = Register()
+aws_res_sr_registry = AwsResourceSearcherRegistry()
+reg = aws_res_sr_registry
 
 # --- Register your AWS Resource Searcher here ---
 from .ec2_instances import Ec2InstancesSearcher
+from .ec2_securitygroups import Ec2SecurityGroupsSearcher
 
-register.register_searcher(Ec2InstancesSearcher())
+reg.check_in(Ec2InstancesSearcher())
+reg.check_in(Ec2SecurityGroupsSearcher())

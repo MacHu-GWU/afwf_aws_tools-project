@@ -15,6 +15,10 @@ class AwsResourceSearcher(object):
     id = None  # type: str
     sdk = sdk  # type: SDK
 
+    @property
+    def resource_id(self):
+        return self.id
+
     def list_res(self):
         """
         :rtype: list

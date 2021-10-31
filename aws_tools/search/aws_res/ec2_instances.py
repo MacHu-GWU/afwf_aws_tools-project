@@ -15,6 +15,10 @@ class Instance(object):
     public_ip = attr.ib()
     private_ip = attr.ib()
 
+    @property
+    def short_id(self):
+        return self.id[:6] + "..." + self.id[-4:]
+
     def to_console_url(self):
         return "https://console.aws.amazon.com/ec2/v2/home#InstanceDetails:instanceId={}".format(
             self.id)
@@ -74,7 +78,7 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
 
     def list_res(self):
         """
-        :rtype: list
+        :rtype: list[Instance]
         """
         res = self.sdk.ec2_client.describe_instances(MaxResults=100)
         return simplify_describe_instances_response(res)
@@ -84,16 +88,16 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#EC2.Client.describe_instances
 
         :type query_str: str
-        :rtype: list
+        :rtype: list[Instance]
         """
-        filter = dict(Name="tag:Name", Values=["*{}*".format(query_str)])
+        filter_ = dict(Name="tag:Name", Values=["*{}*".format(query_str)])
         res_by_name = self.sdk.ec2_client.describe_instances(
-            Filters=[filter, ],
+            Filters=[filter_, ],
             MaxResults=100,
         )
-        filter = dict(Name="instance-id", Values=["*{}*".format(query_str)])
+        filter_ = dict(Name="instance-id", Values=["*{}*".format(query_str)])
         res_by_id = self.sdk.ec2_client.describe_instances(
-            Filters=[filter, ],
+            Filters=[filter_, ],
             MaxResults=100,
         )
 
@@ -118,7 +122,7 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
             title=inst.name,
             subtitle="{state} {id} {type}".format(
                 state=inst_state_emoji_mapper.get(inst.state, "❓"),
-                id=inst.id,
+                id=inst.short_id,
                 type=inst.type,
             ),
             autocomplete="{} {}".format(self.id, inst.id),

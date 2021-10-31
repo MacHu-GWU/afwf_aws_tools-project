@@ -6,36 +6,37 @@ from workflow import Workflow3
 
 from ..icons import HotIcons
 from ..constants import FollowUpActionKey
+from ..register import Registry
 from .aws import aws_handlers
 from .aws_profile import aws_profile_handlers
 from .aws_tools import aws_tools_handlers
 
-handler_func_mapper = {}
 
-def _add(handler_func):
-    """
-    add a handler function to mapper
+class HandlerFuncRegistry(Registry):
+    def get_key(self, obj):
+        return obj.__name__
 
-    :type handler_func: callable
-    """
-    handler_func_mapper[handler_func.__name__] = handler_func
+
+handler_func_registry = HandlerFuncRegistry()
+reg = handler_func_registry
 
 # --- aws_tools
-_add(aws_tools_handlers.mh_clear_aws_tools_cache)
-_add(aws_tools_handlers.mh_info)
+reg.check_in(aws_tools_handlers.mh_clear_aws_tools_cache)
+reg.check_in(aws_tools_handlers.mh_info)
 
 # --- aws_profile
-_add(aws_profile_handlers.mh_select_aws_profile_to_set_as_default)
-_add(aws_profile_handlers.mh_set_default_aws_profile)
-_add(aws_profile_handlers.mh_select_aws_profile_for_mfa_auth)
-_add(aws_profile_handlers.mh_execute_mfa_auth)
-_add(aws_profile_handlers.mh_select_aws_profile_to_set_as_aws_tools_default)
-_add(aws_profile_handlers.mh_set_aws_profile_as_aws_tools_default)
-_add(aws_profile_handlers.mh_select_aws_region_to_set_as_aws_tools_default)
-_add(aws_profile_handlers.mh_set_aws_region_as_aws_tools_default)
+reg.check_in(aws_profile_handlers.mh_select_aws_profile_to_set_as_default)
+reg.check_in(aws_profile_handlers.mh_set_default_aws_profile)
+reg.check_in(aws_profile_handlers.mh_select_aws_profile_for_mfa_auth)
+reg.check_in(aws_profile_handlers.mh_execute_mfa_auth)
+reg.check_in(aws_profile_handlers.mh_select_aws_profile_to_set_as_aws_tools_default)
+reg.check_in(aws_profile_handlers.mh_set_aws_profile_as_aws_tools_default)
+reg.check_in(aws_profile_handlers.mh_select_aws_region_to_set_as_aws_tools_default)
+reg.check_in(aws_profile_handlers.mh_set_aws_region_as_aws_tools_default)
 
 # --- aws
-_add(aws_handlers.mh_aws)
+reg.check_in(aws_handlers.mh_aws)
+
 
 def debug_args(wf):
     from ..paths import PATH_ERROR_TRACEBACK
@@ -108,7 +109,7 @@ def handler(wf):
     handler_id, query_str = arg.split(" ", 1)
     query_str = query_str.lstrip()
 
-    if handler_id not in handler_func_mapper:
+    if not reg.has(handler_id):
         wf.add_item(
             title="'{}' is not a valid handler identifier!".format(handler_id),
             icon=HotIcons.error,
@@ -116,9 +117,10 @@ def handler(wf):
         )
 
     try:
-        return handler_func_mapper[handler_id](wf, query_str)
+        handler_func = reg.get(handler_id)
+        handler_func(wf, query_str)
     except:  # capture exceptions in handler function and display in alfred UI
         debug_traceback(wf)
 
-    debug_args(wf)
+    # debug_args(wf)
     return wf

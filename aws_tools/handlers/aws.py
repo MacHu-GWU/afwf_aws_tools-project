@@ -2,10 +2,9 @@
 
 from __future__ import unicode_literals, print_function
 from workflow.workflow3 import Workflow3
-from ..alfred import ItemArgs, VarKeyEnum, VarValueEnum
-from ..icons import Icons, HotIcons
-from ..constants import FollowUpActionKey
-from ..search.aws_res import register
+from ..alfred import ItemArgs
+from ..icons import HotIcons
+from ..search.aws_res import reg
 from ..search.aws_urls import main_service_searcher, sub_service_searcher
 
 
@@ -57,12 +56,12 @@ def sub_svc_doc_to_item(doc, main_svc_id):
     title = "{}-{}".format(main_svc_id, sub_svc_id)
     aws_res_searcher_id = title
     subtitle = "{emoji}{name}{shortname}{description}".format(
-        emoji="🔍" if register.has_id(aws_res_searcher_id) else "",
+        emoji="🔍" if reg.has(aws_res_searcher_id) else "",
         name=doc["name"],
         shortname=" ({})".format(doc.get("short_name")) if doc.get("short_name") else "",
         description=" - {}".format(doc.get("description")) if doc.get("description") else "",
     )
-    autocomplete = title + " " if register.has_id(aws_res_searcher_id) else title
+    autocomplete = title + " " if reg.has(aws_res_searcher_id) else title
     console_url = "https://console.aws.amazon.com" + doc["url"]
     arg = console_url
     item_arg = ItemArgs(
@@ -136,7 +135,7 @@ class AwsHandlers(object):
 
     def sh_get_one_main_service(self, wf, main_svc_id):
         doc = main_service_searcher.search_one(id=main_svc_id)
-        update_wf_for_main_svc_doc(wf, [doc,])
+        update_wf_for_main_svc_doc(wf, [doc, ])
         return wf
 
     def sh_top20_sub_service(self, wf, main_svc_id):
@@ -152,11 +151,11 @@ class AwsHandlers(object):
 
     def sh_get_one_sub_service(self, wf, main_svc_id, sub_svc_id):
         doc = sub_service_searcher.search_one(main_svc_id, sub_svc_id)
-        update_wf_for_sub_svc_doc(wf, [doc,])
+        update_wf_for_sub_svc_doc(wf, [doc, ])
         return wf
 
     def sh_list_aws_resources(self, wf, searcher_id):
-        searcher = register.get(searcher_id)
+        searcher = reg.get(searcher_id)
         results = searcher.list_res()
         for data in results:
             item_arg = searcher.to_item(data)
@@ -164,7 +163,7 @@ class AwsHandlers(object):
         return wf
 
     def sh_filter_aws_resources(self, wf, searcher_id, query_str):
-        searcher = register.get(searcher_id)
+        searcher = reg.get(searcher_id)
         results = searcher.filter_res(query_str)
         for data in results:
             item_arg = searcher.to_item(data)
@@ -185,7 +184,7 @@ class AwsHandlers(object):
             if len(svc_id) == 1:  # query = "e"
                 self.sh_query_too_short(wf)
             elif query_str.endswith(" "):
-                if register.has_id(svc_id):  # query = "ec2-instances "
+                if reg.has(svc_id):  # query = "ec2-instances "
                     self.sh_list_aws_resources(wf, svc_id)
                 else:  # query = "ec2-limits "
                     return self.mh_aws(wf=wf, query_str=query_str.rstrip())
@@ -202,8 +201,6 @@ class AwsHandlers(object):
                         self.sh_query_too_short(wf)
                     else:  # query = "ec2-ins"
                         self.sh_filter_sub_service(wf, main_svc_id, query_str)
-            # query = "ec2-instances "
-
             else:
                 raise ValueError
         elif len(args) == 2:
@@ -211,7 +208,7 @@ class AwsHandlers(object):
             self.sh_filter_aws_resources(wf, searcher_id, res_query)
         else:
             pass
-        wf.add_item("query_str = {}".format([query_str, ]))
+        # wf.add_item("query_str = {}".format([query_str, ]))
         return wf
 
 
