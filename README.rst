@@ -14,7 +14,14 @@ Features
     :local:
 
 
-Set the Default AWS Named Profile
+💥 Navigate AWS Console Fast
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Test
+
+
+
+Navigate AWS Console Fast
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Suppose you have many named profile defined in ``~/.aws/credentials`` and ``~/.aws/config``. **Now you can easily set one of the named profile as DEFAULT profile**! Basically this workflow will update the ``~/.aws/credentials`` and ``~/.aws/config`` accordingly.
