@@ -24,6 +24,7 @@ from .iam_roles import IamRolesSearcher
 from .iam_policies import IamPolicysSearcher
 from .glue_databases import GlueDatabasesSearcher
 from .glue_tables import GlueTablesSearcher
+from .s3_buckets import S3BucketsSearcher
 
 reg.check_in(Ec2InstancesSearcher())
 reg.check_in(Ec2SecurityGroupsSearcher())
@@ -32,3 +33,4 @@ reg.check_in(IamRolesSearcher())
 reg.check_in(IamPolicysSearcher())
 reg.check_in(GlueDatabasesSearcher())
 reg.check_in(GlueTablesSearcher())
+reg.check_in(S3BucketsSearcher())
