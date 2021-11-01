@@ -2,6 +2,22 @@
 
 from fuzzywuzzy import process
 
-choices = ["aws_data_lab_sanhe", "aws sandbox", "sanhe dev user"]
-s = process.extract("aws sanhe", choices, limit=2)
-print(s)
+
+class FuzzyObjectSearch(object):
+    """
+    :type keys: list[str]
+    :type mapper: dict
+    """
+
+    def __init__(self, keys, mapper):
+        self.keys = keys
+        self.mapper = mapper
+
+    def match(self, query, limit=20):
+        """
+        :rtype: list
+        """
+        return [
+            self.mapper[key]
+            for key, score in process.extract(query, self.keys, limit=limit)
+        ]

@@ -20,7 +20,9 @@ reg = aws_res_sr_registry
 from .ec2_instances import Ec2InstancesSearcher
 from .ec2_securitygroups import Ec2SecurityGroupsSearcher
 from .ec2_amis import Ec2AmiSearcher
+from .iam_roles import IamRolesSearcher
 
 reg.check_in(Ec2InstancesSearcher())
 reg.check_in(Ec2SecurityGroupsSearcher())
 reg.check_in(Ec2AmiSearcher())
+reg.check_in(IamRolesSearcher())

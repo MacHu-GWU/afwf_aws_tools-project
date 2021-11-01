@@ -46,5 +46,9 @@ class SDK(object):
     def lambda_client(self):
         return self._get_client("lambda")
 
+    @property
+    def iam_client(self):
+        return self._get_client("iam")
+
 
 sdk = SDK()

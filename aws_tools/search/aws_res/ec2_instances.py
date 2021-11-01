@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 import attr
 from ..aws_resources import AwsResourceSearcher, ItemArgs
-from ...icons import Icons
+from ...icons import find_svc_icon
 
 
 @attr.s
@@ -128,7 +128,7 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
             autocomplete="{} {}".format(self.id, inst.id),
             arg=console_url,
             largetext=largetext,
-            icon=Icons.abspath(Icons.Res_Amazon_EC2_Instance),
+            icon=find_svc_icon(self.id),
             valid=True,
         )
         item_arg.open_browser(console_url)

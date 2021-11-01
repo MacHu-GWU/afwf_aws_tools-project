@@ -3,7 +3,7 @@
 from __future__ import unicode_literals, print_function
 from workflow.workflow3 import Workflow3
 from ..alfred import ItemArgs
-from ..icons import HotIcons
+from ..icons import HotIcons, find_svc_icon
 from ..search.aws_res import reg
 from ..search.aws_urls import main_service_searcher, sub_service_searcher
 
@@ -33,7 +33,7 @@ def main_svc_doc_to_item(doc):
         subtitle=subtitle,
         autocomplete=autocomplete,
         arg=arg,
-        # icon=icon,
+        icon=find_svc_icon(doc["id"]),
         valid=True,
     )
     item_arg.open_browser(console_url)
@@ -69,7 +69,7 @@ def sub_svc_doc_to_item(doc, main_svc_id):
         subtitle=subtitle,
         autocomplete=autocomplete,
         arg=arg,
-        # icon=icon,
+        icon=find_svc_icon(title),
         valid=True,
     )
     item_arg.open_browser(console_url)
@@ -207,7 +207,9 @@ class AwsHandlers(object):
             searcher_id, res_query = args
             self.sh_filter_aws_resources(wf, searcher_id, res_query)
         else:
-            pass
+            searcher_id = args[0]
+            res_query = " ".join(args[1:])
+            self.sh_filter_aws_resources(wf, searcher_id, res_query)
         # wf.add_item("query_str = {}".format([query_str, ]))
         return wf
 
