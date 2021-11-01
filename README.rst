@@ -17,7 +17,25 @@ Features
 💥 Navigate AWS Console Fast
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Test
+**Navigate to AWS service and it's sub service**
+
+Usage:
+
+- Type``aws ${main_service}`` or ``aws ${main_service}-${sub_service}``.
+- hit "Tab" to auto complete the search string.
+- hit "Enter" to open the AWS Console.
+
+Note:
+
+    It support full text search. For example, ``st`` can match ``instances``, ``sg`` can match ``Security Group``.
+
+.. image:: https://user-images.githubusercontent.com/6800411/139746691-752009fd-7a57-4429-a315-37d496e26a33.gif
+
+.. image:: https://user-images.githubusercontent.com/6800411/139746689-ef72be04-d4d2-487f-a748-7b0c0056ee1d.gif
+
+
+
+
 
 
 
