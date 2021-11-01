@@ -7,6 +7,7 @@ from ..icons import HotIcons, find_svc_icon
 from ..search.aws_res import reg
 from ..search.aws_urls import main_service_searcher, sub_service_searcher
 from ..settings import SettingValues
+from ..paths import DIR_AWS_TOOL_USER_DATA
 
 
 def main_svc_doc_to_item(doc):
@@ -117,6 +118,18 @@ class AwsHandlers(object):
     def sh_top20_main_service(self, wf):
         doc_list = main_service_searcher.top_20()
         update_wf_for_main_svc_doc(wf, doc_list)
+        if len(doc_list) == 0:
+            item_arg = ItemArgs(
+                title="First you need to build index for AWS console url search",
+                subtitle="hit 'Enter' to build the index",
+                icon=HotIcons.info,
+                valid=True,
+            )
+            cmd = "/usr/bin/python main.py '{} {}'".format("mh_rebuild_index", "do-build-index")
+            item_arg.run_script(cmd)
+            item_arg.open_file(path=DIR_AWS_TOOL_USER_DATA.abspath)
+            item_arg.notify(title="AWS Console url index is rebuilt!")
+            item_arg.add_to_wf(wf)
         return wf
 
     def sh_query_too_short(self, wf):

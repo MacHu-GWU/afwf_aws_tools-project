@@ -5,7 +5,6 @@ import traceback
 from workflow import Workflow3
 
 from ..icons import HotIcons
-from ..constants import FollowUpActionKey
 from ..register import Registry
 from ..alfred import ItemArgs
 from .aws import aws_handlers
@@ -24,6 +23,7 @@ reg = handler_func_registry
 # --- aws_tools
 reg.check_in(aws_tools_handlers.mh_clear_aws_tools_cache)
 reg.check_in(aws_tools_handlers.mh_info)
+reg.check_in(aws_tools_handlers.mh_rebuild_index)
 
 # --- aws_profile
 reg.check_in(aws_profile_handlers.mh_select_aws_profile_to_set_as_default)
@@ -123,5 +123,5 @@ def handler(wf):
     except:  # capture exceptions in handler function and display in alfred UI
         debug_traceback(wf)
 
-    debug_args(wf)
+    # debug_args(wf)
     return wf
