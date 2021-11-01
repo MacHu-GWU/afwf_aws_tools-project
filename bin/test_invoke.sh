@@ -1,0 +1,1 @@
+/usr/bin/python main.py 'mh_aws ec2-amis '

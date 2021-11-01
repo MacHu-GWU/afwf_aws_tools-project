@@ -116,7 +116,7 @@ class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
             autocomplete="{} {}".format(self.resource_id, sg.id),
             arg=console_url,
             largetext=largetext,
-            icon=Icons.abspath(Icons.Res_Amazon_EC2_Instance),
+            icon=Icons.abspath(Icons.Arch_Amazon_Virtual_Private_Cloud),
             valid=True,
         )
         item_arg.open_browser(console_url)

@@ -7,6 +7,7 @@ from workflow import Workflow3
 from ..icons import HotIcons
 from ..constants import FollowUpActionKey
 from ..register import Registry
+from ..alfred import ItemArgs
 from .aws import aws_handlers
 from .aws_profile import aws_profile_handlers
 from .aws_tools import aws_tools_handlers
@@ -54,16 +55,16 @@ def debug_traceback(wf):
     PATH_ERROR_TRACEBACK.write_bytes(traceback_msg)
 
     lines = traceback_msg.splitlines()
-    wf.setvar("action", FollowUpActionKey.open_file)
-    wf.add_item(
+
+    item_args = ItemArgs(
         title="ERROR! hit 'Enter' to open error traceback log",
         subtitle=PATH_ERROR_TRACEBACK.abspath,
-        arg=PATH_ERROR_TRACEBACK.abspath,
         icon=HotIcons.error,
         valid=True,
     )
+    item_args.open_file(PATH_ERROR_TRACEBACK.abspath)
+    item_args.add_to_wf(wf)
 
-    wf.setvar("action", "")
     for line in lines:
         wf.add_item(
             title=line,
@@ -122,5 +123,5 @@ def handler(wf):
     except:  # capture exceptions in handler function and display in alfred UI
         debug_traceback(wf)
 
-    # debug_args(wf)
+    debug_args(wf)
     return wf
