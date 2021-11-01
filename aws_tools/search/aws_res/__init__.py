@@ -23,6 +23,7 @@ from .ec2_amis import Ec2AmiSearcher
 from .iam_roles import IamRolesSearcher
 from .iam_policies import IamPolicysSearcher
 from .glue_databases import GlueDatabasesSearcher
+from .glue_tables import GlueTablesSearcher
 
 reg.check_in(Ec2InstancesSearcher())
 reg.check_in(Ec2SecurityGroupsSearcher())
@@ -30,3 +31,4 @@ reg.check_in(Ec2AmiSearcher())
 reg.check_in(IamRolesSearcher())
 reg.check_in(IamPolicysSearcher())
 reg.check_in(GlueDatabasesSearcher())
+reg.check_in(GlueTablesSearcher())

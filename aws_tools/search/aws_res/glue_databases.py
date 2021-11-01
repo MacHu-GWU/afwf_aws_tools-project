@@ -45,7 +45,7 @@ def simplify_get_databases_response(res):
     :type res: dict
     :param res: the return of glue_client.get_databases
 
-    :rtype: list[Policy]
+    :rtype: list[Database]
     """
     db_list = list()
     for db_dict in res["DatabaseList"]:
@@ -66,7 +66,7 @@ class GlueDatabasesSearcher(AwsResourceSearcher):
 
     def get_databases_dict(self):
         """
-        :rtype: list[Policy]
+        :rtype: list[dict]
         """
         databases = list()
         next_token = None
@@ -104,6 +104,7 @@ class GlueDatabasesSearcher(AwsResourceSearcher):
             Database(**db_dict)
             for db_dict in db_dict_list
         ]
+        db_list = list(sorted(db_list, key=lambda tb: tb.name))
         return db_list
 
     def filter_res(self, query_str):

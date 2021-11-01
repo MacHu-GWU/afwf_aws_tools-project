@@ -142,4 +142,5 @@ class IamPolicysSearcher(AwsResourceSearcher):
             valid=True,
         )
         item_arg.open_browser(console_url)
+        item_arg.copy_arn(policy.arn)
         return item_arg

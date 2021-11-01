@@ -12,6 +12,7 @@ class Image(object):
     name = attr.ib()
     description = attr.ib()
     platform = attr.ib()
+    arch = attr.ib()
     state = attr.ib()
     create_date = attr.ib()
 
@@ -31,6 +32,7 @@ class Image(object):
             "name = {}".format(self.name),
             "description = {}".format(self.description),
             "platform = {}".format(self.platform),
+            "arch = {}".format(self.arch),
             "state = {}".format(self.state),
             "create_date = {}".format(self.create_date),
         ])
@@ -50,6 +52,7 @@ def simplify_describe_images_response(res):
             name=image_dict["Name"],
             description=len(image_dict["Description"]),
             platform=image_dict["PlatformDetails"],
+            arch=image_dict["Architecture"],
             state=image_dict["State"],
             create_date=len(image_dict["CreationDate"]),
         )

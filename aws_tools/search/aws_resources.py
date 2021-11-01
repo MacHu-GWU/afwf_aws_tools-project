@@ -6,7 +6,7 @@ This module provide a pattern to implement aws resources searcher
 
 import attr
 from ..sdk import sdk, SDK
-from ..alfred import ItemArgs
+from ..alfred import ItemArgs, ModArgs
 
 
 @attr.s

@@ -9,6 +9,7 @@ from __future__ import print_function, unicode_literals
 import attr
 import typing
 from workflow.workflow3 import Workflow3, Item3
+from .attrs_helper import Base
 
 
 # Alfred variables helpers
@@ -33,7 +34,17 @@ class VarValueEnum(object):
 
 
 @attr.s
-class ItemArgs(object):
+class ModArgs(Base):
+    key = attr.ib()
+    subtitle = attr.ib(default=None)
+    arg = attr.ib(default=None)
+    valid = attr.ib(default=None)
+    icon = attr.ib(default=None)
+    icontype = attr.ib(default=None)
+
+
+@attr.s
+class ItemArgs(Base):
     """
     A data class provides key value access pattern. It is the keyword arguments
     of ``Workflow3.add_item``.
@@ -65,21 +76,7 @@ class ItemArgs(object):
     quicklookurl = attr.ib(default=None)
     match = attr.ib(default=None)
     variables = attr.ib(factory=dict)  # type: dict
-
-    @classmethod
-    def from_dict(cls, dct):
-        """
-        Factory method that create an instance from python dict.
-        """
-        return cls(**dct)
-
-    def to_dict(self):
-        """
-        Serialize to python dict.
-
-        :rtype: dict
-        """
-        return attr.asdict(self)
+    modifiers = attr.ib(factory=list)  # type: list[ModArgs]
 
     def add_to_wf(self, wf):
         """
@@ -90,9 +87,12 @@ class ItemArgs(object):
         """
         dct = self.to_dict()
         del dct["variables"]
+        del dct["modifiers"]
         item = wf.add_item(**dct)
         for k, v in self.variables.items():
             item.setvar(k, v)
+        for mod in self.modifiers:
+            item.add_modifier(**mod.to_dict())
         return item
 
     # Set variable in a human friendly way.
@@ -131,3 +131,11 @@ class ItemArgs(object):
         """
         self.variables[VarKeyEnum.run_script] = VarValueEnum.y
         self.arg = cmd
+
+    def copy_arn(self, arn):
+        """
+        Add a 'Alt' modifier to copy the ARN to clipboard.
+        """
+        self.modifiers.append(
+            ModArgs(key="alt", subtitle="hit 'Enter' to copy ARN to clipboard", arg=arn)
+        )

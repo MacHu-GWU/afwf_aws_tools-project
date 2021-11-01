@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 import attr
-from ..aws_resources import AwsResourceSearcher, ItemArgs
+from ..aws_resources import AwsResourceSearcher, ItemArgs, ModArgs
 from ...icons import find_svc_icon
 from ...settings import SettingValues
 

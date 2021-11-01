@@ -12,6 +12,7 @@ class TestEc2AmiSearcher(object):
         res = self.sr.list_res()
         for i in res:
             print(i)
+            pass
         if len(res):
             item = self.sr.to_item(res[0])
         res = self.sr.filter_res("dev")
