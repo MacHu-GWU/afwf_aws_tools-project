@@ -21,22 +21,41 @@ Features
 
 Usage:
 
-- Type``aws ${main_service}`` or ``aws ${main_service}-${sub_service}``.
+- Type ``aws ${main_service}`` or ``aws ${main_service}-${sub_service}``.
 - hit "Tab" to auto complete the search string.
 - hit "Enter" to open the AWS Console.
 
 Note:
 
-    It support full text search. For example, ``st`` can match ``instances``, ``sg`` can match ``Security Group``.
+- It support full text fuzzy search. For example, ``st`` can match ``instances``, ``sg`` can match ``Security Group``.
+- If an AWS service has sub services, there's is a 📂 icon.
 
 .. image:: https://user-images.githubusercontent.com/6800411/139746691-752009fd-7a57-4429-a315-37d496e26a33.gif
 
 .. image:: https://user-images.githubusercontent.com/6800411/139746689-ef72be04-d4d2-487f-a748-7b0c0056ee1d.gif
 
 
+**Search AWS Resource and see it in Console**
 
+Usage:
 
+- Type ``aws ${main_service}-{sub_service} `` or find the sub service then hit "Tab" to search AWS resources (if available).
+- Type any search string to filter the resource. Example: ``aws iam-roles dev``
 
+Note:
+
+- It support full text fuzzy search on ``Name`` and ``id`` (if available). For example: ``7d4f`` can match an EC2 instance ``i-abcd...7d4f``.
+- If an AWS sub services support resources search, there's is a 🔍 icon.
+
+.. image:: https://user-images.githubusercontent.com/6800411/139746690-ae2fcf1e-cd84-4d02-ad02-0103248b9b5b.gif
+
+**Copy ARN to Clipboard**
+
+Usage:
+
+- Type ``aws  ${main_service}-{sub_service} ${query}`` to locate the resource. And Press down "Alt" then hit "Enter" to copy ARN to clipboard (if available).
+
+.. image:: https://user-images.githubusercontent.com/6800411/139749561-93b1b8e6-c5ee-4890-a82a-d4bcf922da16.gif
 
 
 Navigate AWS Console Fast
