@@ -50,5 +50,9 @@ class SDK(object):
     def iam_client(self):
         return self._get_client("iam")
 
+    @property
+    def glue_client(self):
+        return self._get_client("glue")
+
 
 sdk = SDK()

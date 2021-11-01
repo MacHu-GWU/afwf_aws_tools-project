@@ -8,7 +8,7 @@ from aws_tools.search.aws_res.iam_roles import IamRolesSearcher
 class TestIamRolesSearcher(object):
     sr = IamRolesSearcher()
 
-    def test_list_all_rols(self):
+    def test_list_all_roles(self):
         res = self.sr.list_roles_dict()
         len(res)
 

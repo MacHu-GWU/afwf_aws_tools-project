@@ -1,69 +1,69 @@
 - id: accessanalyzer
   name: Access Analyzer
   description: Monitor access to resources
-  url: /access-analyzer/home#/rules
+  url: /access-analyzer/home?region={region}#/rules
   sub_services:
     - id: analyzers
       name: Analyzers
-      url: /access-analyzer/home#/analyzers
+      url: /access-analyzer/home?region={region}#/analyzers
     - id: archiverules
       name: Archive rules
-      url: /access-analyzer/home#/rules
+      url: /access-analyzer/home?region={region}#/rules
     - id: settings
       name: Settings
-      url: /access-analyzer/home#/settings
+      url: /access-analyzer/home?region={region}#/settings
 - id: acm
   name: Certificate Manager
   short_name: ACM
   description: Provision, Manage, and Deploy SSL/TLS Certificates
-  url: /acm/home#/
+  url: /acm/home?region={region}#/
   sub_services:
     - id: certificatemanager
       name: Certificate manager
-      url: /acm/home#/
+      url: /acm/home?region={region}#/
     - id: privatecas
       name: Private certificate authorities
-      url: /acm-pca/home#/
+      url: /acm-pca/home?region={region}#/
 - id: alexa
   name: Alexa for Business
   description: Empower your organization with voice
-  url: /a4b/home#
+  url: /a4b/home?region={region}#
   sub_services: []
 - id: amplify
   name: Amplify
   description: Develop & deploy cloud-powered mobile and web apps
-  url: /amplify/home#/home
+  url: /amplify/home?region={region}#/home
   sub_services: []
 - id: apigateway
   name: API Gateway
   description: Build, Deploy and Manage APIs
-  url: /apigateway/main/apis#
+  url: /apigateway/main/apis?region={region}#
   weight: 6
   sub_services:
     - id: apis
       name: APIs
-      url: /apigateway/main/apis#
+      url: /apigateway/main/apis?region={region}#
     - id: customdomainnames
       name: Custom domain names
-      url: /apigateway/main/publish/domain-names#
+      url: /apigateway/main/publish/domain-names?region={region}#
     - id: vpclinks
       name: VPC links
-      url: /apigateway/main/vpc-links/list#
+      url: /apigateway/main/vpc-links/list?region={region}#
 - id: appmesh
   name: App Mesh
   description: Application-level networking for all your services
-  url: /appmesh/meshes#
+  url: /appmesh/meshes?region={region}#
   sub_services: []
 - id: appstream
   name: AppStream 2.0
   description: Stream desktop applications securely to any web browser
-  url: /appstream2/home#
+  url: /appstream2/home?region={region}#
   sub_services: []
 - id: appsync
   name: AppSync
   description: Real-Time Data Sync Using GraphQL for Mobile & Web Apps, Online or
     Offline
-  url: /appsync/home#/
+  url: /appsync/home?region={region}#/
   sub_services: []
 - id: artifact
   name: Artifact
@@ -80,73 +80,73 @@
 - id: athena
   name: Athena
   description: Query Data in S3 using SQL
-  url: /athena/home#/query-editor
+  url: /athena/home?region={region}#/query-editor
   weight: 6
   top20: true
   sub_services: []
 - id: augmentedai
   name: Augmented AI
   description: Easy implement human review of machine learning predictions
-  url: /a2i/home#
+  url: /a2i/home?region={region}#
   sub_services: []
 - id: autoscaling
   name: Auto Scaling
   description: AWS Auto Scaling enables you to quickly scale your entire application
     on AWS
-  url: /awsautoscaling/home#dashboard
+  url: /awsautoscaling/home?region={region}#dashboard
   sub_services: []
 - id: backup
   name: Backup
   description: centrally manage and automate backups across AWS services
-  url: /backup/home#/dashboard
+  url: /backup/home?region={region}#/dashboard
   sub_services:
     - id: backupplans
       name: Backup plans
-      url: /backup/home#/backupplan
+      url: /backup/home?region={region}#/backupplan
     - id: backuppolicies
       name: Backup policies
-      url: /backup/home#/organization/policies
+      url: /backup/home?region={region}#/organization/policies
     - id: backupvaults
       name: Backup vaults
-      url: /backup/home#/backupvaults
+      url: /backup/home?region={region}#/backupvaults
     - id: crossaccountmonitoring
       name: Cross-account monitoring
-      url: /backup/home#/organization/monitoring/backup
+      url: /backup/home?region={region}#/organization/monitoring/backup
     - id: dashboard
       name: Dashboard
-      url: /backup/home#/dashboard
+      url: /backup/home?region={region}#/dashboard
     - id: jobs
       name: Jobs
-      url: /backup/home#/jobs/backup
+      url: /backup/home?region={region}#/jobs/backup
     - id: protectedresources
       name: Protected resources
-      url: /backup/home#/resources
+      url: /backup/home?region={region}#/resources
     - id: settings
       name: Settings
-      url: /backup/home#/settings
+      url: /backup/home?region={region}#/settings
 - id: batch
   name: Batch
   description: Run Batch Jobs at Any Scale
-  url: /batch/home#
+  url: /batch/home?region={region}#
   sub_services:
     - id: computeenvironments
       name: Compute environments
-      url: /batch/home#compute-environments
+      url: /batch/home?region={region}#compute-environments
     - id: dashboard
       name: Dashboard
-      url: /batch/home#dashboard
+      url: /batch/home?region={region}#dashboard
     - id: jobdefinitions
       name: Job definitions
-      url: /batch/home#job-definition
+      url: /batch/home?region={region}#job-definition
     - id: jobqueues
       name: Job queues
-      url: /batch/home#queues
+      url: /batch/home?region={region}#queues
     - id: jobs
       name: Jobs
-      url: /batch/home#jobs
+      url: /batch/home?region={region}#jobs
     - id: wizard
       name: Wizard
-      url: /batch/home#wizard
+      url: /batch/home?region={region}#wizard
 - id: billing
   name: Billing
   description: Access, analyze, and control your AWS costs and usage
@@ -155,92 +155,92 @@
   sub_services:
     - id: bills
       name: Bills
-      url: /billing/home#/bills
+      url: /billing/home?region={region}#/bills
     - id: budgets
       name: Budgets
-      url: /billing/home#/budgets
+      url: /billing/home?region={region}#/budgets
     - id: budgetsreports
       name: Budgets Reports
-      url: /billing/home#/budgets/reports
+      url: /billing/home?region={region}#/budgets/reports
     - id: consolidatedbilling
       name: Consolidated billing
       url: /organizations/home
     - id: costcategories
       name: Cost Categories
-      url: /billing/home#/costcategories
+      url: /billing/home?region={region}#/costcategories
     - id: costexplorer
       name: Cost Explorer
-      url: /billing/home#/costexplorer
+      url: /billing/home?region={region}#/costexplorer
     - id: credits
       name: Credits
-      url: /billing/home#/credits
+      url: /billing/home?region={region}#/credits
     - id: dashboard
       name: Dashboard
-      url: /billing/home#/
+      url: /billing/home?region={region}#/
     - id: paymentmethods
       name: Payment methods
-      url: /billing/home#/paymentmethods
+      url: /billing/home?region={region}#/paymentmethods
     - id: payments
       name: Payments
-      url: /billing/home#/paymentsoverview
+      url: /billing/home?region={region}#/paymentsoverview
     - id: preferences
       name: Billing preferences
-      url: /billing/home#/preferences
+      url: /billing/home?region={region}#/preferences
     - id: purchaseorders
       name: Purchase orders
-      url: /billing/home#/purchaseorders
+      url: /billing/home?region={region}#/purchaseorders
     - id: reports
       name: Cost & Usage Reports
-      url: /billing/home#/reports
+      url: /billing/home?region={region}#/reports
     - id: savingsplans
       name: Savings Plans
-      url: /cost-reports/home#/savings-plans/overview
+      url: /cost-reports/home?region={region}#/savings-plans/overview
     - id: tags
       name: Cost allocation tags
-      url: /billing/home#/tags
+      url: /billing/home?region={region}#/tags
     - id: taxsettings
       name: Tax settings
-      url: /billing/home#/tax
+      url: /billing/home?region={region}#/tax
 - id: blockchain
   name: Blockchain
   description: Easily create and manage scalable blockchain networks
-  url: /managedblockchain/home#
+  url: /managedblockchain/home?region={region}#
   sub_services:
     - id: invitations
       name: Invitations
-      url: /managedblockchain/home#invitations
+      url: /managedblockchain/home?region={region}#invitations
     - id: networks
       name: Networks
-      url: /managedblockchain/home#networks
+      url: /managedblockchain/home?region={region}#networks
 - id: braket
   name: Braket
   description: Explore and experiment with quantum computing
-  url: /braket/home#/devices
+  url: /braket/home?region={region}#/devices
   sub_services:
     - id: announcements
       name: Announcements
-      url: /braket/home#/announcements
+      url: /braket/home?region={region}#/announcements
     - id: devices
       name: Devices
-      url: /braket/home#/devices
+      url: /braket/home?region={region}#/devices
     - id: notebooks
       name: Notebooks
-      url: /braket/home#/notebooks
+      url: /braket/home?region={region}#/notebooks
     - id: tasks
       name: Tasks
-      url: /braket/home#/tasks
+      url: /braket/home?region={region}#/tasks
 - id: chatbot
   name: Chatbot
   description: ChatOps for AWS
-  url: /chatbot/home#/chat-clients
+  url: /chatbot/home?region={region}#/chat-clients
   globally: true
   sub_services:
     - id: amazonchime
       name: Amazon Chime
-      url: /chatbot/home#/chat-clients/chime/configurations
+      url: /chatbot/home?region={region}#/chat-clients/chime/configurations
     - id: configuredclients
       name: Configured clients
-      url: /chatbot/home#/chat-clients
+      url: /chatbot/home?region={region}#/chat-clients
 - id: chime
   name: Chime
   description: Amazon Chime is a communications service that transforms online meetings
@@ -250,287 +250,287 @@
 - id: cloud9
   name: Cloud9
   description: A Cloud IDE for Writing, Running, and Debugging Code
-  url: /cloud9/home#
+  url: /cloud9/home?region={region}#
   weight: 3
   sub_services: []
 - id: cloudformation
   name: CloudFormation
   short_name: CF
   description: Create and Manage Resources with Templates
-  url: /cloudformation/home#/stacks
+  url: /cloudformation/home?region={region}#/stacks
   weight: 6
   top20: true
   sub_services:
     - id: designer
       name: Designer
-      url: /cloudformation/designer/home
+      url: /cloudformation/designer/home?region={region}
     - id: stacks
       name: Stacks
-      url: /cloudformation/home#/stacks
+      url: /cloudformation/home?region={region}#/stacks
     - id: stacksets
       name: StackSets
-      url: /cloudformation/home#/stacksets
+      url: /cloudformation/home?region={region}#/stacksets
 - id: cloudfront
   name: CloudFront
   description: Global Content Delivery Network
-  url: /cloudfront/home#
+  url: /cloudfront/home?region={region}#
   globally: true
   weight: 6
   sub_services:
     - id: alarms
       name: Alarms
-      url: '/cloudfront/home#alarms:'
+      url: '/cloudfront/home?region={region}#alarms:'
     - id: cachestatistics
       name: Cache statistics
-      url: '/cloudfront/home#cache_stat_reports:'
+      url: '/cloudfront/home?region={region}#cache_stat_reports:'
     - id: distributions
       name: Distributions
-      url: /cloudfront/home#
+      url: /cloudfront/home?region={region}#
     - id: fle
       name: Field-level encryption
-      url: '/cloudfront/home#fle:'
+      url: '/cloudfront/home?region={region}#fle:'
     - id: monitoring
       name: Monitoring
-      url: /cloudfront/v2/home#/monitoring
+      url: /cloudfront/v2/home?region={region}#/monitoring
     - id: oai
       name: Origin access identity
-      url: '/cloudfront/home#oai:'
+      url: '/cloudfront/home?region={region}#oai:'
     - id: policies
       name: Policies
-      url: /cloudfront/v2/home#/policies
+      url: /cloudfront/v2/home?region={region}#/policies
     - id: popularobjects
       name: Popular objects
-      url: '/cloudfront/home#popular_urls:'
+      url: '/cloudfront/home?region={region}#popular_urls:'
     - id: publickey
       name: Public key
-      url: '/cloudfront/home#publickey:'
+      url: '/cloudfront/home?region={region}#publickey:'
     - id: referrers
       name: Top referrers
-      url: '/cloudfront/home#referers_report:'
+      url: '/cloudfront/home?region={region}#referers_report:'
     - id: usage
       name: Usage
-      url: '/cloudfront/home#usage_reports:'
+      url: '/cloudfront/home?region={region}#usage_reports:'
     - id: viewers
       name: Viewers
-      url: '/cloudfront/home#viewers_reports:'
+      url: '/cloudfront/home?region={region}#viewers_reports:'
 - id: cloudhsm
   name: CloudHSM
   description: Managed Hardware Security Modules in the Cloud
-  url: /cloudhsm/home#/clusters
+  url: /cloudhsm/home?region={region}#/clusters
   sub_services:
     - id: backups
       name: Backups
-      url: /cloudhsm/home#/backups
+      url: /cloudhsm/home?region={region}#/backups
     - id: clusters
       name: Clusters
-      url: /cloudhsm/home#/clusters
+      url: /cloudhsm/home?region={region}#/clusters
 - id: cloudmap
   name: Cloud Map
   description: Build a dynamic map of your cloud
-  url: /cloudmap/home#namespaces
+  url: /cloudmap/home?region={region}#namespaces
   sub_services:
     - id: namespaces
       name: Namespaces
-      url: /cloudmap/home#namespaces
+      url: /cloudmap/home?region={region}#namespaces
 - id: cloudsearch
   name: CloudSearch
   description: Managed Search Service
-  url: /cloudsearch/home#
+  url: /cloudsearch/home?region={region}#
   sub_services: []
 - id: cloudtrail
   name: CloudTrail
   description: Track User Activity and API Usage
-  url: /cloudtrail/home#/dashboard
+  url: /cloudtrail/home?region={region}#/dashboard
   weight: 6
   sub_services:
     - id: dashboard
       name: Dashboard
-      url: /cloudtrail/home#/dashboard
+      url: /cloudtrail/home?region={region}#/dashboard
     - id: eventhistory
       name: Event history
-      url: /cloudtrail/home#/events
+      url: /cloudtrail/home?region={region}#/events
     - id: insights
       name: Insights
-      url: /cloudtrail/home#/insights
+      url: /cloudtrail/home?region={region}#/insights
     - id: trails
       name: Trails
-      url: /cloudtrail/home#/trails
+      url: /cloudtrail/home?region={region}#/trails
 - id: cloudwatch
   name: CloudWatch
   description: Monitor Resources and Applications
-  url: /cloudwatch/home#
+  url: /cloudwatch/home?region={region}#
   weight: 6
   sub_services:
     - id: alarms
       name: Alarms
-      url: '/cloudwatch/home#alarmsV2:'
+      url: '/cloudwatch/home?region={region}#alarmsV2:'
     - id: containerinsightsperformance
       name: "Container Insights \u2013 Performance"
-      url: /cloudwatch/home#container-insights:performance
+      url: /cloudwatch/home?region={region}#container-insights:performance
     - id: containerinsightsresources
       name: "Container Insights \u2013 Resources"
-      url: /cloudwatch/home#container-insights:infrastructure
+      url: /cloudwatch/home?region={region}#container-insights:infrastructure
     - id: contributorinsights
       name: Contributor Insights
-      url: '/cloudwatch/home#contributorinsights:'
+      url: '/cloudwatch/home?region={region}#contributorinsights:'
     - id: dashboards
       name: Dashboards
-      url: '/cloudwatch/home#dashboards:'
+      url: '/cloudwatch/home?region={region}#dashboards:'
     - id: dashboards
       name: Dashboards
-      url: '/cloudwatch/home#dashboards:'
+      url: '/cloudwatch/home?region={region}#dashboards:'
     - id: home
       name: Home
-      url: /cloudwatch/home#
+      url: /cloudwatch/home?region={region}#
     - id: loggroups
       name: Log groups
-      url: /cloudwatch/home#logsV2:log-groups
+      url: /cloudwatch/home?region={region}#logsV2:log-groups
     - id: loginsights
       name: Log insights
-      url: /cloudwatch/home#logsV2:logs-insights
+      url: /cloudwatch/home?region={region}#logsV2:logs-insights
     - id: metrics
       name: Metrics
-      url: /cloudwatch/home#metricsV2:graph=~()
+      url: /cloudwatch/home?region={region}#metricsV2:graph=~()
     - id: servicelensmap
       name: "ServiceLens \u2013 Service Map"
-      url: /cloudwatch/home#servicelens:map
+      url: /cloudwatch/home?region={region}#servicelens:map
     - id: servicelenstracing
       name: "ServiceLens \u2013 Tracing"
-      url: /cloudwatch/home#servicelens:traces
+      url: /cloudwatch/home?region={region}#servicelens:traces
     - id: settings
       name: Settings
-      url: '/cloudwatch/home#settings:'
+      url: '/cloudwatch/home?region={region}#settings:'
     - id: syntheticscanaries
       name: "Synthetics \u2013 Canaries"
-      url: /cloudwatch/home#synthetics:canary/list
+      url: /cloudwatch/home?region={region}#synthetics:canary/list
 - id: codeartifact
   name: CodeArtifact
   description: Secure, scalable, and cost-effective artifact management
-  url: /codesuite/codeartifact/domains#
+  url: /codesuite/codeartifact/domains?region={region}#
   sub_services:
     - id: domains
       name: Domains
-      url: /codesuite/codeartifact/domains#
+      url: /codesuite/codeartifact/domains?region={region}#
     - id: repositories
       name: Repositories
-      url: /codesuite/codeartifact/repositories#
+      url: /codesuite/codeartifact/repositories?region={region}#
 - id: codebuild
   name: CodeBuild
   description: Build and Test Code
-  url: /codesuite/codebuild/projects#
+  url: /codesuite/codebuild/projects?region={region}#
   weight: 6
   sub_services:
     - id: accountmetrics
       name: Account metrics
-      url: /codesuite/codebuild/metrics#
+      url: /codesuite/codebuild/metrics?region={region}#
     - id: buildhistory
       name: Build history
-      url: /codesuite/codebuild/builds/build-history#
+      url: /codesuite/codebuild/builds/build-history?region={region}#
     - id: projects
       name: Build projects
-      url: /codesuite/codebuild/projects#
+      url: /codesuite/codebuild/projects?region={region}#
     - id: reportgroups
       name: Report groups
-      url: /codesuite/codebuild/testReports/reportGroups#
+      url: /codesuite/codebuild/testReports/reportGroups?region={region}#
     - id: reporthistory
       name: Report history
-      url: /codesuite/codebuild/testReports/reports#
+      url: /codesuite/codebuild/testReports/reports?region={region}#
 - id: codecommit
   name: CodeCommit
   description: Store Code in Private Git Repositories
-  url: /codesuite/codecommit/repositories#
+  url: /codesuite/codecommit/repositories?region={region}#
   weight: 6
   sub_services:
     - id: approvalruletemplates
       name: Approval rule templates
-      url: /codesuite/codecommit/approval-rule-templates#
+      url: /codesuite/codecommit/approval-rule-templates?region={region}#
     - id: repositories
       name: Repositories
-      url: /codesuite/codecommit/repositories#
+      url: /codesuite/codecommit/repositories?region={region}#
 - id: codedeploy
   name: CodeDeploy
   description: Automate Code Deployments
-  url: /codesuite/codedeploy/deployments#
+  url: /codesuite/codedeploy/deployments?region={region}#
   weight: 6
   sub_services:
     - id: applications
       name: Applications
-      url: /codesuite/codedeploy/applications#
+      url: /codesuite/codedeploy/applications?region={region}#
     - id: deploymentconfigurations
       name: Deployment configurations
-      url: /codesuite/codedeploy/deployment-configs#
+      url: /codesuite/codedeploy/deployment-configs?region={region}#
     - id: deployments
       name: Deployments
-      url: /codesuite/codedeploy/deployments#
+      url: /codesuite/codedeploy/deployments?region={region}#
     - id: onpremisesinstances
       name: On-premises instances
-      url: /codesuite/codedeploy/on-premises-instances#
+      url: /codesuite/codedeploy/on-premises-instances?region={region}#
 - id: codeguru
   name: CodeGuru
   description: Intelligent recommendations for building and running modern applications
-  url: /codeguru/dashboard#
+  url: /codeguru/dashboard?region={region}#
   sub_services:
     - id: ciworkflows
       name: CI workflows
-      url: /codeguru/reviewer/#/ciworkflows
+      url: /codeguru/reviewer/?region={region}#/ciworkflows
     - id: codereviews
       name: Code reviews
-      url: /codeguru/reviewer/#/codereviews
+      url: /codeguru/reviewer/?region={region}#/codereviews
     - id: dashboard
       name: Dashboard
-      url: /codeguru/dashboard#
+      url: /codeguru/dashboard?region={region}#
     - id: profilinggroups
       name: Profiling groups
-      url: /codeguru/profiler/search#
+      url: /codeguru/profiler/search?region={region}#
     - id: repositories
       name: Repositories
-      url: /codeguru/reviewer/#/associations
+      url: /codeguru/reviewer/?region={region}#/associations
 - id: codepipeline
   name: CodePipeline
   description: Release Software using Continuous Delivery
-  url: /codesuite/codepipeline/pipelines#
+  url: /codesuite/codepipeline/pipelines?region={region}#
   weight: 6
   sub_services:
     - id: pipelines
       name: Pipelines
-      url: /codesuite/codepipeline/pipelines#
+      url: /codesuite/codepipeline/pipelines?region={region}#
 - id: codestar
   name: Codestar
   description: Develop, build and deploy applications
-  url: /codesuite/codestar/projects#
+  url: /codesuite/codestar/projects?region={region}#
   sub_services:
     - id: projects
       name: Projects
-      url: /codesuite/codestar/projects#
+      url: /codesuite/codestar/projects?region={region}#
 - id: cognito
   name: Cognito
   description: User Identity and App Data Synchronization
-  url: /cognito/home#
+  url: /cognito/home?region={region}#
   weight: 6
   sub_services: []
 - id: comprehend
   name: Comprehend
   description: Analyze Unstructured Text
-  url: /comprehend/home#home
+  url: /comprehend/home?region={region}#home
   sub_services:
     - id: analysisjobs
       name: Analysis jobs
-      url: /comprehend/home#analysis
+      url: /comprehend/home?region={region}#analysis
     - id: customclassification
       name: Custom classification
-      url: /comprehend/home#classification
+      url: /comprehend/home?region={region}#classification
     - id: customentityrecognition
       name: Custom entity recognition
-      url: /comprehend/home#entity-recognition
+      url: /comprehend/home?region={region}#entity-recognition
     - id: medicalanalysisjobs
       name: Analysis jobs
-      url: /comprehend/home#medical-analysis
+      url: /comprehend/home?region={region}#medical-analysis
     - id: medicalrealtimeanalysis
       name: Real-time analysis
-      url: /comprehend/home#try-comprehend-medical
+      url: /comprehend/home?region={region}#try-comprehend-medical
     - id: realtimeanalysis
       name: Real-time analysis
-      url: /comprehend/home#home
+      url: /comprehend/home?region={region}#home
 - id: computeoptimizer
   name: Compute Optimizer
   description: Recommend optimal AWS Compute resources for your workloads
@@ -540,22 +540,22 @@
 - id: config
   name: Config
   description: Track Resource Inventory and Changes
-  url: /config/home#
+  url: /config/home?region={region}#
   sub_services: []
 - id: connect
   name: Connect
   description: managed contact center that enables engagement at any scale
-  url: /connect/home#
+  url: /connect/home?region={region}#
   sub_services: []
 - id: controltower
   name: Control Tower
   description: set up and govern your multi-account AWS environment
-  url: /controltower/home#
+  url: /controltower/home?region={region}#
   sub_services: []
 - id: costmanagement
   name: Cost Management
   description: Visualize and Explore Your AWS Costs and Usage
-  url: /cost-management/home#/dashboard
+  url: /cost-management/home?region={region}#/dashboard
   globally: true
   weight: 6
   sub_services:
@@ -616,370 +616,370 @@
 - id: datapipeline
   name: Data Pipeline
   description: Orchestration for Data-Driven Workflows
-  url: /datapipeline/home#
+  url: /datapipeline/home?region={region}#
   sub_services: []
 - id: datasync
   name: DataSync
   description: DataSync simplifies, automates, and accelerates moving data
-  url: /datasync/home#/tasks
+  url: /datasync/home?region={region}#/tasks
   sub_services:
     - id: agents
       name: Agents
-      url: /datasync/home#/agents
+      url: /datasync/home?region={region}#/agents
     - id: history
       name: History
-      url: /datasync/home#/history
+      url: /datasync/home?region={region}#/history
     - id: locations
       name: Locations
-      url: /datasync/home#/locations
+      url: /datasync/home?region={region}#/locations
     - id: tasks
       name: Tasks
-      url: /datasync/home#/tasks
+      url: /datasync/home?region={region}#/tasks
 - id: deeplens
   name: DeepLens
   description: Deep Learning Enabled Video Camera
-  url: /deeplens/home#projects
+  url: /deeplens/home?region={region}#projects
   sub_services:
     - id: devices
       name: Devices
-      url: /deeplens/home#devices
+      url: /deeplens/home?region={region}#devices
     - id: models
       name: Models
-      url: /deeplens/home#models
+      url: /deeplens/home?region={region}#models
     - id: projects
       name: Projects
-      url: /deeplens/home#projects
+      url: /deeplens/home?region={region}#projects
     - id: recipes
       name: Recipes
-      url: /deeplens/home#recipes
+      url: /deeplens/home?region={region}#recipes
 - id: deepracer
   name: DeepRacer
   description: Fully autonomous 1/18th scale race car, driven by machine learning
-  url: /deepracer/home#league
+  url: /deepracer/home?region={region}#league
   sub_services:
     - id: awsvirtualcircuit
       name: AWS Virtual Circuit
-      url: /deepracer/home#league
+      url: /deepracer/home?region={region}#league
     - id: communityraces
       name: Community races
-      url: /deepracer/home#communityRaces
+      url: /deepracer/home?region={region}#communityRaces
     - id: garage
       name: Your garage
-      url: /deepracer/home#garage
+      url: /deepracer/home?region={region}#garage
     - id: models
       name: Your models
-      url: /deepracer/home#models
+      url: /deepracer/home?region={region}#models
     - id: racerprofile
       name: Your racer profile
-      url: /deepracer/home#racerProfile
+      url: /deepracer/home?region={region}#racerProfile
 - id: detective
   name: Detective
   description: Investigate and analyse possible security issues
-  url: /detective/home#
+  url: /detective/home?region={region}#
   sub_services: []
 - id: developertools
   name: Developer Tools
   description: Host code, build, test, and deploy your applications to AWS
-  url: /codesuite/settings/notifications#
+  url: /codesuite/settings/notifications?region={region}#
   sub_services:
     - id: connections
       name: Connections
-      url: /codesuite/settings/connections#
+      url: /codesuite/settings/connections?region={region}#
     - id: notifications
       name: Notifications
-      url: /codesuite/settings/notifications#
+      url: /codesuite/settings/notifications?region={region}#
 - id: devicefarm
   name: Device Farm
   description: Test Android, iOS, and Web Apps on Real Devices in the Cloud
-  url: /devicefarm/home#/mobile/projects
+  url: /devicefarm/home?region={region}#/mobile/projects
   globally: true
   sub_services:
     - id: browserprojects
       name: Browser projects
-      url: /devicefarm/home#/browser/projects
+      url: /devicefarm/home?region={region}#/browser/projects
     - id: mobiledeviceslots
       name: Mobile device slots
-      url: /devicefarm/home#/mobile/deviceslots
+      url: /devicefarm/home?region={region}#/mobile/deviceslots
     - id: mobileprivatedevices
       name: Mobile private devices
-      url: /devicefarm/home#/mobile/privatedevices
+      url: /devicefarm/home?region={region}#/mobile/privatedevices
     - id: mobileprojects
       name: Mobile Projects
-      url: /devicefarm/home#/mobile/projects
+      url: /devicefarm/home?region={region}#/mobile/projects
 - id: directconnect
   name: Direct Connect
   description: Dedicated Network Connection to AWS
-  url: /directconnect/v2/home#/connections
+  url: /directconnect/v2/home?region={region}#/connections
   globally: true
   sub_services:
     - id: connections
       name: Connections
-      url: /directconnect/v2/home#/connections
+      url: /directconnect/v2/home?region={region}#/connections
     - id: directconnectgateways
       name: Direct Connect gateways
-      url: /directconnect/v2/home#/dxgateways
+      url: /directconnect/v2/home?region={region}#/dxgateways
     - id: lags
       name: LAGs
-      url: /directconnect/v2/home#/lags
+      url: /directconnect/v2/home?region={region}#/lags
     - id: transitgateways
       name: Transit gateways
-      url: /directconnect/v2/home#/transit-gateways
+      url: /directconnect/v2/home?region={region}#/transit-gateways
     - id: virtualinterfaces
       name: Virtual interfaces
-      url: /directconnect/v2/home#/virtual-interfaces
+      url: /directconnect/v2/home?region={region}#/virtual-interfaces
     - id: virtualprivategateways
       name: Virtual private gateways
-      url: /directconnect/v2/home#/virtual-gateways
+      url: /directconnect/v2/home?region={region}#/virtual-gateways
 - id: directoryservice
   name: Directory Service
   description: Host and Manage Active Directory
-  url: /directoryservicev2/identity#!/directories
+  url: /directoryservicev2/identity?region={region}#!/directories
   sub_services:
     - id: activedirectories
       name: Active Directories
-      url: /directoryservicev2/identity#!/directories
+      url: /directoryservicev2/identity/home?region={region}#!/directories
     - id: clouddirectories
       name: Cloud Directories
-      url: /directoryservicev2/home#!/cloud-directories
+      url: /directoryservicev2/home?region={region}#!/cloud-directories
     - id: cloudschemas
       name: Cloud Schemas
-      url: /directoryservicev2/home#!/cloud-schemas
+      url: /directoryservicev2/home?region={region}#!/cloud-schemas
     - id: directoriessharedwithme
       name: Active Directories shared with me
-      url: /directoryservicev2/home#!/directories-shared-with-me
+      url: /directoryservicev2/home?region={region}#!/directories-shared-with-me
 - id: dms
   name: Database Migation Service
   short_name: DMS
   description: Managed Database Migration Service
-  url: /dms/v2/home#dashboard
+  url: /dms/v2/home?region={region}#dashboard
   weight: 6
   sub_services:
     - id: certificates
       name: Certificates
-      url: /dms/v2/home#certificate
+      url: /dms/v2/home?region={region}#certificate
     - id: dashboard
       name: Dashboard
-      url: /dms/v2/home#dashboard
+      url: /dms/v2/home?region={region}#dashboard
     - id: databasemigrationtasks
       name: Database migration tasks
-      url: /dms/v2/home#tasks
+      url: /dms/v2/home?region={region}#tasks
     - id: endpoints
       name: Endpoints
-      url: /dms/v2/home#endpointList
+      url: /dms/v2/home?region={region}#endpointList
     - id: events
       name: Events
-      url: /dms/v2/home#EventList
+      url: /dms/v2/home?region={region}#EventList
     - id: eventsubscriptions
       name: Event subscriptions
-      url: /dms/v2/home#EventSubscriptionList
+      url: /dms/v2/home?region={region}#EventSubscriptionList
     - id: notifications
       name: Notifications
-      url: /dms/v2/home#Notifications
+      url: /dms/v2/home?region={region}#Notifications
     - id: replicationinstances
       name: Replication instances
-      url: /dms/v2/home#replicationInstances
+      url: /dms/v2/home?region={region}#replicationInstances
     - id: subnetgroups
       name: Subnet groups
-      url: /dms/v2/home#subnetGroup
+      url: /dms/v2/home?region={region}#subnetGroup
 - id: documentdb
   name: DocumentDB
   description: Fully-managed MongoDB-compatible database service
-  url: /docdb/home#dashboard
+  url: /docdb/home?region={region}#dashboard
   weight: 3
   sub_services:
     - id: clusters
       name: Clusters
-      url: /docdb/home#clusters
+      url: /docdb/home?region={region}#clusters
     - id: dashboard
       name: Dashboard
-      url: /docdb/home#dashboard
+      url: /docdb/home?region={region}#dashboard
     - id: events
       name: Events
-      url: /docdb/home#events
+      url: /docdb/home?region={region}#events
     - id: eventsubscriptions
       name: Event Subscriptions
-      url: /docdb/home#eventSubscriptions
+      url: /docdb/home?region={region}#eventSubscriptions
     - id: parametergroups
       name: Parameter groups
-      url: /docdb/home#parameterGroups
+      url: /docdb/home?region={region}#parameterGroups
     - id: snapshots
       name: Snapshots
-      url: /docdb/home#snapshots
+      url: /docdb/home?region={region}#snapshots
     - id: subnetgroups
       name: Subnet groups
-      url: /docdb/home#subnetGroups
+      url: /docdb/home?region={region}#subnetGroups
     - id: tutorials
       name: Tutorials
-      url: /docdb/home#tutorials-page
+      url: /docdb/home?region={region}#tutorials-page
     - id: what'snew
       name: What's New
-      url: /docdb/home#whats-new
+      url: /docdb/home?region={region}#whats-new
 - id: dynamodb
   name: DynamoDB
   description: Managed NoSQL Database
-  url: /dynamodbv2/home#dashboard
+  url: /dynamodbv2/home?region={region}#dashboard
   weight: 7
   top20: true
   sub_services:
     - id: backups
       name: Backups
-      url: /dynamodbv2/home#list-backups
+      url: /dynamodbv2/home?region={region}#list-backups
     - id: dashboard
       name: Dashboard
-      url: /dynamodbv2/home#dashboard
+      url: /dynamodbv2/home?region={region}#dashboard
     - id: daxclusters
       name: DAX Clusters
-      url: /dynamodbv2/home#dax-clusters
+      url: /dynamodbv2/home?region={region}#dax-clusters
     - id: daxevents
       name: DAX Events
-      url: /dynamodbv2/home#dax-events
+      url: /dynamodbv2/home?region={region}#dax-events
     - id: daxparametergroups
       name: DAX Parameter groups
-      url: /dynamodbv2/home#dax-parameter-groups-list
+      url: /dynamodbv2/home?region={region}#dax-parameter-groups-list
     - id: daxsubnetgroups
       name: DAX Subnet groups
-      url: /dynamodbv2/home#dax-subnet-groups-list
+      url: /dynamodbv2/home?region={region}#dax-subnet-groups-list
     - id: exportstos3
       name: Exports to S3
-      url: /dynamodbv2/home#exports
+      url: /dynamodbv2/home?region={region}#exports
     - id: items
       name: Items
-      url: /dynamodbv2/home#item-explorer
+      url: /dynamodbv2/home?region={region}#item-explorer
     - id: partiqleditor
       name: PartiQL editor
-      url: /dynamodbv2/home#partiql-editor
+      url: /dynamodbv2/home?region={region}#partiql-editor
     - id: reservedcapacity
       name: Reserved capacity
-      url: /dynamodbv2/home#reserved-capacity
+      url: /dynamodbv2/home?region={region}#reserved-capacity
     - id: tables
       name: Tables
-      url: /dynamodbv2/home#tables
+      url: /dynamodbv2/home?region={region}#tables
 - id: ec2
   name: Elastic Cloud Compute
   short_name: EC2
   description: Virtual Servers in the Cloud
-  url: '/ec2/home#Home:'
+  url: '/ec2/home?region={region}#Home:'
   weight: 9
   top20: true
   sub_services:
     - id: amis
       name: AMIs
-      url: '/ec2/home#Images:'
+      url: '/ec2/home?region={region}#Images:'
       weight: 7
     - id: autoscalinggroups
       name: Auto Scaling Groups
-      url: /ec2autoscaling/home#/details
+      url: /ec2autoscaling/home?region={region}#/details
       weight: 6
     - id: capacityreservations
       name: Capacity Reservations
-      url: /ec2sp/v2/home/#/cr/reservations
+      url: /ec2sp/v2/home/?region={region}#/cr/reservations
     - id: dashboard
       name: Dashboard
-      url: '/ec2/home#Home:'
+      url: '/ec2/home?region={region}#Home:'
     - id: dedicatedhosts
       name: Dedicated Hosts
-      url: '/ec2/home#Hosts:'
+      url: '/ec2/home?region={region}#Hosts:'
     - id: elasticips
       name: Elastic IPs
-      url: '/ec2/home#Addresses:'
+      url: '/ec2/home?region={region}#Addresses:'
       weight: 5
     - id: events
       name: Events
-      url: '/ec2/home#Events:'
+      url: '/ec2/home?region={region}#Events:'
     - id: instances
       name: Instances
-      url: '/ec2/v2/home#Instances:'
+      url: '/ec2/v2/home?region={region}#Instances:'
       weight: 9
     - id: instancetypes
       name: Instance Types
-      url: '/ec2/v2/home#InstanceTypes:'
+      url: '/ec2/v2/home?region={region}#InstanceTypes:'
     - id: keypairs
       name: Key Pairs
-      url: '/ec2/home#KeyPairs:'
+      url: '/ec2/home?region={region}#KeyPairs:'
       weight: 5
     - id: launchconfigs
       name: Launch Configurations
-      url: /ec2autoscaling/home#/lc
+      url: /ec2autoscaling/home?region={region}#/lc
     - id: launchtemplates
       name: Launch Templates
-      url: '/ec2/home#LaunchTemplates:'
+      url: '/ec2/home?region={region}#LaunchTemplates:'
       weight: 5
     - id: lifecyclemanager
       name: Lifecycle Manager
-      url: '/ec2/home#Lifecycle:'
+      url: '/ec2/home?region={region}#Lifecycle:'
     - id: limits
       name: Limits
-      url: '/ec2/home#Limits:'
+      url: '/ec2/home?region={region}#Limits:'
     - id: loadbalancers
       name: Load Balancers
-      url: '/ec2/home#LoadBalancers:'
+      url: '/ec2/home?region={region}#LoadBalancers:'
       weight: 6
     - id: networkinterfaces
       name: Network Interfaces
-      url: '/ec2/home#NIC:'
+      url: '/ec2/home?region={region}#NIC:'
     - id: placementgroups
       name: Placement Groups
-      url: '/ec2/home#PlacementGroups:'
+      url: '/ec2/home?region={region}#PlacementGroups:'
     - id: reservedinstances
       name: Reserved Instances
-      url: '/ec2/home#ReservedInstances:'
+      url: '/ec2/home?region={region}#ReservedInstances:'
     - id: savingsplans
       name: Savings Plans
-      url: '/ec2/home#SavingsPlans:'
+      url: '/ec2/home?region={region}#SavingsPlans:'
     - id: scheduledinstances
       name: Scheduled Instances
-      url: /ec2sp/v2/si/home
+      url: /ec2sp/v2/home?region={region}#/si/landing
     - id: securitygroups
       name: Security Groups
-      url: '/ec2/v2/home#SecurityGroups:'
+      url: '/ec2/v2/home?region={region}#SecurityGroups:'
       weight: 8
     - id: snapshots
       name: Snapshots
-      url: '/ec2/home#Snapshots:'
+      url: '/ec2/home?region={region}#Snapshots:'
     - id: spotrequests
       name: Spot Requests
-      url: /ec2sp
+      url: /ec2sp/v2/home?region={region}#/spot
     - id: tags
       name: Tags
-      url: '/ec2/home#Tags:'
+      url: '/ec2/home?region={region}#Tags:'
     - id: targetgroups
       name: Target Groups
-      url: '/ec2/home#TargetGroups:'
+      url: '/ec2/home?region={region}#TargetGroups:'
     - id: volumes
       name: Volume
-      url: '/ec2/home#Volumes:'
+      url: '/ec2/home?region={region}#Volumes:'
       weight: 7
 - id: ec2imagebuilder
   name: EC2 Image Builder
   description: A managed service to automate build, customize and deploy OS images
-  url: /imagebuilder/home#/pipelines
+  url: /imagebuilder/home?region={region}#/pipelines
   sub_services:
     - id: components
       name: Components
-      url: /imagebuilder/home#/components
+      url: /imagebuilder/home?region={region}#/components
     - id: containerrecipes
       name: Container recipes
-      url: /imagebuilder/home#/containerRecipes
+      url: /imagebuilder/home?region={region}#/containerRecipes
     - id: distributionsettings
       name: Distribution settings
-      url: /imagebuilder/home#/distributionSettings
+      url: /imagebuilder/home?region={region}#/distributionSettings
     - id: imagepipelines
       name: Image pipelines
-      url: /imagebuilder/home#/pipelines
+      url: /imagebuilder/home?region={region}#/pipelines
     - id: imagerecipes
       name: Image recipes
-      url: /imagebuilder/home#/imageRecipes
+      url: /imagebuilder/home?region={region}#/imageRecipes
     - id: images
       name: Images
-      url: /imagebuilder/home#/images
+      url: /imagebuilder/home?region={region}#/images
     - id: infrastructureconfiguration
       name: Infrastructure configuration
-      url: /imagebuilder/home#/infraConfigurations
+      url: /imagebuilder/home?region={region}#/infraConfigurations
 - id: ecr
   name: Elastic Container Registry
   short_name: ECR
   description: Fully-managed Docker container registry
-  url: /ecr/repositories#
+  url: /ecr/repositories?region={region}#
   weight: 6
   top20: true
   sub_services:
@@ -988,442 +988,442 @@
       url: https://gallery.ecr.aws/
     - id: registries
       name: Registries
-      url: /ecr/registries#
+      url: /ecr/registries?region={region}#
     - id: repositories
       name: Repositories
-      url: /ecr/repositories#
+      url: /ecr/repositories?region={region}#
 - id: ecs
   name: Elastic Container Service
   short_name: ECS
   description: Run and Manage Docker Containers
-  url: /ecs/home#/clusters
+  url: /ecs/home?region={region}#/clusters
   weight: 6
   sub_services:
     - id: clusters
       name: Clusters
-      url: /ecs/home#/clusters
+      url: /ecs/home?region={region}#/clusters
     - id: settings
       name: Account settings
-      url: /ecs/home#/settings
+      url: /ecs/home?region={region}#/settings
     - id: taskdefinitions
       name: Task Definitions
-      url: /ecs/home#/taskDefinitions
+      url: /ecs/home?region={region}#/taskDefinitions
 - id: efs
   name: Elastic File Storage
   short_name: EFS
   description: Managed File Storage for EC2
-  url: /efs/home#/file-systems
+  url: /efs/home?region={region}#/file-systems
   weight: 6
   sub_services:
     - id: accesspoints
       name: Access points
-      url: /efs/home#/access-points
+      url: /efs/home?region={region}#/access-points
     - id: filesystems
       name: File systems
-      url: /efs/home#/file-systems
+      url: /efs/home?region={region}#/file-systems
     - id: settings
       name: Settings
-      url: /efs/home#/settings
+      url: /efs/home?region={region}#/settings
 - id: eks
   name: Elastic Kubernetes Service
   short_name: EKS
   description: Managed Kubernetes on AWS
-  url: /eks/home#/clusters
+  url: /eks/home?region={region}#/clusters
   weight: 3
   sub_services:
     - id: clusters
       name: Clusters
-      url: /eks/home#/clusters
+      url: /eks/home?region={region}#/clusters
 - id: elasticache
   name: ElastiCache
   description: In-Memory Cache
-  url: /elasticache/home#
+  url: /elasticache/home?region={region}#
   weight: 3
   sub_services:
     - id: clientdownload
       name: ElastiCache Cluster Client
-      url: '/elasticache/home#client-download:'
+      url: '/elasticache/home?region={region}#client-download:'
     - id: dashboard
       name: Dashboard
-      url: /elasticache/home#
+      url: /elasticache/home?region={region}#
     - id: events
       name: Events
-      url: '/elasticache/home#events:'
+      url: '/elasticache/home?region={region}#events:'
     - id: globalcluster
       name: Global Datastore
-      url: '/elasticache/home#global-cluster:'
+      url: '/elasticache/home?region={region}#global-cluster:'
     - id: memcached
       name: Memcached
-      url: '/elasticache/home#memcached:'
+      url: '/elasticache/home?region={region}#memcached:'
     - id: parametergroups
       name: Parameter Groups
-      url: '/elasticache/home#param-groups:'
+      url: '/elasticache/home?region={region}#param-groups:'
     - id: redis
       name: Redis
-      url: '/elasticache/home#redis:'
+      url: '/elasticache/home?region={region}#redis:'
     - id: reservedcachenodes
       name: Reserved Cache Nodes
-      url: '/elasticache/home#reserved-cache-nodes:'
+      url: '/elasticache/home?region={region}#reserved-cache-nodes:'
     - id: serviceupdates
       name: Service Updates
-      url: '/elasticache/home#service-updates:'
+      url: '/elasticache/home?region={region}#service-updates:'
     - id: snapshots
       name: Backups
-      url: '/elasticache/home#snapshots:'
+      url: '/elasticache/home?region={region}#snapshots:'
     - id: subnetgroups
       name: Subnet Groups
-      url: '/elasticache/home#cache-subnet-groups:'
+      url: '/elasticache/home?region={region}#cache-subnet-groups:'
     - id: usergroups
       name: User Group Management
-      url: '/elasticache/home#user-groups:'
+      url: '/elasticache/home?region={region}#user-groups:'
     - id: users
       name: User Management
-      url: '/elasticache/home#users:'
+      url: '/elasticache/home?region={region}#users:'
 - id: elasticbeanstalk
   name: Elastic Beanstalk
   description: Run and Manage Web Apps
-  url: /elasticbeanstalk/home#/environments
+  url: /elasticbeanstalk/home?region={region}#/environments
   sub_services:
     - id: applications
       name: Applications
-      url: /elasticbeanstalk/home#/applications
+      url: /elasticbeanstalk/home?region={region}#/applications
     - id: changehistory
       name: Change history
-      url: /elasticbeanstalk/home/changeHistory
+      url: /elasticbeanstalk/home?region={region}#/changeHistory
     - id: environments
       name: Environments
-      url: /elasticbeanstalk/home#/environments
+      url: /elasticbeanstalk/home?region={region}#/environments
 - id: elastictranscoder
   name: Elastic Transcoder
   description: Easy-to-Use Scalable Media Transcoding
-  url: /elastictranscoder/home#
+  url: /elastictranscoder/home?region={region}#
   sub_services: []
 - id: emr
   name: Elastic Map Reduce
   short_name: EMR
   description: Managed Hadoop Framework
-  url: '/elasticmapreduce/home#cluster-list:'
+  url: '/elasticmapreduce/home?region={region}#cluster-list:'
   weight: 6
   sub_services:
     - id: blockpublicaccess
       name: Block public access
-      url: '/elasticmapreduce/home#block-public-access:'
+      url: '/elasticmapreduce/home?region={region}#block-public-access:'
     - id: clusters
       name: Clusters
-      url: '/elasticmapreduce/home#cluster-list:'
+      url: '/elasticmapreduce/home?region={region}#cluster-list:'
     - id: events
       name: Events
-      url: '/elasticmapreduce/home#events:'
+      url: '/elasticmapreduce/home?region={region}#events:'
     - id: gitrepositories
       name: Git repositories
-      url: '/elasticmapreduce/home#git-repositories-list:'
+      url: '/elasticmapreduce/home?region={region}#git-repositories-list:'
     - id: notebooks
       name: Notebooks
-      url: '/elasticmapreduce/home#notebooks-list:'
+      url: '/elasticmapreduce/home?region={region}#notebooks-list:'
     - id: securityconfigurations
       name: Security configurations
-      url: '/elasticmapreduce/home#security-configurations-list:'
+      url: '/elasticmapreduce/home?region={region}#security-configurations-list:'
     - id: virtualclusters
       name: Virtual clusters
-      url: '/elasticmapreduce/home#virtual-cluster-list:'
+      url: '/elasticmapreduce/home?region={region}#virtual-cluster-list:'
     - id: vpcsubnets
       name: VPC subnets
-      url: '/elasticmapreduce/home#manage-subnets:'
+      url: '/elasticmapreduce/home?region={region}#manage-subnets:'
 - id: ess
   name: Elasticsearch Service
   short_name: ESS
   description: Run and Scale Elasticsearch Clusters
-  url: /es/home#
+  url: /es/home?region={region}#
   sub_services: []
 - id: eventbridge
   name: EventBridge
   description: Serverless event bus that connects application data from your own apps,
     SaaS, and AWS services
-  url: /events/home#/events
+  url: /events/home?region={region}#/events
   sub_services:
     - id: apidestinations
       name: API destinations
-      url: /events/home#/apidestinations
+      url: /events/home?region={region}#/apidestinations
     - id: archives
       name: Archives
-      url: /events/home#/archives
+      url: /events/home?region={region}#/archives
     - id: eventbuses
       name: Event buses
-      url: /events/home#/eventbuses
+      url: /events/home?region={region}#/eventbuses
     - id: events
       name: Events
-      url: /events/home#/events
+      url: /events/home?region={region}#/events
     - id: integration
       name: Integration
-      url: /events/home#/integration
+      url: /events/home?region={region}#/integration
     - id: partnereventsources
       name: Partner event sources
-      url: /events/home#/partners
+      url: /events/home?region={region}#/partners
     - id: replays
       name: Replays
-      url: /events/home#/replays
+      url: /events/home?region={region}#/replays
     - id: rules
       name: Rules
-      url: /events/home#/rules
+      url: /events/home?region={region}#/rules
     - id: schemaregistry
       name: Schema registry
-      url: /events/home#/schemaregistry
+      url: /events/home?region={region}#/schemaregistry
     - id: schemas
       name: Schemas
-      url: /events/home#/schemas
+      url: /events/home?region={region}#/schemas
 - id: forecast
   name: Forecast
   description: fully-managed service for accurate time-series forecasting
-  url: /forecast/home#
+  url: /forecast/home?region={region}#
   sub_services: []
 - id: frauddetector
   name: Fraud Detector
   description: Detect more online fraud faster with machine learning
-  url: /frauddetector/home#getDetectors
+  url: /frauddetector/home?region={region}#getDetectors
   sub_services:
     - id: batchpredictions
       name: Batch predictions
-      url: /frauddetector/home#getBatchPredictions
+      url: /frauddetector/home?region={region}#getBatchPredictions
     - id: detectors
       name: Detectors
-      url: /frauddetector/home#getDetectors
+      url: /frauddetector/home?region={region}#getDetectors
     - id: entities
       name: Entities
-      url: /frauddetector/home#entityTypes
+      url: /frauddetector/home?region={region}#entityTypes
     - id: events
       name: Events
-      url: /frauddetector/home#getEventTypes
+      url: /frauddetector/home?region={region}#getEventTypes
     - id: labels
       name: Labels
-      url: /frauddetector/home#getLabels
+      url: /frauddetector/home?region={region}#getLabels
     - id: models
       name: Models
-      url: /frauddetector/home#getModels
+      url: /frauddetector/home?region={region}#getModels
     - id: outcomes
       name: Outcomes
-      url: /frauddetector/home#getOutcomes
+      url: /frauddetector/home?region={region}#getOutcomes
     - id: searchpastpredictions
       name: Search past predictions
-      url: /frauddetector/home#auditEvaluations
+      url: /frauddetector/home?region={region}#auditEvaluations
     - id: variables
       name: Variables
-      url: /frauddetector/home#getVariables
+      url: /frauddetector/home?region={region}#getVariables
 - id: freertos
   name: FreeRTOS
   description: IoT Operating System for Microcontrollers
-  url: /freertos/home#
+  url: /freertos/home?region={region}#
   sub_services: []
 - id: fsx
   name: FSx
   description: Fully managed third-party file systems optimized for a variety of workloads
-  url: /fsx/home#file-systems
+  url: /fsx/home?region={region}#file-systems
   sub_services:
     - id: backups
       name: Backups
-      url: /fsx/home#backups
+      url: /fsx/home?region={region}#backups
     - id: datarepositorytasks
       name: Data repository tasks
-      url: /fsx/home#data-repository-tasks
+      url: /fsx/home?region={region}#data-repository-tasks
     - id: filesystems
       name: File systems
-      url: /fsx/home#file-systems
+      url: /fsx/home?region={region}#file-systems
 - id: gamelift
   name: GameLift
   description: Deploy and Scale Session-based Multiplayer Games
-  url: /gamelift/home#
+  url: /gamelift/home?region={region}#
   sub_services: []
 - id: glacier
   name: S3 Glacier
   description: Archive Storage in the Cloud
-  url: /glacier/home#
+  url: /glacier/home?region={region}#
   weight: 6
   sub_services: []
 - id: globalaccelerator
   name: Global Accelerator
   description: "Improve your application\u2019s availability and performance using\
     \ the AWS Global Network"
-  url: /ec2/v2/home#GlobalAcceleratorDashboard
+  url: /ec2/v2/home?region={region}#GlobalAcceleratorDashboard
   sub_services: []
 - id: glue
   name: Glue
   description: fully managed ETL (extract, transform, and load) service
-  url: /glue/home#catalog:tab=databases
+  url: /glue/home?region={region}#catalog:tab=databases
   weight: 6
   sub_services:
     - id: awsgluestudio
       name: AWS Glue Studio
-      url: /gluestudio/home#/
+      url: /gluestudio/home?region={region}#/
     - id: blueprints
       name: Blueprints
-      url: /glue/home#etl:tab=blueprints
+      url: /glue/home?region={region}#etl:tab=blueprints
     - id: classifiers
       name: Classifiers
-      url: /glue/home#catalog:tab=classifiers
+      url: /glue/home?region={region}#catalog:tab=classifiers
     - id: connections
       name: Connections
-      url: /glue/home#catalog:tab=connections
+      url: /glue/home?region={region}#catalog:tab=connections
     - id: crawlers
       name: Crawlers
-      url: /glue/home#catalog:tab=crawlers
+      url: /glue/home?region={region}#catalog:tab=crawlers
     - id: databases
       name: Databases
-      url: /glue/home#catalog:tab=databases
+      url: /glue/home?region={region}#catalog:tab=databases
     - id: devendpoints
       name: Dev endpoints
-      url: /glue/home#etl:tab=devEndpoints
+      url: /glue/home?region={region}#etl:tab=devEndpoints
     - id: jobs
       name: Jobs
-      url: /glue/home#etl:tab=jobs
+      url: /glue/home?region={region}#etl:tab=jobs
     - id: mltransforms
       name: ML Transforms
-      url: /glue/home#etl:tab=mlTransforms
+      url: /glue/home?region={region}#etl:tab=mlTransforms
     - id: notebooks
       name: Notebooks
-      url: /glue/home#etl:tab=notebooks
+      url: /glue/home?region={region}#etl:tab=notebooks
     - id: schemaregistries
       name: Schema registries
-      url: /glue/home#catalog:tab=schemaRegistries
+      url: /glue/home?region={region}#catalog:tab=schemaRegistries
     - id: schemas
       name: Schemas
-      url: /glue/home#catalog:tab=schemas
+      url: /glue/home?region={region}#catalog:tab=schemas
     - id: securityconfigurations
       name: Security configurations
-      url: '/glue/home#securityConfigurations:'
+      url: '/glue/home?region={region}#securityConfigurations:'
     - id: settings
       name: Settings
-      url: /glue/home#catalog:tab=settings
+      url: /glue/home?region={region}#catalog:tab=settings
     - id: tables
       name: Tables
-      url: /glue/home#catalog:tab=tables
+      url: /glue/home?region={region}#catalog:tab=tables
     - id: triggers
       name: Triggers
-      url: /glue/home#etl:tab=triggers
+      url: /glue/home?region={region}#etl:tab=triggers
     - id: workflows
       name: Workflows
-      url: /glue/home#etl:tab=workflows
+      url: /glue/home?region={region}#etl:tab=workflows
 - id: groundstation
   name: Ground Station
   description: Communicate with satellites
-  url: /groundstation/home#/contacts
+  url: /groundstation/home?region={region}#/contacts
   sub_services:
     - id: contacts
       name: Contacts
-      url: /groundstation/home#/contacts
+      url: /groundstation/home?region={region}#/contacts
     - id: satellitesandresources
       name: Satellites and resources
-      url: /groundstation/home#/resources
+      url: /groundstation/home?region={region}#/resources
 - id: guardduty
   name: GuardDuty
   description: Intelligent Threat Detection to Protect Your AWS Accounts and Workloads
-  url: /guardduty/home#/findings
+  url: /guardduty/home?region={region}#/findings
   sub_services:
     - id: accounts
       name: Accounts
-      url: /guardduty/home#/linked-accounts
+      url: /guardduty/home?region={region}#/linked-accounts
     - id: findings
       name: Findings
-      url: /guardduty/home#/findings
+      url: /guardduty/home?region={region}#/findings
     - id: lists
       name: Lists
-      url: /guardduty/home#/lists
+      url: /guardduty/home?region={region}#/lists
     - id: s3protection
       name: S3 Protection
-      url: /guardduty/home#/s3-protection
+      url: /guardduty/home?region={region}#/s3-protection
     - id: settings
       name: Settings
-      url: /guardduty/home#/settings
+      url: /guardduty/home?region={region}#/settings
     - id: usage
       name: Usage
-      url: /guardduty/home#/usage
+      url: /guardduty/home?region={region}#/usage
 - id: iam
   name: Identity and Access Management
   short_name: IAM
   description: Manage User Access and Encryption Keys
-  url: /iam/home#/home
+  url: /iam/home?region={region}#/home
   globally: true
   weight: 9
   top20: true
   sub_services:
     - id: accountsettings
       name: Account settings
-      url: /iam/home#/account_settings
+      url: /iam/home?region={region}#/account_settings
     - id: credentialreport
       name: Credential report
-      url: /iam/home#/credential_report
+      url: /iam/home?region={region}#/credential_report
     - id: dashboard
       name: Dashboard
-      url: /iam/home#/home
+      url: /iam/home?region={region}#/home
     - id: identityproviders
       name: Identity providers
-      url: /iamv2/home#/identity_providers
+      url: /iamv2/home?region={region}#/identity_providers
     - id: organizationactivity
       name: Organization activity
-      url: /iam/home#/organizations/ServiceActivity
+      url: /iam/home?region={region}#/organizations/ServiceActivity
     - id: policies
       name: Policies
-      url: /iamv2/home#/policies
+      url: /iamv2/home?region={region}#/policies
     - id: roles
       name: Roles
-      url: /iamv2/home#/roles
+      url: /iamv2/home?region={region}#/roles
     - id: scps
       name: Service control policies (SCPs)
-      url: /iam/home#/organizations/ServiceControlPolicies
+      url: /iam/home?region={region}#/organizations/ServiceControlPolicies
     - id: usergroups
       name: User groups
-      url: /iamv2/home#/groups
+      url: /iamv2/home?region={region}#/groups
     - id: users
       name: Users
-      url: /iamv2/home#/users
+      url: /iamv2/home?region={region}#/users
 - id: inspector
   name: Inspector
   description: Analyze Application Security
-  url: /inspector/home#
+  url: /inspector/home?region={region}#
   sub_services: []
 - id: iot
   name: IoT Core
   description: Connect Devices to the Cloud
-  url: /iot/home#
+  url: /iot/home?region={region}#
   sub_services: []
 - id: iot1click
   name: IoT 1-Click
   description: Trigger AWS Lambda functions from simple devices
-  url: /iot1click/home#
+  url: /iot1click/home?region={region}#
   sub_services: []
 - id: iotanalytics
   name: IoT Analytics
   description: Collect, preprocess, store, analyze and visualize data of IoT devices
-  url: /iotanalytics/home#
+  url: /iotanalytics/home?region={region}#
   sub_services: []
 - id: iotdevicedefender
   name: IoT Device Defender
   description: Connect Devices to the Cloud
-  url: /devicedefender/home#
+  url: /devicedefender/home?region={region}#
   sub_services: []
 - id: iotdevicemanagement
   name: IoT Device Management
   description: Securely Manage Fleets as Small as One Device, or as Broad as Millions
     of Devices
-  url: /iotdm/home#
+  url: /iotdm/home?region={region}#
   sub_services: []
 - id: iotevents
   name: IoT Events
   description: Monitor device fleets for changes and trigger alerts to respond
-  url: /iotevents/home#
+  url: /iotevents/home?region={region}#
   sub_services: []
 - id: iotgreengrass
   name: IoT Greengrass
   description: Deploy and run code on your devices
-  url: /iotgreengrass/home#
+  url: /iotgreengrass/home?region={region}#
   sub_services: []
 - id: iotsitewise
   name: IoT SiteWise
   description: Data driven decisions in Industrial operations
-  url: /iotsitewise/home#
+  url: /iotsitewise/home?region={region}#
   sub_services: []
 - id: iotthingsgraph
   name: IoT Things Graph
   description: Easily connect devices and web services to build IoT applications
-  url: /thingsgraph/home#
+  url: /thingsgraph/home?region={region}#
   sub_services: []
 - id: iq
   name: IQ
@@ -1433,124 +1433,124 @@
 - id: kendra
   name: Kendra
   description: Highly accurate enterprise search powered by machine learning
-  url: /kendra/home#indexes
+  url: /kendra/home?region={region}#indexes
   sub_services: []
 - id: kinesis
   name: Kinesis
   description: Work with Real-Time Streaming Data
-  url: /kinesis/home#dashboard
+  url: /kinesis/home?region={region}#dashboard
   weight: 6
   top20: true
   sub_services:
     - id: analytics
       name: Analytics applications
-      url: /kinesisanalytics/home#/applications/dashboard
+      url: /kinesisanalytics/home?region={region}#/applications/dashboard
     - id: dashboard
       name: Dashboard
-      url: /kinesis/home#dashboard
+      url: /kinesis/home?region={region}#dashboard
     - id: datastreams
       name: Data streams
-      url: /kinesis/home#/streams/list
+      url: /kinesis/home?region={region}#/streams/list
     - id: firehose
       name: Firehose delivery streams
-      url: /firehose/home#/dashboard/list
+      url: /firehose/home?region={region}#/dashboard/list
     - id: videostreams
       name: Video streams
-      url: /kinesisvideo/home
+      url: /kinesisvideo/home?region={region}#/
 - id: kms
   name: Key Management Service
   short_name: KMS
   description: Securely Generate and Manage AWS Encryption Keys
-  url: /kms/home#/kms/defaultKeys
+  url: /kms/home?region={region}#/kms/defaultKeys
   weight: 6
   sub_services:
     - id: awsmanagedkeys
       name: AWS managed keys
-      url: /kms/home#/kms/defaultKeys
+      url: /kms/home?region={region}#/kms/defaultKeys
     - id: customermanagedkeys
       name: Customer managed keys
-      url: /kms/home#/kms/keys
+      url: /kms/home?region={region}#/kms/keys
     - id: customkeystores
       name: Custom key stores
-      url: /kms/home#/kms/customStores
+      url: /kms/home?region={region}#/kms/customStores
 - id: lakeformation
   name: Lake Formation
   short_name: LF
   description: Create and manage data lakes with centralized access control across
     Amazon Web Services
-  url: /lakeformation/home#firstRun
+  url: /lakeformation/home?region={region}#firstRun
   weight: 6
   sub_services:
     - id: administrativerolesandtasks
       name: Administrative roles and tasks
-      url: /lakeformation/home#administrative-roles-and-tasks
+      url: /lakeformation/home?region={region}#administrative-roles-and-tasks
     - id: dashboard
       name: dashboard
-      url: /lakeformation/home#dashboard
+      url: /lakeformation/home?region={region}#dashboard
     - id: databases
       name: Databases
-      url: /lakeformation/home#databases
+      url: /lakeformation/home?region={region}#databases
     - id: datalakelocations
       name: Data lake locatons
-      url: /lakeformation/home#register-list
+      url: /lakeformation/home?region={region}#register-list
     - id: datalakepermissions
       name: Data lake permissions
-      url: /lakeformation/home#permissions-list
+      url: /lakeformation/home?region={region}#permissions-list
     - id: datalocationpermissions
       name: Data location permissions
-      url: /lakeformation/home#location-permissions
+      url: /lakeformation/home?region={region}#location-permissions
     - id: lftags
       name: LF tags
-      url: /lakeformation/home#policy-tags
+      url: /lakeformation/home?region={region}#policy-tags
     - id: lftagspermissions
       name: Tag permissions
-      url: /lakeformation/home#tag-permissions
+      url: /lakeformation/home?region={region}#tag-permissions
     - id: tables
       name: Tables
-      url: /lakeformation/home#tables
+      url: /lakeformation/home?region={region}#tables
 - id: lambda
   name: Lambda
   description: Run Code without Thinking about Servers
-  url: /lambda/home#/discover
+  url: /lambda/home?region={region}#/discover
   weight: 6
   top20: true
   sub_services:
     - id: applications
       name: Applications
-      url: /lambda/home#/applications
+      url: /lambda/home?region={region}#/applications
     - id: dashboard
       name: Dashboard
-      url: /lambda/home#/discover
+      url: /lambda/home?region={region}#/discover
     - id: functions
       name: Functions
-      url: /lambda/home#/functions
+      url: /lambda/home?region={region}#/functions
     - id: layers
       name: Layers
-      url: /lambda/home#/layers
+      url: /lambda/home?region={region}#/layers
 - id: launchwizard
   name: Launch Wizard
   description: Size, configure, and deploy third-party applications on AWS
-  url: /launchwizard/home#SqlDeployment
+  url: /launchwizard/home?region={region}#SqlDeployment
   sub_services:
     - id: activedirectory
       name: Active Directory
-      url: /launchwizard/home#AdDeployment
+      url: /launchwizard/home?region={region}#AdDeployment
     - id: mssqlserver
       name: MS SQL Server
-      url: /launchwizard/home#SqlDeployment
+      url: /launchwizard/home?region={region}#SqlDeployment
     - id: sap
       name: SAP
-      url: /launchwizard/home#SapDeployment
+      url: /launchwizard/home?region={region}#SapDeployment
 - id: lex
   name: Lex
   description: Build Voice and Text Chatbots
-  url: /lexv2/home#bots
+  url: /lexv2/home?region={region}#bots
   sub_services: []
 - id: licensemanager
   name: License Manager
   description: Set rules to manage, discover, and report third-party license usage
     proactively
-  url: /license-manager/home#
+  url: /license-manager/home?region={region}#
   sub_services: []
 - id: lightsail
   name: Lightsail
@@ -1560,248 +1560,248 @@
 - id: macie
   name: Macie
   description: Amazon Macie classifies and secures your business-critical content.
-  url: /macie/home#
+  url: /macie/home?region={region}#
   sub_services: []
 - id: managedservices
   name: Managed Services
   description: IT operations management for AWS
-  url: /managedservices/home#
+  url: /managedservices/home?region={region}#
   sub_services: []
 - id: marketplace
   name: Marketplace Subscriptions
   description: Digital catalog where you can find, buy, and deploy software
-  url: /marketplace/home#/subscriptions
+  url: /marketplace/home?region={region}#/subscriptions
   globally: true
   sub_services:
     - id: discoverproducts
       name: Discover products
-      url: /marketplace/home#/search
+      url: /marketplace/home?region={region}#/search
     - id: settings
       name: Settings
-      url: /marketplace/home#/settings
+      url: /marketplace/home?region={region}#/settings
     - id: subscriptions
       name: Manage subscriptions
-      url: /marketplace/home#/subscriptions
+      url: /marketplace/home?region={region}#/subscriptions
 - id: mcs
   name: Keyspaces (for Apache Cassandra)
   description: "A scalable, highly available, and managed Apache Cassandra\u2013compatible\
     \ database service"
-  url: /keyspaces/home#dashboard
+  url: /keyspaces/home?region={region}#dashboard
   sub_services:
     - id: cqleditor
       name: CQL editor
-      url: /keyspaces/home#cql-editor
+      url: /keyspaces/home?region={region}#cql-editor
     - id: dashboard
       name: Dashboard
-      url: /keyspaces/home#dashboard
+      url: /keyspaces/home?region={region}#dashboard
     - id: keyspaces
       name: Keyspaces
-      url: /keyspaces/home#keyspaces
+      url: /keyspaces/home?region={region}#keyspaces
     - id: tables
       name: Tables
-      url: /keyspaces/home#tables
+      url: /keyspaces/home?region={region}#tables
 - id: mediaconnect
   name: MediaConnect
   description: Reliable, secure, and flexible transport for live video
-  url: /mediaconnect/home#
+  url: /mediaconnect/home?region={region}#
   sub_services: []
 - id: mediaconvert
   name: MediaConvert
   description: Convert file-based content for broadcast and multiscreen delivery
-  url: /mediaconvert/home#/jobs/list
+  url: /mediaconvert/home?region={region}#/jobs/list
   sub_services:
     - id: account
       name: Account
-      url: /mediaconvert/home#/account
+      url: /mediaconvert/home?region={region}#/account
     - id: certificates
       name: Certificates
-      url: /mediaconvert/home#/certificates
+      url: /mediaconvert/home?region={region}#/certificates
     - id: jobs
       name: Jobs
-      url: /mediaconvert/home#/jobs/list
+      url: /mediaconvert/home?region={region}#/jobs/list
     - id: jobtemplates
       name: Job templates
-      url: /mediaconvert/home#/templates/list
+      url: /mediaconvert/home?region={region}#/templates/list
     - id: outputpresets
       name: Output presets
-      url: /mediaconvert/home#/presets/list
+      url: /mediaconvert/home?region={region}#/presets/list
     - id: queues
       name: Queues
-      url: /mediaconvert/home#/queues/list
+      url: /mediaconvert/home?region={region}#/queues/list
 - id: medialive
   name: MediaLive
   description: Convert video inputs into live outputs for broadcast and streaming
     delivery
-  url: /medialive/home#!/inputs
+  url: /medialive/home?region={region}#!/inputs
   sub_services:
     - id: channels
       name: Channels
-      url: /medialive/home#!/channels
+      url: /medialive/home?region={region}#!/channels
     - id: devices
       name: Devices
-      url: /medialive/home#!/devices
+      url: /medialive/home?region={region}#!/devices
     - id: inputs
       name: Inputs
-      url: /medialive/home#!/inputs
+      url: /medialive/home?region={region}#!/inputs
     - id: inputsecuritygroups
       name: Input security groups
-      url: /medialive/home#!/inputSecurityGroups
+      url: /medialive/home?region={region}#!/inputSecurityGroups
     - id: multiplexes
       name: Multiplexes
-      url: /medialive/multiplex#/
+      url: /medialive/multiplex?region={region}#/
     - id: reservations
       name: Reservations
-      url: /medialive/home#!/reservations
+      url: /medialive/home?region={region}#!/reservations
     - id: workflowwizard
       name: Workflow Wizard
-      url: /medialive/home#!/workflows
+      url: /medialive/home?region={region}#!/workflows
 - id: mediapackage
   name: MediaPackage
   description: Deliver video to many devices using just-in-time format conversion
-  url: /mediapackage/home#/channels
+  url: /mediapackage/home?region={region}#/channels
   sub_services:
     - id: channels
       name: Channels
-      url: /mediapackage/home#/channels
+      url: /mediapackage/home?region={region}#/channels
     - id: harvestjobs
       name: Harvest jobs
-      url: /mediapackage/home#/harvest-jobs
+      url: /mediapackage/home?region={region}#/harvest-jobs
     - id: vodassets
       name: Video on demand Assets
-      url: /mediapackagevod/home#/assets
+      url: /mediapackagevod/home?region={region}#/assets
     - id: vodpackaginggroups
       name: Video on demand Packaging groups
-      url: /mediapackagevod/home#/packaging_groups
+      url: /mediapackagevod/home?region={region}#/packaging_groups
 - id: mediastore
   name: MediaStore
   description: Store and deliver video assets for live or on-demand media workflows
-  url: /mediastore/home#
+  url: /mediastore/home?region={region}#
   sub_services: []
 - id: mediatailor
   name: MediaTailor
   description: Personalize and monetize multiscreen content with server-side ad insertion
-  url: /mediatailor/home#/controlpanel
+  url: /mediatailor/home?region={region}#/controlpanel
   sub_services:
     - id: channels
       name: Channels
-      url: /mediatailor/home#/channels
+      url: /mediatailor/home?region={region}#/channels
     - id: configurations
       name: Configurations
-      url: /mediatailor/home#/controlpanel
+      url: /mediatailor/home?region={region}#/controlpanel
     - id: sourcelocations
       name: Source locations
-      url: /mediatailor/home#/source-locations
+      url: /mediatailor/home?region={region}#/source-locations
 - id: memorydb
   name: Memorydb for Redis
   description: Redis-compatible, durable, in-memory database service for ultra-fast
     performance
-  url: /memorydb/home
+  url: /memorydb/home?region={region}#/
   weight: 3
   sub_services:
     - id: cluster
       name: Clusters
-      url: /memorydb/home#/clusters
+      url: /memorydb/home?region={region}#/clusters
     - id: dashboard
       name: Dashboard
-      url: /memorydb/home#/dashboard
+      url: /memorydb/home?region={region}#/dashboard
     - id: snapshots
       name: Snapshots
-      url: /memorydb/home#/snapshots
+      url: /memorydb/home?region={region}#/snapshots
     - id: users
       name: Users
-      url: /memorydb/home#/users
+      url: /memorydb/home?region={region}#/users
 - id: migrationhub
   name: Migration Hub
   description: Simplify and accelerate the migration of your data centers to AWS
-  url: /migrationhub/home#
+  url: /migrationhub/home?region={region}#
   sub_services: []
 - id: mq
   name: MQ
   description: Managed message broker service for Apache ActiveMQ
-  url: /amazon-mq/home#/brokers
+  url: /amazon-mq/home?region={region}#/brokers
   sub_services:
     - id: brokers
       name: Brokers
-      url: /amazon-mq/home#/brokers
+      url: /amazon-mq/home?region={region}#/brokers
     - id: configurations
       name: Configurations
-      url: /amazon-mq/home#/configurations
+      url: /amazon-mq/home?region={region}#/configurations
 - id: msk
   name: Managed Streaming for Apache Kafka
   short_name: MSK
   description: Fully managed, highly available, and secure service for Apache Kafka
-  url: /msk/home#/clusters
+  url: /msk/home?region={region}#/clusters
   sub_services:
     - id: clusterconfigurations
       name: Cluster configurations
-      url: /msk/home#/configurations
+      url: /msk/home?region={region}#/configurations
     - id: clusters
       name: Clusters
-      url: /msk/home#/clusters
+      url: /msk/home?region={region}#/clusters
 - id: mwaa
   name: Amazon Managed Workflows for Apache Airflow
   short_name: mwaa
   description: Run Apache Airflow without provisioning or managing servers
-  url: /mwaa/home#home?landingPageCheck=1
+  url: /mwaa/home?region={region}#home?landingPageCheck=1
   weight: 3
   sub_services: []
 - id: neptune
   name: Neptune
   description: Fast, reliable graph database built for the cloud
-  url: '/neptune/home#databases:'
+  url: '/neptune/home?region={region}#databases:'
   weight: 3
   sub_services:
     - id: clusters
       name: Clusters
-      url: '/neptune/home#dbclusters:'
+      url: '/neptune/home?region={region}#dbclusters:'
     - id: databases
       name: Databases
-      url: '/neptune/home#databases:'
+      url: '/neptune/home?region={region}#databases:'
     - id: events
       name: Events
-      url: '/neptune/home#events:'
+      url: '/neptune/home?region={region}#events:'
     - id: eventsubscriptions
       name: Event subscriptions
-      url: '/neptune/home#event-subscriptions-list:'
+      url: '/neptune/home?region={region}#event-subscriptions-list:'
     - id: notebooks
       name: Notebooks
-      url: '/neptune/home#notebooks:'
+      url: '/neptune/home?region={region}#notebooks:'
     - id: notifications
       name: Notifications
-      url: '/neptune/home#notifications:'
+      url: '/neptune/home?region={region}#notifications:'
     - id: parametergroups
       name: Parameter groups
-      url: '/neptune/home#parameter-groups:'
+      url: '/neptune/home?region={region}#parameter-groups:'
     - id: reservedinstances
       name: Reserved instances
-      url: '/neptune/home#reserved-instance-list:'
+      url: '/neptune/home?region={region}#reserved-instance-list:'
     - id: snapshots
       name: Snapshots
-      url: '/neptune/home#db-snapshots:'
+      url: '/neptune/home?region={region}#db-snapshots:'
     - id: subnetgroups
       name: Subnet groups
-      url: '/neptune/home#db-subnet-groups:'
+      url: '/neptune/home?region={region}#db-subnet-groups:'
 - id: opsworks
   name: OpsWorks
   description: Configuration Management with Chef and Puppet
-  url: /opsworks/home#/dashboard
+  url: /opsworks/home?region={region}#/dashboard
   globally: true
   sub_services:
     - id: chef
       name: Chef Automate servers
-      url: /opsworks/cm/home?owc=chefautomate#/chef/
+      url: /opsworks/cm/home?owc=chefautomate?region={region}#/chef/
     - id: puppet
       name: Puppet Enterprise servers
-      url: /opsworks/cm/home?owc=puppet#/puppet/
+      url: /opsworks/cm/home?owc=puppet?region={region}#/puppet/
     - id: settings
       name: Settings
-      url: /opsworks/home#/mysettings
+      url: /opsworks/home?region={region}#/mysettings
     - id: stacks
       name: Stacks
-      url: /opsworks/home#/dashboard
+      url: /opsworks/home?region={region}#/dashboard
     - id: users
       name: Users
-      url: /opsworks/home#/users
+      url: /opsworks/home?region={region}#/users
 - id: organizations
   name: Organizations
   description: Policy-based management for multiple AWS accounts.
@@ -1811,85 +1811,85 @@
 - id: outpost
   name: Outposts
   description: Run AWS Services On Premises
-  url: /outposts/home#Outposts
+  url: /outposts/home?region={region}#Outposts
   sub_services:
     - id: localgatewayroutetables
       name: Local gateway route tables
-      url: /outposts/home#LocalGatewayRouteTables
+      url: /outposts/home?region={region}#LocalGatewayRouteTables
     - id: localgateways
       name: Local gateways
-      url: /outposts/home#LocalGateways
+      url: /outposts/home?region={region}#LocalGateways
     - id: orders
       name: Orders
-      url: /outposts/home#Orders
+      url: /outposts/home?region={region}#Orders
     - id: outposts
       name: Outposts
-      url: /outposts/home#Outposts
+      url: /outposts/home?region={region}#Outposts
     - id: outpostscatalog
       name: Outposts catalog
-      url: /outposts/home#Catalog
+      url: /outposts/home?region={region}#Catalog
     - id: sites
       name: Sites
-      url: /outposts/home#Sites
+      url: /outposts/home?region={region}#Sites
 - id: personalize
   name: Personalize
   description: easily add real-time recommendations to your apps
-  url: /personalize/home#datasetGroups
+  url: /personalize/home?region={region}#datasetGroups
   sub_services: []
 - id: pinpoint
   name: Pinpoint
   description: Engage Users via Email, SMS, Push & Analytics
-  url: /pinpoint/home#/apps
+  url: /pinpoint/home?region={region}#/apps
   sub_services:
     - id: allprojects
       name: All projects
-      url: /pinpoint/home#/apps
+      url: /pinpoint/home?region={region}#/apps
     - id: deliverabilitydashboard
       name: Deliverability dashboard
-      url: /pinpoint/home#/deliverability/overview
+      url: /pinpoint/home?region={region}#/deliverability/overview
     - id: machinelearningmodels
       name: Machine learning models
-      url: /pinpoint/home#/recommenders
+      url: /pinpoint/home?region={region}#/recommenders
     - id: messagetemplates
       name: Message templates
-      url: /pinpoint/home#/templates/overview
+      url: /pinpoint/home?region={region}#/templates/overview
     - id: smsandvoice
       name: SMS and voice
-      url: /pinpoint/home#/sms-account-settings
+      url: /pinpoint/home?region={region}#/sms-account-settings
 - id: polly
   name: Polly
   description: Turn Text into Lifelike Speech
-  url: /polly/home/SynthesizeSpeech#
+  url: /polly/home/SynthesizeSpeech?region={region}#
   sub_services:
     - id: lexicons
       name: Lexicons
-      url: /polly/home/Lexicons#
+      url: /polly/home/Lexicons?region={region}#
     - id: s3synthesistasks
       name: S3 synthesis tasks
-      url: /polly/home/SynthesisTasks#
+      url: /polly/home/SynthesisTasks?region={region}#
     - id: texttospeech
       name: Text-to-Speech
-      url: /polly/home/SynthesizeSpeech#
+      url: /polly/home/SynthesizeSpeech?region={region}#
 - id: qldb
   name: QLDB
   description: Fully managed ledger database
-  url: /qldb/home#ledger-list
+  url: /qldb/home?region={region}#ledger-list
   sub_services:
     - id: export
       name: Export
-      url: /qldb/home#export-job-list
+      url: /qldb/home?region={region}#export-job-list
     - id: ledgers
       name: Ledgers
-      url: /qldb/home#ledger-list
+      url: /qldb/home?region={region}#ledger-list
     - id: queryeditor
       name: Query editor
-      url: /qldb/home#query-editor
+      url: /qldb/home?region={region}#query-editor
     - id: streams
       name: Streams
-      url: /qldb/home#stream-list
+      url: /qldb/home?region={region}#stream-list
     - id: verification
       name: Verification
-      url: /qldb/home#verification
+      url: /qldb/home?region={region}#verification
 - id: quicksight
   name: QuickSight
   description: Fast, easy to use business analytics
@@ -1899,408 +1899,408 @@
 - id: ram
   name: Resource Access Manager
   description: Share AWS resources with other accounts or AWS Organizations
-  url: '/ram/home#OwnedResourceShares:'
+  url: '/ram/home?region={region}#OwnedResourceShares:'
   sub_services:
     - id: ownedprincipals
       name: Owned principals
-      url: '/ram/home#OwnedPrincipals:'
+      url: '/ram/home?region={region}#OwnedPrincipals:'
     - id: ownedresources
       name: Owned resources
-      url: '/ram/home#OwnedResources:'
+      url: '/ram/home?region={region}#OwnedResources:'
     - id: ownedresourceshares
       name: Owned resource shares
-      url: '/ram/home#OwnedResourceShares:'
+      url: '/ram/home?region={region}#OwnedResourceShares:'
     - id: permissionslibrary
       name: Permissions library
-      url: '/ram/home#Permissions:'
+      url: '/ram/home?region={region}#Permissions:'
     - id: settings
       name: Settings
-      url: '/ram/home#Settings:'
+      url: '/ram/home?region={region}#Settings:'
     - id: sharedprincipals
       name: Shared principals
-      url: '/ram/home#SharedPrincipals:'
+      url: '/ram/home?region={region}#SharedPrincipals:'
     - id: sharedresources
       name: Shared resources
-      url: '/ram/home#SharedResources:'
+      url: '/ram/home?region={region}#SharedResources:'
     - id: sharedresourceshares
       name: Shared resource shares
-      url: '/ram/home#SharedResourceShares:'
+      url: '/ram/home?region={region}#SharedResourceShares:'
 - id: rds
   name: Relational Database Service
   short_name: RDS
   description: Managed Relational Database Service
-  url: /rds/home#
+  url: /rds/home?region={region}#
   weight: 7
   top20: true
   sub_services:
     - id: automatedbackups
       name: Automated backups
-      url: '/rds/home#automatedbackups:'
+      url: '/rds/home?region={region}#automatedbackups:'
     - id: certificateupdate
       name: Certificate update
-      url: '/rds/home#ca-cert-update:'
+      url: '/rds/home?region={region}#ca-cert-update:'
     - id: dashboard
       name: Dashboard
-      url: /rds/home#
+      url: /rds/home?region={region}#
     - id: databases
       name: Databases
-      url: '/rds/home#databases:'
+      url: '/rds/home?region={region}#databases:'
     - id: events
       name: Events
-      url: '/rds/home#event-list:'
+      url: '/rds/home?region={region}#event-list:'
     - id: eventsubscriptions
       name: Event subscriptions
-      url: '/rds/home#event-subscriptions:'
+      url: '/rds/home?region={region}#event-subscriptions:'
     - id: optiongroups
       name: Option groups
-      url: '/rds/home#option-groups-list:'
+      url: '/rds/home?region={region}#option-groups-list:'
     - id: performanceinsights
       name: Performance Insights
-      url: '/rds/home#performance-insights-v20206:'
+      url: '/rds/home?region={region}#performance-insights-v20206:'
     - id: proxies
       name: Proxies
-      url: '/rds/home#proxies:'
+      url: '/rds/home?region={region}#proxies:'
     - id: queryeditor
       name: Query Editor
-      url: '/rds/home#query-editor:'
+      url: '/rds/home?region={region}#query-editor:'
     - id: recommendations
       name: Recommendations
-      url: '/rds/home#recommendations:'
+      url: '/rds/home?region={region}#recommendations:'
     - id: reservedinstances
       name: Reserved instances
-      url: '/rds/home#reserved-instance-list:'
+      url: '/rds/home?region={region}#reserved-instance-list:'
     - id: snapshots
       name: Snapshots
-      url: '/rds/home#snapshots-list:'
+      url: '/rds/home?region={region}#snapshots-list:'
     - id: subnetgroups
       name: Subnet groups
-      url: '/rds/home#db-subnet-groups-list:'
+      url: '/rds/home?region={region}#db-subnet-groups-list:'
 - id: redshift
   name: Redshift
   description: Fast, Simple, Cost-Effective Data Warehousing
-  url: /redshiftv2/home#dashboard
+  url: /redshiftv2/home?region={region}#dashboard
   weight: 6
   sub_services:
     - id: advisor
       name: Advisor recommendations
-      url: /redshiftv2/home#recommendations
+      url: /redshiftv2/home?region={region}#recommendations
     - id: alarms
       name: Alarms
-      url: /redshiftv2/home#alarms
+      url: /redshiftv2/home?region={region}#alarms
     - id: alarms
       name: Alarms
-      url: /redshiftv2/home#alarms
+      url: /redshiftv2/home?region={region}#alarms
     - id: clusters
       name: Clusters
-      url: /redshiftv2/home#clusters
+      url: /redshiftv2/home?region={region}#clusters
     - id: config
       name: Configurations
-      url: /redshiftv2/home#configurations
+      url: /redshiftv2/home?region={region}#configurations
     - id: dashboard
       name: Dashboard
-      url: /redshiftv2/home#dashboard
+      url: /redshiftv2/home?region={region}#dashboard
     - id: datashares
       name: Data shares
-      url: /redshiftv2/home#data-shares
+      url: /redshiftv2/home?region={region}#data-shares
     - id: events
       name: Events
-      url: /redshiftv2/home#events
+      url: /redshiftv2/home?region={region}#events
     - id: eventsubscriptions
       name: Event subscriptions
-      url: /redshiftv2/home#event-subscriptions
+      url: /redshiftv2/home?region={region}#event-subscriptions
     - id: hsm
       name: HSM connections
-      url: /redshiftv2/home#hsm?tab=hsmConnections
+      url: /redshiftv2/home?region={region}#hsm?tab=hsmConnections
     - id: marketplace
       name: Marketplace
-      url: /redshiftv2/home#marketplace
+      url: /redshiftv2/home?region={region}#marketplace
     - id: queries
       name: Queries
-      url: /redshiftv2/home#queries
+      url: /redshiftv2/home?region={region}#queries
     - id: queryeditor
       name: Query editor
-      url: '/redshiftv2/home#query-editor:'
+      url: '/redshiftv2/home?region={region}#query-editor:'
     - id: reservednodes
       name: Reserved nodes
-      url: /redshiftv2/home#reserved-nodes
+      url: /redshiftv2/home?region={region}#reserved-nodes
     - id: snapshots
       name: Snapshots
-      url: /redshiftv2/home#snapshots
+      url: /redshiftv2/home?region={region}#snapshots
     - id: subnetgroups
       name: Subnet groups
-      url: /redshiftv2/home#subnet-groups
+      url: /redshiftv2/home?region={region}#subnet-groups
     - id: tags
       name: Manage tags
-      url: /redshiftv2/home#manage-tags
+      url: /redshiftv2/home?region={region}#manage-tags
     - id: workloadmanagement
       name: Workload management
-      url: /redshiftv2/home#workload-management
+      url: /redshiftv2/home?region={region}#workload-management
 - id: rekognition
   name: Rekognition
   description: Search and Analyze Images
-  url: /rekognition/custom-labels#/
+  url: /rekognition/custom-labels?region={region}#/
   sub_services:
     - id: celebrityrecognition
       name: Celebrity recognition
-      url: /rekognition/home#/celebrity-detection
+      url: /rekognition/home?region={region}#/celebrity-detection
     - id: facecomparison
       name: Face comparison
-      url: /rekognition/home#/face-comparison
+      url: /rekognition/home?region={region}#/face-comparison
     - id: facialanalysis
       name: Facial analysis
-      url: /rekognition/home#/face-detection
+      url: /rekognition/home?region={region}#/face-detection
     - id: imagemoderation
       name: Image moderation
-      url: /rekognition/home#/image-moderation
+      url: /rekognition/home?region={region}#/image-moderation
     - id: labeldetection
       name: Label detection
-      url: /rekognition/home#/label-detection
+      url: /rekognition/home?region={region}#/label-detection
     - id: metrics
       name: Metrics
-      url: /rekognition/home#/usage-metrics
+      url: /rekognition/home?region={region}#/usage-metrics
     - id: ppedetection
       name: PPE detection
-      url: /rekognition/home#/ppe
+      url: /rekognition/home?region={region}#/ppe
     - id: textinimage
       name: Text in image
-      url: /rekognition/home#/text-detection
+      url: /rekognition/home?region={region}#/text-detection
     - id: usecustomlabels
       name: Use Custom Labels
-      url: /rekognition/custom-labels#/
+      url: /rekognition/custom-labels?region={region}#/
     - id: videoanalysis
       name: Video analysis
-      url: /rekognition/home#/video-analysis
+      url: /rekognition/home?region={region}#/video-analysis
 - id: robomaker
   name: RoboMaker
   description: Develop, test, and deploy intelligent robotics applications
-  url: /robomaker/home#ides
+  url: /robomaker/home?region={region}#ides
   sub_services:
     - id: deployments
       name: Deployments
-      url: /robomaker/home#deployments
+      url: /robomaker/home?region={region}#deployments
     - id: developmentenvironments
       name: Development environments
-      url: /robomaker/home#ides
+      url: /robomaker/home?region={region}#ides
     - id: exportjobs
       name: Export jobs
-      url: /robomaker/home#worldExportJobs
+      url: /robomaker/home?region={region}#worldExportJobs
     - id: fleets
       name: Fleets
-      url: /robomaker/home#fleets
+      url: /robomaker/home?region={region}#fleets
     - id: generationjobs
       name: Generation jobs
-      url: /robomaker/home#worldGenerationJobs
+      url: /robomaker/home?region={region}#worldGenerationJobs
     - id: robotapplications
       name: Robot applications
-      url: /robomaker/home#robotApplications
+      url: /robomaker/home?region={region}#robotApplications
     - id: robots
       name: Robots
-      url: /robomaker/home#robots
+      url: /robomaker/home?region={region}#robots
     - id: sampleapplications
       name: Sample applications
-      url: /robomaker/home#sampleSimulationJobs
+      url: /robomaker/home?region={region}#sampleSimulationJobs
     - id: simulationapplications
       name: Simulation applications
-      url: /robomaker/home#simulationApplications
+      url: /robomaker/home?region={region}#simulationApplications
     - id: simulationjobbatches
       name: Simulation job batches
-      url: /robomaker/home#simulationJobBatches
+      url: /robomaker/home?region={region}#simulationJobBatches
     - id: simulationjobs
       name: Simulation jobs
-      url: /robomaker/home#simulationJobs
+      url: /robomaker/home?region={region}#simulationJobs
     - id: worlds
       name: Worlds
-      url: /robomaker/home#worlds
+      url: /robomaker/home?region={region}#worlds
     - id: worldtemplates
       name: World templates
-      url: /robomaker/home#worldTemplates
+      url: /robomaker/home?region={region}#worldTemplates
 - id: route53
   name: Route 53
   description: Scalable DNS and Domain Name Registration
-  url: /route53/v2/home#Dashboard
+  url: /route53/v2/home?region={region}#Dashboard
   globally: true
   weight: 6
   sub_services:
     - id: dashboard
       name: Dashboard
-      url: /route53/v2/home#Dashboard
+      url: /route53/v2/home?region={region}#Dashboard
     - id: domainrequests
       name: Pending requests
-      url: '/route53/home#DomainRequests:'
+      url: '/route53/home?region={region}#DomainRequests:'
     - id: healthchecks
       name: Health checks
-      url: /route53/healthchecks/home#
+      url: /route53/healthchecks/home?region={region}#
     - id: hostedzones
       name: Hosted zones
-      url: /route53/v2/hostedzones#
+      url: /route53/v2/hostedzones?region={region}#
     - id: policyrecords
       name: Policy records
-      url: /route53/trafficflow/home#/records
+      url: /route53/trafficflow/home?region={region}#/records
     - id: registereddomains
       name: Registered domains
-      url: '/route53/home#DomainListing:'
+      url: '/route53/home?region={region}#DomainListing:'
     - id: trafficpolicies
       name: Traffic policies
-      url: /route53/trafficflow/home#
+      url: /route53/trafficflow/home?region={region}#
 - id: s3
   name: Simple Storage Service
   short_name: S3
   description: Scalable Storage in the Cloud
-  url: /s3/home
+  url: /s3/home?region={region}
   globally: true
   weight: 9
   top20: true
   sub_services:
     - id: accessanalyzer
       name: Access Analyzer
-      url: /s3/access
+      url: /s3/access?region={region}
     - id: batchoperations
       name: Batch Operations
-      url: /s3/jobs
+      url: /s3/jobs?region={region}
     - id: buckets
       name: Buckets
-      url: /s3/home
+      url: /s3/home?region={region}
     - id: settings
       name: Account settings
-      url: /s3/settings
+      url: /s3/settings?region={region}
 - id: sagemaker
   name: SageMaker
   description: Build, Train, and Deploy Machine Learning Models
-  url: /sagemaker/home#
+  url: /sagemaker/home?region={region}#
   weight: 6
   top20: true
   sub_services: []
 - id: secretsmanager
   name: Secrets Manager
   description: Easily rotate, manage, and retrieve secrets throughout their lifecycle
-  url: /secretsmanager/home#!/listSecrets
+  url: /secretsmanager/home?region={region}#!/listSecrets
   weight: 6
   sub_services: []
 - id: securityhub
   name: Security Hub
   description: "AWS\u2019s security and compliance center"
-  url: /securityhub/home#
+  url: /securityhub/home?region={region}#
   sub_services: []
 - id: serverlessrepo
   name: Serverless Application Repository
   description: Assemble, deploy, and share serverless applications within teams or
     publicly
-  url: /serverlessrepo/home#/available-applications
+  url: /serverlessrepo/home?region={region}#/available-applications
   sub_services:
     - id: availableapplications
       name: Available applications
-      url: /serverlessrepo/home#/available-applications
+      url: /serverlessrepo/home?region={region}#/available-applications
     - id: publishedapplications
       name: Published applications
-      url: /serverlessrepo/home#/published-applications
+      url: /serverlessrepo/home?region={region}#/published-applications
 - id: servermigrationservice
   name: Server Migration Service
   description: Migrate on-premises servers to AWS
-  url: /servermigration/home#
+  url: /servermigration/home?region={region}#
   weight: 6
   sub_services: []
 - id: servicecatalog
   name: Service Catalog
   description: allows organizations to manage approved catalogs of IT resources and
     make them available to employees via a personalized portal.
-  url: /servicecatalog/home#products
+  url: /servicecatalog/home?region={region}#products
   sub_services:
     - id: adminproducts
       name: Admin products
-      url: /servicecatalog/home#admin-products
+      url: /servicecatalog/home?region={region}#admin-products
     - id: applications
       name: Applications
-      url: /servicecatalog/home#applications/
+      url: /servicecatalog/home?region={region}#applications/
     - id: attributegroups
       name: Attribute groups
-      url: /servicecatalog/home#attribute-groups/
+      url: /servicecatalog/home?region={region}#attribute-groups/
     - id: gettingstartedlibrary
       name: Getting started library
-      url: /servicecatalog/home#getting-started-library
+      url: /servicecatalog/home?region={region}#getting-started-library
     - id: introduction
       name: Introduction
-      url: /servicecatalog/home#appregistry
+      url: /servicecatalog/home?region={region}#appregistry
     - id: portfolios
       name: Portfolios
-      url: /servicecatalog/home#portfolios
+      url: /servicecatalog/home?region={region}#portfolios
     - id: preferences
       name: Preferences
-      url: /servicecatalog/home#preferences
+      url: /servicecatalog/home?region={region}#preferences
     - id: products
       name: Products
-      url: /servicecatalog/home#products
+      url: /servicecatalog/home?region={region}#products
     - id: provisionedproducts
       name: Provisioned products
-      url: /servicecatalog/home#provisioned-products
+      url: /servicecatalog/home?region={region}#provisioned-products
     - id: serviceactions
       name: Service actions
-      url: /servicecatalog/home#service-actions/
+      url: /servicecatalog/home?region={region}#service-actions/
     - id: tagoptionslibrary
       name: TagOptions library
-      url: /servicecatalog/home#tag-options
+      url: /servicecatalog/home?region={region}#tag-options
 - id: ses
   name: Simple Email Service
   short_name: SES
   description: Email Sending and Receiving Service
-  url: /ses/home#
+  url: /ses/home?region={region}#
   sub_services: []
 - id: singlesignon
   name: Single Sign-On
   short_name: SSO
   description: Manage Single Sign-On (SSO) Access to AWS Accounts and Business Applications
-  url: /singlesignon/home#
+  url: /singlesignon/home?region={region}#
   sub_services: []
 - id: snowfamily
   name: Snow Family
   description: Process data at the edge and migrate data into and out of AWS
-  url: /snowfamily/home#/jobs
+  url: /snowfamily/home?region={region}#/jobs
   sub_services:
     - id: createjob
       name: Create job
-      url: /snowfamily/home#/change-request/create
+      url: /snowfamily/home?region={region}#/change-request/create
     - id: jobs
       name: Jobs
-      url: /snowfamily/home#/jobs
+      url: /snowfamily/home?region={region}#/jobs
     - id: prepaidjobs
       name: Prepaid jobs
-      url: /snowfamily/home#/prepaidjobs
+      url: /snowfamily/home?region={region}#/prepaidjobs
 - id: sns
   name: Simple Notification Service
   short_name: SNS
   description: SNS Pub/Sub, Mobile Push and SMS
-  url: /sns/v3/home#/dashboard
+  url: /sns/v3/home?region={region}#/dashboard
   weight: 8
   top20: true
   sub_services:
     - id: dashboard
       name: Dashboard
-      url: /sns/v3/home#/dashboard
+      url: /sns/v3/home?region={region}#/dashboard
     - id: originationnumbers
       name: Origination numbers
-      url: /sns/v3/home#/mobile/origination-identities
+      url: /sns/v3/home?region={region}#/mobile/origination-identities
     - id: pushnotifications
       name: Push Notifications
-      url: /sns/v3/home#/mobile/push-notifications
+      url: /sns/v3/home?region={region}#/mobile/push-notifications
     - id: subscriptions
       name: Subscriptions
-      url: /sns/v3/home#/subscriptions
+      url: /sns/v3/home?region={region}#/subscriptions
     - id: textmessaging
       name: Text Messaging (SMS)
-      url: /sns/v3/home#/mobile/text-messaging
+      url: /sns/v3/home?region={region}#/mobile/text-messaging
     - id: topics
       name: Topics
-      url: /sns/v3/home#/topics
+      url: /sns/v3/home?region={region}#/topics
 - id: sqs
   name: Simple Queue Service
   short_name: SQS
   description: SQS Managed Message Queues
-  url: /sqs/v2/home#/queues
+  url: /sqs/v2/home?region={region}#/queues
   weight: 8
   top20: true
   sub_services:
     - id: queues
       name: Queues
-      url: /sqs/v2/home#/queues
+      url: /sqs/v2/home?region={region}#/queues
 - id: status
   name: Status
   description: Get a personalized view of AWS service health
@@ -2309,54 +2309,54 @@
 - id: stepfunctions
   name: Step Functions
   description: Coordinate Distributed Applications
-  url: /states/home#/statemachines
+  url: /states/home?region={region}#/statemachines
   weight: 6
   sub_services:
     - id: activities
       name: Activities
-      url: /states/home#/activities
+      url: /states/home?region={region}#/activities
     - id: dataflowsimulator
       name: Data flow simulator
-      url: /states/home#/simulator
+      url: /states/home?region={region}#/simulator
     - id: featurespotlight
       name: Feature spotlight
-      url: /states/home#/spotlight
+      url: /states/home?region={region}#/spotlight
     - id: localdevelopment
       name: Local Development
-      url: /states/home#/local-development
+      url: /states/home?region={region}#/local-development
     - id: statemachines
       name: State machines
-      url: /states/home#/statemachines
+      url: /states/home?region={region}#/statemachines
 - id: storagegateway
   name: Storage Gateway
   description: Hybrid Storage Integration
-  url: /storagegateway/home#/gateways
+  url: /storagegateway/home?region={region}#/gateways
   sub_services:
     - id: fileshares
       name: File shares
-      url: /storagegateway/home#/file-shares
+      url: /storagegateway/home?region={region}#/file-shares
     - id: filesystems
       name: FSx file systems
-      url: /storagegateway/home#/file-systems
+      url: /storagegateway/home?region={region}#/file-systems
     - id: gateways
       name: Gateways
-      url: /storagegateway/home#/gateways
+      url: /storagegateway/home?region={region}#/gateways
     - id: hardware
       name: Hardware
-      url: /storagegateway/home#/hardware
+      url: /storagegateway/home?region={region}#/hardware
     - id: pools
       name: Pools
-      url: /storagegateway/home#/pools
+      url: /storagegateway/home?region={region}#/pools
     - id: tapes
       name: Tapes
-      url: /storagegateway/home#/tapes
+      url: /storagegateway/home?region={region}#/tapes
     - id: volumes
       name: Volumes
-      url: /storagegateway/home#/volumes
+      url: /storagegateway/home?region={region}#/volumes
 - id: sumerian
   name: Sumerian
   description: Build VR, AR, and 3D applications
-  url: /sumerianv2/home#
+  url: /sumerianv2/home?region={region}#
   sub_services: []
 - id: support
   name: Support
@@ -2368,265 +2368,265 @@
   name: Simple Workflow Service
   short_name: SWF
   description: Workflow Service for Coordinating Application Components
-  url: /swf/home#
+  url: /swf/home?region={region}#
   sub_services: []
 - id: systemsmanager
   name: Systems Manager
   short_name: ssm
   description: Gain operational insights and take action on AWS resources
-  url: /systems-manager/explorer#
+  url: /systems-manager/explorer?region={region}#
   weight: 6
   sub_services:
     - id: appconfig
       name: AppConfig
-      url: /systems-manager/appconfig#
+      url: /systems-manager/appconfig?region={region}#
     - id: applicationmanager
       name: Application Manager
-      url: /systems-manager/appmanager#
+      url: /systems-manager/appmanager?region={region}#
     - id: automation
       name: Automation
-      url: /systems-manager/automation#
+      url: /systems-manager/automation?region={region}#
     - id: changecalendar
       name: Change Calendar
-      url: /systems-manager/change-calendar#
+      url: /systems-manager/change-calendar?region={region}#
     - id: changemanager
       name: Change Manager
-      url: /systems-manager/change-manager#
+      url: /systems-manager/change-manager?region={region}#
     - id: cloudwatchdashboard
       name: CloudWatch Dashboard
-      url: /systems-manager/resource-groups/cloudwatch#
+      url: /systems-manager/resource-groups/cloudwatch?region={region}#
     - id: compliance
       name: Compliance
-      url: /systems-manager/compliance#
+      url: /systems-manager/compliance?region={region}#
     - id: distributor
       name: Distributor
-      url: /systems-manager/distributor#
+      url: /systems-manager/distributor?region={region}#
     - id: explorer
       name: Explorer
-      url: /systems-manager/explorer#
+      url: /systems-manager/explorer?region={region}#
     - id: fleetmanager
       name: Fleet Manager
-      url: /systems-manager/managed-instances#
+      url: /systems-manager/managed-instances?region={region}#
     - id: hybridactivations
       name: Hybrid Activations
-      url: /systems-manager/activations#
+      url: /systems-manager/activations?region={region}#
     - id: incidentmanager
       name: Incident Manager
-      url: /systems-manager/incidents/home#
+      url: /systems-manager/incidents/home?region={region}#
     - id: inventory
       name: Inventory
-      url: /systems-manager/inventory#
+      url: /systems-manager/inventory?region={region}#
     - id: maintenancewindows
       name: Maintenance Windows
-      url: /systems-manager/maintenance-windows#
+      url: /systems-manager/maintenance-windows?region={region}#
     - id: opscenter
       name: OpsCenter
-      url: /systems-manager/opsitems#
+      url: /systems-manager/opsitems?region={region}#
     - id: parameterstore
       name: Parameter Store
-      url: /systems-manager/parameters#
+      url: /systems-manager/parameters?region={region}#
     - id: patchmanager
       name: Patch Manager
-      url: /systems-manager/patch-manager#
+      url: /systems-manager/patch-manager?region={region}#
     - id: phd
       name: PHD
-      url: /systems-manager/insights/personalHealthDashboard#
+      url: /systems-manager/insights/personalHealthDashboard?region={region}#
     - id: runcommand
       name: Run Command
-      url: /systems-manager/run-command#
+      url: /systems-manager/run-command?region={region}#
     - id: sessionmanager
       name: Session Manager
-      url: /systems-manager/session-manager#
+      url: /systems-manager/session-manager?region={region}#
     - id: statemanager
       name: State Manager
-      url: /systems-manager/state-manager#
+      url: /systems-manager/state-manager?region={region}#
 - id: timestream
   name: Timestream
   description: Fast, scalable, and serverless time series database
-  url: /timestream/home
+  url: /timestream/home?region={region}#welcome
   weight: 3
   sub_services:
     - id: databases
       name: Databases
-      url: /timestream/home#databases
+      url: /timestream/home?region={region}#databases
     - id: monitoring
       name: Monitoring
-      url: /timestream/home#monitoring
+      url: /timestream/home?region={region}#monitoring
     - id: queryeditor
       name: Query editor
-      url: '/timestream/home#query-editor:'
+      url: '/timestream/home?region={region}#query-editor:'
     - id: tables
       name: Tables
-      url: /timestream/home#tables
+      url: /timestream/home?region={region}#tables
 - id: transcribe
   name: Transcribe
   description: Powerful Speech Recognition
-  url: /transcribe/home#
+  url: /transcribe/home?region={region}#
   sub_services: []
 - id: transfer
   name: Transfer for SFTP
   description: Fully-managed SFTP service for Amazon S3
-  url: /transfer/home#
+  url: /transfer/home?region={region}#
   sub_services: []
 - id: translate
   name: Translate
   description: Translate Text in Real-time
-  url: /translate/home#metrics
+  url: /translate/home?region={region}#metrics
   sub_services:
     - id: batchtranslation
       name: Batch translation
-      url: /translate/home#batch-translation
+      url: /translate/home?region={region}#batch-translation
     - id: customterminology
       name: Custom terminology
-      url: /translate/home#terminology
+      url: /translate/home?region={region}#terminology
     - id: metrics
       name: Metrics
-      url: /translate/home#metrics
+      url: /translate/home?region={region}#metrics
     - id: paralleldata
       name: Parallel data
-      url: /translate/home#parallel-data
+      url: /translate/home?region={region}#parallel-data
     - id: realtimetranslation
       name: Real-time translation
-      url: /translate/home#translation
+      url: /translate/home?region={region}#translation
 - id: trustedadvisor
   name: Trusted Advisor
   description: Optimize Performance and Security
-  url: /trustedadvisor/home#/dashboard
+  url: /trustedadvisor/home?region={region}#/dashboard
   globally: true
   sub_services:
     - id: costoptimization
       name: Cost Optimization
-      url: /trustedadvisor/home#/category/cost-optimizing
+      url: /trustedadvisor/home?region={region}#/category/cost-optimizing
     - id: dashboard
       name: Dashboard
-      url: /trustedadvisor/home#/dashboard
+      url: /trustedadvisor/home?region={region}#/dashboard
     - id: faulttolerance
       name: Fault Tolerance
-      url: /trustedadvisor/home#/category/fault-tolerance
+      url: /trustedadvisor/home?region={region}#/category/fault-tolerance
     - id: performance
       name: Performance
-      url: /trustedadvisor/home#/category/performance
+      url: /trustedadvisor/home?region={region}#/category/performance
     - id: preferences
       name: Preferences
-      url: /trustedadvisor/home#/preferences
+      url: /trustedadvisor/home?region={region}#/preferences
     - id: security
       name: Security
-      url: /trustedadvisor/home#/category/security
+      url: /trustedadvisor/home?region={region}#/category/security
     - id: servicelimits
       name: Service Limits
-      url: /trustedadvisor/home#/category/service-limits
+      url: /trustedadvisor/home?region={region}#/category/service-limits
 - id: vpc
   name: Virtual Private Cloud
   description: Isolated Cloud Resources
-  url: '/vpc/home#dashboard:'
+  url: '/vpc/home?region={region}#dashboard:'
   weight: 9
   top20: true
   sub_services:
     - id: carrier gateways
       name: Carrier Gateways
-      url: '/vpc/home#CarrierGateways:'
+      url: '/vpc/home?region={region}#CarrierGateways:'
     - id: clientvpnendpoints
       name: Client VPN Endpoints
-      url: '/vpc/home#ClientVPNEndpoints:'
+      url: '/vpc/home?region={region}#ClientVPNEndpoints:'
     - id: customergateways
       name: Customer Gateways
-      url: '/vpc/home#CustomerGateways:'
+      url: '/vpc/home?region={region}#CustomerGateways:'
     - id: dashboard
       name: Dashboard
-      url: '/vpc/home#dashboard:'
+      url: '/vpc/home?region={region}#dashboard:'
     - id: dhcpoptions
       name: DHCP Options Sets
-      url: '/vpc/home#dhcpOptions:'
+      url: '/vpc/home?region={region}#dhcpOptions:'
     - id: domainlists
       name: Domain Lists
-      url: '/vpc/home#DNSFirewallDomainLists:'
+      url: '/vpc/home?region={region}#DNSFirewallDomainLists:'
     - id: egressonlyinternetgateways
       name: Egress Only Internet Gateways
-      url: '/vpc/home#EgressOnlyInternetGateways:'
+      url: '/vpc/home?region={region}#EgressOnlyInternetGateways:'
     - id: elasticips
       name: Elastic IPs
-      url: '/vpc/home#Addresses:'
+      url: '/vpc/home?region={region}#Addresses:'
     - id: endpoints
       name: Endpoints
-      url: '/vpc/home#Endpoints:'
+      url: '/vpc/home?region={region}#Endpoints:'
     - id: endpointservices
       name: Endpoint Services
-      url: '/vpc/home#EndpointServices:'
+      url: '/vpc/home?region={region}#EndpointServices:'
     - id: firewallpolicies
       name: Firewall policies
-      url: '/vpc/home#NetworkFirewallPolicies:'
+      url: '/vpc/home?region={region}#NetworkFirewallPolicies:'
     - id: firewalls
       name: Firewalls
-      url: '/vpc/home#NetworkFirewalls:'
+      url: '/vpc/home?region={region}#NetworkFirewalls:'
     - id: internetgateways
       name: Internet Gateways
-      url: '/vpc/home#igws:'
+      url: '/vpc/home?region={region}#igws:'
     - id: managedprefixlists
       name: Managed Prefix Lists
-      url: '/vpc/home#ManagedPrefixLists:'
+      url: '/vpc/home?region={region}#ManagedPrefixLists:'
     - id: mirrorfilters
       name: Mirror Filters
-      url: '/vpc/home#TrafficMirrorFilters:'
+      url: '/vpc/home?region={region}#TrafficMirrorFilters:'
     - id: mirrorsessions
       name: Mirror Sessions
-      url: '/vpc/home#TrafficMirrorSessions:'
+      url: '/vpc/home?region={region}#TrafficMirrorSessions:'
     - id: mirrortargets
       name: Mirror Targets
-      url: '/vpc/home#TrafficMirrorTargets:'
+      url: '/vpc/home?region={region}#TrafficMirrorTargets:'
     - id: natgateways
       name: NAT Gateways
-      url: '/vpc/home#NatGateways:'
+      url: '/vpc/home?region={region}#NatGateways:'
     - id: networkacls
       name: Network ACLs
-      url: '/vpc/home#acls:'
+      url: '/vpc/home?region={region}#acls:'
     - id: networkfirewallrulegroups
       name: Network Firewall rule groups
-      url: '/vpc/home#NetworkFirewallRuleGroups:'
+      url: '/vpc/home?region={region}#NetworkFirewallRuleGroups:'
     - id: networkmanager
       name: Network Manager
-      url: '/vpc/home#networkmanager:'
+      url: '/vpc/home?region={region}#networkmanager:'
     - id: peeringconnections
       name: Peering Connections
-      url: '/vpc/home#PeeringConnections:'
+      url: '/vpc/home?region={region}#PeeringConnections:'
     - id: reachabilityanalyzer
       name: Reachability Analyzer
-      url: '/vpc/home#ReachabilityAnalyzer:'
+      url: '/vpc/home?region={region}#ReachabilityAnalyzer:'
     - id: routetables
       name: Route Tables
-      url: '/vpc/home#RouteTables:'
+      url: '/vpc/home?region={region}#RouteTables:'
     - id: rulegroups
       name: Rule Groups
-      url: '/vpc/home#DNSFirewallRuleGroups:'
+      url: '/vpc/home?region={region}#DNSFirewallRuleGroups:'
     - id: securitygroups
       name: Security Groups
-      url: '/vpc/home#SecurityGroups:'
+      url: '/vpc/home?region={region}#SecurityGroups:'
     - id: settings
       name: Settings
-      url: '/vpc/home#Settings:'
+      url: '/vpc/home?region={region}#Settings:'
     - id: subnets
       name: Subnets
-      url: '/vpc/home#subnets:'
+      url: '/vpc/home?region={region}#subnets:'
     - id: transitgatewayattachments
       name: Transit Gateway Attachments
-      url: '/vpc/home#TransitGatewayAttachments:'
+      url: '/vpc/home?region={region}#TransitGatewayAttachments:'
     - id: transitgatewaymulticast
       name: Transit Gateway Multicast
-      url: '/vpc/home#TransitGatewayMulticastDomains:'
+      url: '/vpc/home?region={region}#TransitGatewayMulticastDomains:'
     - id: transitgatewayroutetables
       name: Transit Gateway Route Tables
-      url: '/vpc/home#TransitGatewayRouteTables:'
+      url: '/vpc/home?region={region}#TransitGatewayRouteTables:'
     - id: transitgateways
       name: Transit Gateways
-      url: '/vpc/home#TransitGateways:'
+      url: '/vpc/home?region={region}#TransitGateways:'
     - id: virtualprivategateways
       name: Virtual Private Gateways
-      url: '/vpc/home#VpnGateways:'
+      url: '/vpc/home?region={region}#VpnGateways:'
     - id: vpcs
       name: Your VPCs
-      url: '/vpc/home#vpcs:'
+      url: '/vpc/home?region={region}#vpcs:'
     - id: vpnconnections
       name: Site-to-Site VPN Connections
-      url: '/vpc/home#VpnConnections:'
+      url: '/vpc/home?region={region}#VpnConnections:'
 - id: waf
   name: Web Application Firewall & Shield
   short_name: WAF
@@ -2652,34 +2652,34 @@
 - id: wellarchitectedtool
   name: Well-Architected Tool
   description: Learn best practices, measure, and improve your workloads
-  url: /wellarchitected/home#/dashboard
+  url: /wellarchitected/home?region={region}#/dashboard
   sub_services:
     - id: dashboard
       name: Dashboard
-      url: /wellarchitected/home#/dashboard
+      url: /wellarchitected/home?region={region}#/dashboard
     - id: workloadinvitations
       name: Workload invitations
-      url: /wellarchitected/home#/invitations
+      url: /wellarchitected/home?region={region}#/invitations
     - id: workloads
       name: Workloads
-      url: /wellarchitected/home#/workloads
+      url: /wellarchitected/home?region={region}#/workloads
 - id: worklink
   name: WorkLink
   description: Enable secure mobile access to internal websites and web apps
-  url: /worklink/home#/fleets
+  url: /worklink/home?region={region}#/fleets
   sub_services: []
 - id: workmail
   name: WorkMail
   description: Secure Email and Calendaring Service
-  url: /workmail/v2/home#/organizations
+  url: /workmail/v2/home?region={region}#/organizations
   sub_services: []
 - id: workspaces
   name: WorkSpaces
   description: Desktops in the Cloud
-  url: /workspaces/home#
+  url: /workspaces/home?region={region}#
   sub_services: []
 - id: xray
   name: X-Ray
   description: Analyze and Debug Your Applications
-  url: /xray/home#
+  url: /xray/home?region={region}#
   sub_services: []

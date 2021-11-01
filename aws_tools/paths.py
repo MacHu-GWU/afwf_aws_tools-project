@@ -29,14 +29,16 @@ else:
 if env == Env.local_dev:
     DIR_PROJECT_ROOT = DIR_AWS_TOOLS.parent  # type: Path
     PATH_CONSOLE_URLS_YAML = Path(DIR_WORKFLOW_ROOT, "console-urls.yml")  # type: Path
+    PATH_CONSOLE_URLS_TEMP_YAML = Path(DIR_WORKFLOW_ROOT, "console-urls-tmp.yml")  # type: Path
     DIR_ICONS = Path(DIR_PROJECT_ROOT, "icons")  # type: Path
 
     # --- tests ---
     DIR_TESTS = Path(DIR_PROJECT_ROOT, "tests")  # type: Path
     PATH_TEST_BACKUP_CONFIG_FILE = Path(DIR_TESTS, "config-backup")  # type: Path
-    PATG_TEST_BACKUP_CREDENTIALS_FILE = Path(DIR_TESTS, "credentials-backup")  # type: Path
+    PATH_TEST_BACKUP_CREDENTIALS_FILE = Path(DIR_TESTS, "credentials-backup")  # type: Path
     PATH_TEST_CONFIG_FILE = Path(DIR_TESTS, "config")  # type: Path
     PATH_TEST_CREDENTIALS_FILE = Path(DIR_TESTS, "credentials")  # type: Path
+
 elif env == Env.alfred:
     PATH_CONSOLE_URLS_YAML = Path(DIR_WORKFLOW_ROOT, "console-urls.yml")  # type: Path
     DIR_ICONS = Path(DIR_WORKFLOW_ROOT, "icons")  # type: Path

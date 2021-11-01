@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import attr
 from ..aws_resources import AwsResourceSearcher, ItemArgs
 from ...icons import find_svc_icon
+from ...settings import SettingValues
 
 
 @attr.s
@@ -20,8 +21,10 @@ class Instance(object):
         return self.id[:6] + "..." + self.id[-4:]
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/ec2/v2/home#InstanceDetails:instanceId={}".format(
-            self.id)
+        return "https://console.aws.amazon.com/ec2/v2/home?region={region}#InstanceDetails:instanceId={inst_id}".format(
+            inst_id=self.id,
+            region=SettingValues.aws_region,
+        )
 
     def to_largetext(self):
         return "\n".join([

@@ -223,7 +223,7 @@ class AWSProfileHandlers(object):
         item_builders.set_aws_region_as_aws_tools_default(
             wf=wf,
             all_regions=all_regions,
-            set_default_aws_region_handler_id=self.mh_set_aws_region_as_aws_tools_default.__name__,
+            set_aws_region_as_aws_tools_default_handler_id=self.mh_set_aws_region_as_aws_tools_default.__name__,
         )
         return wf
 

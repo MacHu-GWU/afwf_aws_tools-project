@@ -6,6 +6,7 @@ powered by whoosh.
 """
 
 from __future__ import unicode_literals
+import attr
 import typing
 import shutil
 import yaml
@@ -15,6 +16,20 @@ from ..paths import (
     DIR_MAIN_SERVICE_INDEX, DIR_SUB_SERVICE_INDEX,
     PATH_CONSOLE_URLS_YAML,
 )
+
+
+@attr.s
+class MainService(object):
+    id = attr.ib()
+    name = attr.ib()
+    short_name = attr.ib()
+    description = attr.ib()
+    url = attr.ib()
+    search_terms = attr.ib()
+    globally = attr.ib()
+    weight = attr.ib()
+    top20 = attr.ib()
+    has_sub_svc = attr.ib()
 
 
 class MainServiceSchema(fields.SchemaClass):
@@ -51,6 +66,16 @@ class MainServiceSchema(fields.SchemaClass):
 
 
 main_service_schema = MainServiceSchema()
+
+
+@attr.s
+class SubService(object):
+    id = attr.ib()
+    name = attr.ib()
+    short_name = attr.ib()
+    url = attr.ib()
+    weight = attr.ib()
+    main_svc_id = attr.ib()
 
 
 class SubServiceSchema(fields.SchemaClass):

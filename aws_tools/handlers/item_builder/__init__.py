@@ -101,17 +101,17 @@ class ItemBuilders(object):
             self,
             wf,
             all_regions,
-            set_default_aws_region_handler_id,
+            set_aws_region_as_aws_tools_default_handler_id,
     ):
         """
         :type wf: Workflow3
         :type all_regions: list[tuple[str, str]]
-        :type set_default_aws_region_handler_id: str
+        :type set_aws_region_as_aws_tools_default_handler_id: str
         :rtype: Workflow3
         """
         for long_name, short_name in all_regions:
             cmd = "/usr/bin/python main.py '{} {}'".format(
-                set_default_aws_region_handler_id,
+                set_aws_region_as_aws_tools_default_handler_id,
                 short_name,
             )
             item_arg = ItemArgs(

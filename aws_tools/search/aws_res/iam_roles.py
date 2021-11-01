@@ -24,8 +24,9 @@ class Role(object):
     arn = attr.ib()
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/iam/home#/roles/{}".format(
-            self.name)
+        return "https://console.aws.amazon.com/iam/home#/roles/{role_name}".format(
+            role_name=self.name,
+        )
 
     def to_largetext(self):
         return "\n".join([
@@ -73,7 +74,7 @@ class IamRolesSearcher(AwsResourceSearcher):
         is_truncated = False
         marker = None
         while 1:
-            kwargs = dict(MaxItems=100)
+            kwargs = dict(MaxItems=1000)
             if is_truncated:
                 kwargs["Marker"] = marker
             res = self.sdk.iam_client.list_roles(**kwargs)

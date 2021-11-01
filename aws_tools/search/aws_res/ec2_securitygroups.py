@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import attr
 from ..aws_resources import AwsResourceSearcher, ItemArgs
 from ...icons import Icons
+from ...settings import SettingValues
 
 
 @attr.s
@@ -24,8 +25,10 @@ class SecurityGroup(object):
         return self.vpc_id[:8] + "..." + self.vpc_id[-4:]
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/ec2/v2/home#SecurityGroup:groupId={}".format(
-            self.id)
+        return "https://console.aws.amazon.com/ec2/v2/home?region={region}#SecurityGroup:groupId={sg_id}".format(
+            sg_id=self.id,
+            region=SettingValues.aws_region,
+        )
 
     def to_largetext(self):
         return "\n".join([

@@ -14,3 +14,8 @@ class SettingKeys:
     aws_profile = "aws_profile"
     aws_region = "aws_region"
     _debug = "_debug"
+
+
+class SettingValues:
+    aws_profile = settings.get(SettingKeys.aws_profile)
+    aws_region = settings.get(SettingKeys.aws_region)

@@ -6,6 +6,7 @@ from ..alfred import ItemArgs
 from ..icons import HotIcons, find_svc_icon
 from ..search.aws_res import reg
 from ..search.aws_urls import main_service_searcher, sub_service_searcher
+from ..settings import SettingValues
 
 
 def main_svc_doc_to_item(doc):
@@ -26,7 +27,7 @@ def main_svc_doc_to_item(doc):
         description=" - {}".format(doc.get("description")) if doc.get("description") else "",
     )
     autocomplete = title + "-" if doc["has_sub_svc"] else title
-    console_url = "https://console.aws.amazon.com" + doc["url"]
+    console_url = "https://console.aws.amazon.com" + doc["url"].format(region=SettingValues.aws_region)
     arg = console_url
     item_arg = ItemArgs(
         title=title,
@@ -62,7 +63,7 @@ def sub_svc_doc_to_item(doc, main_svc_id):
         description=" - {}".format(doc.get("description")) if doc.get("description") else "",
     )
     autocomplete = title + " " if reg.has(aws_res_searcher_id) else title
-    console_url = "https://console.aws.amazon.com" + doc["url"]
+    console_url = "https://console.aws.amazon.com" + doc["url"].format(region=SettingValues.aws_region)
     arg = console_url
     item_arg = ItemArgs(
         title=title,
