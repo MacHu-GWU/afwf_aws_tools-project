@@ -17,7 +17,7 @@ Features
 💥 Navigate AWS Console Fast
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Navigate to AWS service and it's sub service**
+**1. Navigate to AWS service and it's sub service**
 
 Usage:
 
@@ -34,12 +34,11 @@ Note:
 
 .. image:: https://user-images.githubusercontent.com/6800411/139746689-ef72be04-d4d2-487f-a748-7b0c0056ee1d.gif
 
-
-**Search AWS Resource and see it in Console**
+**2. Search AWS Resource and see it in Console**
 
 Usage:
 
-- Type ``aws ${main_service}-{sub_service} `` or find the sub service then hit "Tab" to search AWS resources (if available).
+- Type ``aws ${main_service}-{sub_service}`` or find the sub service then hit "Tab" to search AWS resources (if available).
 - Type any search string to filter the resource. Example: ``aws iam-roles dev``
 
 Note:
@@ -49,7 +48,7 @@ Note:
 
 .. image:: https://user-images.githubusercontent.com/6800411/139746690-ae2fcf1e-cd84-4d02-ad02-0103248b9b5b.gif
 
-**Copy ARN to Clipboard**
+**3. Copy ARN to Clipboard**
 
 Usage:
 
@@ -58,10 +57,70 @@ Usage:
 .. image:: https://user-images.githubusercontent.com/6800411/139749561-93b1b8e6-c5ee-4890-a82a-d4bcf922da16.gif
 
 
-Navigate AWS Console Fast
+Switch Default AWS Profile for CLI / SDK
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Suppose you have many named profile defined in ``~/.aws/credentials`` and ``~/.aws/config``. **Now you can easily set one of the named profile as DEFAULT profile**! Basically this workflow will update the ``~/.aws/credentials`` and ``~/.aws/config`` accordingly.
+Suppose you have many named profile defined in ``~/.aws/credentials`` and ``~/.aws/config``. **Now you can easily set one of the named profile as DEFAULT profile**. Basically this workflow will update the ``~/.aws/credentials`` and ``~/.aws/config`` accordingly.
+
+For example, ``~/.aws/config``::
+
+    # content of ~/.aws/config
+    [default]
+    region =
+    output =
+
+    [profile aws_dev]
+    region = us-east-1
+    output = json
+
+    [profile aws_stage]
+    region = us-east-2
+    output = json
+
+    [profile aws_prod]
+    region = us-west-1
+    output = json
+
+
+and ``~/.aws/credentials``::
+
+    # content of ~/.aws/credentials
+    [default]
+    region =
+    output =
+
+    [aws_dev]
+    aws_access_key_id = AAA
+    aws_secret_access_key = AAA
+
+    [aws_stage]
+    aws_access_key_id = BBB
+    aws_secret_access_key = BBB
+
+    [aws_prod]
+    aws_access_key_id = CCC
+    aws_secret_access_key = CCC
+
+Type ``aws-cli-set-profile dev`` to filter the named profile, hit "Enter" to set it as default.
+
+.. image:: https://user-images.githubusercontent.com/6800411/139747808-aaca4158-c86c-4d9e-afc9-63acf30e40b3.gif
+
+It will pop a notification to tell you which profile is set.
+
+.. image:: https://user-images.githubusercontent.com/6800411/139746693-f671ad07-51cc-4d24-9c4a-500fccb64827.png
+
+Then the ``~/.aws/config`` becomes::
+
+    [default]
+    region = us-east-1
+    output = json
+
+The ``~/.aws/credentials`` becomes::
+
+    [default]
+    aws_access_key_id = AAA
+    aws_secret_access_key = AAA
+
 
 .. image:: https://user-images.githubusercontent.com/6800411/128253078-c6d1c06e-6e17-48e9-86d1-6be67cbfa27a.gif
 
