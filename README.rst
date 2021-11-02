@@ -125,21 +125,45 @@ The ``~/.aws/credentials`` becomes::
 .. image:: https://user-images.githubusercontent.com/6800411/128253078-c6d1c06e-6e17-48e9-86d1-6be67cbfa27a.gif
 
 
-MFA Auth Based on One of the AWS Named Profile
+MFA Authentication using AWS Named Profile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For security concern, **some organization requires MFA auth before using AWS API Key**. In other words, you need to run ``aws sts get-session-token --serial-number arn-of-the-mfa-device --token-code code-from-token`` commands and manually update your ``~/.aws/credentials`` file and use your new temporary named profile. (Official document can be found here https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/)
+**Some organization force MFA auth before using AWS API key or log in console**.
+
+In order to use aws sdk, you need to run ``aws sts get-session-token --serial-number arn-of-the-mfa-device --token-code code-from-token`` commands and manually update your ``~/.aws/credentials`` file and use your new temporary named profile. (Official tutorial can be found here https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/)
 
 This workflow allows you to type::
 
-    aws-mfa-auth ${your_base_named_profile} ${six_digits_mfa_token_from_your_phone}
+    aws-mfa-auth ${my_base_profile} ${six_digits_mfa_token_from_phone}
 
-Then a new aws profile ``${your_base_named_profile}_mfa`` (with ``_mfa`` surfix) will be instantly ready to use.
+Then a new aws profile ``${my_base_profile}_mfa`` (with ``_mfa`` suffix) will be instantly ready to use.
+
+.. image:: https://user-images.githubusercontent.com/6800411/139748026-ec2299d1-9525-4340-943e-4e5f2a409d32.gif
 
 
 Install
 ------------------------------------------------------------------------------
 
-**Installation**:
+**1. Installation this Alfred workflow**:
 
-Go to https://github.com/MacHu-GWU/afwf_aws_tools-project/releases, download the latest ``AWS Tools.alfredworkflow`` file, double click to install.
+Go to https://github.com/MacHu-GWU/afwf_aws_tools-project/releases, download the latest ``AWS Tools.alfredworkflow`` file, double click to install. Make sure you bought the `Alfred Powerpack <https://www.alfredapp.com/powerpack/>`_ that enable the Alfred workflow feature.
+
+**2. Configure the AWS Profile for this workflow**
+
+1. Set a named profile as default for this workflow (not CLI / SDK): ``aws-tool-set-profile ${profile_name}``
+
+.. image:: https://user-images.githubusercontent.com/6800411/139747814-5cb788c6-84d8-4f0f-a7c5-51100ad37a73.gif
+
+2. Set a region as default that overwrite the region from ``~/.aws/config`` file: ``aws-tool-set-region ${region_name}``
+
+.. image:: https://user-images.githubusercontent.com/6800411/139747815-f28fa82a-1b1f-452f-bcad-2cb7dc293f7c.gif
+
+3. Display current profile and region: ``aws-tool-info``
+
+.. image:: https://user-images.githubusercontent.com/6800411/139747813-ee9210f7-d0e6-4b2a-8550-1184b73ce7ce.gif
+
+
+Disclaimer
+------------------------------------------------------------------------------
+
+This software is maintained by me as individual, an Architect working in AWS. HOWEVER, THIS SOFTWARE IS NOT AN AWS MAINTAINED SOFTWARE, AND IT IS A INDIVIDUAL OPEN SOURCE PROJECT. PLEASE USE IT ON YOUR OWN RISK.
