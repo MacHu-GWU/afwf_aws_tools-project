@@ -24,6 +24,7 @@ Release and Version History
 **Minor Improvements**
 
 - Show helper information when AWS Service id / Sub service id is wrong.
+- Add `How to add custom aws resource searcher <./docs/source/How-to-add-custom-aws-resource-searcher.rst>`_ document.
 
 **Bugfixes**
 
