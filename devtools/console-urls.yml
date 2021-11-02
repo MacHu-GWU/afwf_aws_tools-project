@@ -863,7 +863,7 @@
   top20: true
   sub_services:
     - id: amis
-      name: AMIs
+      name: Amazon Machine Image
       url: '/ec2/home?region={region}#Images:'
       weight: 7
     - id: autoscalinggroups
@@ -912,6 +912,7 @@
       url: '/ec2/home?region={region}#Limits:'
     - id: loadbalancers
       name: Load Balancers
+      short_name: elb
       url: '/ec2/home?region={region}#LoadBalancers:'
       weight: 6
     - id: networkinterfaces
@@ -931,6 +932,7 @@
       url: /ec2sp/v2/home?region={region}#/si/landing
     - id: securitygroups
       name: Security Groups
+      short_name: SG
       url: '/ec2/v2/home?region={region}#SecurityGroups:'
       weight: 8
     - id: snapshots
@@ -946,7 +948,8 @@
       name: Target Groups
       url: '/ec2/home?region={region}#TargetGroups:'
     - id: volumes
-      name: Volume
+      name: Elastic Block Storage
+      short_name: EBS
       url: '/ec2/home?region={region}#Volumes:'
       weight: 7
 - id: ec2imagebuilder
@@ -2326,6 +2329,7 @@
       url: /states/home?region={region}#/local-development
     - id: statemachines
       name: State machines
+      short_name: SM
       url: /states/home?region={region}#/statemachines
 - id: storagegateway
   name: Storage Gateway
@@ -2424,6 +2428,7 @@
       url: /systems-manager/opsitems?region={region}#
     - id: parameterstore
       name: Parameter Store
+      short_name: PS
       url: /systems-manager/parameters?region={region}#
     - id: patchmanager
       name: Patch Manager

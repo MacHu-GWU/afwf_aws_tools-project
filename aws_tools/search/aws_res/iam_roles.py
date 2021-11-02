@@ -66,9 +66,8 @@ class IamRolesSearcher(AwsResourceSearcher):
 
     def list_roles_dict(self):
         """
-        :rtype: list[Role]
+        :rtype: list[dict]
         """
-
         roles = list()
 
         is_truncated = False

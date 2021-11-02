@@ -9,6 +9,8 @@ class Base(object):
     def from_dict(cls, dct):
         """
         Factory method that create an instance from python dict.
+
+        :type dct: dict
         """
         return cls(**dct)
 
@@ -17,3 +19,14 @@ class Base(object):
         :rtype: dict
         """
         return attr.asdict(self)
+
+    @classmethod
+    def from_many_dict(cls, list_of_dict):
+        """
+        :type list_of_dict: list[dict]
+        :rtype: list
+        """
+        return [
+            cls.from_dict(dct)
+            for dct in list_of_dict
+        ]
