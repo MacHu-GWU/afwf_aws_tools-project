@@ -166,6 +166,13 @@ class AwsHandlers(object):
         """
         doc_list = main_service_searcher.search(query_str=query_str, limit=20)
         update_wf_for_main_svc_doc(wf, doc_list)
+        if len(doc_list) == 0:
+            item_arg = ItemArgs(
+                title="Found no service match '{}'".format(query_str),
+                icon=HotIcons.info,
+                valid=True,
+            )
+            item_arg.add_to_wf(wf)
         return wf
 
     def sh_get_one_main_service(self, wf, main_svc_id):
@@ -174,7 +181,15 @@ class AwsHandlers(object):
         :type main_svc_id: str
         """
         doc = main_service_searcher.search_one(id=main_svc_id)
-        update_wf_for_main_svc_doc(wf, [doc, ])
+        if doc is None:
+            item_arg = ItemArgs(
+                title="Found no service match '{}'".format(main_svc_id),
+                icon=HotIcons.info,
+                valid=True,
+            )
+            item_arg.add_to_wf(wf)
+        else:
+            update_wf_for_main_svc_doc(wf, [doc, ])
         return wf
 
     def sh_top20_sub_service(self, wf, main_svc_id):
@@ -195,6 +210,13 @@ class AwsHandlers(object):
         doc_list = sub_service_searcher.search(
             main_svc_id=main_svc_id, query_str=query_str, limit=20)
         update_wf_for_sub_svc_doc(wf, doc_list)
+        if len(doc_list) == 0:
+            item_arg = ItemArgs(
+                title="Found no service match '{}-{}'".format(main_svc_id, query_str),
+                icon=HotIcons.info,
+                valid=True,
+            )
+            item_arg.add_to_wf(wf)
         return wf
 
     def sh_get_one_sub_service(self, wf, main_svc_id, sub_svc_id):
@@ -225,15 +247,23 @@ class AwsHandlers(object):
         :type searcher_id: str
         :type query_str: str
         """
-        searcher = reg.get(searcher_id)
-        results = searcher.filter_res(query_str)
-        for data in results:
-            item_arg = searcher.to_item(data)
-            item_arg.add_to_wf(wf)
-        if len(results) == 0:
+        if reg.has(searcher_id):
+            searcher = reg.get(searcher_id)
+            results = searcher.filter_res(query_str)
+            for data in results:
+                item_arg = searcher.to_item(data)
+                item_arg.add_to_wf(wf)
+            if len(results) == 0:
+                item_arg = ItemArgs(
+                    title="Found nothing",
+                    subtitle="query has to be sub string of the name or id",
+                    icon=HotIcons.info,
+                    valid=True,
+                )
+                item_arg.add_to_wf(wf)
+        else:
             item_arg = ItemArgs(
-                title="Found nothing",
-                subtitle="query has to be sub string of the name or id",
+                title="It is not a valid service id '{}'".format(searcher_id),
                 icon=HotIcons.info,
                 valid=True,
             )
