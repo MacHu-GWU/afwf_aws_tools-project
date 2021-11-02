@@ -10,9 +10,6 @@ from ..credential import (
     set_named_profile_as_default,
     mfa_auth,
 )
-from ..constants import (
-    FollowUpActionKey,
-)
 from ..alfred import ItemArgs
 from ..settings import settings, SettingKeys
 from .item_builder import item_builders

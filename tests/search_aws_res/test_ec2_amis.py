@@ -11,7 +11,7 @@ class TestEc2AmiSearcher(object):
     def test(self):
         res = self.sr.list_res()
         for i in res:
-            print(i)
+            # print(i)
             pass
         if len(res):
             item = self.sr.to_item(res[0])

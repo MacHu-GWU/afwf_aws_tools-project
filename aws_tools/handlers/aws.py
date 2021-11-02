@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+"""
+All workflow handlers for ``aws`` trigger.
+"""
+
 from __future__ import unicode_literals, print_function
 from workflow.workflow3 import Workflow3
 from ..alfred import ItemArgs
@@ -105,7 +109,14 @@ def update_wf_for_sub_svc_doc(
 
 
 class AwsHandlers(object):
+    """
+    All workflow handlers for ``aws`` trigger.
+    """
+
     def sh_help_info(self, wf):
+        """
+        :type wf: Workflow3
+        """
         yaml_url = "https://github.com/MacHu-GWU/afwf_aws_tools-project/blob/main/devtools/console-urls.yml"
         item_arg = ItemArgs(
             title="Search for an AWS Service",
@@ -116,6 +127,9 @@ class AwsHandlers(object):
         return wf
 
     def sh_top20_main_service(self, wf):
+        """
+        :type wf: Workflow3
+        """
         doc_list = main_service_searcher.top_20()
         update_wf_for_main_svc_doc(wf, doc_list)
         if len(doc_list) == 0:
@@ -133,6 +147,9 @@ class AwsHandlers(object):
         return wf
 
     def sh_query_too_short(self, wf):
+        """
+        :type wf: Workflow3
+        """
         item_arg = ItemArgs(
             title="Query is too Short!",
             subtitle="please enter at least two character to search for service, e.g. 's3'",
@@ -143,32 +160,58 @@ class AwsHandlers(object):
         return wf
 
     def sh_filter_main_service(self, wf, query_str):
+        """
+        :type wf: Workflow3
+        :type query_str: str
+        """
         doc_list = main_service_searcher.search(query_str=query_str, limit=20)
         update_wf_for_main_svc_doc(wf, doc_list)
         return wf
 
     def sh_get_one_main_service(self, wf, main_svc_id):
+        """
+        :type wf: Workflow3
+        :type main_svc_id: str
+        """
         doc = main_service_searcher.search_one(id=main_svc_id)
         update_wf_for_main_svc_doc(wf, [doc, ])
         return wf
 
     def sh_top20_sub_service(self, wf, main_svc_id):
+        """
+        :type wf: Workflow3
+        :type main_svc_id: str
+        """
         doc_list = sub_service_searcher.top_20(main_svc_id)
         update_wf_for_sub_svc_doc(wf, doc_list)
         return wf
 
     def sh_filter_sub_service(self, wf, main_svc_id, query_str):
+        """
+        :type wf: Workflow3
+        :type main_svc_id: str
+        :type query_str: str
+        """
         doc_list = sub_service_searcher.search(
             main_svc_id=main_svc_id, query_str=query_str, limit=20)
         update_wf_for_sub_svc_doc(wf, doc_list)
         return wf
 
     def sh_get_one_sub_service(self, wf, main_svc_id, sub_svc_id):
+        """
+        :type wf: Workflow3
+        :type main_svc_id: str
+        :type sub_svc_id: str
+        """
         doc = sub_service_searcher.search_one(main_svc_id, sub_svc_id)
         update_wf_for_sub_svc_doc(wf, [doc, ])
         return wf
 
     def sh_list_aws_resources(self, wf, searcher_id):
+        """
+        :type wf: Workflow3
+        :type searcher_id: str
+        """
         searcher = reg.get(searcher_id)
         results = searcher.list_res()
         for data in results:
@@ -177,6 +220,11 @@ class AwsHandlers(object):
         return wf
 
     def sh_filter_aws_resources(self, wf, searcher_id, query_str):
+        """
+        :type wf: Workflow3
+        :type searcher_id: str
+        :type query_str: str
+        """
         searcher = reg.get(searcher_id)
         results = searcher.filter_res(query_str)
         for data in results:

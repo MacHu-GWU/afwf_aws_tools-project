@@ -48,6 +48,11 @@ Note:
 
 .. image:: https://user-images.githubusercontent.com/6800411/139746690-ae2fcf1e-cd84-4d02-ad02-0103248b9b5b.gif
 
+You can hit "cmd + L" to view resource details (if available). This is an IAM Role example:
+
+.. image:: https://user-images.githubusercontent.com/6800411/139770265-305a0b27-0cfd-4710-b57c-a58c0ec264ae.png
+
+
 **3. Copy ARN to Clipboard**
 
 Usage:

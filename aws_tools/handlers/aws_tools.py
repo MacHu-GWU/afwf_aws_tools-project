@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+"""
+All workflow handlers for ``aws-tool-...`` trigger.
+"""
+
 from __future__ import unicode_literals
 from workflow.workflow3 import Workflow3
 from ..cache import cache
