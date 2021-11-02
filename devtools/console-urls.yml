@@ -1262,27 +1262,32 @@
     - id: classifiers
       name: Classifiers
       url: /glue/home?region={region}#catalog:tab=classifiers
+      weight: 5
     - id: connections
       name: Connections
       url: /glue/home?region={region}#catalog:tab=connections
     - id: crawlers
       name: Crawlers
       url: /glue/home?region={region}#catalog:tab=crawlers
+      weight: 6
     - id: databases
       name: Databases
       url: /glue/home?region={region}#catalog:tab=databases
+      weight: 6
     - id: devendpoints
       name: Dev endpoints
       url: /glue/home?region={region}#etl:tab=devEndpoints
     - id: jobs
       name: Jobs
       url: /glue/home?region={region}#etl:tab=jobs
+      weight: 6
     - id: mltransforms
       name: ML Transforms
       url: /glue/home?region={region}#etl:tab=mlTransforms
     - id: notebooks
       name: Notebooks
       url: /glue/home?region={region}#etl:tab=notebooks
+      weight: 5
     - id: schemaregistries
       name: Schema registries
       url: /glue/home?region={region}#catalog:tab=schemaRegistries
@@ -1298,6 +1303,7 @@
     - id: tables
       name: Tables
       url: /glue/home?region={region}#catalog:tab=tables
+      weight: 6
     - id: triggers
       name: Triggers
       url: /glue/home?region={region}#etl:tab=triggers
@@ -1356,6 +1362,7 @@
     - id: dashboard
       name: Dashboard
       url: /iam/home?region={region}#/home
+      weight: 6
     - id: identityproviders
       name: Identity providers
       url: /iamv2/home?region={region}#/identity_providers
@@ -1365,9 +1372,11 @@
     - id: policies
       name: Policies
       url: /iamv2/home?region={region}#/policies
+      weight: 8
     - id: roles
       name: Roles
       url: /iamv2/home?region={region}#/roles
+      weight: 9
     - id: scps
       name: Service control policies (SCPs)
       url: /iam/home?region={region}#/organizations/ServiceControlPolicies
@@ -1377,6 +1386,7 @@
     - id: users
       name: Users
       url: /iamv2/home?region={region}#/users
+      weight: 7
 - id: inspector
   name: Inspector
   description: Analyze Application Security
@@ -1513,6 +1523,7 @@
       url: /lakeformation/home?region={region}#tables
 - id: lambda
   name: Lambda
+  short_name: lbd
   description: Run Code without Thinking about Servers
   url: /lambda/home?region={region}#/discover
   weight: 6
@@ -1521,15 +1532,19 @@
     - id: applications
       name: Applications
       url: /lambda/home?region={region}#/applications
+      weight: 3
     - id: dashboard
       name: Dashboard
       url: /lambda/home?region={region}#/discover
+      weight: 4
     - id: functions
       name: Functions
       url: /lambda/home?region={region}#/functions
+      weight: 6
     - id: layers
       name: Layers
       url: /lambda/home?region={region}#/layers
+      weight: 5
 - id: launchwizard
   name: Launch Wizard
   description: Size, configure, and deploy third-party applications on AWS
@@ -1945,9 +1960,11 @@
     - id: dashboard
       name: Dashboard
       url: /rds/home?region={region}#
+      weight: 8
     - id: databases
       name: Databases
       url: '/rds/home?region={region}#databases:'
+      weight: 9
     - id: events
       name: Events
       url: '/rds/home?region={region}#event-list:'
@@ -1957,6 +1974,7 @@
     - id: optiongroups
       name: Option groups
       url: '/rds/home?region={region}#option-groups-list:'
+      weight: 7
     - id: performanceinsights
       name: Performance Insights
       url: '/rds/home?region={region}#performance-insights-v20206:'
@@ -1975,9 +1993,15 @@
     - id: snapshots
       name: Snapshots
       url: '/rds/home?region={region}#snapshots-list:'
+      weight: 7
     - id: subnetgroups
       name: Subnet groups
       url: '/rds/home?region={region}#db-subnet-groups-list:'
+      weight: 7
+    - id: parametergroups
+      name: Parameter groups
+      url: '/rds/home?region={region}#parameter-groups:'
+      weight: 7
 - id: redshift
   name: Redshift
   description: Fast, Simple, Cost-Effective Data Warehousing

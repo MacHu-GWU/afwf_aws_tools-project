@@ -6,6 +6,7 @@ This module provide a pattern to implement aws resources searcher
 
 import attr
 import typing
+from collections import OrderedDict
 from ..sdk import sdk, SDK
 from ..alfred import Base, ItemArgs
 from ..cache import cache
@@ -43,7 +44,10 @@ class ResData(Base):
         """
         Convert this object to large text for Alfred preview
         """
-        raise NotImplementedError
+        return "\n".join([
+            "{} = {}".format(k, v)
+            for k, v in attr.asdict(self, dict_factory=OrderedDict).items()
+        ])
 
     def __hash__(self):
         return hash(self.id)
@@ -83,6 +87,7 @@ class AwsResourceSearcher(object):
     @cache.memoize(expire=10)
     def recur_list_res(self,
                        kwargs=None,
+                       page_size=1000,
                        limit=0):
         """
         Some list_resource API requires paginator to retrieve many items.
@@ -92,15 +97,14 @@ class AwsResourceSearcher(object):
 
         :rtype: list[ResData]
         """
-        default_page_size = 1000
-        page_size = default_page_size if limit > default_page_size else limit
+        max_results = page_size if limit > page_size else limit
         paginator = None
         res_list = list()
         while 1:
             if kwargs is None:
                 kwargs = dict()
             if self.limit_arg_name:
-                kwargs[self.limit_arg_name] = page_size
+                kwargs[self.limit_arg_name] = max_results
             if paginator:
                 kwargs[self.paginator_arg_name] = paginator
 
@@ -112,7 +116,7 @@ class AwsResourceSearcher(object):
             if n_res >= limit:  # already got enough items
                 break
             else:
-                page_size = (limit - n_res) if (limit - n_res) < default_page_size else default_page_size
+                max_results = (limit - n_res) if (limit - n_res) < page_size else page_size
 
             if not paginator:  # no more items
                 break
