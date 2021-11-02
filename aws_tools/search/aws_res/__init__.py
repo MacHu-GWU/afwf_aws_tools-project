@@ -33,6 +33,8 @@ from .lambda_functions import lambda_functions_searcher
 from .lambda_layers import lambda_layers_searcher
 from .lakeformation_databases import lakeformation_databases_searcher
 from .lakeformation_tables import lakeformation_tables_searcher
+from .cloudformation_stacks import cloudformation_stacks_searcher
+
 
 reg.check_in(Ec2InstancesSearcher())
 reg.check_in(Ec2SecurityGroupsSearcher())
@@ -50,3 +52,4 @@ reg.check_in(lambda_functions_searcher)
 reg.check_in(lambda_layers_searcher)
 reg.check_in(lakeformation_databases_searcher)
 reg.check_in(lakeformation_tables_searcher)
+reg.check_in(cloudformation_stacks_searcher)

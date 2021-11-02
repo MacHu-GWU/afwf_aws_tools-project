@@ -85,12 +85,12 @@ class IamRolesSearcher(AwsResourceSearcher):
         :type query_str: str
         :rtype: list[Role]
         """
-        job_list = self.list_res(limit=1000)
-        keys = [job.name for job in job_list]
-        mapper = {job.name: job for job in job_list}
+        role_list = self.list_res(limit=1000)
+        keys = [role.name for role in role_list]
+        mapper = {role.name: role for role in role_list}
         fz_sr = FuzzyObjectSearch(keys, mapper)
-        matched_job_list = fz_sr.match(query_str, limit=20)
-        return matched_job_list
+        matched_role_list = fz_sr.match(query_str, limit=20)
+        return matched_role_list
 
     def to_item(self, role):
         """
