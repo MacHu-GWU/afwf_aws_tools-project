@@ -198,6 +198,6 @@ TODO
 Add Custom AWS Resource Searcher
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Understand How it Works**
+You can add your custom AWS Resource Searcher, customize the filtering logic, implement your own follow up actions that copy to clipboard, open file, run shell script, etc ...
 
-There's a ``.yml`` file defines the search
+See `How to add custom aws resource searcher <./docs/source/How-to-add-custom-aws-resource-searcher.rst>`_
