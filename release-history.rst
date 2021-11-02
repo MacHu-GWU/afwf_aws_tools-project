@@ -4,7 +4,7 @@ Release and Version History
 ==============================================================================
 
 
-1.0.2 (TODO)
+1.0.3 (TODO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
@@ -13,6 +13,23 @@ Release and Version History
 **Bugfixes**
 
 **Miscellaneous**
+
+
+1.0.2 (2021-11-02)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- Allow multi token full text search. For example: ``aws ec2-instances alice dev``. Before it only supports ``aws ec2-instances alice``
+
+**Minor Improvements**
+
+- Show helper information when AWS Service id / Sub service id is wrong.
+
+**Bugfixes**
+
+**Miscellaneous**
+
+- Refact the AWSResourceSearch class to make writing custom AWS resource search easier.
 
 
 1.0.1 (2021-11-01)

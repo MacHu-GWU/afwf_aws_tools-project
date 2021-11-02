@@ -149,11 +149,15 @@ Then a new aws profile ``${my_base_profile}_mfa`` (with ``_mfa`` suffix) will be
 Install
 ------------------------------------------------------------------------------
 
-**1. Installation this Alfred workflow**:
+**1. Dependencies Check**:
+
+- Make sure you are using ``Alfred 4``. Because it builds on top the new feature "Conditional Utility".
+
+**2. Installation this Alfred workflow**:
 
 Go to https://github.com/MacHu-GWU/afwf_aws_tools-project/releases, download the latest ``AWS Tools.alfredworkflow`` file, double click to install. Make sure you bought the `Alfred Powerpack <https://www.alfredapp.com/powerpack/>`_ that enable the Alfred workflow feature.
 
-**2. Configure the AWS Profile for this workflow**
+**3. Configure the AWS Profile for this workflow**
 
 1. Set a named profile as default for this workflow (not CLI / SDK): ``aws-tool-set-profile ${profile_name}``
 
