@@ -157,7 +157,7 @@ Go to https://github.com/MacHu-GWU/afwf_aws_tools-project/releases, download the
 
 1. Set a named profile as default for this workflow (not CLI / SDK): ``aws-tool-set-profile ${profile_name}``
 
-.. image:: https://user-images.githubusercontent.com/6800411/139747814-5cb788c6-84d8-4f0f-a7c5-51100ad37a73.gif
+.. image:: https://user-images.githubusercontent.com/6800411/139747808-aaca4158-c86c-4d9e-afc9-63acf30e40b3.gif
 
 2. Set a region as default that overwrite the region from ``~/.aws/config`` file: ``aws-tool-set-region ${region_name}``
 
