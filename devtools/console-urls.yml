@@ -1500,27 +1500,35 @@
     - id: dashboard
       name: dashboard
       url: /lakeformation/home?region={region}#dashboard
+      weight: 7
     - id: databases
       name: Databases
       url: /lakeformation/home?region={region}#databases
+      weight: 8
     - id: datalakelocations
       name: Data lake locatons
       url: /lakeformation/home?region={region}#register-list
+      weight: 6
     - id: datalakepermissions
+      weight: 9
       name: Data lake permissions
       url: /lakeformation/home?region={region}#permissions-list
     - id: datalocationpermissions
       name: Data location permissions
       url: /lakeformation/home?region={region}#location-permissions
+      weight: 6
     - id: lftags
       name: LF tags
       url: /lakeformation/home?region={region}#policy-tags
+      weight: 5
     - id: lftagspermissions
       name: Tag permissions
       url: /lakeformation/home?region={region}#tag-permissions
+      weight: 5
     - id: tables
       name: Tables
       url: /lakeformation/home?region={region}#tables
+      weight: 8
 - id: lambda
   name: Lambda
   short_name: lbd
