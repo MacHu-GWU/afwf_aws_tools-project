@@ -167,3 +167,15 @@ Disclaimer
 ------------------------------------------------------------------------------
 
 This software is maintained by me as individual, an Architect working in AWS. HOWEVER, THIS SOFTWARE IS NOT AN AWS MAINTAINED SOFTWARE, AND IT IS A INDIVIDUAL OPEN SOURCE PROJECT. PLEASE USE IT ON YOUR OWN RISK.
+
+
+Request for Feature
+------------------------------------------------------------------------------
+
+Open issue here https://github.com/MacHu-GWU/afwf_aws_tools-project/issues
+
+
+How to Contribute
+------------------------------------------------------------------------------
+
+TODO
