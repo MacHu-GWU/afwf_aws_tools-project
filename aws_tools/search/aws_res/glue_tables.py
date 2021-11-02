@@ -172,3 +172,5 @@ class GlueTablesSearcher(AwsResourceSearcher):
         else:
             raise Exception
         return item_arg
+
+glue_tables_searcher = GlueTablesSearcher()

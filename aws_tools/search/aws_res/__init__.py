@@ -25,8 +25,10 @@ from .iam_roles import IamRolesSearcher
 from .iam_policies import IamPolicysSearcher
 from .iam_users import IamUsersSearcher
 from .glue_databases import glue_databases_searcher
-from .glue_tables import GlueTablesSearcher
-from .s3_buckets import S3BucketsSearcher
+from .glue_tables import glue_tables_searcher
+from .glue_jobs import glue_job_searcher
+from .glue_awsgluestudio import glue_studiojob_searcher
+from .s3_buckets import s3_bucket_searcher
 
 reg.check_in(Ec2InstancesSearcher())
 reg.check_in(Ec2SecurityGroupsSearcher())
@@ -36,5 +38,7 @@ reg.check_in(IamRolesSearcher())
 reg.check_in(IamPolicysSearcher())
 reg.check_in(IamUsersSearcher())
 reg.check_in(glue_databases_searcher)
-reg.check_in(GlueTablesSearcher())
-reg.check_in(S3BucketsSearcher())
+reg.check_in(glue_tables_searcher)
+reg.check_in(glue_job_searcher)
+reg.check_in(glue_studiojob_searcher)
+reg.check_in(s3_bucket_searcher)

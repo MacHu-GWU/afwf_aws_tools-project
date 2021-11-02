@@ -107,3 +107,5 @@ class S3BucketsSearcher(AwsResourceSearcher):
         item_arg.open_browser(console_url)
         item_arg.copy_arn(bucket.arn)
         return item_arg
+
+s3_bucket_searcher = S3BucketsSearcher()

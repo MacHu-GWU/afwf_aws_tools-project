@@ -2,21 +2,19 @@
 
 from __future__ import unicode_literals
 import pytest
-from aws_tools.search.aws_res.iam_users import IamUsersSearcher
+from aws_tools.search.aws_res.glue_awsgluestudio import GlueStudioJobSearcher
 
 
-class TestIamUsersSearcher(object):
-    sr = IamUsersSearcher()
+class TestGlueStudioJobSearcher(object):
+    sr = GlueStudioJobSearcher()
 
     def test_list_res(self):
         res = self.sr.list_res()
-        # print(res[0])
-        # item = self.sr.to_item(res[0])
-        # print(item)
+        # print(res[0].name)
 
     def test_filter_res(self):
-        res = self.sr.filter_res("sanhe")
-        # print(res[0])
+        res = self.sr.filter_res("json")
+        # print(res[0].name)
 
 
 if __name__ == "__main__":
