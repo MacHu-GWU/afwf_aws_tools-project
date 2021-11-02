@@ -4,11 +4,26 @@ Release and Version History
 ==============================================================================
 
 
-1.0.3 (TODO)
+1.0.4 (TODO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
 **Minor Improvements**
+
+**Bugfixes**
+
+**Miscellaneous**
+
+
+1.0.3 (TODO)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- auto build console url index.
+
+**Minor Improvements**
+
+- add searcher: glue, lambda, lakeformation, cloudformation
 
 **Bugfixes**
 

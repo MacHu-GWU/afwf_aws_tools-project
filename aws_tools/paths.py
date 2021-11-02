@@ -52,6 +52,8 @@ PATH_DEFAULT_AWS_CREDENTIALS_FILE = Path(DIR_HOME, ".aws", "credentials")  # typ
 DIR_AWS_TOOL_USER_DATA = Path(DIR_HOME, ".alfred-aws-tools")  # type: Path
 DIR_MAIN_SERVICE_INDEX = Path(DIR_AWS_TOOL_USER_DATA, "main-service-whoosh_index")  # type: Path
 DIR_SUB_SERVICE_INDEX = Path(DIR_AWS_TOOL_USER_DATA, "sub-service-whoosh_index")  # type: Path
+PATH_MAIN_SERVICE_INDEX_LOCK = Path(DIR_MAIN_SERVICE_INDEX, "MAIN_WRITELOCK")  # type: Path
+PATH_SUB_SERVICE_INDEX_LOCK = Path(DIR_SUB_SERVICE_INDEX, "MAIN_WRITELOCK")  # type: Path
 
 if not DIR_AWS_TOOL_USER_DATA.exists():
     DIR_AWS_TOOL_USER_DATA.mkdir()

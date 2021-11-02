@@ -14,6 +14,7 @@ from whoosh import fields, qparser, query, sorting
 from .fts import FtsSearcher
 from ..paths import (
     DIR_MAIN_SERVICE_INDEX, DIR_SUB_SERVICE_INDEX,
+    PATH_MAIN_SERVICE_INDEX_LOCK, PATH_SUB_SERVICE_INDEX_LOCK,
     PATH_CONSOLE_URLS_YAML,
 )
 
@@ -160,6 +161,10 @@ class MainServiceSearcher(FtsSearcher):
             writer.add_document(**unicode_main_service_dict)
         writer.commit()
 
+    def build_index_if_not_exists(self):
+        if not PATH_MAIN_SERVICE_INDEX_LOCK.exists():
+            self.build_index(force_rebuild=True)
+
     def search_one(self, id):
         """
         :type id: str
@@ -182,6 +187,7 @@ class MainServiceSearcher(FtsSearcher):
         """
         :rtype: list[dict]
         """
+        self.build_index_if_not_exists()
         q = query.Term("top20", True)
         idx = self.get_index()
         mf = sorting.MultiFacet()
@@ -241,8 +247,6 @@ class SubServiceSearcher(FtsSearcher):
             index_dir=DIR_SUB_SERVICE_INDEX,
         )
 
-    # searchable_columns = ["id", "name", "short_name"]
-
     def build_index(self, force_rebuild=False):
         """
         Build Whoosh Index, add document.
@@ -272,6 +276,10 @@ class SubServiceSearcher(FtsSearcher):
                     unicode_sub_service_dict.setdefault("weight", 1)
                     writer.add_document(**unicode_sub_service_dict)
         writer.commit()
+
+    def build_index_if_not_exists(self):
+        if not PATH_SUB_SERVICE_INDEX_LOCK.exists():
+            self.build_index(force_rebuild=True)
 
     def search_one(self, main_svc_id, sub_svc_id):
         """
@@ -305,6 +313,7 @@ class SubServiceSearcher(FtsSearcher):
 
         :rtype: list[dict]
         """
+        self.build_index_if_not_exists()
         q = query.Term("main_svc_id", main_svc_id)
         idx = self.get_index()
         mf = sorting.MultiFacet()

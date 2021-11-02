@@ -54,5 +54,9 @@ class SDK(object):
     def glue_client(self):
         return self._get_client("glue")
 
+    @property
+    def cft_client(self):
+        return self._get_client("cloudformation")
+
 
 sdk = SDK()

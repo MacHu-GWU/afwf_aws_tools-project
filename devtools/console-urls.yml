@@ -258,18 +258,23 @@
   short_name: CF
   description: Create and Manage Resources with Templates
   url: /cloudformation/home?region={region}#/stacks
+  search_terms:
+    - cft
   weight: 6
   top20: true
   sub_services:
     - id: designer
       name: Designer
       url: /cloudformation/designer/home?region={region}
+      weight: 5
     - id: stacks
       name: Stacks
       url: /cloudformation/home?region={region}#/stacks
+      weight: 6
     - id: stacksets
       name: StackSets
       url: /cloudformation/home?region={region}#/stacksets
+      weight: 6
 - id: cloudfront
   name: CloudFront
   description: Global Content Delivery Network
