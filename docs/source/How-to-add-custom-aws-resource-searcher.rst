@@ -70,3 +70,10 @@ I use ``iam-roles`` as example to walk through the step-by-step implementation t
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Follow `this pattern <https://github.com/MacHu-GWU/afwf_aws_tools-project/blob/main/tests/search_aws_res/test_iam_roles.py>`_ and test the searcher with custom ``query_str``.
+
+
+References
+------------------------------------------------------------------------------
+
+- Emoji: https://emojipedia.org/
+    - Symbol: https://emojipedia.org/symbols/

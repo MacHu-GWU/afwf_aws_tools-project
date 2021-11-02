@@ -121,7 +121,7 @@ class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
         console_url = sg.to_console_url()
         largetext = sg.to_largetext()
         item_arg = ItemArgs(
-            title="{sg_id} {sg_name}".format(
+            title="🛡️ {sg_id} {sg_name}".format(
                 sg_id=sg.short_id,
                 sg_name=sg.name,
             ),

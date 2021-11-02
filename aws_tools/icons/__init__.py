@@ -1199,7 +1199,7 @@ svc_icon_mapper = {
     "iam-roles": Icons.Res_AWS_Identity_Access_Management_Role,
     # "iam-scps": Icons.Arch_AWS_Identity_and_Access_Management,
     # "iam-usergroups": Icons.Arch_AWS_Identity_and_Access_Management,
-    # "iam-users": Icons.Arch_AWS_Identity_and_Access_Management,
+    "iam-users": Icons.Res_User,
     "kinesis-analytics": Icons.Arch_Amazon_Kinesis_Data_Analytics,
     # "kinesis-dashboard": Icons.Arch_AWS_Identity_and_Access_Management,
     "kinesis-datastreams": Icons.Arch_Amazon_Kinesis_Data_Streams,

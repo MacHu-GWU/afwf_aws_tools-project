@@ -97,7 +97,7 @@ class IamUsersSearcher(AwsResourceSearcher):
         console_url = user.to_console_url()
         largetext = user.to_largetext()
         item_arg = ItemArgs(
-            title="{user_name}".format(
+            title="👤 {user_name}".format(
                 user_name=user.name,
             ),
             subtitle=user.path,

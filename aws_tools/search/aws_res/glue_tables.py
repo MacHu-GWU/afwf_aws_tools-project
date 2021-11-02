@@ -140,7 +140,7 @@ class GlueTablesSearcher(AwsResourceSearcher):
             console_url = db.to_console_url()
             largetext = db.to_largetext()
             item_arg = ItemArgs(
-                title="{db_name}".format(
+                title="🇩 Database({db_name})".format(
                     db_name=db.name,
                 ),
                 subtitle="{description}".format(
@@ -158,7 +158,7 @@ class GlueTablesSearcher(AwsResourceSearcher):
             console_url = tb.to_console_url()
             largetext = tb.to_largetext()
             item_arg = ItemArgs(
-                title=tb.full_name,
+                title="🇹 Table({full_name})".format(full_name=tb.full_name),
                 subtitle="{description}".format(
                     description=tb.description
                 ),

@@ -103,7 +103,7 @@ class GlueDatabasesSearcher(AwsResourceSearcher):
         console_url = db.to_console_url()
         largetext = db.to_largetext()
         item_arg = ItemArgs(
-            title="{db_name}".format(
+            title="🇩 Database({db_name})".format(
                 db_name=db.name,
             ),
             subtitle="{description}".format(

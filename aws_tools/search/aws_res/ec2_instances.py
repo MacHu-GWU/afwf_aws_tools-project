@@ -42,12 +42,12 @@ class Instance(ResData):
 
 
 inst_state_emoji_mapper = {
-    "pending": "💛",
-    "running": "💚",
-    "shutting-down": "🤎",
+    "pending": "🟡",
+    "running": "🟢",
+    "shutting-down": "🟤",
     "terminated": "⚫",
-    "stopping": "🧡",
-    "stopped": "❤️",
+    "stopping": "🟠",
+    "stopped": "🔴️",
 }
 
 

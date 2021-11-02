@@ -46,12 +46,12 @@ class Volume(ResData):
 
 
 vol_state_emoji_mapper = {
-    "creating": "💛",
-    "available": "💚",
-    "in-use": "💚",
-    "deleting": "🤎",
+    "creating": "🟡",
+    "available": "🟢",
+    "in-use": "🟢",
+    "deleting": "🟤",
     "deleted": "⚫",
-    "error": "❤️",
+    "error": "🔴",
 }
 
 
