@@ -22,8 +22,8 @@ Features
 Usage:
 
 - Type ``aws ${main_service}`` or ``aws ${main_service}-${sub_service}``.
-- hit "Tab" to auto complete the search string.
-- hit "Enter" to open the AWS Console.
+- hit ``Tab`` to auto complete the search string.
+- hit ``Enter`` to open the AWS Console.
 
 Note:
 
@@ -38,7 +38,7 @@ Note:
 
 Usage:
 
-- Type ``aws ${main_service}-{sub_service}`` or find the sub service then hit "Tab" to search AWS resources (if available).
+- Type ``aws ${main_service}-{sub_service}`` or find the sub service then hit ``Tab`` to search AWS resources (if available).
 - Type any search string to filter the resource. Example: ``aws iam-roles dev``
 
 Note:
@@ -57,7 +57,7 @@ You can hit "cmd + L" to view resource details (if available). This is an IAM Ro
 
 Usage:
 
-- Type ``aws  ${main_service}-{sub_service} ${query}`` to locate the resource. And Press down "Alt" then hit "Enter" to copy ARN to clipboard (if available).
+- Type ``aws ${main_service}-{sub_service} ${query}`` to locate the resource. And Press down ``Alt`` then hit ``Enter`` to copy ARN to clipboard (if available).
 
 .. image:: https://user-images.githubusercontent.com/6800411/139749561-93b1b8e6-c5ee-4890-a82a-d4bcf922da16.gif
 
@@ -106,7 +106,7 @@ and ``~/.aws/credentials``::
     aws_access_key_id = CCC
     aws_secret_access_key = CCC
 
-Type ``aws-cli-set-profile dev`` to filter the named profile, hit "Enter" to set it as default.
+Type ``aws-cli-set-profile dev`` to filter the named profile, hit ``Enter`` to set it as default.
 
 .. image:: https://user-images.githubusercontent.com/6800411/139747808-aaca4158-c86c-4d9e-afc9-63acf30e40b3.gif
 
@@ -184,3 +184,16 @@ How to Contribute
 ------------------------------------------------------------------------------
 
 TODO
+
+.. contents::
+    :class: this-will-duplicate-information-and-it-is-still-useful-here
+    :depth: 1
+    :local:
+
+
+Add Custom AWS Resource Searcher
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Understand How it Works**
+
+There's a ``.yml`` file defines the search
