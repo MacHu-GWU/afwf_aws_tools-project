@@ -230,6 +230,14 @@ class AwsHandlers(object):
         for data in results:
             item_arg = searcher.to_item(data)
             item_arg.add_to_wf(wf)
+        if len(results) == 0:
+            item_arg = ItemArgs(
+                title="Found nothing",
+                subtitle="query has to be sub string of the name or id",
+                icon=HotIcons.info,
+                valid=True,
+            )
+            item_arg.add_to_wf(wf)
         return wf
 
     def mh_aws(self, wf, query_str):
@@ -272,7 +280,7 @@ class AwsHandlers(object):
             searcher_id = args[0]
             res_query = " ".join(args[1:])
             self.sh_filter_aws_resources(wf, searcher_id, res_query)
-        # wf.add_item("query_str = {}".format([query_str, ]))
+
         return wf
 
 

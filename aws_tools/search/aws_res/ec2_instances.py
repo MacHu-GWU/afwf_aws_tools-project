@@ -2,13 +2,16 @@
 
 from __future__ import unicode_literals
 import attr
-from ..aws_resources import AwsResourceSearcher, ItemArgs, ModArgs
+from ordered_set import OrderedSet
+from ..aws_resources import AwsResourceSearcher, ItemArgs
 from ...icons import find_svc_icon
 from ...settings import SettingValues
+from ...cache import cache
+from ...alfred import Base
 
 
-@attr.s
-class Instance(object):
+@attr.s(hash=True)
+class Instance(Base):
     id = attr.ib()
     name = attr.ib()
     type = attr.ib()
@@ -31,6 +34,9 @@ class Instance(object):
             "public_ip = {}".format(self.public_ip),
             "private_ip = {}".format(self.private_ip),
         ])
+
+    def __hash__(self):
+        return hash(self.id)
 
 
 def simplify_describe_instances_response(res):
@@ -63,6 +69,7 @@ def simplify_describe_instances_response(res):
                 private_ip=private_ip,
             )
             inst_list.append(inst)
+    inst_list = list(sorted(inst_list, key=lambda x: x.name))
     return inst_list
 
 
@@ -79,13 +86,15 @@ inst_state_emoji_mapper = {
 class Ec2InstancesSearcher(AwsResourceSearcher):
     id = "ec2-instances"
 
+    @cache.memoize(expire=SettingValues.expire)
     def list_res(self):
         """
         :rtype: list[Instance]
         """
-        res = self.sdk.ec2_client.describe_instances(MaxResults=100)
+        res = self.sdk.ec2_client.describe_instances(MaxResults=20)
         return simplify_describe_instances_response(res)
 
+    @cache.memoize(expire=SettingValues.expire)
     def filter_res(self, query_str):
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#EC2.Client.describe_instances
@@ -93,26 +102,31 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
         :type query_str: str
         :rtype: list[Instance]
         """
-        filter_ = dict(Name="tag:Name", Values=["*{}*".format(query_str)])
-        res_by_name = self.sdk.ec2_client.describe_instances(
-            Filters=[filter_, ],
-            MaxResults=100,
-        )
-        filter_ = dict(Name="instance-id", Values=["*{}*".format(query_str)])
-        res_by_id = self.sdk.ec2_client.describe_instances(
-            Filters=[filter_, ],
-            MaxResults=100,
-        )
+        args = [arg for arg in query_str.split(" ") if arg.strip()]
+        if len(args) == 1:
+            filter_ = dict(Name="tag:Name", Values=["*{}*".format(query_str)])
+            res = self.sdk.ec2_client.describe_instances(
+                Filters=[filter_, ],
+                MaxResults=20,
+            )
+            inst_by_name = simplify_describe_instances_response(res)
 
-        # de-duplicate and sort
-        inst_list = simplify_describe_instances_response(res_by_name) \
-                    + simplify_describe_instances_response(res_by_id)
-        inst_mapper = {
-            inst.id: inst
-            for inst in inst_list
-        }
-        inst_list = list(sorted(inst_mapper.values(), key=lambda x: x.name))
-        return inst_list
+            filter_ = dict(Name="instance-id", Values=["*{}*".format(query_str)])
+            res = self.sdk.ec2_client.describe_instances(
+                Filters=[filter_, ],
+                MaxResults=20,
+            )
+            inst_by_id = simplify_describe_instances_response(res)
+            inst_list = list(OrderedSet(inst_by_name) | OrderedSet(inst_by_id))
+            return inst_list
+        elif len(args) > 1:
+            inst_set = OrderedSet(self.filter_res(query_str=args[0]))
+            for arg in args[1:]:
+                inst_set &= self.filter_res(query_str=arg)
+            inst_list = list(inst_set)
+            return inst_list
+        else:
+            raise Exception
 
     def to_item(self, inst):
         """

@@ -19,6 +19,7 @@ class CustomCache(Cache):
         return value
 
 
+
 cache = CustomCache(PATH_CACHE_DIR.abspath)
 
 

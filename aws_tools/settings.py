@@ -13,9 +13,11 @@ settings = SqliteDict(PATH_SETTINGS_DB_FILE.abspath, autocommit=True)
 class SettingKeys:
     aws_profile = "aws_profile"
     aws_region = "aws_region"
+    expire = "expire"  # cache expire time
     _debug = "_debug"
 
 
 class SettingValues:
     aws_profile = settings.get(SettingKeys.aws_profile)
     aws_region = settings.get(SettingKeys.aws_region)
+    expire = settings.get(SettingKeys.expire, 10)

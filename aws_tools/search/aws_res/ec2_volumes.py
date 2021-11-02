@@ -87,55 +87,46 @@ vol_state_emoji_mapper = {
 
 class Ec2VolumesSearcher(AwsResourceSearcher):
     id = "ec2-volumes"
-    cache_key_all = "aws-res-ec2-volumes-all"
-    cache_key_filtered = "aws-res-ec2-volumes-filtered-{query_str}"
 
+    @cache.memoize(expire=10)
     def list_res(self):
         """
         :rtype: list[Volume]
         """
-        res = cache.fast_get(
-            key=self.cache_key_all,
-            callable=self.sdk.ec2_client.describe_volumes,
-            kwargs=dict(MaxResults=20),
-            expire=10,
-        )
+        res = self.sdk.ec2_client.describe_volumes(MaxResults=20)
         vol_list = simplify_describe_volumes_response(res)
         return vol_list
 
+    @cache.memoize(expire=10)
     def filter_res(self, query_str):
         """
         :type query_str: str
         :rtype: list[Volume]
         """
-        cache_key = self.cache_key_filtered.format(query_str=query_str)
-        if cache_key in cache:
-            vol_list = cache[cache_key]
-        else:
-            res = self.sdk.ec2_client.describe_volumes(
-                Filters=[
-                    dict(Name="tag:Name", Values=["*{}*".format(query_str)]),
-                ],
-                MaxResults=20,
-            )
-            vol_list_by_name = simplify_describe_volumes_response(res)
+        res = self.sdk.ec2_client.describe_volumes(
+            Filters=[
+                dict(Name="tag:Name", Values=["*{}*".format(query_str)]),
+            ],
+            MaxResults=20,
+        )
+        vol_list_by_name = simplify_describe_volumes_response(res)
 
-            res = self.sdk.ec2_client.describe_volumes(
-                Filters=[
-                    dict(Name="volume-id", Values=["*{}*".format(query_str)]),
-                ],
-                MaxResults=20,
-            )
-            vol_list_by_id = simplify_describe_volumes_response(res)
+        res = self.sdk.ec2_client.describe_volumes(
+            Filters=[
+                dict(Name="volume-id", Values=["*{}*".format(query_str)]),
+            ],
+            MaxResults=20,
+        )
+        vol_list_by_id = simplify_describe_volumes_response(res)
 
-            vol_list = vol_list_by_name + vol_list_by_id
+        vol_list = vol_list_by_name + vol_list_by_id
 
-            # deduplicate
-            vol_mapper = OrderedDict([
-                (vol.id, vol)
-                for vol in vol_list
-            ])
-            vol_list = list(vol_mapper.values())
+        # deduplicate
+        vol_mapper = OrderedDict([
+            (vol.id, vol)
+            for vol in vol_list
+        ])
+        vol_list = list(vol_mapper.values())
 
         return vol_list
 

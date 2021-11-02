@@ -40,7 +40,6 @@ reg.check_in(aws_handlers.mh_aws)
 
 
 def debug_args(wf):
-    from ..paths import PATH_ERROR_TRACEBACK
     wf.add_item(
         title="args = {}".format(wf.args),
         icon=HotIcons.error,

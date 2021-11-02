@@ -2,13 +2,16 @@
 
 from __future__ import unicode_literals
 import attr
+from collections import OrderedDict
 from ..aws_resources import AwsResourceSearcher, ItemArgs
 from ...icons import Icons
 from ...settings import SettingValues
+from ...alfred import Base
+from ...cache import cache
 
 
 @attr.s
-class SecurityGroup(object):
+class SecurityGroup(Base):
     id = attr.ib()
     name = attr.ib()
     description = attr.ib()
@@ -59,19 +62,24 @@ def simplify_describe_security_groups_response(res):
             n_egress=len(sg_dict["IpPermissionsEgress"]),
         )
         sg_list.append(sg)
+        # sort by volume name
+    sg_list = list(sorted(
+        sg_list, key=lambda v: v.name, reverse=False))
     return sg_list
 
 
 class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
     id = "ec2-securitygroups"
 
+    @cache.memoize(expire=10)
     def list_res(self):
         """
         :rtype: list[SecurityGroup]
         """
-        res = self.sdk.ec2_client.describe_security_groups(MaxResults=100)
+        res = self.sdk.ec2_client.describe_security_groups(MaxResults=20)
         return simplify_describe_security_groups_response(res)
 
+    @cache.memoize(expire=10)
     def filter_res(self, query_str):
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#EC2.Client.describe_security_groups
@@ -80,24 +88,28 @@ class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
         :rtype: list[SecurityGroup]
         """
         filter_ = dict(Name="group-name", Values=["*{}*".format(query_str)])
-        res_by_name = self.sdk.ec2_client.describe_security_groups(
+        res = self.sdk.ec2_client.describe_security_groups(
             Filters=[filter_, ],
-            MaxResults=100,
+            MaxResults=20,
         )
-        filter_ = dict(Name="group-id", Values=["*{}*".format(query_str)])
-        res_by_id = self.sdk.ec2_client.describe_security_groups(
-            Filters=[filter_, ],
-            MaxResults=100,
-        )
+        sg_list_by_name = simplify_describe_security_groups_response(res)
 
-        # de-duplicate and sort
-        sg_list = simplify_describe_security_groups_response(res_by_name) \
-                  + simplify_describe_security_groups_response(res_by_id)
-        sg_mapper = {
-            sg.id: sg
+        filter_ = dict(Name="group-id", Values=["*{}*".format(query_str)])
+        res = self.sdk.ec2_client.describe_security_groups(
+            Filters=[filter_, ],
+            MaxResults=20,
+        )
+        sg_list_by_id = simplify_describe_security_groups_response(res)
+
+        sg_list = sg_list_by_name + sg_list_by_id
+
+        # deduplicate
+        sg_mapper = OrderedDict([
+            (sg.id, sg)
             for sg in sg_list
-        }
-        sg_list = list(sorted(sg_mapper.values(), key=lambda x: x.name))
+        ])
+        sg_list = list(sg_mapper.values())
+
         return sg_list
 
     def to_item(self, sg):
