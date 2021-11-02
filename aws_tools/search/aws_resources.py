@@ -6,10 +6,11 @@ This module provide a pattern to implement aws resources searcher
 
 import attr
 from ..sdk import sdk, SDK
-from ..alfred import ItemArgs, ModArgs
+from ..alfred import ItemArgs
+from ..cache import cache
 
 
-@attr.s
+@attr.s(hash=True)
 class ResData(object):
     """
     Resource data class, A data container class stores the
@@ -30,9 +31,21 @@ class ResData(object):
             arn = attr.ib()
             create_data = attr.ib()
     """
-    @property
+
     def to_console_url(self):
+        """
+        Convert this object to AWS Resource console url
+        """
         raise NotImplementedError
+
+    def to_large_text(self):
+        """
+        Convert this object to large text for Alfred preview
+        """
+        raise NotImplementedError
+
+    def __hash__(self):
+        return hash(self.id)
 
 
 class AwsResourceSearcher(object):
@@ -46,12 +59,23 @@ class AwsResourceSearcher(object):
     def resource_id(self):
         return self.id
 
+    def simplify_response(self, res):
+        """
+        Extract many :class`ResData` objects from boto3 API call response.
+
+        :type res: dict
+        :rtype: list[ResData]
+        """
+        raise NotImplementedError
+
+    @cache.memoize(expire=10)
     def list_res(self):
         """
         :rtype: list
         """
         raise NotImplementedError
 
+    @cache.memoize(expire=10)
     def filter_res(self, query_str):
         """
         :type query_str: str

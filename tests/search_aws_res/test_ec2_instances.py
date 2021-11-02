@@ -17,7 +17,7 @@ class TestEc2InstancesSearcher(object):
         # print(res[0])
         res = self.sr.filter_res("0e18")
         # print(res[0])
-        res = self.sr.filter_res("sanhe dev")
+        res = self.sr.filter_res("dev sanhe")
         # for inst in res:
         #     print(inst.name)
 

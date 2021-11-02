@@ -1,16 +1,22 @@
 # -*- coding: utf-8 -*-
 
+"""
+Ref:
+
+- https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#EC2.Client.describe_security_groups
+"""
+
 from __future__ import unicode_literals
 import attr
-from collections import OrderedDict
 from ..aws_resources import AwsResourceSearcher, ItemArgs
 from ...icons import Icons
 from ...settings import SettingValues
 from ...alfred import Base
 from ...cache import cache
+from ...helpers import union
 
 
-@attr.s
+@attr.s(hash=True)
 class SecurityGroup(Base):
     id = attr.ib()
     name = attr.ib()
@@ -42,6 +48,9 @@ class SecurityGroup(Base):
             "n_ingress = {}".format(self.n_ingress),
             "n_egress = {}".format(self.n_egress),
         ])
+
+    def __hash__(self):
+        return hash(self.id)
 
 
 def simplify_describe_security_groups_response(res):
@@ -82,35 +91,36 @@ class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
     @cache.memoize(expire=10)
     def filter_res(self, query_str):
         """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#EC2.Client.describe_security_groups
-
         :type query_str: str
         :rtype: list[SecurityGroup]
         """
-        filter_ = dict(Name="group-name", Values=["*{}*".format(query_str)])
-        res = self.sdk.ec2_client.describe_security_groups(
-            Filters=[filter_, ],
-            MaxResults=20,
-        )
-        sg_list_by_name = simplify_describe_security_groups_response(res)
+        args = [arg for arg in query_str.split(" ") if arg.strip()]
+        if len(args) == 1:
+            filter_ = dict(Name="group-name", Values=["*{}*".format(query_str)])
+            res = self.sdk.ec2_client.describe_security_groups(
+                Filters=[filter_, ],
+                MaxResults=20,
+            )
+            sg_list_by_name = simplify_describe_security_groups_response(res)
 
-        filter_ = dict(Name="group-id", Values=["*{}*".format(query_str)])
-        res = self.sdk.ec2_client.describe_security_groups(
-            Filters=[filter_, ],
-            MaxResults=20,
-        )
-        sg_list_by_id = simplify_describe_security_groups_response(res)
+            filter_ = dict(Name="group-id", Values=["*{}*".format(query_str)])
+            res = self.sdk.ec2_client.describe_security_groups(
+                Filters=[filter_, ],
+                MaxResults=20,
+            )
+            sg_list_by_id = simplify_describe_security_groups_response(res)
 
-        sg_list = sg_list_by_name + sg_list_by_id
-
-        # deduplicate
-        sg_mapper = OrderedDict([
-            (sg.id, sg)
-            for sg in sg_list
-        ])
-        sg_list = list(sg_mapper.values())
-
-        return sg_list
+            sg_list = union(sg_list_by_name, sg_list_by_id)
+            return sg_list
+        elif len(args) > 1:
+            sg_list_list = [
+                self.filter_res(query_str=arg)
+                for arg in args
+            ]
+            sg_list = union(*sg_list_list)
+            return sg_list
+        else:
+            raise Exception
 
     def to_item(self, sg):
         """

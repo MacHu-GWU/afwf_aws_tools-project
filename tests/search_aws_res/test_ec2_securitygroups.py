@@ -18,6 +18,9 @@ class TestEc2SecurityGroupsSearcher(object):
         res = self.sr.filter_res("dev")
         # print(res[0])
 
+        res = self.sr.filter_res("dev sanhe")
+        # print(res[0])
+
 
 if __name__ == "__main__":
     import os

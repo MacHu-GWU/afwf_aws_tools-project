@@ -13,9 +13,9 @@ class TestEc2AmiSearcher(object):
         for i in res:
             # print(i)
             pass
-        if len(res):
-            item = self.sr.to_item(res[0])
-        res = self.sr.filter_res("dev")
+        # if len(res):
+        #     item = self.sr.to_item(res[0])
+        # res = self.sr.filter_res("dev")
 
 
 if __name__ == "__main__":

@@ -1,17 +1,22 @@
 # -*- coding: utf-8 -*-
 
+"""
+Ref:
+
+- https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#EC2.Client.describe_instances
+"""
+
 from __future__ import unicode_literals
 import attr
-from ordered_set import OrderedSet
-from ..aws_resources import AwsResourceSearcher, ItemArgs
+from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
 from ...icons import find_svc_icon
 from ...settings import SettingValues
 from ...cache import cache
-from ...alfred import Base
+from ...helpers import union, intersect
 
 
 @attr.s(hash=True)
-class Instance(Base):
+class Instance(ResData):
     id = attr.ib()
     name = attr.ib()
     type = attr.ib()
@@ -35,43 +40,6 @@ class Instance(Base):
             "private_ip = {}".format(self.private_ip),
         ])
 
-    def __hash__(self):
-        return hash(self.id)
-
-
-def simplify_describe_instances_response(res):
-    """
-    :type res: dict
-    :param res: the return of ec2_client.describe_instances
-
-    :rtype: list[Instance]
-    """
-    if len(res["Reservations"]) == 0:
-        return []
-    inst_list = list()
-    for reservation_dict in res["Reservations"]:
-        for inst_dict in reservation_dict["Instances"]:
-            instance_id = inst_dict["InstanceId"]
-            instance_name = ""
-            for tag in inst_dict.get("Tags", []):
-                if tag["Key"] == "Name":
-                    instance_name = tag["Value"]
-            instance_type = inst_dict["InstanceType"]
-            state = inst_dict["State"]["Name"]
-            public_ip = inst_dict.get("PublicIpAddress")
-            private_ip = inst_dict.get("PrivateIpAddress")
-            inst = Instance(
-                id=instance_id,
-                type=instance_type,
-                name=instance_name,
-                state=state,
-                public_ip=public_ip,
-                private_ip=private_ip,
-            )
-            inst_list.append(inst)
-    inst_list = list(sorted(inst_list, key=lambda x: x.name))
-    return inst_list
-
 
 inst_state_emoji_mapper = {
     "pending": "💛",
@@ -86,47 +54,79 @@ inst_state_emoji_mapper = {
 class Ec2InstancesSearcher(AwsResourceSearcher):
     id = "ec2-instances"
 
+    def simplify_response(self, res):
+        """
+        :type res: dict
+        :param res: the return of ec2_client.describe_instances
+
+        :rtype: list[Instance]
+        """
+        if len(res["Reservations"]) == 0:
+            return []
+        inst_list = list()
+        for reservation_dict in res["Reservations"]:
+            for inst_dict in reservation_dict["Instances"]:
+                instance_id = inst_dict["InstanceId"]
+                instance_name = ""
+                for tag in inst_dict.get("Tags", []):
+                    if tag["Key"] == "Name":
+                        instance_name = tag["Value"]
+                instance_type = inst_dict["InstanceType"]
+                state = inst_dict["State"]["Name"]
+                public_ip = inst_dict.get("PublicIpAddress")
+                private_ip = inst_dict.get("PrivateIpAddress")
+                inst = Instance(
+                    id=instance_id,
+                    type=instance_type,
+                    name=instance_name,
+                    state=state,
+                    public_ip=public_ip,
+                    private_ip=private_ip,
+                )
+                inst_list.append(inst)
+        inst_list = list(sorted(inst_list, key=lambda x: x.name))
+        return inst_list
+
     @cache.memoize(expire=SettingValues.expire)
     def list_res(self):
         """
         :rtype: list[Instance]
         """
         res = self.sdk.ec2_client.describe_instances(MaxResults=20)
-        return simplify_describe_instances_response(res)
+        return self.simplify_response(res)
 
     @cache.memoize(expire=SettingValues.expire)
     def filter_res(self, query_str):
         """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#EC2.Client.describe_instances
-
         :type query_str: str
         :rtype: list[Instance]
         """
         args = [arg for arg in query_str.split(" ") if arg.strip()]
         if len(args) == 1:
-            filter_ = dict(Name="tag:Name", Values=["*{}*".format(query_str)])
+            filter_ = dict(Name="tag:Name", Values=["*{}*".format(arg)])
             res = self.sdk.ec2_client.describe_instances(
                 Filters=[filter_, ],
                 MaxResults=20,
             )
-            inst_by_name = simplify_describe_instances_response(res)
+            inst_list_by_name = self.simplify_response(res)
 
-            filter_ = dict(Name="instance-id", Values=["*{}*".format(query_str)])
+            filter_ = dict(Name="instance-id", Values=["*{}*".format(arg)])
             res = self.sdk.ec2_client.describe_instances(
                 Filters=[filter_, ],
                 MaxResults=20,
             )
-            inst_by_id = simplify_describe_instances_response(res)
-            inst_list = list(OrderedSet(inst_by_name) | OrderedSet(inst_by_id))
-            return inst_list
+            inst_list_by_id = self.simplify_response(res)
+
+            inst_list = union(inst_list_by_name, inst_list_by_id)
         elif len(args) > 1:
-            inst_set = OrderedSet(self.filter_res(query_str=args[0]))
-            for arg in args[1:]:
-                inst_set &= self.filter_res(query_str=arg)
-            inst_list = list(inst_set)
-            return inst_list
+            inst_list_list = list()
+            for arg in args:
+                inst_list = self.filter_res(query_str=arg)
+                inst_list_list.append(inst_list)
+            inst_list = intersect(*inst_list_list)
         else:
-            raise Exception
+            raise ValueError
+        return inst_list
 
     def to_item(self, inst):
         """
@@ -142,10 +142,10 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
                 id=inst.short_id,
                 type=inst.type,
             ),
-            autocomplete="{} {}".format(self.id, inst.id),
+            autocomplete="{} {}".format(self.resource_id, inst.id),
             arg=console_url,
             largetext=largetext,
-            icon=find_svc_icon(self.id),
+            icon=find_svc_icon(self.resource_id),
             valid=True,
         )
         item_arg.open_browser(console_url)

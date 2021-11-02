@@ -14,6 +14,7 @@ class SettingKeys:
     aws_profile = "aws_profile"
     aws_region = "aws_region"
     expire = "expire"  # cache expire time
+    limit = 20 # number of search results returns
     _debug = "_debug"
 
 

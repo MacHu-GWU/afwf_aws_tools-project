@@ -1486,6 +1486,15 @@ svc_icon_mapper = {
 
 
 def find_svc_icon(id):
+    """
+    Locate the absolute path of an ICON for a AWS service.
+
+    :type id: str
+    :param id: service id, for main service it is ``ec2``, for sub service it is
+        ``ec2-instances``
+
+    :rtype: str
+    """
     if id in svc_icon_mapper:
         return Icons.abspath(svc_icon_mapper[id])
     else:

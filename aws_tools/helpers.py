@@ -5,6 +5,7 @@ import json
 import random
 import string
 from typing import List
+from ordered_set import OrderedSet
 
 charset_upper = set(string.uppercase)
 charset_lower = set(string.lowercase)
@@ -56,3 +57,17 @@ def json_dumps(dct):
 
 def json_loads(dct):
     return json.loads(dct, encoding="utf-8")
+
+
+def union(*lst_of_lst):
+    s = OrderedSet(lst_of_lst[0])
+    for l in lst_of_lst[1:]:
+        s |= OrderedSet(l)
+    return list(s)
+
+
+def intersect(*lst_of_lst):
+    s = OrderedSet(lst_of_lst[0])
+    for l in lst_of_lst[1:]:
+        s &= OrderedSet(l)
+    return list(s)

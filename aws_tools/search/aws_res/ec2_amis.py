@@ -1,13 +1,23 @@
 # -*- coding: utf-8 -*-
 
+"""
+Ref:
+
+- https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#EC2.Client.describe_images
+"""
+
 from __future__ import unicode_literals
 import attr
 from ..aws_resources import AwsResourceSearcher, ItemArgs
 from ...icons import find_svc_icon
 from ...settings import SettingValues
+from ...cache import cache
+from ...alfred import Base
+from ...helpers import union
 
-@attr.s
-class Image(object):
+
+@attr.s(hash=True)
+class Image(Base):
     id = attr.ib()
     name = attr.ib()
     description = attr.ib()
@@ -37,6 +47,9 @@ class Image(object):
             "create_date = {}".format(self.create_date),
         ])
 
+    def __hash__(self):
+        return hash(self.id)
+
 
 def simplify_describe_images_response(res):
     """
@@ -57,12 +70,14 @@ def simplify_describe_images_response(res):
             create_date=len(image_dict["CreationDate"]),
         )
         image_list.append(image)
+    image_list = list(sorted(image_list, key=lambda i: i.create_date, reverse=True))
     return image_list
 
 
 class Ec2AmiSearcher(AwsResourceSearcher):
     id = "ec2-amis"
 
+    @cache.memoize(expire=SettingValues.expire)
     def list_res(self):
         """
         :rtype: list[Image]
@@ -70,33 +85,39 @@ class Ec2AmiSearcher(AwsResourceSearcher):
         res = self.sdk.ec2_client.describe_images(Owners=["self", ])
         return simplify_describe_images_response(res)
 
+    @cache.memoize(expire=SettingValues.expire)
     def filter_res(self, query_str):
         """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#EC2.Client.describe_images
-
         :type query_str: str
         :rtype: list[Image]
         """
-        filter_ = dict(Name="name", Values=["*{}*".format(query_str)])
-        res_by_name = self.sdk.ec2_client.describe_images(
-            Owners=["self", "amazon"],
-            Filters=[filter_, ],
-        )
-        filter_ = dict(Name="image-id", Values=["*{}*".format(query_str)])
-        res_by_id = self.sdk.ec2_client.describe_images(
-            Owners=["self", "amazon"],
-            Filters=[filter_, ],
-        )
+        args = [arg for arg in query_str.split(" ") if arg.strip()]
+        if len(args) == 1:
+            filter_ = dict(Name="name", Values=["*{}*".format(query_str)])
+            res = self.sdk.ec2_client.describe_images(
+                Owners=["self", "amazon"],
+                Filters=[filter_, ],
+            )
+            image_list_by_name = simplify_describe_images_response(res)
 
-        # de-duplicate and sort
-        image_list = simplify_describe_images_response(res_by_name) \
-                     + simplify_describe_images_response(res_by_id)
-        image_mapper = {
-            image.id: image
-            for image in image_list
-        }
-        image_list = list(sorted(image_mapper.values(), key=lambda x: x.name))
-        return image_list
+            filter_ = dict(Name="image-id", Values=["*{}*".format(query_str)])
+            res = self.sdk.ec2_client.describe_images(
+                Owners=["self", "amazon"],
+                Filters=[filter_, ],
+            )
+            image_list_by_id = simplify_describe_images_response(res)
+
+            image_list = union(image_list_by_name, image_list_by_id)
+            return image_list
+        elif len(args) > 1:
+            image_list_list = [
+                self.filter_res(query_str=arg)
+                for arg in args
+            ]
+            image_list = union(*image_list_list)
+            return image_list
+        else:
+            raise Exception
 
     def to_item(self, image):
         """
