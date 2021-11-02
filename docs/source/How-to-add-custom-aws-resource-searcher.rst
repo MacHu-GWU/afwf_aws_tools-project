@@ -56,7 +56,7 @@ I use ``iam-roles`` as example to walk through the step-by-step implementation t
     - custom the ``def to_console_url(self):`` method, it should return the AWS console url locate the resource. For regional resource it needs a ``{region}`` placeholder in the f-string template. Example: ``https://console.aws.amazon.com/ec2/v2/home?region={region}#InstanceDetails:instanceId={inst_id}``
     - custom the ``def to_large_text(self):`` method, it returns large text to show when you hit ``cmd + L``.
     - custom the ``def id(self):`` property method, id should be the unique identifier of this data object. It allows you to deduplicate the object based on the id.
-2. Define a ``AWSResourceSearcher`` subclass to implement the ``list_res`` and ``filter_res`` logic. In this example, it is ``class IamRolesSearcher``.
+2. Define a ``AWSResourceSearcher`` subclass to implement the ``list_res`` and ``filter_res`` logic. In this example, it is `class IamRolesSearcher <https://github.com/MacHu-GWU/afwf_aws_tools-project/blob/main/aws_tools/search/aws_res/iam_roles.py>`_.
     - define the ``id`` attribute, it is ``${main_service_id}.${sub_service_id}``. So the Searcher register can find it.
     - define the ``simplify_response`` method, it converts the `boto3 response syntax <https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iam.html#IAM.Client.list_roles>`_ into list of the data object. In this example, it is ``class Role``
     - define the ``list_res`` method, it calls the boto3 api and returns list of data object to display in the Alfred dropdown menu. You can use ``@cache.memoize(expire=SettingValues.expire)`` decorator to cache the output.
