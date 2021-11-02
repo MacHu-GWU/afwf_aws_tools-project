@@ -1,17 +1,22 @@
 # -*- coding: utf-8 -*-
 
+"""
+Ref:
+
+- https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#EC2.Client.describe_volumes
+"""
+
 from __future__ import unicode_literals
 import attr
-from collections import OrderedDict
-from ..aws_resources import AwsResourceSearcher, ItemArgs
+from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
 from ...icons import find_svc_icon
 from ...settings import SettingValues
 from ...cache import cache
-from ...alfred import Base
+from ...helpers import union, intersect, tokenize
 
 
-@attr.s
-class Volume(Base):
+@attr.s(hash=True)
+class Volume(ResData):
     id = attr.ib()
     name = attr.ib()
     type = attr.ib()
@@ -40,41 +45,6 @@ class Volume(Base):
         ])
 
 
-def simplify_describe_volumes_response(res):
-    """
-    :type res: dict
-    :param res: the return of ec2_client.describe_volumes
-
-    :rtype: list[Volume]
-    """
-    if len(res["Volumes"]) == 0:
-        return []
-    vol_list = list()
-    for vol_dict in res["Volumes"]:
-        vol_id = vol_dict["VolumeId"]
-        vol_name = "~"
-        for tag in vol_dict.get("Tags", []):
-            if tag["Key"] == "Name":
-                vol_name = tag["Value"]
-        vol_type = vol_dict["VolumeType"]
-        state = vol_dict["State"]
-        size = vol_dict["Size"]
-        create_time = str(vol_dict["CreateTime"])
-        vol = Volume(
-            id=vol_id,
-            name=vol_name,
-            type=vol_type,
-            size=size,
-            state=state,
-            create_time=create_time,
-        )
-        vol_list.append(vol)
-    # sort by volume name
-    vol_list = list(sorted(
-        vol_list, key=lambda v: v.create_time, reverse=False))
-    return vol_list
-
-
 vol_state_emoji_mapper = {
     "creating": "💛",
     "available": "💚",
@@ -87,47 +57,83 @@ vol_state_emoji_mapper = {
 
 class Ec2VolumesSearcher(AwsResourceSearcher):
     id = "ec2-volumes"
+    limit_arg_name = "MaxResults"
+    paginator_arg_name = "NextToken"
+    lister = AwsResourceSearcher.sdk.ec2_client.describe_volumes
 
-    @cache.memoize(expire=10)
-    def list_res(self):
+    def get_paginator(self, res):
+        return res.get("NextToken")
+
+    def simplify_response(self, res):
+        """
+        :type res: dict
+        :param res: the return of ec2_client.describe_volumes
+
+        :rtype: list[Volume]
+        """
+        vol_list = list()
+        for vol_dict in res.get("Volumes", list()):
+            vol_id = vol_dict["VolumeId"]
+            vol_name = "~"
+            for tag in vol_dict.get("Tags", []):
+                if tag["Key"] == "Name":
+                    vol_name = tag["Value"]
+            vol_type = vol_dict["VolumeType"]
+            state = vol_dict["State"]
+            size = vol_dict["Size"]
+            create_time = str(vol_dict["CreateTime"])
+            vol = Volume(
+                id=vol_id,
+                name=vol_name,
+                type=vol_type,
+                size=size,
+                state=state,
+                create_time=create_time,
+            )
+            vol_list.append(vol)
+        return vol_list
+
+    @cache.memoize(expire=SettingValues.expire)
+    def list_res(self, limit=SettingValues.limit):
         """
         :rtype: list[Volume]
         """
-        res = self.sdk.ec2_client.describe_volumes(MaxResults=20)
-        vol_list = simplify_describe_volumes_response(res)
+        vol_list = self.recur_list_res(limit=limit)
+        vol_list = list(sorted(
+            vol_list, key=lambda v: v.create_time, reverse=True,
+        ))
         return vol_list
 
-    @cache.memoize(expire=10)
+    @cache.memoize(expire=SettingValues.expire)
     def filter_res(self, query_str):
         """
         :type query_str: str
         :rtype: list[Volume]
         """
-        res = self.sdk.ec2_client.describe_volumes(
-            Filters=[
-                dict(Name="tag:Name", Values=["*{}*".format(query_str)]),
-            ],
-            MaxResults=20,
-        )
-        vol_list_by_name = simplify_describe_volumes_response(res)
+        args = tokenize(query_str)
+        if len(args) == 1:
+            res = self.sdk.ec2_client.describe_volumes(
+                Filters=[
+                    dict(Name="tag:Name", Values=["*{}*".format(args[0])]),
+                ],
+                MaxResults=20,
+            )
+            vol_list_by_name = self.simplify_response(res)
 
-        res = self.sdk.ec2_client.describe_volumes(
-            Filters=[
-                dict(Name="volume-id", Values=["*{}*".format(query_str)]),
-            ],
-            MaxResults=20,
-        )
-        vol_list_by_id = simplify_describe_volumes_response(res)
+            res = self.sdk.ec2_client.describe_volumes(
+                Filters=[
+                    dict(Name="volume-id", Values=["*{}*".format(args[0])]),
+                ],
+                MaxResults=20,
+            )
+            vol_list_by_id = self.simplify_response(res)
 
-        vol_list = vol_list_by_name + vol_list_by_id
-
-        # deduplicate
-        vol_mapper = OrderedDict([
-            (vol.id, vol)
-            for vol in vol_list
-        ])
-        vol_list = list(vol_mapper.values())
-
+            vol_list = union(vol_list_by_name, vol_list_by_id)
+        elif len(args) > 1:
+            vol_list_list = [self.filter_res(query_str=arg) for arg in args]
+            vol_list = intersect(*vol_list_list)
+        else:
+            raise ValueError
         return vol_list
 
     def to_item(self, vol):

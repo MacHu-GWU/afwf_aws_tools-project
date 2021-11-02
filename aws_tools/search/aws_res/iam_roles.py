@@ -8,14 +8,15 @@ Ref:
 
 from __future__ import unicode_literals
 import attr
-from ..aws_resources import AwsResourceSearcher, ItemArgs
+from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
 from ...icons import find_svc_icon
 from ...cache import cache
+from ...settings import SettingValues
 from ...search.fuzzy import FuzzyObjectSearch
 
 
-@attr.s
-class Role(object):
+@attr.s(hash=True)
+class Role(ResData):
     id = attr.ib()
     name = attr.ib()
     description = attr.ib()
@@ -39,80 +40,52 @@ class Role(object):
         ])
 
 
-def simplify_list_roles_response(res):
-    """
-    :type res: dict
-    :param res: the return of iam_client.list_roles
-
-    :rtype: list[Role]
-    """
-    role_list = list()
-    for role_dict in res["Roles"]:
-        role = Role(
-            id=role_dict["RoleId"],
-            name=role_dict["RoleName"],
-            description=role_dict.get("Description"),
-            create_date=str(role_dict["CreateDate"]),
-            path=role_dict["Path"],
-            arn=role_dict["Arn"],
-        )
-        role_list.append(role)
-    return role_list
-
-
 class IamRolesSearcher(AwsResourceSearcher):
     id = "iam-roles"
-    cache_key = "aws-res-iam-roles"
+    limit_arg_name = "MaxItems"
+    paginator_arg_name = "Marker"
+    lister = AwsResourceSearcher.sdk.iam_client.list_roles
 
-    def list_roles_dict(self):
+    def get_paginator(self, res):
+        return res.get("Marker")
+
+    def simplify_response(self, res):
         """
-        :rtype: list[dict]
+        :type res: dict
+        :param res: the return of iam_client.list_roles
+
+        :rtype: list[Role]
         """
-        roles = list()
+        role_list = list()
+        for role_dict in res["Roles"]:
+            role = Role(
+                id=role_dict["RoleId"],
+                name=role_dict["RoleName"],
+                description=role_dict.get("Description"),
+                create_date=str(role_dict["CreateDate"]),
+                path=role_dict["Path"],
+                arn=role_dict["Arn"],
+            )
+            role_list.append(role)
+        return role_list
 
-        is_truncated = False
-        marker = None
-        while 1:
-            kwargs = dict(MaxItems=1000)
-            if is_truncated:
-                kwargs["Marker"] = marker
-            res = self.sdk.iam_client.list_roles(**kwargs)
-            roles.extend(res.get("Roles", list()))
-            is_truncated = res.get("IsTruncated", False)
-            marker = res.get("Marker")
-            if not is_truncated:
-                break
-        merged_res = {"Roles": roles}
-        role_list = simplify_list_roles_response(merged_res)
-        role_dict_list = [
-            attr.asdict(role)
-            for role in role_list
-        ]
-        role_dict_list = list(sorted(
-            role_dict_list, key=lambda x: x["create_date"], reverse=True))
-        return role_dict_list
-
-    def list_res(self):
+    @cache.memoize(expire=SettingValues.expire)
+    def list_res(self, limit=SettingValues.limit):
         """
         :rtype: list[Role]
         """
-        role_dict_list = cache.fast_get(
-            key=self.cache_key,
-            callable=self.list_roles_dict,
-            expire=10,
-        )
-        role_list = [
-            Role(**role_dict)
-            for role_dict in role_dict_list
-        ]
+        role_list = self.recur_list_res(limit=limit)
+        role_list = list(sorted(
+            role_list, key=lambda r: r.create_date, reverse=True))
         return role_list
 
+    @cache.memoize(expire=SettingValues.expire)
     def filter_res(self, query_str):
         """
         :type query_str: str
         :rtype: list[Role]
         """
-        role_list = self.list_res()
+        role_list = self.list_res(limit=1000)
         keys = [role.name for role in role_list]
         mapper = {role.name: role for role in role_list}
         fz_sr = FuzzyObjectSearch(keys, mapper)

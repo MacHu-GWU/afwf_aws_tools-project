@@ -8,10 +8,6 @@ from aws_tools.search.aws_res.iam_users import IamUsersSearcher
 class TestIamUsersSearcher(object):
     sr = IamUsersSearcher()
 
-    def test_list_users_dict(self):
-        res = self.sr.list_users_dict()
-        # print(res[0])
-
     def test_list_res(self):
         res = self.sr.list_res()
         # print(res[0])
@@ -20,7 +16,7 @@ class TestIamUsersSearcher(object):
 
     def test_filter_res(self):
         res = self.sr.filter_res("sanhe")
-        # print(res[0])
+        print(res[0])
 
 
 if __name__ == "__main__":

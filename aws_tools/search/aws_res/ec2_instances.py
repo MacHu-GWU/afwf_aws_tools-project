@@ -12,7 +12,7 @@ from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
 from ...icons import find_svc_icon
 from ...settings import SettingValues
 from ...cache import cache
-from ...helpers import union, intersect
+from ...helpers import union, intersect, tokenize
 
 
 @attr.s(hash=True)
@@ -92,7 +92,7 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
         """
         :rtype: list[Instance]
         """
-        res = self.sdk.ec2_client.describe_instances(MaxResults=20)
+        res = self.sdk.ec2_client.describe_instances(MaxResults=SettingValues.limit)
         return self.simplify_response(res)
 
     @cache.memoize(expire=SettingValues.expire)
@@ -101,31 +101,30 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
         :type query_str: str
         :rtype: list[Instance]
         """
-        args = [arg for arg in query_str.split(" ") if arg.strip()]
+        args = tokenize(query_str)
         if len(args) == 1:
-            filter_ = dict(Name="tag:Name", Values=["*{}*".format(arg)])
+            filter_ = dict(Name="tag:Name", Values=["*{}*".format(args[0])])
             res = self.sdk.ec2_client.describe_instances(
                 Filters=[filter_, ],
-                MaxResults=20,
+                MaxResults=SettingValues.limit,
             )
             inst_list_by_name = self.simplify_response(res)
 
-            filter_ = dict(Name="instance-id", Values=["*{}*".format(arg)])
+            filter_ = dict(Name="instance-id", Values=["*{}*".format(args[0])])
             res = self.sdk.ec2_client.describe_instances(
                 Filters=[filter_, ],
-                MaxResults=20,
+                MaxResults=SettingValues.limit,
             )
             inst_list_by_id = self.simplify_response(res)
 
             inst_list = union(inst_list_by_name, inst_list_by_id)
+
         elif len(args) > 1:
-            inst_list_list = list()
-            for arg in args:
-                inst_list = self.filter_res(query_str=arg)
-                inst_list_list.append(inst_list)
+            inst_list_list = [self.filter_res(query_str=arg) for arg in args]
             inst_list = intersect(*inst_list_list)
         else:
             raise ValueError
+
         return inst_list
 
     def to_item(self, inst):

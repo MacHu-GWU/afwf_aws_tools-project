@@ -8,14 +8,15 @@ Ref:
 
 from __future__ import unicode_literals
 import attr
-from ..aws_resources import AwsResourceSearcher, ItemArgs
+from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
 from ...icons import find_svc_icon
 from ...cache import cache
+from ...settings import SettingValues
 from ...search.fuzzy import FuzzyObjectSearch
 
 
-@attr.s
-class User(object):
+@attr.s(hash=True)
+class User(ResData):
     id = attr.ib()
     name = attr.ib()
     create_date = attr.ib()
@@ -37,84 +38,56 @@ class User(object):
         ])
 
 
-def simplify_list_users_response(res):
-    """
-    :type res: dict
-    :param res: the return of iam_client.list_users
-
-    :rtype: list[User]
-    """
-    user_list = list()
-    for user_dict in res["Users"]:
-        role = User(
-            id=user_dict["UserId"],
-            name=user_dict["UserName"],
-            create_date=str(user_dict["CreateDate"]),
-            path=user_dict["Path"],
-            arn=user_dict["Arn"],
-        )
-        user_list.append(role)
-    return user_list
-
-
 class IamUsersSearcher(AwsResourceSearcher):
     id = "iam-users"
-    cache_key = "aws-res-iam-users"
+    limit_arg_name = "MaxItems"
+    paginator_arg_name = "Marker"
+    lister = AwsResourceSearcher.sdk.iam_client.list_users
 
-    def list_users_dict(self):
+    def get_paginator(self, res):
+        return res.get("Marker")
+
+    def simplify_response(self, res):
         """
-        :rtype: list[dict]
+        :type res: dict
+        :param res: the return of iam_client.list_users
+
+        :rtype: list[User]
         """
-        users = list()
+        user_list = list()
+        for user_dict in res["Users"]:
+            role = User(
+                id=user_dict["UserId"],
+                name=user_dict["UserName"],
+                create_date=str(user_dict["CreateDate"]),
+                path=user_dict["Path"],
+                arn=user_dict["Arn"],
+            )
+            user_list.append(role)
+        return user_list
 
-        is_truncated = False
-        marker = None
-        while 1:
-            kwargs = dict(MaxItems=1000)
-            if is_truncated:
-                kwargs["Marker"] = marker
-            res = self.sdk.iam_client.list_users(**kwargs)
-            users.extend(res.get("Users", list()))
-            is_truncated = res.get("IsTruncated", False)
-            marker = res.get("Marker")
-            if not is_truncated:
-                break
-        merged_res = {"Users": users}
-        user_list = simplify_list_users_response(merged_res)
-        user_dict_list = [
-            attr.asdict(user)
-            for user in user_list
-        ]
-        user_dict_list = list(sorted(
-            user_dict_list, key=lambda x: x["create_date"], reverse=True))
-        return user_dict_list
-
-    def list_res(self):
+    @cache.memoize(expire=SettingValues.expire)
+    def list_res(self, limit=SettingValues.limit):
         """
         :rtype: list[User]
         """
-        user_dict_list = cache.fast_get(
-            key=self.cache_key,
-            callable=self.list_users_dict,
-            expire=10,
-        )
-        user_list = [
-            User(**user_dict)
-            for user_dict in user_dict_list
-        ]
+        user_list = self.recur_list_res(limit=limit)
+        user_list = list(sorted(
+            user_list, key=lambda u: u.create_date, reverse=True))
         return user_list
 
+    @cache.memoize(expire=SettingValues.expire)
     def filter_res(self, query_str):
         """
         :type query_str: str
         :rtype: list[User]
         """
-        role_list = self.list_res()
-        keys = [role.name for role in role_list]
-        mapper = {role.name: role for role in role_list}
+        user_list = self.list_res(limit=1000)
+        keys = [user.name for user in user_list]
+        mapper = {user.name: user for user in user_list}
         fz_sr = FuzzyObjectSearch(keys, mapper)
-        matched_role_list = fz_sr.match(query_str, limit=20)
-        return matched_role_list
+        matched_user_list = fz_sr.match(query_str, limit=20)
+        return matched_user_list
 
     def to_item(self, user):
         """

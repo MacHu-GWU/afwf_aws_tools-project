@@ -5,13 +5,14 @@ This module provide a pattern to implement aws resources searcher
 """
 
 import attr
+import typing
 from ..sdk import sdk, SDK
-from ..alfred import ItemArgs
+from ..alfred import Base, ItemArgs
 from ..cache import cache
 
 
 @attr.s(hash=True)
-class ResData(object):
+class ResData(Base):
     """
     Resource data class, A data container class stores the
     simplified version of boto3 response. It makes the aws resource searcher
@@ -68,10 +69,59 @@ class AwsResourceSearcher(object):
         """
         raise NotImplementedError
 
+    limit_arg_name = None  # type: str
+    paginator_arg_name = None  # type: str
+    lister = None  # type: callable
+
+    def get_paginator(self, res):
+        """
+        :type res: dict
+        :rtype: str
+        """
+        raise NotImplementedError
+
+    @cache.memoize(expire=10)
+    def recur_list_res(self,
+                       kwargs=None,
+                       limit=0):
+        """
+        Some list_resource API requires paginator to retrieve many items.
+
+        :type kwargs: dict
+        :type limit: int
+
+        :rtype: list[ResData]
+        """
+        default_page_size = 1000
+        page_size = default_page_size if limit > default_page_size else limit
+        paginator = None
+        res_list = list()
+        while 1:
+            if kwargs is None:
+                kwargs = dict()
+            if self.limit_arg_name:
+                kwargs[self.limit_arg_name] = page_size
+            if paginator:
+                kwargs[self.paginator_arg_name] = paginator
+
+            response = self.lister(**kwargs)
+            res_list.extend(self.simplify_response(response))
+            paginator = self.get_paginator(response)
+
+            n_res = len(res_list)
+            if n_res >= limit:  # already got enough items
+                break
+            else:
+                page_size = (limit - n_res) if (limit - n_res) < default_page_size else default_page_size
+
+            if not paginator:  # no more items
+                break
+        return res_list
+
     @cache.memoize(expire=10)
     def list_res(self):
         """
-        :rtype: list
+        :rtype: list[ResData]
         """
         raise NotImplementedError
 
@@ -79,7 +129,7 @@ class AwsResourceSearcher(object):
     def filter_res(self, query_str):
         """
         :type query_str: str
-        :rtype: list
+        :rtype: list[ResData]
         """
         raise NotImplementedError
 

@@ -8,16 +8,16 @@ Ref:
 
 from __future__ import unicode_literals
 import attr
-from ..aws_resources import AwsResourceSearcher, ItemArgs
+from ..aws_resources import Base, AwsResourceSearcher, ItemArgs
 from ...icons import find_svc_icon
+from ...cache import cache
 from ...settings import SettingValues
-from .glue_databases import Database, GlueDatabasesSearcher
+from ...helpers import intersect, tokenize
+from .glue_databases import Database, glue_databases_searcher
 
-glue_db_searcher = GlueDatabasesSearcher()
 
-
-@attr.s
-class Table(object):
+@attr.s(hash=True)
+class Table(Base):
     table_name = attr.ib()
     database_name = attr.ib()
     description = attr.ib()
@@ -27,6 +27,10 @@ class Table(object):
     @property
     def full_name(self):
         return "{}.{}".format(self.database_name, self.table_name)
+
+    @property
+    def id(self):
+        return self.full_name
 
     @property
     def key(self):
@@ -50,61 +54,37 @@ class Table(object):
         ])
 
 
-def simplify_get_tables_response(res):
-    """
-    :type res: dict
-    :param res: the return of glue_client.get_tables
-
-    :rtype: list[Table]
-    """
-    tb_list = list()
-    for tb_dict in res["TableList"]:
-        tb = Table(
-            table_name=tb_dict["Name"],
-            database_name=tb_dict["DatabaseName"],
-            description=tb_dict.get("Description"),
-            update_time=tb_dict["UpdateTime"],
-            catalog_id=tb_dict["CatalogId"],
-        )
-        tb_list.append(tb)
-    return tb_list
-
-
 class GlueTablesSearcher(AwsResourceSearcher):
     id = "glue-tables"
-    cache_key = "aws-res-glue-tables"
 
-    def get_tables_dict(self, database, query_str):
+    limit_arg_name = "MaxResults"
+    paginator_arg_name = "NextToken"
+    lister = AwsResourceSearcher.sdk.glue_client.get_tables
+
+    def get_paginator(self, res):
+        return res.get("NextToken")
+
+    def simplify_response(self, res):
         """
-        :rtype: list[dict]
+        :type res: dict
+        :param res: the return of glue_client.get_tables
+
+        :rtype: list[Table]
         """
-        tables = list()
-        next_token = None
-        while 1:
-            kwargs = dict(
-                DatabaseName=database,
-                MaxResults=1000,
+        tb_list = list()
+        for tb_dict in res["TableList"]:
+            tb = Table(
+                table_name=tb_dict["Name"],
+                database_name=tb_dict["DatabaseName"],
+                description=tb_dict.get("Description"),
+                update_time=tb_dict["UpdateTime"],
+                catalog_id=tb_dict["CatalogId"],
             )
-            if query_str:
-                kwargs["Expression"] = "*{}*".format(query_str)
-            if next_token:
-                kwargs["NextToken"] = next_token
-            res = self.sdk.glue_client.get_tables(**kwargs)
-            tables.extend(res.get("TableList", list()))
-            next_token = res.get("NextToken", None)
-            if not next_token:
-                break
-        merged_res = {"TableList": tables}
-        tb_list = simplify_get_tables_response(merged_res)
-        tb_dict_list = [
-            attr.asdict(db)
-            for db in tb_list
-        ]
-        tb_dict_list = list(sorted(
-            tb_dict_list, key=lambda x: x["update_time"], reverse=True))
-        return tb_dict_list
+            tb_list.append(tb)
+        return tb_list
 
-    def list_res(self):
+    @cache.memoize(expire=SettingValues.expire)
+    def list_res(self, limit=SettingValues.limit):
         """
         For searching glue table, the API requires the database name.
         So in this case we list the database name first and use the dot notation
@@ -112,8 +92,9 @@ class GlueTablesSearcher(AwsResourceSearcher):
 
         :rtype: list[Database]
         """
-        return glue_db_searcher.list_res()
+        return glue_databases_searcher.list_res(limit=limit)
 
+    @cache.memoize(expire=SettingValues.expire)
     def filter_res(self, query_str):
         """
         :type query_str: str
@@ -121,13 +102,32 @@ class GlueTablesSearcher(AwsResourceSearcher):
         """
         if "." in query_str:
             db_name, tb_name_query_str = query_str.split(".", 1)
-            tb_dict_list = self.get_tables_dict(database=db_name, query_str=tb_name_query_str)
-            tb_list = [Table(**tb_dict) for tb_dict in tb_dict_list]
-            tb_list = list(sorted(
-                tb_list, key=lambda tb: tb.table_name))
+
+            tb_name_query_str = tb_name_query_str.replace("-", " ").replace("_", " ")
+            args = tokenize(tb_name_query_str)
+
+            if len(args):
+                tb_list_list = list()
+                for arg in args:
+                    tb_list = self.recur_list_res(
+                        kwargs=dict(
+                            DatabaseName=db_name,
+                            Expression="*{}*".format(args)
+                        ),
+                        limit=100,
+                    )
+                    tb_list_list.append(tb_list)
+
+                tb_list = intersect(*tb_list_list)
+            else:
+                tb_list = self.recur_list_res(
+                    kwargs=dict(DatabaseName=db_name),
+                    limit=100,
+                )
+            tb_list = list(sorted(tb_list, key=lambda tb: tb.full_name))
             return tb_list
         else:
-            db_list = glue_db_searcher.filter_res(query_str=query_str)
+            db_list = glue_databases_searcher.filter_res(query_str=query_str)
             return db_list
 
     def to_item(self, tb_or_db):

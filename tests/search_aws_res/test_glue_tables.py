@@ -8,23 +8,25 @@ from aws_tools.search.aws_res.glue_tables import GlueTablesSearcher
 class TestGlueTablesSearcher(object):
     sr = GlueTablesSearcher()
 
-    def test_get_table_dict(self):
-        res = self.sr.get_tables_dict("default", "dev")
-        # print(res)
-
     def test_list_res(self):
         res = self.sr.list_res()
         # print(res)
 
     def test_filter_res(self):
-        # res = self.sr.filter_res("poc")
+        res = self.sr.filter_res("poc")
         # print(res)
 
         res = self.sr.filter_res("glue_etl_job_poc.")
-        # print(res)
+        # for tb in res:
+        #     print(tb.full_name)
 
         res = self.sr.filter_res("glue_etl_job_poc.all_column")
-        # print(res)
+        # for tb in res:
+        #     print(tb.full_name)
+
+        res = self.sr.filter_res("glue_etl_job_poc.column all")
+        # for tb in res:
+        #     print(tb.full_name)
 
 
 if __name__ == "__main__":

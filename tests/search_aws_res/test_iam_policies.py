@@ -8,14 +8,13 @@ from aws_tools.search.aws_res.iam_policies import IamPolicysSearcher
 class TestIamPolicysSearcher(object):
     sr = IamPolicysSearcher()
 
-    def test_list_all_policies(self):
-        res = self.sr.list_policys_dict()
-        len(res)
-
     def test_list_res(self):
         res = self.sr.list_res()
+        # print(res[0])
+
+    def test_filter_res(self):
         res = self.sr.filter_res("dev")
-        # print(res)
+        # print(res[0])
 
 
 if __name__ == "__main__":

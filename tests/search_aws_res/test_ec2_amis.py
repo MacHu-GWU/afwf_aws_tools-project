@@ -8,14 +8,17 @@ from aws_tools.search.aws_res.ec2_amis import Ec2AmiSearcher
 class TestEc2AmiSearcher(object):
     sr = Ec2AmiSearcher()
 
-    def test(self):
+    def test_list_res(self):
         res = self.sr.list_res()
         for i in res:
             # print(i)
             pass
-        # if len(res):
-        #     item = self.sr.to_item(res[0])
-        # res = self.sr.filter_res("dev")
+
+    def test_filter_res(self):
+        res = self.sr.filter_res("dev")
+        # print(res[0])
+        item = self.sr.to_item(res[0])
+        # print(item)
 
 
 if __name__ == "__main__":

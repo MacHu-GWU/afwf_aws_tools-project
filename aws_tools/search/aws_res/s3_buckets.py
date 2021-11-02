@@ -8,17 +8,21 @@ Ref:
 
 from __future__ import unicode_literals
 import attr
-from ..aws_resources import AwsResourceSearcher, ItemArgs
+from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
 from ...icons import find_svc_icon
 from ...settings import SettingValues
 from ...cache import cache
 from ...search.fuzzy import FuzzyObjectSearch
 
 
-@attr.s
-class Bucket(object):
+@attr.s(hash=True)
+class Bucket(ResData):
     name = attr.ib()
     create_date = attr.ib()
+
+    @property
+    def id(self):
+        return self.name
 
     def to_console_url(self):
         return "https://s3.console.aws.amazon.com/s3/buckets/{name}?region={region}&tab=objects".format(
@@ -38,51 +42,38 @@ class Bucket(object):
         ])
 
 
-def simplify_list_buckets_response(res):
-    """
-    :type res: dict
-    :param res: the return of s3_client.list_buckets
-
-    :rtype: list[Bucket]
-    """
-    bucket_list = list()
-    for bucket_dict in res["Buckets"]:
-        bucket = Bucket(
-            name=bucket_dict["Name"],
-            create_date=str(bucket_dict["CreationDate"]),
-        )
-        bucket_list.append(bucket)
-    return bucket_list
-
-
 class S3BucketsSearcher(AwsResourceSearcher):
     id = "s3-buckets"
-    cache_key = "aws-res-s3-buckets"
 
-    def list_bucket_dict(self):
+    def simplify_response(self, res):
         """
-        :rtype list[dict]
-        """
-        res = self.sdk.s3_client.list_buckets()
-        bucket_list = simplify_list_buckets_response(res)
-        bucket_dict_list = [attr.asdict(bucket) for bucket in bucket_list]
-        bucket_dict_list = list(sorted(
-            bucket_dict_list, key=lambda d: d["create_date"], reverse=True
-        ))
-        return bucket_dict_list
+        :type res: dict
+        :param res: the return of s3_client.list_buckets
 
+        :rtype: list[Bucket]
+        """
+        bucket_list = list()
+        for bucket_dict in res["Buckets"]:
+            bucket = Bucket(
+                name=bucket_dict["Name"],
+                create_date=str(bucket_dict["CreationDate"]),
+            )
+            bucket_list.append(bucket)
+        return bucket_list
+
+    @cache.memoize(expire=SettingValues.expire)
     def list_res(self):
         """
         :rtype: list[Bucket]
         """
-        bucket_dict_list = cache.fast_get(
-            key=self.cache_key,
-            callable=self.list_bucket_dict,
-            expire=10,
-        )
-        bucket_list = [Bucket(**bucket_dict) for bucket_dict in bucket_dict_list]
+        res = self.sdk.s3_client.list_buckets()
+        bucket_list = self.simplify_response(res)
+        bucket_list = list(sorted(
+            bucket_list, key=lambda b: b.name
+        ))
         return bucket_list
 
+    @cache.memoize(expire=SettingValues.expire)
     def filter_res(self, query_str):
         """
         :type query_str: str

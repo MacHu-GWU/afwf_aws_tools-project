@@ -15,9 +15,9 @@ class TestEc2VolumesSearcher(object):
         # print(item)
 
     def test_filter_res(self):
-        res = self.sr.filter_res("dev")
+        res = self.sr.filter_res("sanhe")
         # print(res[0])
-        res = self.sr.filter_res("f4eb")
+        res = self.sr.filter_res("2af6")
         # print(res[0])
 
 

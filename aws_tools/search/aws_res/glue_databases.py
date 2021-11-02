@@ -8,20 +8,24 @@ Ref:
 
 from __future__ import unicode_literals
 import attr
-from ..aws_resources import AwsResourceSearcher, ItemArgs
+from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
 from ...icons import find_svc_icon
 from ...cache import cache
-from ...search.fuzzy import FuzzyObjectSearch
 from ...settings import SettingValues
+from ...search.fuzzy import FuzzyObjectSearch
 
 
-@attr.s
-class Database(object):
+@attr.s(hash=True)
+class Database(ResData):
     name = attr.ib()
     description = attr.ib()
     create_time = attr.ib()
     catalog_id = attr.ib()
     location_uri = attr.ib()
+
+    @property
+    def id(self):
+        return self.name
 
     def to_console_url(self):
         return "https://console.aws.amazon.com/glue/home?region={region}#database:catalog={catalog_id};name={database_name}".format(
@@ -40,79 +44,51 @@ class Database(object):
         ])
 
 
-def simplify_get_databases_response(res):
-    """
-    :type res: dict
-    :param res: the return of glue_client.get_databases
-
-    :rtype: list[Database]
-    """
-    db_list = list()
-    for db_dict in res["DatabaseList"]:
-        db = Database(
-            name=db_dict["Name"],
-            description=db_dict.get("Description"),
-            create_time=str(db_dict["CreateTime"]),
-            catalog_id=db_dict["CatalogId"],
-            location_uri=db_dict.get("LocationUri"),
-        )
-        db_list.append(db)
-    return db_list
-
-
 class GlueDatabasesSearcher(AwsResourceSearcher):
     id = "glue-databases"
-    cache_key = "aws-res-glue-databases"
+    limit_arg_name = "MaxResults"
+    paginator_arg_name = "NextToken"
+    lister = AwsResourceSearcher.sdk.glue_client.get_databases
 
-    def get_databases_dict(self):
+    def get_paginator(self, res):
+        return res.get("NextToken")
+
+    def simplify_response(self, res):
         """
-        :rtype: list[dict]
+        :type res: dict
+        :param res: the return of glue_client.get_databases
+
+        :rtype: list[Database]
         """
-        databases = list()
-        next_token = None
-        while 1:
-            kwargs = dict(
-                MaxResults=1000,
+        db_list = list()
+        for db_dict in res["DatabaseList"]:
+            db = Database(
+                name=db_dict["Name"],
+                description=db_dict.get("Description"),
+                create_time=str(db_dict["CreateTime"]),
+                catalog_id=db_dict["CatalogId"],
+                location_uri=db_dict.get("LocationUri"),
             )
-            if next_token:
-                kwargs["NextToken"] = next_token
-            res = self.sdk.glue_client.get_databases(**kwargs)
-            databases.extend(res.get("DatabaseList", list()))
-            next_token = res.get("NextToken", None)
-            if not next_token:
-                break
-        merged_res = {"DatabaseList": databases}
-        db_list = simplify_get_databases_response(merged_res)
-        db_dict_list = [
-            attr.asdict(db)
-            for db in db_list
-        ]
-        db_dict_list = list(sorted(
-            db_dict_list, key=lambda x: x["create_time"], reverse=True))
-        return db_dict_list
+            db_list.append(db)
+        return db_list
 
-    def list_res(self):
+    @cache.memoize(expire=SettingValues.expire)
+    def list_res(self, limit=SettingValues.limit):
         """
         :rtype: list[Database]
         """
-        db_dict_list = cache.fast_get(
-            key=self.cache_key,
-            callable=self.get_databases_dict,
-            expire=10,
-        )
-        db_list = [
-            Database(**db_dict)
-            for db_dict in db_dict_list
-        ]
-        db_list = list(sorted(db_list, key=lambda tb: tb.name))
+        db_list = self.recur_list_res(limit=limit)
+        db_list = list(sorted(
+            db_list, key=lambda r: r.name, reverse=True))
         return db_list
 
+    @cache.memoize(expire=SettingValues.expire)
     def filter_res(self, query_str):
         """
         :type query_str: str
         :rtype: list[Database]
         """
-        db_list = self.list_res()
+        db_list = self.list_res(limit=1000)
         keys = [db.name for db in db_list]
         mapper = {db.name: db for db in db_list}
         fz_sr = FuzzyObjectSearch(keys, mapper)
@@ -141,3 +117,6 @@ class GlueDatabasesSearcher(AwsResourceSearcher):
         )
         item_arg.open_browser(console_url)
         return item_arg
+
+
+glue_databases_searcher = GlueDatabasesSearcher()

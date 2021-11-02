@@ -8,10 +8,6 @@ from aws_tools.search.aws_res.s3_buckets import S3BucketsSearcher
 class TestS3BucketsSearcher(object):
     sr = S3BucketsSearcher()
 
-    def test_list_bucket_dict(self):
-        res = self.sr.list_bucket_dict()
-        # print(res[0])
-
     def test_list_res(self):
         res = self.sr.list_res()
         # print(res[0])

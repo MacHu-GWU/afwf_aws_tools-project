@@ -43,12 +43,9 @@ def tokenize(text):
 
     :rtype text: List[str]
     """
-    chunks = list()
-    for chunk1 in text.split("_"):
-        for chunk2 in chunk1.split("-"):
-            if chunk2.strip():
-                chunks.append(chunk2)
-    return chunks
+    text = text.replace("-", " ").replace("_", " ")
+    tokens = [token for token in text.split(" ") if token.strip()]
+    return tokens
 
 
 def json_dumps(dct):

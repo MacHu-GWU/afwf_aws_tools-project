@@ -8,13 +8,13 @@ from aws_tools.search.aws_res.iam_roles import IamRolesSearcher
 class TestIamRolesSearcher(object):
     sr = IamRolesSearcher()
 
-    def test_list_all_roles(self):
-        res = self.sr.list_roles_dict()
-        len(res)
-
     def test_list_res(self):
         res = self.sr.list_res()
-        res = self.sr.filter_res("dev")
+        # print(res[0].name)
+
+    def test_filter_res(self):
+        res = self.sr.filter_res("dev sanhe")
+        # print(res[0].name)
 
 
 if __name__ == "__main__":

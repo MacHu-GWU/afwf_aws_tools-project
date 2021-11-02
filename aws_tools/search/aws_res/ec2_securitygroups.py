@@ -8,16 +8,15 @@ Ref:
 
 from __future__ import unicode_literals
 import attr
-from ..aws_resources import AwsResourceSearcher, ItemArgs
+from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
 from ...icons import Icons
 from ...settings import SettingValues
-from ...alfred import Base
 from ...cache import cache
-from ...helpers import union
+from ...helpers import union, intersect, tokenize
 
 
 @attr.s(hash=True)
-class SecurityGroup(Base):
+class SecurityGroup(ResData):
     id = attr.ib()
     name = attr.ib()
     description = attr.ib()
@@ -49,44 +48,40 @@ class SecurityGroup(Base):
             "n_egress = {}".format(self.n_egress),
         ])
 
-    def __hash__(self):
-        return hash(self.id)
-
-
-def simplify_describe_security_groups_response(res):
-    """
-    :type res: dict
-    :param res: the return of ec2_client.describe_security_groups
-
-    :rtype: list[SecurityGroup]
-    """
-    sg_list = list()
-    for sg_dict in res["SecurityGroups"]:
-        sg = SecurityGroup(
-            id=sg_dict["GroupId"],
-            name=sg_dict["GroupName"],
-            description=sg_dict["Description"],
-            vpc_id=sg_dict["VpcId"],
-            n_ingress=len(sg_dict["IpPermissions"]),
-            n_egress=len(sg_dict["IpPermissionsEgress"]),
-        )
-        sg_list.append(sg)
-        # sort by volume name
-    sg_list = list(sorted(
-        sg_list, key=lambda v: v.name, reverse=False))
-    return sg_list
-
 
 class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
     id = "ec2-securitygroups"
+
+    def simplify_response(self, res):
+        """
+        :type res: dict
+        :param res: the return of ec2_client.describe_security_groups
+
+        :rtype: list[SecurityGroup]
+        """
+        sg_list = list()
+        for sg_dict in res["SecurityGroups"]:
+            sg = SecurityGroup(
+                id=sg_dict["GroupId"],
+                name=sg_dict["GroupName"],
+                description=sg_dict["Description"],
+                vpc_id=sg_dict["VpcId"],
+                n_ingress=len(sg_dict["IpPermissions"]),
+                n_egress=len(sg_dict["IpPermissionsEgress"]),
+            )
+            sg_list.append(sg)
+            # sort by volume name
+        sg_list = list(sorted(
+            sg_list, key=lambda v: v.name, reverse=False))
+        return sg_list
 
     @cache.memoize(expire=10)
     def list_res(self):
         """
         :rtype: list[SecurityGroup]
         """
-        res = self.sdk.ec2_client.describe_security_groups(MaxResults=20)
-        return simplify_describe_security_groups_response(res)
+        res = self.sdk.ec2_client.describe_security_groups(MaxResults=SettingValues.limit)
+        return self.simplify_response(res)
 
     @cache.memoize(expire=10)
     def filter_res(self, query_str):
@@ -94,33 +89,29 @@ class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
         :type query_str: str
         :rtype: list[SecurityGroup]
         """
-        args = [arg for arg in query_str.split(" ") if arg.strip()]
+        args = tokenize(query_str)
         if len(args) == 1:
-            filter_ = dict(Name="group-name", Values=["*{}*".format(query_str)])
+            filter_ = dict(Name="group-name", Values=["*{}*".format(args[0])])
             res = self.sdk.ec2_client.describe_security_groups(
                 Filters=[filter_, ],
-                MaxResults=20,
+                MaxResults=SettingValues.limit,
             )
-            sg_list_by_name = simplify_describe_security_groups_response(res)
+            sg_list_by_name = self.simplify_response(res)
 
-            filter_ = dict(Name="group-id", Values=["*{}*".format(query_str)])
+            filter_ = dict(Name="group-id", Values=["*{}*".format(args[0])])
             res = self.sdk.ec2_client.describe_security_groups(
                 Filters=[filter_, ],
-                MaxResults=20,
+                MaxResults=SettingValues.limit,
             )
-            sg_list_by_id = simplify_describe_security_groups_response(res)
+            sg_list_by_id = self.simplify_response(res)
 
             sg_list = union(sg_list_by_name, sg_list_by_id)
-            return sg_list
         elif len(args) > 1:
-            sg_list_list = [
-                self.filter_res(query_str=arg)
-                for arg in args
-            ]
-            sg_list = union(*sg_list_list)
-            return sg_list
+            sg_list_list = [self.filter_res(query_str=arg) for arg in args]
+            sg_list = intersect(*sg_list_list)
         else:
             raise Exception
+        return sg_list
 
     def to_item(self, sg):
         """
