@@ -17,13 +17,15 @@ aws_res_sr_registry = AwsResourceSearcherRegistry()
 reg = aws_res_sr_registry
 
 # --- Register your AWS Resource Searcher here ---
-from .ec2_instances import Ec2InstancesSearcher
-from .ec2_securitygroups import Ec2SecurityGroupsSearcher
-from .ec2_amis import Ec2AmiSearcher
-from .ec2_volumes import Ec2VolumesSearcher
-from .iam_roles import IamRolesSearcher
-from .iam_policies import IamPolicysSearcher
-from .iam_users import IamUsersSearcher
+from .ec2_instances import ec2_instances_searcher
+from .ec2_securitygroups import ec2_securitygroups_searcher
+from .ec2_amis import ec2_amis_searcher
+from .ec2_volumes import ec2_volumns_searcher
+from .vpc_vpcs import vpc_vpcs_searcher
+from .vpc_subnets import vpc_subnets_searcher
+from .iam_roles import iam_roles_searcher
+from .iam_policies import iam_policies_searcher
+from .iam_users import iam_users_searcher
 from .glue_databases import glue_databases_searcher
 from .glue_tables import glue_tables_searcher
 from .glue_jobs import glue_job_searcher
@@ -37,13 +39,15 @@ from .cloudformation_stacks import cloudformation_stacks_searcher
 from .dynamodb_tables import dynamodb_tables_searcher
 from .dynamodb_items import dynamodb_items_searcher
 
-reg.check_in(Ec2InstancesSearcher())
-reg.check_in(Ec2SecurityGroupsSearcher())
-reg.check_in(Ec2AmiSearcher())
-reg.check_in(Ec2VolumesSearcher())
-reg.check_in(IamRolesSearcher())
-reg.check_in(IamPolicysSearcher())
-reg.check_in(IamUsersSearcher())
+reg.check_in(ec2_instances_searcher)
+reg.check_in(ec2_securitygroups_searcher)
+reg.check_in(ec2_amis_searcher)
+reg.check_in(ec2_volumns_searcher)
+reg.check_in(vpc_vpcs_searcher)
+reg.check_in(vpc_subnets_searcher)
+reg.check_in(iam_roles_searcher)
+reg.check_in(iam_policies_searcher)
+reg.check_in(iam_users_searcher)
 reg.check_in(glue_databases_searcher)
 reg.check_in(glue_tables_searcher)
 reg.check_in(glue_job_searcher)

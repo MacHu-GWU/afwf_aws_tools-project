@@ -10,6 +10,8 @@ from collections import OrderedDict
 from ..sdk import sdk, SDK
 from ..alfred import Base, ItemArgs
 from ..cache import cache
+from ..icons import find_svc_icon
+from ..helpers import tokenize
 
 
 @attr.s(hash=True)
@@ -56,13 +58,49 @@ class ResData(Base):
 class AwsResourceSearcher(object):
     """
     Aws Resource searcher base class.
+
+    A resource searcher always associated with one and only one AWS service.
+
+    For example, EC2InstancesSearcher should map to ec2-instances
     """
     id = None  # type: str
     sdk = sdk  # type: SDK
 
+    # For those services has built-in restful search box and search url
+    # set True if the console has that feature
+    has_search_box = False  # type: bool
+
+    def to_search_url(self, query_str):
+        """
+        The console url template has only one argument "query_str"
+
+        Example::
+
+            def to_search_url(self, query_str):
+                return "https://console.aws.amazon.com/ec2/v2/home?region={region}#Instances:search={query_str}".format(
+                region=SettingValues.aws_region, query_str=query_str)
+
+        :type query_str: str
+        :rtype: str
+        """
+        raise NotImplementedError
+
     @property
     def resource_id(self):
+        """
+        An alias of ``id``. The value of a ``resource_id`` is
+        exactly the same as the ``service_id``.
+
+        :rtype: str
+        """
         return self.id
+
+    @property
+    def icon(self):
+        """
+        :rtype: str
+        """
+        return find_svc_icon(self.id)
 
     def simplify_response(self, res):
         """

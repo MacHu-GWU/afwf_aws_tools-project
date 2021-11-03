@@ -134,3 +134,5 @@ class Ec2AmiSearcher(AwsResourceSearcher):
         )
         item_arg.open_browser(console_url)
         return item_arg
+
+ec2_amis_searcher = Ec2AmiSearcher()

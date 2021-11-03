@@ -2669,6 +2669,7 @@
     - id: vpcs
       name: Your VPCs
       url: '/vpc/home?region={region}#vpcs:'
+      weight: 9
     - id: vpnconnections
       name: Site-to-Site VPN Connections
       url: '/vpc/home?region={region}#VpnConnections:'

@@ -29,7 +29,7 @@ class Volume(ResData):
         return self.id[:8] + "..." + self.id[-4:]
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#VolumeDetails:volumeId={vol_id}".format(
+        return "https://console.aws.amazon.com/ec2/v2/home?region={region}#VolumeDetails:volumeId={vol_id}".format(
             vol_id=self.id,
             region=SettingValues.aws_region,
         )
@@ -57,9 +57,16 @@ vol_state_emoji_mapper = {
 
 class Ec2VolumesSearcher(AwsResourceSearcher):
     id = "ec2-volumes"
+    has_search_box = True
     limit_arg_name = "MaxResults"
     paginator_arg_name = "NextToken"
     lister = AwsResourceSearcher.sdk.ec2_client.describe_volumes
+
+    def to_search_url(self, query_str):
+        return "https://console.aws.amazon.com/ec2/home?region={region}#Volumes:search={query_str}".format(
+            region=SettingValues.aws_region,
+            query_str=",".join(tokenize(query_str, space_only=True)),
+        )
 
     def get_paginator(self, res):
         return res.get("NextToken")
@@ -158,3 +165,5 @@ class Ec2VolumesSearcher(AwsResourceSearcher):
         )
         item_arg.open_browser(console_url)
         return item_arg
+
+ec2_volumns_searcher = Ec2VolumesSearcher()

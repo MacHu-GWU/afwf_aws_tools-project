@@ -110,3 +110,6 @@ class IamUsersSearcher(AwsResourceSearcher):
         item_arg.open_browser(console_url)
         item_arg.copy_arn(user.arn)
         return item_arg
+
+
+iam_users_searcher = IamUsersSearcher()

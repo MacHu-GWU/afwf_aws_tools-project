@@ -38,12 +38,13 @@ def random_password(length):
     return password
 
 
-def tokenize(text):
+def tokenize(text, space_only=False):
     """
 
     :rtype text: List[str]
     """
-    text = text.replace("-", " ").replace("_", " ")
+    if space_only is False:
+        text = text.replace("-", " ").replace("_", " ")
     tokens = [token for token in text.split(" ") if token.strip()]
     return tokens
 

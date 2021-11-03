@@ -53,6 +53,14 @@ inst_state_emoji_mapper = {
 
 class Ec2InstancesSearcher(AwsResourceSearcher):
     id = "ec2-instances"
+    has_search_box = True
+
+    def to_search_url(self, query_str):
+        return "https://console.aws.amazon.com/ec2/v2/home?region={region}#Instances:search={query_str}".format(
+            region=SettingValues.aws_region,
+            query=",".join(tokenize(query_str, space_only=True))
+        )
+
 
     def simplify_response(self, res):
         """
@@ -149,3 +157,6 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
         )
         item_arg.open_browser(console_url)
         return item_arg
+
+
+ec2_instances_searcher = Ec2InstancesSearcher()

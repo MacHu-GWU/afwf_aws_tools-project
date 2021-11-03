@@ -40,7 +40,7 @@ class Policy(ResData):
         ])
 
 
-class IamPolicysSearcher(AwsResourceSearcher):
+class IamPoliciesSearcher(AwsResourceSearcher):
     id = "iam-policies"
 
     limit_arg_name = "MaxItems"
@@ -117,3 +117,6 @@ class IamPolicysSearcher(AwsResourceSearcher):
         item_arg.open_browser(console_url)
         item_arg.copy_arn(policy.arn)
         return item_arg
+
+
+iam_policies_searcher = IamPoliciesSearcher

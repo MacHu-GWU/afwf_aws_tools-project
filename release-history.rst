@@ -26,6 +26,7 @@ Release and Version History
 **Minor Improvements**
 
 - add searcher: glue, lambda, lakeformation, cloudformation, dynamodb
+- allow in-console search, for example: https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:search=dev
 
 **Bugfixes**
 

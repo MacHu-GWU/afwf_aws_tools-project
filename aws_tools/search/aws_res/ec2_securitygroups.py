@@ -51,6 +51,13 @@ class SecurityGroup(ResData):
 
 class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
     id = "ec2-securitygroups"
+    has_search_box = True
+
+    def to_search_url(self, query_str):
+        return "https://console.aws.amazon.com/ec2/v2/home?region={region}#SecurityGroups:search={query_str}".format(
+            region=SettingValues.aws_region,
+            query_str=",".join(tokenize(query_str, space_only=True))
+        )
 
     def simplify_response(self, res):
         """
@@ -137,3 +144,6 @@ class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
         )
         item_arg.open_browser(console_url)
         return item_arg
+
+
+ec2_securitygroups_searcher = Ec2SecurityGroupsSearcher()

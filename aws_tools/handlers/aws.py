@@ -8,7 +8,7 @@ from __future__ import unicode_literals, print_function
 from workflow.workflow3 import Workflow3
 from ..alfred import ItemArgs
 from ..icons import HotIcons, find_svc_icon
-from ..search.aws_res import reg
+from ..search.aws_res import reg, AwsResourceSearcher
 from ..search.aws_urls import main_service_searcher, sub_service_searcher
 from ..settings import SettingValues
 from ..paths import DIR_AWS_TOOL_USER_DATA
@@ -234,7 +234,7 @@ class AwsHandlers(object):
         :type wf: Workflow3
         :type searcher_id: str
         """
-        searcher = reg.get(searcher_id)
+        searcher = reg.get(searcher_id) # type: AwsResourceSearcher
         results = searcher.list_res()
         for data in results:
             item_arg = searcher.to_item(data)
@@ -243,31 +243,56 @@ class AwsHandlers(object):
 
     def sh_filter_aws_resources(self, wf, searcher_id, query_str):
         """
+        Example input:
+
+            searcher_id = "ec2-instances"
+            query_str = "dev jumpbox"
+
         :type wf: Workflow3
         :type searcher_id: str
         :type query_str: str
         """
         if reg.has(searcher_id):
-            searcher = reg.get(searcher_id)
+            searcher = reg.get(searcher_id) # type: AwsResourceSearcher
             results = searcher.filter_res(query_str)
+
+            # Some service console has built-in restful search url
+            # For example, ec2-instances, vpc-subnets
+            # The default hit 'Enter' behavior is to open the exact url
+            # point to one specific resource. But in this case, user may want
+            # to use the search box to filter the results in console as well
+            if searcher.has_search_box:
+                console_url = searcher.to_search_url(query_str=query_str)
+                item_args = ItemArgs(
+                    title="Search '{query_str}' in {svc_id} console".format(
+                        query_str=query_str,
+                        svc_id=searcher.id,
+                    ),
+                    subtitle="hit 'Enter' jump to console",
+                    arg=console_url,
+                    icon=searcher.icon,
+                    valid=True,
+                )
+                item_args.open_browser(url=console_url)
+                item_args.add_to_wf(wf)
             for data in results:
-                item_arg = searcher.to_item(data)
-                item_arg.add_to_wf(wf)
+                item_args = searcher.to_item(data)
+                item_args.add_to_wf(wf)
             if len(results) == 0:
-                item_arg = ItemArgs(
+                item_args = ItemArgs(
                     title="Found nothing",
                     subtitle="query has to be sub string of the name or id",
                     icon=HotIcons.info,
                     valid=True,
                 )
-                item_arg.add_to_wf(wf)
+                item_args.add_to_wf(wf)
         else:
-            item_arg = ItemArgs(
+            item_args = ItemArgs(
                 title="It is not a valid service id '{}'".format(searcher_id),
                 icon=HotIcons.info,
                 valid=True,
             )
-            item_arg.add_to_wf(wf)
+            item_args.add_to_wf(wf)
         return wf
 
     def mh_aws(self, wf, query_str):

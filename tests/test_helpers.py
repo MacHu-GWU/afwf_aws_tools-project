@@ -13,6 +13,8 @@ class Test(object):
         assert tokenize("a-b-c-d") == ["a", "b", "c", "d"]
         assert tokenize("a_b-c_d") == ["a", "b", "c", "d"]
 
+        assert tokenize("a_b c_d", space_only=True) == ["a_b", "c_d"]
+
 
 def test_union():
     assert union([1, 2], [2, 3]) == [1, 2, 3]
