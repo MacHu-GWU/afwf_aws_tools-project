@@ -15,13 +15,14 @@ Release and Version History
 **Miscellaneous**
 
 
-1.0.3 (TODO)
+1.0.3 (2021-11-03)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
 - auto build console url index.
 - add logger that log info and error track back to ``~/.alfred-aws-tools``.
 - add ``aws-tool-clear-log`` trigger.
+- add ``aws-tool-set`` trigger, it can set the global setting key/value pair.
 
 **Minor Improvements**
 

@@ -127,9 +127,6 @@ The ``~/.aws/credentials`` becomes::
     aws_secret_access_key = AAA
 
 
-.. image:: https://user-images.githubusercontent.com/6800411/128253078-c6d1c06e-6e17-48e9-86d1-6be67cbfa27a.gif
-
-
 MFA Authentication using AWS Named Profile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

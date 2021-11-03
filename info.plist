@@ -252,6 +252,39 @@
 				<false/>
 			</dict>
 		</array>
+		<key>9BEC0ED1-29FE-4402-9D9C-EC099A1B38A6</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>96772024-B60F-491F-AE7C-D0D8707CD4A9</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>733E16DD-1336-4C61-86EE-2BFDDE4BA510</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>00BBD318-3A27-4B5E-ACBE-F793201F949D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>9BF44FAE-206F-46BA-93A1-6DD6611E4893</key>
 		<array>
 			<dict>
@@ -465,7 +498,7 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>AWs Tools</string>
+	<string>AWS Tools</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -989,6 +1022,55 @@
 				<key>escaping</key>
 				<integer>68</integer>
 				<key>keyword</key>
+				<string>aws-tool-set</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>2</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>please wait ...</string>
+				<key>script</key>
+				<string>/usr/bin/python main.py 'mh_set {query}'</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Set AWS Tools settings</string>
+				<key>title</key>
+				<string>aws-tool-set</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>9BEC0ED1-29FE-4402-9D9C-EC099A1B38A6</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>2</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>keyword</key>
 				<string>aws-tool-rebuild-index</string>
 				<key>queuedelaycustom</key>
 				<integer>1</integer>
@@ -1089,13 +1171,13 @@
 				<key>keyword</key>
 				<string>aws</string>
 				<key>queuedelaycustom</key>
-				<integer>1</integer>
+				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
 				<true/>
 				<key>queuedelaymode</key>
-				<integer>2</integer>
+				<integer>0</integer>
 				<key>queuemode</key>
-				<integer>1</integer>
+				<integer>2</integer>
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
@@ -1207,7 +1289,7 @@
 			<key>xpos</key>
 			<integer>10</integer>
 			<key>ypos</key>
-			<integer>640</integer>
+			<integer>745</integer>
 		</dict>
 		<key>96772024-B60F-491F-AE7C-D0D8707CD4A9</key>
 		<dict>
@@ -1215,6 +1297,13 @@
 			<integer>510</integer>
 			<key>ypos</key>
 			<integer>40</integer>
+		</dict>
+		<key>9BEC0ED1-29FE-4402-9D9C-EC099A1B38A6</key>
+		<dict>
+			<key>xpos</key>
+			<integer>10</integer>
+			<key>ypos</key>
+			<integer>535</integer>
 		</dict>
 		<key>9BF44FAE-206F-46BA-93A1-6DD6611E4893</key>
 		<dict>
@@ -1235,7 +1324,7 @@
 			<key>xpos</key>
 			<integer>10</integer>
 			<key>ypos</key>
-			<integer>535</integer>
+			<integer>640</integer>
 		</dict>
 		<key>BDC4609C-3465-4293-A294-5A4D7FF54F6F</key>
 		<dict>
@@ -1256,7 +1345,7 @@
 			<key>xpos</key>
 			<integer>10</integer>
 			<key>ypos</key>
-			<integer>745</integer>
+			<integer>850</integer>
 		</dict>
 		<key>F303C71E-0767-4FDE-AFD9-0F1B52B016E5</key>
 		<dict>
