@@ -20,10 +20,12 @@ Release and Version History
 **Features and Improvements**
 
 - auto build console url index.
+- add logger that log info and error track back to ``~/.alfred-aws-tools``.
+- add ``aws-tool-clear-log`` trigger.
 
 **Minor Improvements**
 
-- add searcher: glue, lambda, lakeformation, cloudformation
+- add searcher: glue, lambda, lakeformation, cloudformation, dynamodb
 
 **Bugfixes**
 

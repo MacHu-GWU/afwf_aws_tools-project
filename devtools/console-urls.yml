@@ -832,6 +832,7 @@
     - id: dashboard
       name: Dashboard
       url: /dynamodbv2/home?region={region}#dashboard
+      weight: 7
     - id: daxclusters
       name: DAX Clusters
       url: /dynamodbv2/home?region={region}#dax-clusters
@@ -850,6 +851,7 @@
     - id: items
       name: Items
       url: /dynamodbv2/home?region={region}#item-explorer
+      weight: 8
     - id: partiqleditor
       name: PartiQL editor
       url: /dynamodbv2/home?region={region}#partiql-editor
@@ -859,6 +861,7 @@
     - id: tables
       name: Tables
       url: /dynamodbv2/home?region={region}#tables
+      weight: 9
 - id: ec2
   name: Elastic Cloud Compute
   short_name: EC2

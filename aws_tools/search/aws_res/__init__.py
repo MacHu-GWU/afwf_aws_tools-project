@@ -34,7 +34,8 @@ from .lambda_layers import lambda_layers_searcher
 from .lakeformation_databases import lakeformation_databases_searcher
 from .lakeformation_tables import lakeformation_tables_searcher
 from .cloudformation_stacks import cloudformation_stacks_searcher
-
+from .dynamodb_tables import dynamodb_tables_searcher
+from .dynamodb_items import dynamodb_items_searcher
 
 reg.check_in(Ec2InstancesSearcher())
 reg.check_in(Ec2SecurityGroupsSearcher())
@@ -53,3 +54,5 @@ reg.check_in(lambda_layers_searcher)
 reg.check_in(lakeformation_databases_searcher)
 reg.check_in(lakeformation_tables_searcher)
 reg.check_in(cloudformation_stacks_searcher)
+reg.check_in(dynamodb_tables_searcher)
+reg.check_in(dynamodb_items_searcher)

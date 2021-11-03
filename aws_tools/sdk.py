@@ -13,6 +13,7 @@ class SDK(object):
     def __init__(self):
         self._boto_ses = None
         self._client_cache = dict()
+        self._account_id = None
 
     @property
     def boto_ses(self):
@@ -28,6 +29,13 @@ class SDK(object):
                 region_name=settings.get(SettingKeys.aws_region),
             )
         return self._boto_ses
+
+    @property
+    def account_id(self):
+        if self._account_id is None:
+            res = self.sts_client.get_caller_identity()
+            self._account_id = res["Account"]
+        return self._account_id
 
     def _get_client(self, service_name):
         if self._client_cache.get(service_name) is None:
@@ -58,5 +66,12 @@ class SDK(object):
     def cft_client(self):
         return self._get_client("cloudformation")
 
+    @property
+    def dynamodb_client(self):
+        return self._get_client("dynamodb")
+
+    @property
+    def sts_client(self):
+        return self._get_client("sts")
 
 sdk = SDK()
