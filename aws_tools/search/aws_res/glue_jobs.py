@@ -63,8 +63,8 @@ class GlueJobSearcher(AwsResourceSearcher):
             job_list.append(tb)
         return job_list
 
-    @cache.memoize(expire=SettingValues.expire)
-    def list_res(self, limit=SettingValues.limit):
+    @cache.memoize(expire=SettingValues.cache_expire)
+    def list_res(self, limit=SettingValues.search_limit):
         """
         :rtype: list[Job]
         """
@@ -74,7 +74,7 @@ class GlueJobSearcher(AwsResourceSearcher):
         ))
         return job_list
 
-    @cache.memoize(expire=SettingValues.expire)
+    @cache.memoize(expire=SettingValues.cache_expire)
     def filter_res(self, query_str):
         """
         :type query_str: str

@@ -80,8 +80,8 @@ class VpcSubnetsSearcher(AwsResourceSearcher):
             subnet_list.append(subnet)
         return subnet_list
 
-    @cache.memoize(expire=SettingValues.expire)
-    def list_res(self, limit=SettingValues.limit):
+    @cache.memoize(expire=SettingValues.cache_expire)
+    def list_res(self, limit=SettingValues.search_limit):
         """
         :rtype: list[Subnet]
         """
@@ -89,7 +89,7 @@ class VpcSubnetsSearcher(AwsResourceSearcher):
         subnet_list = list(sorted(subnet_list, key=lambda r: r.name))
         return subnet_list
 
-    @cache.memoize(expire=SettingValues.expire)
+    @cache.memoize(expire=SettingValues.cache_expire)
     def filter_res(self, query_str):
         """
         :type query_str: str
@@ -100,14 +100,14 @@ class VpcSubnetsSearcher(AwsResourceSearcher):
             filter_ = dict(Name="tag:Name", Values=["*{}*".format(args[0])])
             res = self.sdk.ec2_client.describe_subnets(
                 Filters=[filter_, ],
-                MaxResults=SettingValues.limit,
+                MaxResults=SettingValues.search_limit,
             )
             subnet_list_by_name = self.simplify_response(res)
 
             filter_ = dict(Name="subnet-id", Values=["*{}*".format(args[0])])
             res = self.sdk.ec2_client.describe_subnets(
                 Filters=[filter_, ],
-                MaxResults=SettingValues.limit,
+                MaxResults=SettingValues.search_limit,
             )
             subnet_list_by_id = self.simplify_response(res)
 

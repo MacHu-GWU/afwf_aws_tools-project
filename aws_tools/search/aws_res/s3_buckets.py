@@ -53,7 +53,7 @@ class S3BucketsSearcher(AwsResourceSearcher):
             bucket_list.append(bucket)
         return bucket_list
 
-    @cache.memoize(expire=SettingValues.expire)
+    @cache.memoize(expire=SettingValues.cache_expire)
     def list_res(self):
         """
         :rtype: list[Bucket]
@@ -65,7 +65,7 @@ class S3BucketsSearcher(AwsResourceSearcher):
         ))
         return bucket_list
 
-    @cache.memoize(expire=SettingValues.expire)
+    @cache.memoize(expire=SettingValues.cache_expire)
     def filter_res(self, query_str):
         """
         :type query_str: str

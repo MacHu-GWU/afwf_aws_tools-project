@@ -59,8 +59,8 @@ class IamPoliciesSearcher(AwsResourceSearcher):
             policy_list.append(policy)
         return policy_list
 
-    @cache.memoize(expire=SettingValues.expire)
-    def list_res(self, limit=SettingValues.limit):
+    @cache.memoize(expire=SettingValues.cache_expire)
+    def list_res(self, limit=SettingValues.search_limit):
         """
         :rtype: list[Policy]
         """
@@ -70,7 +70,7 @@ class IamPoliciesSearcher(AwsResourceSearcher):
         ))
         return policy_list
 
-    @cache.memoize(expire=SettingValues.expire)
+    @cache.memoize(expire=SettingValues.cache_expire)
     def filter_res(self, query_str):
         """
         :type query_str: str
@@ -80,7 +80,7 @@ class IamPoliciesSearcher(AwsResourceSearcher):
         keys = [policy.name for policy in policy_list]
         mapper = {policy.name: policy for policy in policy_list}
         fz_sr = FuzzyObjectSearch(keys, mapper)
-        matched_policy_list = fz_sr.match(query_str, limit=SettingValues.limit)
+        matched_policy_list = fz_sr.match(query_str, limit=SettingValues.search_limit)
         return matched_policy_list
 
     def to_item(self, policy):

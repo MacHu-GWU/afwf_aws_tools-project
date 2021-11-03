@@ -71,15 +71,15 @@ class SqsQueuesSearcher(AwsResourceSearcher):
             queue_list.append(queue)
         return queue_list
 
-    @cache.memoize(expire=SettingValues.expire)
-    def list_res(self, limit=SettingValues.limit):
+    @cache.memoize(expire=SettingValues.cache_expire)
+    def list_res(self, limit=SettingValues.search_limit):
         """
         :rtype: list[Queue]
         """
         queue_list = self.recur_list_res(page_size=1000, limit=limit)
         return queue_list
 
-    @cache.memoize(expire=SettingValues.expire)
+    @cache.memoize(expire=SettingValues.cache_expire)
     def filter_res(self, query_str):
         """
         :type query_str: str

@@ -60,7 +60,7 @@ class Ec2AmiSearcher(AwsResourceSearcher):
         image_list = list(sorted(image_list, key=lambda i: i.create_date, reverse=True))
         return image_list
 
-    @cache.memoize(expire=SettingValues.expire)
+    @cache.memoize(expire=SettingValues.cache_expire)
     def list_res(self):
         """
         :rtype: list[Image]
@@ -68,7 +68,7 @@ class Ec2AmiSearcher(AwsResourceSearcher):
         res = self.sdk.ec2_client.describe_images(Owners=["self", ])
         return self.simplify_response(res)
 
-    @cache.memoize(expire=SettingValues.expire)
+    @cache.memoize(expire=SettingValues.cache_expire)
     def filter_res(self, query_str):
         """
         :type query_str: str

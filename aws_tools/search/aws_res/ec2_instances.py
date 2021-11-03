@@ -93,17 +93,17 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
                 inst_list.append(inst)
         return inst_list
 
-    @cache.memoize(expire=SettingValues.expire)
+    @cache.memoize(expire=SettingValues.cache_expire)
     def list_res(self):
         """
         :rtype: list[Instance]
         """
-        res = self.sdk.ec2_client.describe_instances(MaxResults=SettingValues.limit)
+        res = self.sdk.ec2_client.describe_instances(MaxResults=SettingValues.search_limit)
         inst_list = self.simplify_response(res)
         inst_list = list(sorted(inst_list, key=lambda x: x.name))
         return inst_list
 
-    @cache.memoize(expire=SettingValues.expire)
+    @cache.memoize(expire=SettingValues.cache_expire)
     def filter_res(self, query_str):
         """
         :type query_str: str
@@ -114,14 +114,14 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
             filter_ = dict(Name="tag:Name", Values=["*{}*".format(args[0])])
             res = self.sdk.ec2_client.describe_instances(
                 Filters=[filter_, ],
-                MaxResults=SettingValues.limit,
+                MaxResults=SettingValues.search_limit,
             )
             inst_list_by_name = self.simplify_response(res)
 
             filter_ = dict(Name="instance-id", Values=["*{}*".format(args[0])])
             res = self.sdk.ec2_client.describe_instances(
                 Filters=[filter_, ],
-                MaxResults=SettingValues.limit,
+                MaxResults=SettingValues.search_limit,
             )
             inst_list_by_id = self.simplify_response(res)
 

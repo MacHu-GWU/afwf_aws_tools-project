@@ -61,8 +61,8 @@ class DynamodbTablesSearcher(AwsResourceSearcher):
             table_list.append(table)
         return table_list
 
-    @cache.memoize(expire=SettingValues.expire)
-    def list_res(self, limit=SettingValues.limit):
+    @cache.memoize(expire=SettingValues.cache_expire)
+    def list_res(self, limit=SettingValues.search_limit):
         """
         :rtype: list[Table]
         """
@@ -71,7 +71,7 @@ class DynamodbTablesSearcher(AwsResourceSearcher):
             table_list, key=lambda r: r.name, reverse=True))
         return table_list
 
-    @cache.memoize(expire=SettingValues.expire)
+    @cache.memoize(expire=SettingValues.cache_expire)
     def filter_res(self, query_str):
         """
         :type query_str: str

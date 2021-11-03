@@ -77,7 +77,7 @@ class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
         """
         :rtype: list[SecurityGroup]
         """
-        res = self.sdk.ec2_client.describe_security_groups(MaxResults=SettingValues.limit)
+        res = self.sdk.ec2_client.describe_security_groups(MaxResults=SettingValues.search_limit)
         return self.simplify_response(res)
 
     @cache.memoize(expire=10)
@@ -91,14 +91,14 @@ class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
             filter_ = dict(Name="group-name", Values=["*{}*".format(args[0])])
             res = self.sdk.ec2_client.describe_security_groups(
                 Filters=[filter_, ],
-                MaxResults=SettingValues.limit,
+                MaxResults=SettingValues.search_limit,
             )
             sg_list_by_name = self.simplify_response(res)
 
             filter_ = dict(Name="group-id", Values=["*{}*".format(args[0])])
             res = self.sdk.ec2_client.describe_security_groups(
                 Filters=[filter_, ],
-                MaxResults=SettingValues.limit,
+                MaxResults=SettingValues.search_limit,
             )
             sg_list_by_id = self.simplify_response(res)
 

@@ -58,8 +58,8 @@ class IamRolesSearcher(AwsResourceSearcher):
             role_list.append(role)
         return role_list
 
-    @cache.memoize(expire=SettingValues.expire)
-    def list_res(self, limit=SettingValues.limit):
+    @cache.memoize(expire=SettingValues.cache_expire)
+    def list_res(self, limit=SettingValues.search_limit):
         """
         :rtype: list[Role]
         """
@@ -68,7 +68,7 @@ class IamRolesSearcher(AwsResourceSearcher):
             role_list, key=lambda r: r.create_date, reverse=True))
         return role_list
 
-    @cache.memoize(expire=SettingValues.expire)
+    @cache.memoize(expire=SettingValues.cache_expire)
     def filter_res(self, query_str):
         """
         :type query_str: str

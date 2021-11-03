@@ -73,8 +73,8 @@ class GlueTablesSearcher(AwsResourceSearcher):
             tb_list.append(tb)
         return tb_list
 
-    @cache.memoize(expire=SettingValues.expire)
-    def list_res(self, limit=SettingValues.limit):
+    @cache.memoize(expire=SettingValues.cache_expire)
+    def list_res(self, limit=SettingValues.search_limit):
         """
         For searching glue table, the API requires the database name.
         So in this case we list the database name first and use the dot notation
@@ -84,7 +84,7 @@ class GlueTablesSearcher(AwsResourceSearcher):
         """
         return glue_databases_searcher.list_res(limit=limit)
 
-    @cache.memoize(expire=SettingValues.expire)
+    @cache.memoize(expire=SettingValues.cache_expire)
     def filter_res(self, query_str):
         """
         :type query_str: str
