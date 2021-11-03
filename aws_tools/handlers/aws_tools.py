@@ -9,6 +9,7 @@ from workflow.workflow3 import Workflow3
 from ..cache import cache
 from ..icons import HotIcons
 from ..alfred import ItemArgs
+from ..logger import clear_log
 from ..settings import settings, SettingKeys
 from ..search.aws_urls import main_service_searcher, sub_service_searcher
 from ..paths import DIR_AWS_TOOL_USER_DATA
@@ -82,6 +83,24 @@ class AWSToolsHandlers(object):
         item_arg.run_script(cmd)
         item_arg.open_file(path=DIR_AWS_TOOL_USER_DATA.abspath)
         item_arg.notify(title="AWS Console url index is rebuilt!")
+        item_arg.add_to_wf(wf)
+        return wf
+
+    def mh_clear_log(self, wf, query_str):
+        magic_command = "do-clear-log"
+        if query_str == magic_command:
+            clear_log()
+            return wf
+        cmd = "/usr/bin/python main.py '{} {}'".format(self.mh_clear_log.__name__, magic_command)
+        item_arg = ItemArgs(
+            title="Clear all log files",
+            subtitle="hit 'Enter' to clear the log",
+            icon=HotIcons.info,
+            valid=True,
+        )
+        item_arg.run_script(cmd)
+        item_arg.open_file(path=DIR_AWS_TOOL_USER_DATA.abspath)
+        item_arg.notify(title="AWS Tools log is cleared!")
         item_arg.add_to_wf(wf)
         return wf
 

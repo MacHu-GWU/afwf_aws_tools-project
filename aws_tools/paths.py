@@ -42,7 +42,7 @@ if env == Env.local_dev:
 elif env == Env.alfred:
     PATH_CONSOLE_URLS_YAML = Path(DIR_WORKFLOW_ROOT, "console-urls.yml")  # type: Path
     DIR_ICONS = Path(DIR_WORKFLOW_ROOT, "icons")  # type: Path
-    PATH_ERROR_TRACEBACK = Path(DIR_WORKFLOW_ROOT, "error.txt") # type: Path
+    PATH_ERROR_TRACEBACK = Path(DIR_WORKFLOW_ROOT, "error.txt")  # type: Path
 
 # --- user data in ${HOME} directory ---
 DIR_HOME = Path().home()  # type: Path
@@ -54,6 +54,8 @@ DIR_MAIN_SERVICE_INDEX = Path(DIR_AWS_TOOL_USER_DATA, "main-service-whoosh_index
 DIR_SUB_SERVICE_INDEX = Path(DIR_AWS_TOOL_USER_DATA, "sub-service-whoosh_index")  # type: Path
 PATH_MAIN_SERVICE_INDEX_LOCK = Path(DIR_MAIN_SERVICE_INDEX, "MAIN_WRITELOCK")  # type: Path
 PATH_SUB_SERVICE_INDEX_LOCK = Path(DIR_SUB_SERVICE_INDEX, "MAIN_WRITELOCK")  # type: Path
+PATH_LOG = Path(DIR_AWS_TOOL_USER_DATA, "log.txt")
+PATH_ERROR = Path(DIR_AWS_TOOL_USER_DATA, "error.txt")
 
 if not DIR_AWS_TOOL_USER_DATA.exists():
     DIR_AWS_TOOL_USER_DATA.mkdir()

@@ -24,6 +24,7 @@ reg = handler_func_registry
 reg.check_in(aws_tools_handlers.mh_clear_aws_tools_cache)
 reg.check_in(aws_tools_handlers.mh_info)
 reg.check_in(aws_tools_handlers.mh_rebuild_index)
+reg.check_in(aws_tools_handlers.mh_clear_log)
 
 # --- aws_profile
 reg.check_in(aws_profile_handlers.mh_select_aws_profile_to_set_as_default)
@@ -74,7 +75,7 @@ def debug_traceback(wf):
     return wf
 
 
-def handler(wf):
+def handler(wf, args=None):
     """
     Main handler that pass down argument to all other handler functions.
 
@@ -85,7 +86,11 @@ def handler(wf):
 
     :type wf: Workflow3
     """
-    if len(wf.args) != 1:
+    if args is None:
+        args = wf.args
+    wf.log.debug("args = {}".format(args))
+
+    if len(args) != 1:
         wf.add_item(
             title="Workflow arguments has to have exact one arg!",
             subtitle="correct format = '${handler_id} ${query_str}'",
@@ -95,7 +100,7 @@ def handler(wf):
         debug_args(wf)
         return wf
 
-    arg = wf.args[0]
+    arg = args[0]
     if " " not in arg:
         wf.add_item(
             title="Invalid workflow arguments",
@@ -108,6 +113,7 @@ def handler(wf):
 
     handler_id, query_str = arg.split(" ", 1)
     query_str = query_str.lstrip()
+    wf.log.debug("handler_id = {}".format(handler_id))
 
     if not reg.has(handler_id):
         wf.add_item(
@@ -116,11 +122,7 @@ def handler(wf):
             valid=True,
         )
 
-    try:
-        handler_func = reg.get(handler_id)
-        handler_func(wf, query_str)
-    except:  # capture exceptions in handler function and display in alfred UI
-        debug_traceback(wf)
+    handler_func = reg.get(handler_id)
+    handler_func(wf, query_str)
 
-    # debug_args(wf)
     return wf

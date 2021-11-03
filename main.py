@@ -1,14 +1,38 @@
 # -*- coding: utf-8 -*-
 
+"""
+**How to debug**:
+
+Note: you have to copy the ``info.plist`` file to the repo root directory
+to simulate a Alfred Workflow runtime.
+
+1. Figure out the arguments: suppose your input in Alfred UI is
+    "aws ec2-instances my server", the trigger keyword is ``aws``,
+    in Alfred Workflow preference, you should see the script filter ``aws``.
+    The script should be ``/usr/bin/python main.py 'mh_aws {query}'``
+2. Scroll to the end of this file, comment out the line ``sys.exit(wf.run(main))``.
+    uncomment the line ``wf.run(main)``
+3. Scroll to the ``def main(wf, args=None):``, manually define
+    ``args=["mh_aws ec2-instances my server",]``. This is the corresponding
+    python code.
+"""
+
 from __future__ import unicode_literals
 import os
 import sys
 import json
-from workflow import Workflow3
+import traceback
+from workflow import Workflow3, ICON_ERROR
 
-here = os.path.dirname(os.path.abspath(__file__))
-wf_input_file = os.path.join(here, "wf-input.json")
-wf_output_file = os.path.join(here, "wf-output.json")
+DIR_HERE = os.path.dirname(os.path.abspath(__file__))
+DIR_HOME = os.path.expanduser("~")
+DIR_USER_DATA = os.path.join(DIR_HOME, ".alfred-aws-tools")
+
+PATH_LOG = os.path.join(DIR_USER_DATA, "log.txt")
+PATH_ERROR = os.path.join(DIR_USER_DATA, "error.txt")
+
+PATH_WF_INPUT = os.path.join(DIR_HERE, "wf-input.json")
+PATH_WF_OUTPUT = os.path.join(DIR_HERE, "wf-output.json")
 
 
 def json_dump(file, data):
@@ -16,7 +40,12 @@ def json_dump(file, data):
         f.write(json.dumps(data, indent=4).encode("utf-8"))
 
 
-def main(wf):
+def write_text(file, text):
+    with open(file, "wb") as f:
+        f.write(text.encode("utf-8"))
+
+
+def main(wf, args=None):  # set args here for manual debug
     """
     .. note::
 
@@ -24,31 +53,43 @@ def main(wf):
         lib 目录才会被添加到系统路径中去. 在这之前所有的第三方库都无法被找到.
 
     :type wf: Workflow3
+    :type args: list[str]
     """
-    from aws_tools.handlers import handler
+    from loggerFactory import FileRotatingLogger
 
-    # 将 Python 收到的 args 以及返回的 items 保存为 json 文件, 用于调试
-    # if "user.workflow" not in here: # don't dump if in alfred preference folder
-    json_dump(wf_input_file, wf.args)
-    # json_dump(wf_input_file, sys.argv)
-    json_dump(wf_output_file, wf.obj)
-    # json_dump(wf_output_file, wf.args)
+    logger = FileRotatingLogger(
+        name="aws_tools",
+        path=os.path.join(DIR_USER_DATA, "log.txt"),
+        max_bytes=1000000,  # 1MB
+        backup_count=5,
+    )
+    wf.log = logger
 
-    # from aws_tools.alfred import ActionEnum
-    # item = wf.add_item(title="test", subtitle="my_sub", arg="touch \"/Users/sanhehu/airflow/my folder/good.txt\"", valid=True)
-    # item.setvar("action", "run-script")
-    # # item.setvar("open_file_path", "/Users/sanhehu/airflow")
-    # item.setvar("cmd", "touch /Users/sanhehu/airflow/good.txt")
+    try:
+        from aws_tools.handlers import handler
+        wf = handler(wf, args=args)
+    except:
+        traceback_msg = traceback.format_exc()
+        write_text(PATH_ERROR, traceback_msg)
 
-    # item.setvar("action", ActionEnum.copy)
-    # item.add_modifier(
-    #     key="cmd", subtitle="v1", arg="v2", valid=None,
-    # )
+        item = wf.add_item(
+            title="ERROR! hit 'Enter' to open error traceback log",
+            subtitle=PATH_ERROR,
+            icon=ICON_ERROR,
+            valid=True
+        )
+        item.setvar("open_file", "y")
+        item.setvar("open_file_path", PATH_ERROR)
 
-    wf = handler(wf)
     wf.send_feedback()
+    return wf
 
 
 if __name__ == "__main__":
     wf = Workflow3(libraries=["lib", ])
-    sys.exit(wf.run(main))
+
+    # Production Mode
+    sys.exit(wf.run(main))  # comment this out for debug
+
+    # Debug Mode
+    # wf.run(main)  # uncomment this for debug
