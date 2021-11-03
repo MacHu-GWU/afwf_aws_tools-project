@@ -6,7 +6,7 @@ from workflow import Workflow3
 from aws_tools.handlers.aws_tools import (
     aws_tools_handlers,
 )
-from aws_tools.settings import settings, SettingKeys
+from aws_tools.settings import settings, SettingKeys, setting_key_list
 from aws_tools.credential import load_config
 
 
@@ -25,49 +25,62 @@ class TestAWSToolHandlers(object):
         # config = load_config(config_file=aws_profile_handlers.aws_config_file.abspath)
         # assert config.get("default", "region") == "us-east-1"
 
-    # def test_mh_set_aws_profile_as_aws_tools_default(self):
-    #     before_profile = settings.get(SettingKeys.aws_profile)
-    #
-    #     aws_profile_handlers.mh_set_aws_profile_as_aws_tools_default(
-    #         wf=self.wf, query_str="my_profile",
-    #     )
-    #     assert settings[SettingKeys.aws_profile] == "my_profile"
-    #     aws_profile_handlers.mh_set_aws_profile_as_aws_tools_default(
-    #         wf=self.wf, query_str=None,
-    #     )
-    #     assert settings[SettingKeys.aws_profile] == None
-    #
-    #     settings[SettingKeys.aws_profile] = before_profile
-    #
-    # def test_mh_set_aws_region_as_aws_tools_default(self):
-    #     before_region = settings.get(SettingKeys.aws_region)
-    #
-    #     aws_profile_handlers.mh_set_aws_region_as_aws_tools_default(
-    #         wf=self.wf, query_str="my_region",
-    #     )
-    #     assert settings[SettingKeys.aws_region] == "my_region"
-    #     aws_profile_handlers.mh_set_aws_region_as_aws_tools_default(
-    #         wf=self.wf, query_str=None,
-    #     )
-    #     assert settings[SettingKeys.aws_region] == None
-    #
-    #     settings[SettingKeys.aws_region] = before_region
-    #
-    # def test_mh_select_aws_profile_for_mfa_auth(self):
-    #     aws_profile_handlers.mh_select_aws_profile_for_mfa_auth(
-    #         self.wf, query_str="")
-    #     aws_profile_handlers.mh_select_aws_profile_for_mfa_auth(
-    #         self.wf, query_str="invalid_profile")
-    #     aws_profile_handlers.mh_select_aws_profile_for_mfa_auth(
-    #         self.wf, query_str="valid_profile ")
-    #     aws_profile_handlers.mh_select_aws_profile_for_mfa_auth(
-    #         self.wf, query_str="valid_profile 123")
-    #     aws_profile_handlers.mh_select_aws_profile_for_mfa_auth(
-    #         self.wf, query_str="valid_profile 123456789")
-    #     aws_profile_handlers.mh_select_aws_profile_for_mfa_auth(
-    #         self.wf, query_str="valid_profile abcdef")
-    #     aws_profile_handlers.mh_select_aws_profile_for_mfa_auth(
-    #         self.wf, query_str="valid_profile 123456")
+    def test_set(self):
+        before_value = settings.get(SettingKeys.aws_profile)
+        st_value = "an_impossible_aws_profile_value"
+        aws_tools_handlers.mh_set_value(
+            self.wf,
+            query_str="{} {}".format(
+                SettingKeys.aws_profile,
+                st_value,
+            )
+        )
+        assert settings[SettingKeys.aws_profile] == st_value
+        settings[SettingKeys.aws_profile] = before_value
+        assert settings[SettingKeys.aws_profile] == before_value
+
+    def test_set_case1(self):
+        aws_tools_handlers.mh_set(self.wf, query_str="")
+        assert len(self.wf._items) == len(setting_key_list)
+
+    def test_set_case2(self):
+        aws_tools_handlers.mh_set(self.wf, query_str=" ")
+        assert len(self.wf._items) == len(setting_key_list)
+
+    def test_set_case3(self):
+        aws_tools_handlers.mh_set(self.wf, query_str="aws")
+        for item in self.wf._items[:2]:
+            assert "aws" in item.title
+
+    def test_set_case4(self):
+        # still list all available setting keys
+        aws_tools_handlers.mh_set(self.wf, query_str="aws_profile")
+        assert "aws_profile" in self.wf._items[0].title
+        assert len(self.wf._items) == len(setting_key_list)
+
+    def test_set_case5(self):
+        # proceed with set value
+        aws_tools_handlers.mh_set(self.wf, query_str="aws_profile ")
+        assert len(self.wf._items) == 1
+        assert "aws_profile" in self.wf._items[0].title
+
+    def test_set_case6(self):
+        # proceed with set value
+        aws_tools_handlers.mh_set(self.wf, query_str="invalid_setting_key ")
+        assert len(self.wf._items) == 1
+        assert "not a valid" in self.wf._items[0].title
+
+    def test_set_case7(self):
+        st_value = "an_impossible_aws_profile_value"
+        aws_tools_handlers.mh_set(
+            self.wf,
+            query_str="{} {}".format(
+                SettingKeys.aws_profile,
+                st_value,
+            )
+        )
+        item = self.wf._items[0]
+        assert item.arg.endswith(st_value + "'")
 
 
 if __name__ == "__main__":

@@ -23,6 +23,8 @@ reg = handler_func_registry
 # --- aws_tools
 reg.check_in(aws_tools_handlers.mh_clear_aws_tools_cache)
 reg.check_in(aws_tools_handlers.mh_info)
+reg.check_in(aws_tools_handlers.mh_set_value)
+reg.check_in(aws_tools_handlers.mh_set)
 reg.check_in(aws_tools_handlers.mh_rebuild_index)
 reg.check_in(aws_tools_handlers.mh_clear_log)
 

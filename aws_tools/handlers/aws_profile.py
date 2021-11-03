@@ -161,7 +161,7 @@ class AWSProfileHandlers(object):
                     item_arg = ItemArgs(
                         title="Do MFA auth using token '{}'".format(mfa_token),
                         subtitle="hit 'Enter' to execute MFA auth",
-                        icon=HotIcons.iam,
+                        icon=HotIcons.run,
                         valid=True,
                     )
                     item_arg.run_script(cmd)

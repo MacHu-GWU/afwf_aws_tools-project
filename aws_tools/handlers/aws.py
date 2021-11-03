@@ -122,6 +122,7 @@ class AwsHandlers(object):
         item_arg = ItemArgs(
             title="Search for an AWS Service",
             subtitle="example: ec2, vpc, s3, iam ...",
+            valid=False,
         )
         item_arg.open_browser(yaml_url)
         item_arg.add_to_wf(wf)
@@ -155,7 +156,7 @@ class AwsHandlers(object):
             title="Query is too Short!",
             subtitle="please enter at least two character to search for service, e.g. 's3'",
             icon=HotIcons.error,
-            valid=True,
+            valid=False,
         )
         item_arg.add_to_wf(wf)
         return wf
@@ -171,7 +172,7 @@ class AwsHandlers(object):
             item_arg = ItemArgs(
                 title="Found no service match '{}'".format(query_str),
                 icon=HotIcons.info,
-                valid=True,
+                valid=False,
             )
             item_arg.add_to_wf(wf)
         return wf
@@ -186,7 +187,7 @@ class AwsHandlers(object):
             item_arg = ItemArgs(
                 title="Found no service match '{}'".format(main_svc_id),
                 icon=HotIcons.info,
-                valid=True,
+                valid=False,
             )
             item_arg.add_to_wf(wf)
         else:
@@ -215,7 +216,7 @@ class AwsHandlers(object):
             item_arg = ItemArgs(
                 title="Found no service match '{}-{}'".format(main_svc_id, query_str),
                 icon=HotIcons.info,
-                valid=True,
+                valid=False,
             )
             item_arg.add_to_wf(wf)
         return wf
@@ -284,14 +285,14 @@ class AwsHandlers(object):
                     title="Found nothing",
                     subtitle="query has to be sub string of the name or id",
                     icon=HotIcons.info,
-                    valid=True,
+                    valid=False,
                 )
                 item_args.add_to_wf(wf)
         else:
             item_args = ItemArgs(
                 title="It is not a valid service id '{}'".format(searcher_id),
                 icon=HotIcons.info,
-                valid=True,
+                valid=False,
             )
             item_args.add_to_wf(wf)
         return wf

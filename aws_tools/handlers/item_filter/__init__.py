@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from fuzzywuzzy.process import extract
 from ...credential import read_aws_profile_list_from_config_with_cache
 from .aws_region import find_region, all_regions
+from ...settings import setting_metadata_list
 
 
 class ItemFilters(object):
@@ -40,6 +41,13 @@ class ItemFilters(object):
         else:
             aws_region_list = all_regions
         return aws_region_list
+
+    def aws_tool_settings(self, query_str):
+        """
+        :type query_str: str
+        :rtype: list[tuple[[str, str]]]
+        """
+
 
 
 item_filters = ItemFilters()
