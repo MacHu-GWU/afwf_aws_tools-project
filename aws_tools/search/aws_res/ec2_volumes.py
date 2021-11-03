@@ -9,7 +9,6 @@ Ref:
 from __future__ import unicode_literals
 import attr
 from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
-from ...icons import find_svc_icon
 from ...settings import SettingValues
 from ...cache import cache
 from ...helpers import union, intersect, tokenize
@@ -33,16 +32,6 @@ class Volume(ResData):
             vol_id=self.id,
             region=SettingValues.aws_region,
         )
-
-    def to_largetext(self):
-        return "\n".join([
-            "id = {}".format(self.id),
-            "name = {}".format(self.name),
-            "type = {}".format(self.type),
-            "size = {}".format(self.size),
-            "state = {}".format(self.state),
-            "create_time = {}".format(self.create_time),
-        ])
 
 
 vol_state_emoji_mapper = {
@@ -149,7 +138,6 @@ class Ec2VolumesSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = vol.to_console_url()
-        largetext = vol.to_largetext()
         item_arg = ItemArgs(
             title=vol.name,
             subtitle="{state} {id} {type}".format(
@@ -159,8 +147,8 @@ class Ec2VolumesSearcher(AwsResourceSearcher):
             ),
             autocomplete="{} {}".format(self.id, vol.id),
             arg=console_url,
-            largetext=largetext,
-            icon=find_svc_icon(self.id),
+            largetext=vol.to_large_text(),
+            icon=self.icon,
             valid=True,
         )
         item_arg.open_browser(console_url)

@@ -9,7 +9,6 @@ Ref:
 from __future__ import unicode_literals
 import attr
 from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
-from ...icons import find_svc_icon
 from ...cache import cache
 from ...settings import SettingValues
 from ...search.fuzzy import FuzzyObjectSearch
@@ -33,15 +32,6 @@ class Database(ResData):
             database_name=self.name,
             region=SettingValues.aws_region
         )
-
-    def to_largetext(self):
-        return "\n".join([
-            "name = {}".format(self.name),
-            "description = {}".format(self.description),
-            "create_time = {}".format(self.create_time),
-            "catalog_id = {}".format(self.catalog_id),
-            "location_uri = {}".format(self.location_uri),
-        ])
 
 
 class GlueDatabasesSearcher(AwsResourceSearcher):
@@ -101,7 +91,6 @@ class GlueDatabasesSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = db.to_console_url()
-        largetext = db.to_largetext()
         item_arg = ItemArgs(
             title="🇩 Database({db_name})".format(
                 db_name=db.name,
@@ -111,8 +100,8 @@ class GlueDatabasesSearcher(AwsResourceSearcher):
             ),
             autocomplete="{} {}".format(self.resource_id, db.name),
             arg=console_url,
-            largetext=largetext,
-            icon=find_svc_icon(self.id),
+            largetext=db.to_large_text(),
+            icon=self.icon,
             valid=True,
         )
         item_arg.open_browser(console_url)

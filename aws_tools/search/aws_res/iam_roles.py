@@ -9,7 +9,6 @@ Ref:
 from __future__ import unicode_literals
 import attr
 from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
-from ...icons import find_svc_icon
 from ...cache import cache
 from ...settings import SettingValues
 from ...search.fuzzy import FuzzyObjectSearch
@@ -28,16 +27,6 @@ class Role(ResData):
         return "https://console.aws.amazon.com/iam/home#/roles/{role_name}".format(
             role_name=self.name,
         )
-
-    def to_largetext(self):
-        return "\n".join([
-            "id = {}".format(self.id),
-            "name = {}".format(self.name),
-            "description = {}".format(self.description),
-            "create_date = {}".format(self.create_date),
-            "path = {}".format(self.path),
-            "arn = {}".format(self.arn),
-        ])
 
 
 class IamRolesSearcher(AwsResourceSearcher):
@@ -98,7 +87,6 @@ class IamRolesSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = role.to_console_url()
-        largetext = role.to_largetext()
         item_arg = ItemArgs(
             title="{role_name}".format(
                 role_name=role.name,
@@ -108,8 +96,8 @@ class IamRolesSearcher(AwsResourceSearcher):
             ),
             autocomplete="{} {}".format(self.resource_id, role.name),
             arg=console_url,
-            largetext=largetext,
-            icon=find_svc_icon(self.id),
+            largetext=role.to_large_text(),
+            icon=self.icon,
             valid=True,
         )
         item_arg.open_browser(console_url)

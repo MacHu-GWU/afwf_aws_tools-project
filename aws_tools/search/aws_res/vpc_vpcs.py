@@ -9,7 +9,6 @@ Ref:
 from __future__ import unicode_literals
 import attr
 from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
-from ...icons import find_svc_icon
 from ...cache import cache
 from ...settings import SettingValues
 from ...helpers import tokenize
@@ -109,7 +108,6 @@ class VpcVpcsSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = vpc.to_console_url()
-        large_text = vpc.to_large_text()
         item_arg = ItemArgs(
             title=vpc.name,
             subtitle="{state} {id}{default}".format(
@@ -119,8 +117,8 @@ class VpcVpcsSearcher(AwsResourceSearcher):
             ),
             autocomplete="{} {}".format(self.resource_id, vpc.id),
             arg=console_url,
-            largetext=large_text,
-            icon=find_svc_icon(self.id),
+            largetext=vpc.to_large_text(),
+            icon=self.icon,
             valid=True,
         )
         item_arg.open_browser(console_url)

@@ -9,7 +9,6 @@ Ref:
 from __future__ import unicode_literals
 import attr
 from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
-from ...icons import find_svc_icon
 from ...cache import cache
 from ...settings import SettingValues
 from ...search.fuzzy import FuzzyObjectSearch
@@ -28,16 +27,6 @@ class Policy(ResData):
         return "https://console.aws.amazon.com/iam/home#/policies/{policy_arn}".format(
             policy_arn=self.arn
         )
-
-    def to_largetext(self):
-        return "\n".join([
-            "id = {}".format(self.id),
-            "name = {}".format(self.name),
-            "description = {}".format(self.description),
-            "update_date = {}".format(self.update_date),
-            "path = {}".format(self.path),
-            "arn = {}".format(self.arn),
-        ])
 
 
 class IamPoliciesSearcher(AwsResourceSearcher):
@@ -100,7 +89,6 @@ class IamPoliciesSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = policy.to_console_url()
-        largetext = policy.to_largetext()
         item_arg = ItemArgs(
             title="{policy_name}".format(
                 policy_name=policy.name,
@@ -110,8 +98,8 @@ class IamPoliciesSearcher(AwsResourceSearcher):
             ),
             autocomplete="{} {}".format(self.resource_id, policy.name),
             arg=console_url,
-            largetext=largetext,
-            icon=find_svc_icon(self.id),
+            largetext=policy.to_large_text(),
+            icon=self.icon,
             valid=True,
         )
         item_arg.open_browser(console_url)

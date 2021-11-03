@@ -7,7 +7,7 @@ from aws_tools.search.aws_urls import main_service_searcher, sub_service_searche
 
 class TestMainServiceSearcher(object):
     def test_build_index(self):
-        main_service_searcher.build_index(force_rebuild=False)
+        main_service_searcher.build_index(force_rebuild=True)
 
     def test_search_one(self):
         doc = main_service_searcher.search_one(id="ec2")
@@ -27,7 +27,7 @@ class TestMainServiceSearcher(object):
 
 class TestSubServiceSearcher(object):
     def test_build_index(self):
-        sub_service_searcher.build_index(force_rebuild=False)
+        sub_service_searcher.build_index(force_rebuild=True)
 
     def test_search_one(self):
         doc = sub_service_searcher.search_one(main_svc_id="ec2", sub_svc_id="instances")
@@ -43,7 +43,7 @@ class TestSubServiceSearcher(object):
     def test_search(self):
         ids = [doc["id"] for doc in sub_service_searcher.search(
             main_svc_id="ec2", query_str="ins", limit=5)]
-        assert ids[:3] == ["instances", "instancetypes", "scheduledinstances"]
+        assert ids[:3] == ["instances", "instancetypes", "reservedinstances"]
 
 
 if __name__ == "__main__":

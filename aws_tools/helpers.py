@@ -22,7 +22,7 @@ charset = set.union(
 charset_list = list(charset)
 
 
-def is_valid_password(password):
+def is_valid_password(password): # pragma: no cover
     has_lower = len(set(password).intersection(charset_lower)) > 0
     has_upper = len(set(password).intersection(charset_upper)) > 0
     has_digits = len(set(password).intersection(charset_digits)) > 0
@@ -31,7 +31,7 @@ def is_valid_password(password):
     return has_lower and has_upper and has_digits and has_symbol and startswith_alpha
 
 
-def random_password(length):
+def random_password(length): # pragma: no cover
     password = "".join([random.choice(charset_list) for _ in range(length)])
     if not is_valid_password(password):
         return random_password(length)
@@ -49,11 +49,11 @@ def tokenize(text, space_only=False):
     return tokens
 
 
-def json_dumps(dct):
+def json_dumps(dct): # pragma: no cover
     return json.dumps(dct, encoding="utf-8", ensure_ascii=False)
 
 
-def json_loads(dct):
+def json_loads(dct): # pragma: no cover
     return json.loads(dct, encoding="utf-8")
 
 

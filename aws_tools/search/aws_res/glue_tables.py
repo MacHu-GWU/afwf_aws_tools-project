@@ -9,7 +9,6 @@ Ref:
 from __future__ import unicode_literals
 import attr
 from ..aws_resources import Base, AwsResourceSearcher, ItemArgs
-from ...icons import find_svc_icon
 from ...cache import cache
 from ...settings import SettingValues
 from ...helpers import intersect, tokenize
@@ -43,15 +42,6 @@ class Table(Base):
             table_name=self.table_name,
             region=SettingValues.aws_region
         )
-
-    def to_largetext(self):
-        return "\n".join([
-            "table_name = {}".format(self.table_name),
-            "database_name = {}".format(self.database_name),
-            "description = {}".format(self.description),
-            "update_time = {}".format(self.update_time),
-            "catalog_id = {}".format(self.catalog_id),
-        ])
 
 
 class GlueTablesSearcher(AwsResourceSearcher):
@@ -138,7 +128,6 @@ class GlueTablesSearcher(AwsResourceSearcher):
         if isinstance(tb_or_db, Database):
             db = tb_or_db
             console_url = db.to_console_url()
-            largetext = db.to_largetext()
             item_arg = ItemArgs(
                 title="🇩 Database({db_name})".format(
                     db_name=db.name,
@@ -148,15 +137,14 @@ class GlueTablesSearcher(AwsResourceSearcher):
                 ),
                 autocomplete="{} {}.".format(self.resource_id, db.name),
                 arg=console_url,
-                largetext=largetext,
-                icon=find_svc_icon(self.id),
+                largetext=tb_or_db.to_large_text(),
+                icon=self.icon,
                 valid=True,
             )
             item_arg.open_browser(console_url)
         elif isinstance(tb_or_db, Table):
             tb = tb_or_db
             console_url = tb.to_console_url()
-            largetext = tb.to_largetext()
             item_arg = ItemArgs(
                 title="🇹 Table({full_name})".format(full_name=tb.full_name),
                 subtitle="{description}".format(
@@ -164,8 +152,8 @@ class GlueTablesSearcher(AwsResourceSearcher):
                 ),
                 autocomplete="{} {}".format(self.resource_id, tb.full_name),
                 arg=console_url,
-                largetext=largetext,
-                icon=find_svc_icon(self.id),
+                largetext=tb_or_db.to_large_text(),
+                icon=self.icon,
                 valid=True,
             )
             item_arg.open_browser(console_url)

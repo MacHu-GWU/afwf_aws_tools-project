@@ -9,7 +9,6 @@ Ref:
 from __future__ import unicode_literals
 import attr
 from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
-from ...icons import find_svc_icon
 from ...cache import cache
 from ...settings import SettingValues
 from ...search.fuzzy import FuzzyObjectSearch
@@ -91,7 +90,6 @@ class DynamodbTablesSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = table.to_console_url()
-        largetext = table.to_large_text()
         item_arg = ItemArgs(
             title="{table_name}".format(
                 table_name=table.name,
@@ -99,8 +97,8 @@ class DynamodbTablesSearcher(AwsResourceSearcher):
             subtitle=table.arn,
             autocomplete="{} {}".format(self.resource_id, table.name),
             arg=console_url,
-            largetext=largetext,
-            icon=find_svc_icon(self.id),
+            largetext=table.to_large_text(),
+            icon=self.icon,
             valid=True,
         )
         item_arg.open_browser(console_url)

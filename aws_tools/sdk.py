@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+
 import boto3
+
 from .settings import settings, SettingKeys
+
 
 class SDK(object):
     """
@@ -51,6 +54,10 @@ class SDK(object):
         return self._get_client("ec2")
 
     @property
+    def rds_client(self):
+        return self._get_client("rds")
+
+    @property
     def lambda_client(self):
         return self._get_client("lambda")
 
@@ -73,5 +80,18 @@ class SDK(object):
     @property
     def sts_client(self):
         return self._get_client("sts")
+
+    @property
+    def sqs_client(self):
+        return self._get_client("sqs")
+
+    @property
+    def sns_client(self):
+        return self._get_client("sns")
+
+    @property
+    def ses_client(self):
+        return self._get_client("ses")
+
 
 sdk = SDK()

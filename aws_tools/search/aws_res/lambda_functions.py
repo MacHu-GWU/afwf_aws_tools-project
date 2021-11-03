@@ -99,7 +99,6 @@ class LambdaFunctionsSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = func.to_console_url()
-        largetext = func.to_large_text()
         item_arg = ItemArgs(
             title="{func_name}".format(
                 func_name=func.name,
@@ -109,8 +108,8 @@ class LambdaFunctionsSearcher(AwsResourceSearcher):
             ),
             autocomplete="{} {}".format(self.resource_id, func.name),
             arg=console_url,
-            largetext=largetext,
-            icon=find_svc_icon(self.id),
+            largetext=func.to_large_text(),
+            icon=self.icon,
             valid=True,
         )
         item_arg.open_browser(console_url)

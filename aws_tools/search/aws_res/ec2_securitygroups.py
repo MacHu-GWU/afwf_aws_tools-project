@@ -38,16 +38,6 @@ class SecurityGroup(ResData):
             region=SettingValues.aws_region,
         )
 
-    def to_largetext(self):
-        return "\n".join([
-            "id = {}".format(self.id),
-            "name = {}".format(self.name),
-            "description = {}".format(self.description),
-            "vpc_id = {}".format(self.vpc_id),
-            "n_ingress = {}".format(self.n_ingress),
-            "n_egress = {}".format(self.n_egress),
-        ])
-
 
 class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
     id = "ec2-securitygroups"
@@ -126,7 +116,6 @@ class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = sg.to_console_url()
-        largetext = sg.to_largetext()
         item_arg = ItemArgs(
             title="🛡️ {sg_id} {sg_name}".format(
                 sg_id=sg.short_id,
@@ -138,7 +127,7 @@ class Ec2SecurityGroupsSearcher(AwsResourceSearcher):
             ),
             autocomplete="{} {}".format(self.resource_id, sg.id),
             arg=console_url,
-            largetext=largetext,
+            largetext=sg.to_large_text(),
             icon=Icons.abspath(Icons.Arch_Amazon_Virtual_Private_Cloud),
             valid=True,
         )

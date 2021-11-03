@@ -85,7 +85,6 @@ class LambdaLayersSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = layer.to_console_url()
-        largetext = layer.to_large_text()
         item_arg = ItemArgs(
             title="{layer_name}".format(
                 layer_name=layer.name,
@@ -95,8 +94,8 @@ class LambdaLayersSearcher(AwsResourceSearcher):
             ),
             autocomplete="{} {}".format(self.resource_id, layer.name),
             arg=console_url,
-            largetext=largetext,
-            icon=find_svc_icon(self.id),
+            largetext=layer.to_large_text(),
+            icon=self.icon,
             valid=True,
         )
         item_arg.open_browser(console_url)

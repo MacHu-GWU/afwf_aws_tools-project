@@ -9,7 +9,6 @@ Ref:
 from __future__ import unicode_literals
 import attr
 from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
-from ...icons import find_svc_icon
 from ...cache import cache
 from ...settings import SettingValues
 from ...search.fuzzy import FuzzyObjectSearch
@@ -31,6 +30,7 @@ class Stack(ResData):
             stack_id=self.id,
             region=SettingValues.aws_region,
         )
+
 
 stack_state_emoji_mapper = {
     "CREATE_IN_PROGRESS": "🟡",
@@ -119,7 +119,6 @@ class CloudFormationStacksSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = stack.to_console_url()
-        largetext = stack.to_large_text()
         item_arg = ItemArgs(
             title="{stack_name}".format(
                 stack_name=stack.name,
@@ -130,11 +129,12 @@ class CloudFormationStacksSearcher(AwsResourceSearcher):
             ),
             autocomplete="{} {}".format(self.resource_id, stack.name),
             arg=console_url,
-            largetext=largetext,
-            icon=find_svc_icon(self.id),
+            largetext=stack.to_large_text(),
+            icon=self.icon,
             valid=True,
         )
         item_arg.open_browser(console_url)
         return item_arg
+
 
 cloudformation_stacks_searcher = CloudFormationStacksSearcher()

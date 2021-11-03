@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+import attr
 from pathlib_mate import Path
 from sqlitedict import SqliteDict
 from .paths import DIR_AWS_TOOL_USER_DATA

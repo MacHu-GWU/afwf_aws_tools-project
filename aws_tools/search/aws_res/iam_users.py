@@ -9,7 +9,6 @@ Ref:
 from __future__ import unicode_literals
 import attr
 from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
-from ...icons import find_svc_icon
 from ...cache import cache
 from ...settings import SettingValues
 from ...search.fuzzy import FuzzyObjectSearch
@@ -27,15 +26,6 @@ class User(ResData):
         return "https://console.aws.amazon.com/iam/home#/users/{user_name}".format(
             user_name=self.name,
         )
-
-    def to_largetext(self):
-        return "\n".join([
-            "id = {}".format(self.id),
-            "name = {}".format(self.name),
-            "create_date = {}".format(self.create_date),
-            "path = {}".format(self.path),
-            "arn = {}".format(self.arn),
-        ])
 
 
 class IamUsersSearcher(AwsResourceSearcher):
@@ -95,7 +85,6 @@ class IamUsersSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = user.to_console_url()
-        largetext = user.to_largetext()
         item_arg = ItemArgs(
             title="👤 {user_name}".format(
                 user_name=user.name,
@@ -103,8 +92,8 @@ class IamUsersSearcher(AwsResourceSearcher):
             subtitle=user.path,
             autocomplete="{} {}".format(self.resource_id, user.name),
             arg=console_url,
-            largetext=largetext,
-            icon=find_svc_icon(self.id),
+            largetext=user.to_large_text(),
+            icon=self.icon,
             valid=True,
         )
         item_arg.open_browser(console_url)

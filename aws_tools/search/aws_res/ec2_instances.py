@@ -58,9 +58,8 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
     def to_search_url(self, query_str):
         return "https://console.aws.amazon.com/ec2/v2/home?region={region}#Instances:search={query_str}".format(
             region=SettingValues.aws_region,
-            query=",".join(tokenize(query_str, space_only=True))
+            query_str=",".join(tokenize(query_str, space_only=True))
         )
-
 
     def simplify_response(self, res):
         """
@@ -92,7 +91,6 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
                     private_ip=private_ip,
                 )
                 inst_list.append(inst)
-        inst_list = list(sorted(inst_list, key=lambda x: x.name))
         return inst_list
 
     @cache.memoize(expire=SettingValues.expire)
@@ -101,7 +99,9 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
         :rtype: list[Instance]
         """
         res = self.sdk.ec2_client.describe_instances(MaxResults=SettingValues.limit)
-        return self.simplify_response(res)
+        inst_list = self.simplify_response(res)
+        inst_list = list(sorted(inst_list, key=lambda x: x.name))
+        return inst_list
 
     @cache.memoize(expire=SettingValues.expire)
     def filter_res(self, query_str):

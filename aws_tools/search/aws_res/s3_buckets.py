@@ -9,7 +9,6 @@ Ref:
 from __future__ import unicode_literals
 import attr
 from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
-from ...icons import find_svc_icon
 from ...settings import SettingValues
 from ...cache import cache
 from ...search.fuzzy import FuzzyObjectSearch
@@ -33,13 +32,6 @@ class Bucket(ResData):
     @property
     def arn(self):
         return "arn:aws:s3:::{}".format(self.name)
-
-    def to_largetext(self):
-        return "\n".join([
-            "name = {}".format(self.name),
-            "create_date = {}".format(self.create_date),
-            "arn = {}".format(self.arn),
-        ])
 
 
 class S3BucketsSearcher(AwsResourceSearcher):
@@ -92,7 +84,6 @@ class S3BucketsSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = bucket.to_console_url()
-        largetext = bucket.to_largetext()
         item_arg = ItemArgs(
             title=bucket.name,
             subtitle="Create at {create_date}".format(
@@ -100,12 +91,13 @@ class S3BucketsSearcher(AwsResourceSearcher):
             ),
             autocomplete="{} {}".format(self.resource_id, bucket.name),
             arg=console_url,
-            largetext=largetext,
-            icon=find_svc_icon(self.id),
+            largetext=bucket.to_large_text(),
+            icon=self.icon,
             valid=True,
         )
         item_arg.open_browser(console_url)
         item_arg.copy_arn(bucket.arn)
         return item_arg
+
 
 s3_bucket_searcher = S3BucketsSearcher()

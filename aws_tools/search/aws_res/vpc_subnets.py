@@ -9,7 +9,6 @@ Ref:
 from __future__ import unicode_literals
 import attr
 from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
-from ...icons import find_svc_icon
 from ...cache import cache
 from ...settings import SettingValues
 from ...helpers import union, intersect, tokenize
@@ -128,7 +127,6 @@ class VpcSubnetsSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = subnet.to_console_url()
-        largetext = subnet.to_large_text()
         item_arg = ItemArgs(
             title=subnet.name,
             subtitle="{state} {id}".format(
@@ -137,8 +135,8 @@ class VpcSubnetsSearcher(AwsResourceSearcher):
             ),
             autocomplete="{} {}".format(self.resource_id, subnet.id),
             arg=console_url,
-            largetext=largetext,
-            icon=find_svc_icon(self.id),
+            largetext=subnet.to_large_text(),
+            icon=self.icon,
             valid=True,
         )
         item_arg.open_browser(console_url)

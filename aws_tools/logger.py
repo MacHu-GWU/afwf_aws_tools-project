@@ -9,6 +9,7 @@ from .paths import PATH_LOG
 
 def add_logger(wf):
     """
+    Add logger to ``Workflow3.log`` attribute.
     :type wf: Workflow3
     """
     if not hasattr(wf, "log"):
@@ -21,7 +22,10 @@ def add_logger(wf):
         wf.log = logger
 
 
-def clear_log():
+def clear_log():  # pragma: no cover
+    """
+    Remove all log files in ~/.alfred-aws-tools/
+    """
     to_remove_list = list()
     to_remove_list.append(PATH_LOG)
     for i in range(1, 10):

@@ -8,16 +8,14 @@ Ref:
 
 from __future__ import unicode_literals
 import attr
-from ..aws_resources import Base, AwsResourceSearcher, ItemArgs
-from ...icons import find_svc_icon
+from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
 from ...cache import cache
 from ...settings import SettingValues
 from ...search.fuzzy import FuzzyObjectSearch
-from .glue_databases import Database, glue_databases_searcher
 
 
 @attr.s(hash=True)
-class Job(Base):
+class Job(ResData):
     name = attr.ib()
     description = attr.ib()
     create_on = attr.ib()
@@ -33,16 +31,6 @@ class Job(Base):
         return "https://console.aws.amazon.com/glue/home?region={region}#etl:tab=jobs".format(
             region=SettingValues.aws_region,
         )
-
-    def to_largetext(self):
-        return "\n".join([
-            "name = {}".format(self.name),
-            "description = {}".format(self.description),
-            "create_on = {}".format(self.create_on),
-            "last_modified_on = {}".format(self.last_modified_on),
-            "worker_type = {}".format(self.worker_type),
-            "glue_version = {}".format(self.glue_version),
-        ])
 
 
 class GlueJobSearcher(AwsResourceSearcher):
@@ -105,7 +93,6 @@ class GlueJobSearcher(AwsResourceSearcher):
         :rtype: ItemArgs
         """
         console_url = job.to_console_url()
-        largetext = job.to_largetext()
         item_arg = ItemArgs(
             title=job.name,
             subtitle="{description}".format(
@@ -113,11 +100,12 @@ class GlueJobSearcher(AwsResourceSearcher):
             ),
             autocomplete="{} {}".format(self.resource_id, job.name),
             arg=console_url,
-            largetext=largetext,
-            icon=find_svc_icon(self.id),
+            largetext=job.to_large_text(),
+            icon=self.icon,
             valid=True,
         )
         item_arg.open_browser(console_url)
         return item_arg
+
 
 glue_job_searcher = GlueJobSearcher()
