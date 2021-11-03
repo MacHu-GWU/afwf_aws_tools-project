@@ -27,6 +27,7 @@ Release and Version History
 
 - add searcher: glue, lambda, lakeformation, cloudformation, dynamodb
 - allow in-console search, for example: https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:search=dev
+- improve query performance, latency is reduced from 0.3 sec to 0.01 sec by setting index.
 
 **Bugfixes**
 

@@ -38,6 +38,7 @@ class MainServiceSchema(fields.SchemaClass):
         minsize=2,
         maxsize=10,
         stored=True,
+        sortable=True,
     )
     id_kw = fields.KEYWORD(stored=False)
     name = fields.NGRAM(
@@ -84,6 +85,7 @@ class SubServiceSchema(fields.SchemaClass):
         minsize=2,
         maxsize=10,
         stored=True,
+        sortable=True,
     )
     id_kw = fields.KEYWORD(stored=False)
     name = fields.NGRAM(

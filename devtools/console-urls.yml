@@ -2591,9 +2591,11 @@
     - id: elasticips
       name: Elastic IPs
       url: '/vpc/home?region={region}#Addresses:'
+      weight: 7
     - id: endpoints
       name: Endpoints
       url: '/vpc/home?region={region}#Endpoints:'
+      weight: 7
     - id: endpointservices
       name: Endpoint Services
       url: '/vpc/home?region={region}#EndpointServices:'
@@ -2606,6 +2608,7 @@
     - id: internetgateways
       name: Internet Gateways
       url: '/vpc/home?region={region}#igws:'
+      weight: 7
     - id: managedprefixlists
       name: Managed Prefix Lists
       url: '/vpc/home?region={region}#ManagedPrefixLists:'
@@ -2621,6 +2624,7 @@
     - id: natgateways
       name: NAT Gateways
       url: '/vpc/home?region={region}#NatGateways:'
+      weight: 7
     - id: networkacls
       name: Network ACLs
       url: '/vpc/home?region={region}#acls:'
@@ -2639,18 +2643,21 @@
     - id: routetables
       name: Route Tables
       url: '/vpc/home?region={region}#RouteTables:'
+      weight: 7
     - id: rulegroups
       name: Rule Groups
       url: '/vpc/home?region={region}#DNSFirewallRuleGroups:'
     - id: securitygroups
       name: Security Groups
       url: '/vpc/home?region={region}#SecurityGroups:'
+      weight: 7
     - id: settings
       name: Settings
       url: '/vpc/home?region={region}#Settings:'
     - id: subnets
       name: Subnets
       url: '/vpc/home?region={region}#subnets:'
+      weight: 8
     - id: transitgatewayattachments
       name: Transit Gateway Attachments
       url: '/vpc/home?region={region}#TransitGatewayAttachments:'
