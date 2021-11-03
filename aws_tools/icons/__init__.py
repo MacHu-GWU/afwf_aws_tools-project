@@ -724,6 +724,7 @@ class Icons:  # pragma: no cover
 
 class HotIcons:
     aws = Path(HERE, "aws.png").abspath
+    run = Path(HERE, "run.png").abspath
     iam = Icons.abspath(Icons.Arch_AWS_Identity_and_Access_Management)
 
     help = workflow.ICON_HELP
