@@ -63,7 +63,9 @@ class CloudFormationStacksSearcher(AwsResourceSearcher):
     id = "cloudformation-stacks"
     limit_arg_name = None
     paginator_arg_name = "NextToken"
-    lister = AwsResourceSearcher.sdk.cft_client.list_stacks
+
+    def boto3_call(self, **kwargs):
+        return self.sdk.cft_client.list_stacks(**kwargs)
 
     def get_paginator(self, res):
         return res.get("NextToken")

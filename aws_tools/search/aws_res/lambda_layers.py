@@ -35,7 +35,9 @@ class LambdaLayersSearcher(AwsResourceSearcher):
     id = "lambda-layers"
     limit_arg_name = "MaxItems"
     paginator_arg_name = "Marker"
-    lister = AwsResourceSearcher.sdk.lambda_client.list_layers
+
+    def boto3_call(self, **kwargs):
+        return self.sdk.lambda_client.list_layers(**kwargs)
 
     def get_paginator(self, res):
         return res.get("NextMarker")

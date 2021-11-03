@@ -41,7 +41,9 @@ class DynamodbTablesSearcher(AwsResourceSearcher):
     id = "dynamodb-tables"
     limit_arg_name = "Limit"
     paginator_arg_name = "ExclusiveStartTableName"
-    lister = AwsResourceSearcher.sdk.dynamodb_client.list_tables
+
+    def boto3_call(self, **kwargs):
+        return self.sdk.dynamodb_client.list_tables(**kwargs)
 
     def get_paginator(self, res):
         return res.get("NextMarker")

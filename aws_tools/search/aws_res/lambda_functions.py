@@ -42,7 +42,9 @@ class LambdaFunctionsSearcher(AwsResourceSearcher):
     id = "lambda-functions"
     limit_arg_name = "MaxItems"
     paginator_arg_name = "Marker"
-    lister = AwsResourceSearcher.sdk.lambda_client.list_functions
+
+    def boto3_call(self, **kwargs):
+        return self.sdk.lambda_client.list_functions(**kwargs)
 
     def get_paginator(self, res):
         return res.get("NextMarker")

@@ -32,7 +32,9 @@ class IamUsersSearcher(AwsResourceSearcher):
     id = "iam-users"
     limit_arg_name = "MaxItems"
     paginator_arg_name = "Marker"
-    lister = AwsResourceSearcher.sdk.iam_client.list_users
+
+    def boto3_call(self, **kwargs):
+        return self.sdk.iam_client.list_users(**kwargs)
 
     def get_paginator(self, res):
         return res.get("Marker")

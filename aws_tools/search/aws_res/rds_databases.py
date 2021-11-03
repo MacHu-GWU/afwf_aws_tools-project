@@ -65,7 +65,9 @@ class RdsDatabasesSearcher(AwsResourceSearcher):
     id = "rds-databases"
     limit_arg_name = "MaxRecords"
     paginator_arg_name = "Marker"
-    lister = AwsResourceSearcher.sdk.rds_client.describe_db_instances
+
+    def boto3_call(self, **kwargs):
+        return self.sdk.rds_client.describe_db_instances(**kwargs)
 
     def get_paginator(self, res):
         return res.get("Marker")

@@ -5,13 +5,11 @@ This module provide a pattern to implement aws resources searcher
 """
 
 import attr
-import typing
 from collections import OrderedDict
 from ..sdk import sdk, SDK
 from ..alfred import Base, ItemArgs
 from ..cache import cache
 from ..icons import find_svc_icon
-from ..helpers import tokenize
 
 
 @attr.s(hash=True)
@@ -113,7 +111,9 @@ class AwsResourceSearcher(object):
 
     limit_arg_name = None  # type: str
     paginator_arg_name = None  # type: str
-    lister = None  # type: callable
+
+    def boto3_call(self, **kwargs):
+        raise NotImplementedError
 
     def get_paginator(self, res):
         """
@@ -146,7 +146,7 @@ class AwsResourceSearcher(object):
             if paginator:
                 kwargs[self.paginator_arg_name] = paginator
 
-            response = self.lister(**kwargs)
+            response = self.boto3_call(**kwargs)
             res_list.extend(self.simplify_response(response))
             paginator = self.get_paginator(response)
 

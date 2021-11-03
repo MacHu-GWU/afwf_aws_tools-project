@@ -38,7 +38,9 @@ class GlueJobSearcher(AwsResourceSearcher):
 
     limit_arg_name = "MaxResults"
     paginator_arg_name = "NextToken"
-    lister = AwsResourceSearcher.sdk.glue_client.get_jobs
+
+    def boto3_call(self, **kwargs):
+        return self.sdk.glue_client.get_jobs(**kwargs)
 
     def get_paginator(self, res):
         return res.get("NextToken")

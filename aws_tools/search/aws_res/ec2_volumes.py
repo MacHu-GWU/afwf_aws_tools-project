@@ -49,7 +49,9 @@ class Ec2VolumesSearcher(AwsResourceSearcher):
     has_search_box = True
     limit_arg_name = "MaxResults"
     paginator_arg_name = "NextToken"
-    lister = AwsResourceSearcher.sdk.ec2_client.describe_volumes
+
+    def boto3_call(self, **kwargs):
+        return self.sdk.ec2_client.describe_volumes(**kwargs)
 
     def to_search_url(self, query_str):
         return "https://console.aws.amazon.com/ec2/home?region={region}#Volumes:search={query_str}".format(

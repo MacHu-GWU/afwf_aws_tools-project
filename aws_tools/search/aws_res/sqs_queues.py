@@ -51,7 +51,9 @@ class SqsQueuesSearcher(AwsResourceSearcher):
     id = "sqs-queues"
     limit_arg_name = "MaxResults"
     paginator_arg_name = "NextToken"
-    lister = AwsResourceSearcher.sdk.sqs_client.list_queues
+
+    def boto3_call(self, **kwargs):
+        return self.sdk.sqs_client.list_queues(**kwargs)
 
     def get_paginator(self, res):
         return res.get("NextToken")

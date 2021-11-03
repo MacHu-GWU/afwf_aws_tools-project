@@ -49,7 +49,9 @@ class GlueTablesSearcher(AwsResourceSearcher):
 
     limit_arg_name = "MaxResults"
     paginator_arg_name = "NextToken"
-    lister = AwsResourceSearcher.sdk.glue_client.get_tables
+
+    def boto3_call(self, **kwargs):
+        return self.sdk.glue_client.get_tables(**kwargs)
 
     def get_paginator(self, res):
         return res.get("NextToken")

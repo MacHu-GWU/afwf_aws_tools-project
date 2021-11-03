@@ -8,7 +8,8 @@ from __future__ import unicode_literals, print_function
 from workflow.workflow3 import Workflow3
 from ..alfred import ItemArgs
 from ..icons import HotIcons, find_svc_icon
-from ..search.aws_res import reg, AwsResourceSearcher
+from ..search.aws_res import reg
+from ..search.aws_resources import AwsResourceSearcher
 from ..search.aws_urls import main_service_searcher, sub_service_searcher
 from ..settings import SettingValues
 from ..paths import DIR_AWS_TOOL_USER_DATA

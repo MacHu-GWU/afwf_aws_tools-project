@@ -45,7 +45,9 @@ class VpcVpcsSearcher(AwsResourceSearcher):
     has_search_box = True
     limit_arg_name = "MaxResults"
     paginator_arg_name = "NextToken"
-    lister = AwsResourceSearcher.sdk.ec2_client.describe_vpcs
+
+    def boto3_call(self, **kwargs):
+        return self.sdk.ec2_client.describe_vpcs(**kwargs)
 
     def to_search_url(self, query_str):
         return "https://console.aws.amazon.com/vpc/home?region={region}#vpcs:search={query_str}".format(
