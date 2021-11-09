@@ -93,5 +93,13 @@ class SDK(object):
     def ses_client(self):
         return self._get_client("ses")
 
+    @property
+    def kms_client(self):
+        return self._get_client("kms")
+
+    @property
+    def sm_client(self):
+        return self._get_client("secretsmanager")
+
 
 sdk = SDK()

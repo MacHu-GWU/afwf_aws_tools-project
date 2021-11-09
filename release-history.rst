@@ -10,7 +10,11 @@ Release and Version History
 
 **Minor Improvements**
 
+- add searcher: kms
+
 **Bugfixes**
+
+- fix bug that glue tables cannot return results
 
 **Miscellaneous**
 
