@@ -32,7 +32,10 @@ def main_svc_doc_to_item(doc):
         shortname=" ({})".format(doc.get("short_name")) if doc.get("short_name") else "",
         description=" - {}".format(doc.get("description")) if doc.get("description") else "",
     )
-    autocomplete = title + "-" if doc["has_sub_svc"] else title
+    if doc["has_sub_svc"]:
+        autocomplete = title + "-"
+    else:
+        autocomplete = title
     console_url = "https://console.aws.amazon.com" + doc["url"].format(region=SettingValues.aws_region)
     arg = console_url
     item_arg = ItemArgs(

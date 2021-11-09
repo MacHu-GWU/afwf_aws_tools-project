@@ -156,8 +156,11 @@ class MainServiceSearcher(FtsSearcher):
             if "search_terms" in unicode_main_service_dict:
                 unicode_main_service_dict["search_terms"] = " ".join(main_service_dict["search_terms"])
             if "sub_services" in unicode_main_service_dict:
+                if unicode_main_service_dict["sub_services"]:
+                    unicode_main_service_dict["has_sub_svc"] = True
+                else:
+                    unicode_main_service_dict["has_sub_svc"] = False
                 del unicode_main_service_dict["sub_services"]
-                unicode_main_service_dict["has_sub_svc"] = True
             else:
                 unicode_main_service_dict["has_sub_svc"] = False
             writer.add_document(**unicode_main_service_dict)

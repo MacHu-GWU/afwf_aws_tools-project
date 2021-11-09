@@ -139,3 +139,11 @@ class ItemArgs(Base):
         self.modifiers.append(
             ModArgs(key="alt", subtitle="hit 'Enter' to copy ARN to clipboard", arg=arn)
         )
+
+    def copy_id(self, id):
+        """
+
+        """
+        self.modifiers.append(
+            ModArgs(key="cmd", subtitle="hit 'Enter' to copy ID to clipboard", arg=id)
+        )

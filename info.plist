@@ -1358,7 +1358,7 @@
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.0.2</string>
+	<string>1.0.3</string>
 	<key>webaddress</key>
 	<string>https://github.com/MacHu-GWU/afwf_aws_tools-project</string>
 </dict>

@@ -2215,10 +2215,14 @@
   sub_services: []
 - id: secretsmanager
   name: Secrets Manager
+  short_name: sm
   description: Easily rotate, manage, and retrieve secrets throughout their lifecycle
   url: /secretsmanager/home?region={region}#!/listSecrets
   weight: 6
-  sub_services: []
+  sub_services:
+    - id: secrets
+      name: Secrets
+      url: /secretsmanager/home?region={region}#!/listSecrets
 - id: securityhub
   name: Security Hub
   description: "AWS\u2019s security and compliance center"

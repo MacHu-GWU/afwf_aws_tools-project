@@ -20,6 +20,10 @@ class Key(ResData):
     arn = attr.ib()
     key_id = attr.ib()
 
+    @property
+    def id(self):
+        return self.key_id
+
     def to_console_url(self):
         if self.alias.startswith("alias/aws/"):
             key_type = "defaultKeys"
@@ -108,6 +112,7 @@ class KMSAWSManagedKeysSearcher(AwsResourceSearcher):
         )
         item_arg.open_browser(console_url)
         item_arg.copy_arn(kms_key.arn)
+        item_arg.copy_id(kms_key.id)
         return item_arg
 
 
