@@ -8,7 +8,7 @@ Ref:
 
 from __future__ import unicode_literals
 import attr
-from ..aws_resources import Base, AwsResourceSearcher, ItemArgs
+from ..aws_resources import ResData, AwsResourceSearcher, ItemArgs
 from ...cache import cache
 from ...settings import SettingValues
 from ...helpers import intersect, tokenize
@@ -16,7 +16,7 @@ from .glue_databases import Database, glue_databases_searcher
 
 
 @attr.s(hash=True)
-class Table(Base):
+class Table(ResData):
     table_name = attr.ib()
     database_name = attr.ib()
     description = attr.ib()
