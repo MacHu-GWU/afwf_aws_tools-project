@@ -4,13 +4,24 @@ Release and Version History
 ==============================================================================
 
 
-1.0.4 (TODO)
+1.0.5 (TODO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
 **Minor Improvements**
 
-- add searcher: kms
+**Bugfixes**
+
+**Miscellaneous**
+
+
+1.0.4 (2021-11-09)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+**Minor Improvements**
+
+- add searcher: kms, secretsmanager
 
 **Bugfixes**
 

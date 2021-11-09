@@ -446,6 +446,16 @@
 				<key>vitoclose</key>
 				<false/>
 			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>C9FC1AAB-754C-4030-9B24-1DE3ABAD91E3</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>NOTHING gonna happen</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
 		</array>
 		<key>F303C71E-0767-4FDE-AFD9-0F1B52B016E5</key>
 		<array>
@@ -1107,6 +1117,25 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>C9FC1AAB-754C-4030-9B24-1DE3ABAD91E3</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -1332,6 +1361,13 @@
 			<integer>570</integer>
 			<key>ypos</key>
 			<integer>325</integer>
+		</dict>
+		<key>C9FC1AAB-754C-4030-9B24-1DE3ABAD91E3</key>
+		<dict>
+			<key>xpos</key>
+			<integer>570</integer>
+			<key>ypos</key>
+			<integer>640</integer>
 		</dict>
 		<key>D4EF0212-328D-4698-BE99-E412063BC3F3</key>
 		<dict>
