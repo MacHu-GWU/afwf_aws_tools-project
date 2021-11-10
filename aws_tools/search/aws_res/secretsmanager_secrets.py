@@ -105,7 +105,7 @@ class SecretmanagerSecretsSearcher(AwsResourceSearcher):
         )
         item_arg.open_browser(console_url)
         item_arg.copy_arn(secret.arn)
-
+        item_arg.copy_id(secret.id)
         return item_arg
 
 

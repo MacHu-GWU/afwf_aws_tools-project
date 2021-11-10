@@ -41,6 +41,7 @@ class LakeformationDatabasesSearcher(GlueDatabasesSearcher):
         item_arg.arg = console_url
         item_arg.icon = find_svc_icon(self.id)
         item_arg.open_browser(console_url)
+        item_arg.copy_id(db.id)
         return item_arg
 
 

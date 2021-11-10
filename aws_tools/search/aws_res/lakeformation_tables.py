@@ -40,6 +40,7 @@ class LakeformationTablesSearcher(GlueTablesSearcher):
             raise Exception
         item_arg.icon = find_svc_icon(self.id)
         item_arg.open_browser(console_url)
+        item_arg.copy_id(tb_or_db.id)
         return item_arg
 
 lakeformation_tables_searcher = LakeformationTablesSearcher()

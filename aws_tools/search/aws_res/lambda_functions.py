@@ -116,6 +116,7 @@ class LambdaFunctionsSearcher(AwsResourceSearcher):
         )
         item_arg.open_browser(console_url)
         item_arg.copy_arn(func.arn)
+        item_arg.copy_id(func.id)
         return item_arg
 
 

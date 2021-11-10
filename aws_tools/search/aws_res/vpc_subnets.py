@@ -142,6 +142,7 @@ class VpcSubnetsSearcher(AwsResourceSearcher):
             valid=True,
         )
         item_arg.open_browser(console_url)
+        item_arg.copy_id(subnet.id)
         return item_arg
 
 

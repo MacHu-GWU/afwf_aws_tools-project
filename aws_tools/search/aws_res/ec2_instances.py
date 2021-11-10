@@ -156,6 +156,7 @@ class Ec2InstancesSearcher(AwsResourceSearcher):
             valid=True,
         )
         item_arg.open_browser(console_url)
+        item_arg.copy_id(inst.id)
         return item_arg
 
 

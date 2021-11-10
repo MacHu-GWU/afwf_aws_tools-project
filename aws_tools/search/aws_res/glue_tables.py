@@ -144,6 +144,7 @@ class GlueTablesSearcher(AwsResourceSearcher):
                 valid=True,
             )
             item_arg.open_browser(console_url)
+            item_arg.copy_id(tb_or_db.id)
         elif isinstance(tb_or_db, Table):
             tb = tb_or_db
             console_url = tb.to_console_url()
@@ -159,6 +160,7 @@ class GlueTablesSearcher(AwsResourceSearcher):
                 valid=True,
             )
             item_arg.open_browser(console_url)
+            item_arg.copy_id(tb_or_db.id)
         else:
             raise Exception
         return item_arg

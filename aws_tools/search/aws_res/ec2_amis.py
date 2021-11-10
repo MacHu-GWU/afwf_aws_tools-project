@@ -120,6 +120,7 @@ class Ec2AmiSearcher(AwsResourceSearcher):
             valid=True,
         )
         item_arg.open_browser(console_url)
+        item_arg.copy_id(image.id)
         return item_arg
 
 ec2_amis_searcher = Ec2AmiSearcher()

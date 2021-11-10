@@ -104,6 +104,7 @@ class IamRolesSearcher(AwsResourceSearcher):
         )
         item_arg.open_browser(console_url)
         item_arg.copy_arn(role.arn)
+        item_arg.copy_id(role.id)
         return item_arg
 
 iam_roles_searcher = IamRolesSearcher()

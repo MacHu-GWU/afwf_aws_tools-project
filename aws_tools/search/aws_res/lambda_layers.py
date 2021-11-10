@@ -102,6 +102,7 @@ class LambdaLayersSearcher(AwsResourceSearcher):
         )
         item_arg.open_browser(console_url)
         item_arg.copy_arn(layer.arn)
+        item_arg.copy_id(layer.id)
         return item_arg
 
 

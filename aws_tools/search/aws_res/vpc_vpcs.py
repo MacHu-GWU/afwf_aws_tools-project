@@ -124,6 +124,7 @@ class VpcVpcsSearcher(AwsResourceSearcher):
             valid=True,
         )
         item_arg.open_browser(console_url)
+        item_arg.copy_id(vpc.id)
         return item_arg
 
 

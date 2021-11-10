@@ -35,6 +35,7 @@ class GlueStudioJobSearcher(GlueJobSearcher):
         item_arg.title = "GlueJob({})".format(job.name)
         item_arg.arg = console_url
         item_arg.open_browser(console_url)
+        item_arg.copy_id(job.id)
         return item_arg
 
 

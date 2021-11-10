@@ -10,14 +10,16 @@ Features
 ------------------------------------------------------------------------------
 
 .. contents::
-    :depth: 1
+    :depth: 2
     :local:
 
 
 💥 Navigate AWS Console Fast
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**1. Navigate to AWS service and it's sub service**
+
+1. Navigate to AWS service and it's sub service
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Usage:
 
@@ -34,7 +36,9 @@ Note:
 
 .. image:: https://user-images.githubusercontent.com/6800411/139746689-ef72be04-d4d2-487f-a748-7b0c0056ee1d.gif
 
-**2. Search AWS Resource and see it in Console**
+
+2. Search AWS Resource and see it in Console
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Usage:
 
@@ -53,13 +57,18 @@ You can hit "cmd + L" to view resource details (if available). This is an IAM Ro
 .. image:: https://user-images.githubusercontent.com/6800411/139770265-305a0b27-0cfd-4710-b57c-a58c0ec264ae.png
 
 
-**3. Copy ARN to Clipboard**
+3. Copy ARN / ID to Clipboard
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Usage:
+Copy ARN:
 
-- Type ``aws ${main_service}-{sub_service} ${query}`` to locate the resource. And Press down ``Alt`` then hit ``Enter`` to copy ARN to clipboard (if available).
+Type ``aws ${main_service}-{sub_service} ${query}`` to locate the resource. And Press down ``Alt`` then hit ``Enter`` to copy ARN to clipboard (if available).
 
 .. image:: https://user-images.githubusercontent.com/6800411/139749561-93b1b8e6-c5ee-4890-a82a-d4bcf922da16.gif
+
+Copy ID:
+
+- Type ``aws ${main_service}-{sub_service} ${query}`` to locate the resource. And Press down ``Cmd`` then hit ``Enter`` to copy ID to clipboard (if available).
 
 
 Switch Default AWS Profile for CLI / SDK

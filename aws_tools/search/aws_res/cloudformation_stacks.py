@@ -136,6 +136,7 @@ class CloudFormationStacksSearcher(AwsResourceSearcher):
             valid=True,
         )
         item_arg.open_browser(console_url)
+        item_arg.copy_id(stack.id)
         return item_arg
 
 

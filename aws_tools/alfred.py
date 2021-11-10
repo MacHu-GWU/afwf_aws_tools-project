@@ -145,5 +145,5 @@ class ItemArgs(Base):
 
         """
         self.modifiers.append(
-            ModArgs(key="cmd", subtitle="hit 'Enter' to copy ID to clipboard", arg=id)
+            ModArgs(key="cmd", subtitle="hit 'Enter' to copy ID({}) to clipboard".format(id), arg=id)
         )

@@ -110,6 +110,7 @@ class SqsQueuesSearcher(AwsResourceSearcher):
         )
         item_arg.open_browser(console_url)
         item_arg.copy_arn(queue.arn)
+        item_arg.copy_id(queue.name)
         return item_arg
 
 
