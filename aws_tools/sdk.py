@@ -101,5 +101,9 @@ class SDK(object):
     def sm_client(self):
         return self._get_client("secretsmanager")
 
+    @property
+    def c9_client(self):
+        return self._get_client("cloud9")
+
 
 sdk = SDK()

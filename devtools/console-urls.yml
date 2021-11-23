@@ -251,8 +251,19 @@
   name: Cloud9
   description: A Cloud IDE for Writing, Running, and Debugging Code
   url: /cloud9/home?region={region}#
+  search_terms:
+    - c9
   weight: 3
-  sub_services: []
+  sub_services:
+    - id: ide
+      name: IDE on Cloud 9
+      url: /cloud9/home
+      weight: 9
+    - id: environments
+      name: Dev Environments and IDE on Cloud 9
+      short_name: env
+      url: /cloud9/home
+      weight: 8
 - id: cloudformation
   name: CloudFormation
   short_name: CF
