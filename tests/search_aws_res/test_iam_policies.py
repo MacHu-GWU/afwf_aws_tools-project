@@ -2,18 +2,16 @@
 
 from __future__ import unicode_literals
 import pytest
-from aws_tools.search.aws_res.iam_policies import IamPoliciesSearcher
+from aws_tools.search.aws_res.iam_policies import iam_policies_searcher as sr
 
 
 class TestIamPolicysSearcher(object):
-    sr = IamPoliciesSearcher()
-
     def test_list_res(self):
-        res = self.sr.list_res()
+        res = sr.list_res()
         # print(res[0])
 
     def test_filter_res(self):
-        res = self.sr.filter_res("dev")
+        res = sr.filter_res("dev")
         # print(res[0])
 
 

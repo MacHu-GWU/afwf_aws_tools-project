@@ -2,22 +2,20 @@
 
 from __future__ import unicode_literals
 import pytest
-from aws_tools.search.aws_res.ec2_instances import Ec2InstancesSearcher
+from aws_tools.search.aws_res.ec2_instances import ec2_instances_searcher as sr
 
 
 class TestEc2InstancesSearcher(object):
-    sr = Ec2InstancesSearcher()
-
     def test_list_res(self):
-        res = self.sr.list_res()
+        res = sr.list_res()
         # print(res[0])
 
     def test_filter_res(self):
-        res = self.sr.filter_res("dev")
+        res = sr.filter_res("dev")
         # print(res[0])
-        res = self.sr.filter_res("0e18")
+        res = sr.filter_res("0e18")
         # print(res[0])
-        res = self.sr.filter_res("dev sanhe")
+        res = sr.filter_res("dev sanhe")
         # for inst in res:
         #     print(inst.name)
 

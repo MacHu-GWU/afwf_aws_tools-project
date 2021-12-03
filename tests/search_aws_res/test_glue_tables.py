@@ -2,29 +2,27 @@
 
 from __future__ import unicode_literals
 import pytest
-from aws_tools.search.aws_res.glue_tables import GlueTablesSearcher
+from aws_tools.search.aws_res.glue_tables import glue_tables_searcher as sr
 
 
 class TestGlueTablesSearcher(object):
-    sr = GlueTablesSearcher()
-
     def test_list_res(self):
-        res = self.sr.list_res()
+        res = sr.list_res()
         # print(res)
 
     def test_filter_res(self):
-        res = self.sr.filter_res("poc")
+        res = sr.filter_res("poc")
         # print(res)
 
-        res = self.sr.filter_res("glue_etl_job_poc.")
+        res = sr.filter_res("glue_etl_job_poc.")
         # for tb in res:
         #     print(tb.full_name)
 
-        res = self.sr.filter_res("glue_etl_job_poc.all_column")
+        res = sr.filter_res("glue_etl_job_poc.all_column")
         # for tb in res:
         #     print(tb.full_name)
 
-        res = self.sr.filter_res("glue_etl_job_poc.column all")
+        res = sr.filter_res("glue_etl_job_poc.column all")
         # for tb in res:
         #     print(tb.full_name)
 

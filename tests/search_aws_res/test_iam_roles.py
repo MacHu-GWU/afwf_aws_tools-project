@@ -2,18 +2,16 @@
 
 from __future__ import unicode_literals
 import pytest
-from aws_tools.search.aws_res.iam_roles import IamRolesSearcher
+from aws_tools.search.aws_res.iam_roles import iam_roles_searcher as sr
 
 
 class TestIamRolesSearcher(object):
-    sr = IamRolesSearcher()
-
     def test_list_res(self):
-        res = self.sr.list_res()
+        res = sr.list_res()
         # print(res[0].name)
 
     def test_filter_res(self):
-        res = self.sr.filter_res("dev sanhe")
+        res = sr.filter_res("dev sanhe")
         # print(res[0].name)
 
 

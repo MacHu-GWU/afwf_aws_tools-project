@@ -2,18 +2,16 @@
 
 from __future__ import unicode_literals
 import pytest
-from aws_tools.search.aws_res.glue_databases import GlueDatabasesSearcher
+from aws_tools.search.aws_res.glue_databases import glue_databases_searcher as sr
 
 
 class TestGlueDatabasesSearcher(object):
-    sr = GlueDatabasesSearcher()
-
     def test_list_res(self):
-        res = self.sr.list_res()
+        res = sr.list_res()
         # print(res[0])
 
     def test_filter_res(self):
-        res = self.sr.filter_res("poc")
+        res = sr.filter_res("poc")
         # print(res[0])
 
 

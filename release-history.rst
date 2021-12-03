@@ -19,9 +19,12 @@ Release and Version History
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
-- add searcher: cloud9
+- add searcher: cloud9 environment, ide
 
 **Minor Improvements**
+
+- update elasticsearch service to opensearch, add sub services for opensearch
+- add sub services for sagemaker
 
 **Bugfixes**
 

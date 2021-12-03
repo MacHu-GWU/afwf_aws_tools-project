@@ -110,4 +110,4 @@ class IamPoliciesSearcher(AwsResourceSearcher):
         return item_arg
 
 
-iam_policies_searcher = IamPoliciesSearcher
+iam_policies_searcher = IamPoliciesSearcher()

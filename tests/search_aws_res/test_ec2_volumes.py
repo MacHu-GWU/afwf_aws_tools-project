@@ -2,22 +2,20 @@
 
 from __future__ import unicode_literals
 import pytest
-from aws_tools.search.aws_res.ec2_volumes import Ec2VolumesSearcher
+from aws_tools.search.aws_res.ec2_volumes import ec2_volumns_searcher as sr
 
 
 class TestEc2VolumesSearcher(object):
-    sr = Ec2VolumesSearcher()
-
     def test_list_res(self):
-        res = self.sr.list_res()
+        res = sr.list_res()
         # print(res[0])
-        # item = self.sr.to_item(res[0])
+        # item = sr.to_item(res[0])
         # print(item)
 
     def test_filter_res(self):
-        res = self.sr.filter_res("sanhe")
+        res = sr.filter_res("sanhe")
         # print(res[0])
-        res = self.sr.filter_res("2af6")
+        res = sr.filter_res("2af6")
         # print(res[0])
 
 

@@ -1151,12 +1151,24 @@
     - id: vpcsubnets
       name: VPC subnets
       url: '/elasticmapreduce/home?region={region}#manage-subnets:'
-- id: ess
-  name: Elasticsearch Service
-  short_name: ESS
-  description: Run and Scale Elasticsearch Clusters
-  url: /es/home?region={region}#
-  sub_services: []
+- id: oss
+  name: OpenSearch Service
+  short_name: OSS
+  description: Amazon OpenSearch Service (successor to Amazon Elasticsearch Service)
+  search_terms:
+    - os
+    - es
+    - ess
+    - elasticsearch
+    - elastic search
+  url: /esv3/home?region={region}#opensearch/dashboard
+  sub_services:
+    - id: dashboard
+      name: Dashboard
+      url: '/esv3/home?region={region}#opensearch/dashboard'
+    - id: domains
+      name: Domains
+      url: '/esv3/home?region={region}#opensearch/domains'
 - id: eventbridge
   name: EventBridge
   description: Serverless event bus that connects application data from your own apps,
@@ -2223,7 +2235,20 @@
   url: /sagemaker/home?region={region}#
   weight: 6
   top20: true
-  sub_services: []
+  sub_services:
+    - id: notebookinstances
+      name: Notebook Instances
+      url: '/sagemaker/home?region={region}#/notebook-instances'
+      weight: 9
+    - id: groundtruchlabelingjobs
+      name: Ground Truch Labeling Jobs
+      url: '/sagemaker/groundtruth?region={region}#/labeling-jobs'
+    - id: groundtruchlabelingdatasets
+      name: Ground Truch Labeling Datasets
+      url: '/sagemaker/groundtruth?region={region}#/labeling-datasets'
+    - id: groundtruchlabelingworkforces
+      name: Ground Truch Labeling Workforces
+      url: '/sagemaker/groundtruth?region={region}#/labeling-workforces'
 - id: secretsmanager
   name: Secrets Manager
   short_name: sm
