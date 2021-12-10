@@ -15,11 +15,12 @@ Release and Version History
 **Miscellaneous**
 
 
-1.0.5 (TODO)
+1.0.5 (2021-12-09)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
 - add searcher: cloud9 environment, ide
+- add ICON for 20+ top level services
 
 **Minor Improvements**
 

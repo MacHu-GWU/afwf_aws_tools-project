@@ -524,6 +524,10 @@
   url: /cognito/home?region={region}#
   weight: 6
   sub_services: []
+- id: textract
+  name: Textract
+  description: Automatically extract handwriting, text or data from any document using machine learning
+  url: /textract/home?region={region}#/
 - id: comprehend
   name: Comprehend
   description: Analyze Unstructured Text
@@ -1639,7 +1643,7 @@
     - id: subscriptions
       name: Manage subscriptions
       url: /marketplace/home?region={region}#/subscriptions
-- id: mcs
+- id: keyspaces
   name: Keyspaces (for Apache Cassandra)
   description: "A scalable, highly available, and managed Apache Cassandra\u2013compatible\
     \ database service"
@@ -1648,15 +1652,18 @@
     - id: cqleditor
       name: CQL editor
       url: /keyspaces/home?region={region}#cql-editor
+      weight: 7
     - id: dashboard
       name: Dashboard
       url: /keyspaces/home?region={region}#dashboard
     - id: keyspaces
       name: Keyspaces
       url: /keyspaces/home?region={region}#keyspaces
+      weight: 9
     - id: tables
       name: Tables
       url: /keyspaces/home?region={region}#tables
+      weight: 8
 - id: mediaconnect
   name: MediaConnect
   description: Reliable, secure, and flexible transport for live video
@@ -2226,6 +2233,7 @@
     - id: buckets
       name: Buckets
       url: /s3/home?region={region}
+      weight: 9
     - id: settings
       name: Account settings
       url: /s3/settings?region={region}
@@ -2361,18 +2369,23 @@
     - id: originationnumbers
       name: Origination numbers
       url: /sns/v3/home?region={region}#/mobile/origination-identities
+      weight: 5
     - id: pushnotifications
       name: Push Notifications
       url: /sns/v3/home?region={region}#/mobile/push-notifications
+      weight: 7
     - id: subscriptions
       name: Subscriptions
       url: /sns/v3/home?region={region}#/subscriptions
+      weight: 8
     - id: textmessaging
       name: Text Messaging (SMS)
       url: /sns/v3/home?region={region}#/mobile/text-messaging
+      weight: 6
     - id: topics
       name: Topics
       url: /sns/v3/home?region={region}#/topics
+      weight: 9
 - id: sqs
   name: Simple Queue Service
   short_name: SQS
