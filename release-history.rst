@@ -4,13 +4,29 @@ Release and Version History
 ==============================================================================
 
 
-1.0.6 (TODO)
+1.0.7 (TODO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
 **Minor Improvements**
 
 **Bugfixes**
+
+**Miscellaneous**
+
+
+1.0.6 (2022-02-06)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- add AWS US gov cloud support
+- add searcher: system manager parameter store
+
+**Minor Improvements**
+
+**Bugfixes**
+
+- show found nothing message when resource search receives no query.
 
 **Miscellaneous**
 
