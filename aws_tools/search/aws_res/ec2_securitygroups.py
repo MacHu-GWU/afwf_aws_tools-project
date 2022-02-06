@@ -33,7 +33,8 @@ class SecurityGroup(ResData):
         return self.vpc_id[:8] + "..." + self.vpc_id[-4:]
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/ec2/v2/home?region={region}#SecurityGroup:groupId={sg_id}".format(
+        return "https://{domain}/ec2/v2/home?region={region}#SecurityGroup:groupId={sg_id}".format(
+            domain=SettingValues.get_console_domain(),
             sg_id=self.id,
             region=SettingValues.aws_region,
         )

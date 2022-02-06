@@ -26,7 +26,8 @@ class Stack(ResData):
     root_id = attr.ib()
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/cloudformation/home?region={region}#/stacks/stackinfo?filteringStatus=active&filteringText=&viewNested=true&hideStacks=false&stackId={stack_id}".format(
+        return "https://{domain}/cloudformation/home?region={region}#/stacks/stackinfo?filteringStatus=active&filteringText=&viewNested=true&hideStacks=false&stackId={stack_id}".format(
+            domain=SettingValues.get_console_domain(),
             stack_id=self.id,
             region=SettingValues.aws_region,
         )

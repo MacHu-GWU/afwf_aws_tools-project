@@ -29,7 +29,8 @@ class Key(ResData):
             key_type = "defaultKeys"
         else:
             key_type = "keys"
-        return "https://console.aws.amazon.com/kms/home?region={region}#/kms/{key_type}/{key_id}".format(
+        return "https://{domain}/kms/home?region={region}#/kms/{key_type}/{key_id}".format(
+            domain=SettingValues.get_console_domain(),
             region=SettingValues.aws_region,
             key_type=key_type,
             key_id=self.key_id,

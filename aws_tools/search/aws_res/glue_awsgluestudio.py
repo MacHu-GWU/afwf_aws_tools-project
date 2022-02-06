@@ -16,7 +16,8 @@ def to_console_url(job):
     """
     :type job: Job
     """
-    return "https://console.aws.amazon.com/gluestudio/home?region={region}#/editor/job/{job_name}/script".format(
+    return "https://{domain}/gluestudio/home?region={region}#/editor/job/{job_name}/script".format(
+        domain=SettingValues.get_console_domain(),
         job_name=job.name,
         region=SettingValues.aws_region,
     )

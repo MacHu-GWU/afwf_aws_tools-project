@@ -24,7 +24,8 @@ class Instance(ResData):
     status = attr.ib()
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/rds/home?region={region}#database:id={inst_id};is-cluster=false".format(
+        return "https://{domain}/rds/home?region={region}#database:id={inst_id};is-cluster=false".format(
+            domain=SettingValues.get_console_domain(),
             inst_id=self.id,
             region=SettingValues.aws_region,
         )

@@ -41,7 +41,8 @@ class Queue(ResData):
         )
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/sqs/v2/home?region={region}#/queues/{q_url}".format(
+        return "https://{domain}/sqs/v2/home?region={region}#/queues/{q_url}".format(
+            domain=SettingValues.get_console_domain(),
             region=SettingValues.aws_region,
             q_url=self.url,
         )

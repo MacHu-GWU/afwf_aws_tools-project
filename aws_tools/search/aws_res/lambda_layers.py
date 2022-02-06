@@ -25,7 +25,8 @@ class Layer(ResData):
         return self.name
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/lambda/home?region={region}#/layers/{layer_name}".format(
+        return "https://{domain}/lambda/home?region={region}#/layers/{layer_name}".format(
+            domain=SettingValues.get_console_domain(),
             layer_name=self.name,
             region=SettingValues.aws_region,
         )

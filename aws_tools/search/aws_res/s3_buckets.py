@@ -24,7 +24,8 @@ class Bucket(ResData):
         return self.name
 
     def to_console_url(self):
-        return "https://s3.console.aws.amazon.com/s3/buckets/{name}?region={region}&tab=objects".format(
+        return "https://{domain}/s3/buckets/{name}?region={region}&tab=objects".format(
+            domain=SettingValues.get_console_domain(),
             name=self.name,
             region=SettingValues.aws_region,
         )

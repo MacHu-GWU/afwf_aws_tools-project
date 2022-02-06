@@ -15,7 +15,8 @@ from .glue_tables import Database, Table, GlueTablesSearcher
 
 
 def to_tb_console_url(tb):
-    return "https://console.aws.amazon.com/lakeformation/home?region={region}#table-details/{database_name}/{table_name}?catalogId={catalog_id}".format(
+    return "https://{domain}/lakeformation/home?region={region}#table-details/{database_name}/{table_name}?catalogId={catalog_id}".format(
+        domain=SettingValues.get_console_domain(),
         catalog_id=tb.catalog_id,
         database_name=tb.database_name,
         table_name=tb.table_name,

@@ -36,7 +36,8 @@ class Table(ResData):
         return "{} {}".format(self.database_name, self.table_name)
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/glue/home?region={region}#table:catalog={catalog_id};name={table_name};namespace={database_name}".format(
+        return "https://{domain}/glue/home?region={region}#table:catalog={catalog_id};name={table_name};namespace={database_name}".format(
+            domain=SettingValues.get_console_domain(),
             catalog_id=self.catalog_id,
             database_name=self.database_name,
             table_name=self.table_name,

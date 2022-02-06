@@ -27,7 +27,8 @@ class Database(ResData):
         return self.name
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/glue/home?region={region}#database:catalog={catalog_id};name={database_name}".format(
+        return "https://{domain}/glue/home?region={region}#database:catalog={catalog_id};name={database_name}".format(
+            domain=SettingValues.get_console_domain(),
             catalog_id=self.catalog_id,
             database_name=self.name,
             region=SettingValues.aws_region

@@ -28,7 +28,8 @@ class Volume(ResData):
         return self.id[:8] + "..." + self.id[-4:]
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/ec2/v2/home?region={region}#VolumeDetails:volumeId={vol_id}".format(
+        return "https://{domain}/ec2/v2/home?region={region}#VolumeDetails:volumeId={vol_id}".format(
+            domain=SettingValues.get_console_domain(),
             vol_id=self.id,
             region=SettingValues.aws_region,
         )

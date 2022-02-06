@@ -23,7 +23,8 @@ class User(ResData):
     arn = attr.ib()
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/iam/home#/users/{user_name}".format(
+        return "https://{domain}/iam/home#/users/{user_name}".format(
+            domain=SettingValues.get_console_domain(),
             user_name=self.name,
         )
 

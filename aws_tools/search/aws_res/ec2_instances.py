@@ -29,7 +29,8 @@ class Instance(ResData):
         return self.id[:6] + "..." + self.id[-4:]
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/ec2/v2/home?region={region}#InstanceDetails:instanceId={inst_id}".format(
+        return "https://{domain}/ec2/v2/home?region={region}#InstanceDetails:instanceId={inst_id}".format(
+            domain=SettingValues.get_console_domain(),
             inst_id=self.id,
             region=SettingValues.aws_region,
         )

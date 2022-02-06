@@ -28,7 +28,8 @@ class Vpc(ResData):
         return self.id[:8] + "..." + self.id[-4:]
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/vpc/home?region={region}#vpcs:search={vpc_id}".format(
+        return "https://{domain}/vpc/home?region={region}#vpcs:search={vpc_id}".format(
+            domain=SettingValues.get_console_domain(),
             vpc_id=self.id,
             region=SettingValues.aws_region,
         )

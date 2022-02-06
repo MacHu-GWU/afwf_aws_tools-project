@@ -28,7 +28,8 @@ class Job(ResData):
         return self.name
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/glue/home?region={region}#etl:tab=jobs".format(
+        return "https://{domain}/glue/home?region={region}#etl:tab=jobs".format(
+            domain=SettingValues.get_console_domain(),
             region=SettingValues.aws_region,
         )
 

@@ -21,7 +21,8 @@ def to_console_url(db):
     :type db: Database
     :rtype: str
     """
-    return "https://console.aws.amazon.com/lakeformation/home?region={region}#database-details/{database_name}?catalogId={catalog_id}".format(
+    return "https://{domain}/lakeformation/home?region={region}#database-details/{database_name}?catalogId={catalog_id}".format(
+        domain=SettingValues.get_console_domain(),
         catalog_id=db.catalog_id,
         database_name=db.name,
         region=SettingValues.aws_region

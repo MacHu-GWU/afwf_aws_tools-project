@@ -28,7 +28,8 @@ class Subnet(ResData):
         return self.id[:11] + "..." + self.id[-4:]
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/vpc/home?region={region}#subnets:search={subnet_id}".format(
+        return "https://{domain}/vpc/home?region={region}#subnets:search={subnet_id}".format(
+            domain=SettingValues.get_console_domain(),
             subnet_id=self.id,
             region=SettingValues.aws_region,
         )

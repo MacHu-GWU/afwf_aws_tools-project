@@ -16,7 +16,8 @@ from . import cloud9_environments
 @attr.s(hash=True)
 class Environment(cloud9_environments.Environment):
     def to_console_url(self):
-        return "https://console.aws.amazon.com/cloud9/ide/{id}".format(
+        return "https://{domain}/cloud9/ide/{id}".format(
+            domain=SettingValues.get_console_domain(),
             id=self.id,
         )
 

@@ -27,7 +27,8 @@ class Secret(ResData):
         return self.name
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/secretsmanager/home?region={region}#!/secret?name={name}".format(
+        return "https://{domain}/secretsmanager/home?region={region}#!/secret?name={name}".format(
+            domain=SettingValues.get_console_domain(),
             region=SettingValues.aws_region,
             name=self.name,
         )

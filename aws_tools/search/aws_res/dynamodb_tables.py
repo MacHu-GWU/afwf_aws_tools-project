@@ -31,7 +31,8 @@ class Table(ResData):
         )
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/dynamodbv2/home?region={region}#table?initialTableGroup=%23all&initialTagKey=&name={table_name}".format(
+        return "https://{domain}/dynamodbv2/home?region={region}#table?initialTableGroup=%23all&initialTagKey=&name={table_name}".format(
+            domain=SettingValues.get_console_domain(),
             table_name=self.name,
             region=SettingValues.aws_region,
         )

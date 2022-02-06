@@ -24,7 +24,8 @@ class Policy(ResData):
     arn = attr.ib()
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/iam/home#/policies/{policy_arn}".format(
+        return "https://{domain}/iam/home#/policies/{policy_arn}".format(
+            domain=SettingValues.get_console_domain(),
             policy_arn=self.arn
         )
 

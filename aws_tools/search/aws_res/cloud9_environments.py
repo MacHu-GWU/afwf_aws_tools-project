@@ -25,7 +25,8 @@ class Environment(ResData):
     status = attr.ib()
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/cloud9/home/environments/{id}".format(
+        return "https://{domain}/cloud9/home/environments/{id}".format(
+            domain=SettingValues.get_console_domain(),
             id=self.id,
         )
 

@@ -13,7 +13,8 @@ from .dynamodb_tables import DynamodbTablesSearcher
 
 
 def to_console_url(tb):
-    return "https://console.aws.amazon.com/dynamodbv2/home?region={region}#item-explorer?initialTagKey=&table={table_name}".format(
+    return "https://{domain}/dynamodbv2/home?region={region}#item-explorer?initialTagKey=&table={table_name}".format(
+        domain=SettingValues.get_console_domain(),
         table_name=tb.name,
         region=SettingValues.aws_region,
     )

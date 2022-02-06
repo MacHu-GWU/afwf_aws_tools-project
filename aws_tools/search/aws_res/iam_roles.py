@@ -24,7 +24,8 @@ class Role(ResData):
     arn = attr.ib()
 
     def to_console_url(self):
-        return "https://console.aws.amazon.com/iam/home#/roles/{role_name}".format(
+        return "https://{domain}/iam/home#/roles/{role_name}".format(
+            domain=SettingValues.get_console_domain(),
             role_name=self.name,
         )
 
