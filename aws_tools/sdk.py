@@ -105,5 +105,8 @@ class SDK(object):
     def c9_client(self):
         return self._get_client("cloud9")
 
+    @property
+    def ssm_client(self):
+        return self._get_client("ssm")
 
 sdk = SDK()

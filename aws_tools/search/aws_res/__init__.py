@@ -45,7 +45,7 @@ from .kms_customermanagedkeys import kms_customermanagedkeys_searcher
 from .secretsmanager_secrets import secretmanager_secrets_searcher
 from .cloud9_environments import cloud9_environments_searcher
 from .cloud9_ide import cloud9_ide_searcher
-
+from .systemsmanager_parameterstore import systemmanager_parameterstore_searcher
 
 reg.check_in(ec2_instances_searcher)
 reg.check_in(ec2_securitygroups_searcher)
@@ -75,3 +75,4 @@ reg.check_in(kms_customermanagedkeys_searcher)
 reg.check_in(secretmanager_secrets_searcher)
 reg.check_in(cloud9_environments_searcher)
 reg.check_in(cloud9_ide_searcher)
+reg.check_in(systemmanager_parameterstore_searcher)
