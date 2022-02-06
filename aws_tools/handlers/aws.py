@@ -242,8 +242,15 @@ class AwsHandlers(object):
         searcher = reg.get(searcher_id) # type: AwsResourceSearcher
         results = searcher.list_res()
         for data in results:
-            item_arg = searcher.to_item(data)
-            item_arg.add_to_wf(wf)
+            item_args = searcher.to_item(data)
+            item_args.add_to_wf(wf)
+        if len(results) == 0:
+            item_args = ItemArgs(
+                title="Found nothing",
+                icon=HotIcons.info,
+                 valid=False,
+            )
+            item_args.add_to_wf(wf)
         return wf
 
     def sh_filter_aws_resources(self, wf, searcher_id, query_str):
