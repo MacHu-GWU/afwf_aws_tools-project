@@ -11,10 +11,10 @@ class ItemBuilders(object):
         self.kwargs = dict()
 
     def select_aws_profile_as_default(
-            self,
-            wf,
-            aws_profile_list,
-            set_default_aws_profile_handler_id,
+        self,
+        wf,
+        aws_profile_list,
+        set_default_aws_profile_handler_id,
     ):
         """
         :type wf: Workflow3
@@ -40,10 +40,10 @@ class ItemBuilders(object):
         return wf
 
     def select_aws_profile_for_mfa(
-            self,
-            wf,
-            aws_profile_list,
-            execute_mfa_auth_handler_id,
+        self,
+        wf,
+        aws_profile_list,
+        execute_mfa_auth_handler_id,
     ):
         """
         :type wf: Workflow3
@@ -69,15 +69,15 @@ class ItemBuilders(object):
         return wf
 
     def set_aws_profile_as_aws_tools_default(
-            self,
-            wf,
-            aws_profile_list,
-            set_aws_profile_as_aws_tools_default_handler_id,
+        self,
+        wf,
+        aws_profile_list,
+        set_aws_profile_as_aws_tools_default_handler_id,
     ):
         """
         :type wf: Workflow3
         :type aws_profile_list: list[str]
-        :type set_default_aws_profile_handler_id: str
+        :type set_aws_profile_as_aws_tools_default_handler_id: str
         :rtype: Workflow3
         """
         for aws_profile in aws_profile_list:
@@ -98,10 +98,10 @@ class ItemBuilders(object):
         return wf
 
     def set_aws_region_as_aws_tools_default(
-            self,
-            wf,
-            all_regions,
-            set_aws_region_as_aws_tools_default_handler_id,
+        self,
+        wf,
+        all_regions,
+        set_aws_region_as_aws_tools_default_handler_id,
     ):
         """
         :type wf: Workflow3

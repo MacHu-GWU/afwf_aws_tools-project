@@ -32,6 +32,9 @@ class SettingValues:
     """
     A current settings data snapshot. Allow other module to access those value
     easier.
+
+    aws_profile: provide AWS credential
+    aws_region: the console you opened is in this region
     """
     aws_profile = settings.get(SettingKeys.aws_profile)
     aws_region = settings.get(SettingKeys.aws_region)
@@ -39,6 +42,12 @@ class SettingValues:
     # number of search results returns
     search_limit = settings.get(SettingKeys.search_limit, 20)
 
+    @classmethod
+    def get_console_domain(cls):
+        if cls.aws_region in {"us-gov-east-1", "us-gov-west-1"}:
+            return "console.amazonaws-us-gov.com"
+        else:
+            return "console.aws.amazon.com"
 
 @attr.s
 class SettingMetadata(object):

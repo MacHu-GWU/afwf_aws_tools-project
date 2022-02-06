@@ -96,9 +96,11 @@ def read_all_section_name(config_file):
     return config.sections()
 
 
-def replace_section(config_file,
-                    source_section_name,
-                    target_section_name):
+def replace_section(
+    config_file,
+    source_section_name,
+    target_section_name,
+):
     """
     Replace a config section values (target_section_name) with the value of
     another config section (source_section_name). For example::
@@ -181,9 +183,11 @@ def replace_section(config_file,
         f.write("\n".join(new_lines).encode("utf-8"))
 
 
-def overwrite_section(config_file,
-                      section_name,
-                      data):
+def overwrite_section(
+    config_file,
+    section_name,
+    data,
+):
     """
     Overwrite a config section values (section_name) with the key, value pairs
      defined in data. If the section_name doesn't exists before, create it.
@@ -261,7 +265,7 @@ def overwrite_section(config_file,
 
 
 def read_aws_profile_list_from_config(
-        aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
+    aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
 ):
     """
     :type aws_config_file: str
@@ -275,8 +279,8 @@ def read_aws_profile_list_from_config(
 
 
 def read_aws_profile_list_from_config_with_cache(
-        aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
-        expire=1,
+    aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
+    expire=1,
 ):
     """
     :type aws_config_file: str
@@ -293,9 +297,9 @@ def read_aws_profile_list_from_config_with_cache(
 
 
 def set_named_profile_as_default(
-        aws_profile,
-        aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
-        aws_credentials_file=PATH_DEFAULT_AWS_CREDENTIALS_FILE.abspath,
+    aws_profile,
+    aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
+    aws_credentials_file=PATH_DEFAULT_AWS_CREDENTIALS_FILE.abspath,
 ):  # pragma: no cover
     if aws_profile == "default":
         return
@@ -312,11 +316,11 @@ def set_named_profile_as_default(
 
 
 def mfa_auth(
-        aws_profile,
-        mfa_code,
-        hours=12,
-        aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
-        aws_credentials_file=PATH_DEFAULT_AWS_CREDENTIALS_FILE.abspath,
+    aws_profile,
+    mfa_code,
+    hours=12,
+    aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
+    aws_credentials_file=PATH_DEFAULT_AWS_CREDENTIALS_FILE.abspath,
 ):  # pragma: no cover
     """
     Given a root ``aws_profile``, do MFA authentication with ``mfa_code``,
