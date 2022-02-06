@@ -13,9 +13,11 @@ class FtsSearcher(object):
     :type index_dir: Path
     """
 
-    def __init__(self,
-                 schema,
-                 index_dir):
+    def __init__(
+        self,
+        schema,
+        index_dir,
+    ):
         self.schema = schema
         self.index_dir = Path(index_dir)  # ensure it is Path object
 

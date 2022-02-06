@@ -123,10 +123,12 @@ class AwsResourceSearcher(object):
         raise NotImplementedError
 
     @cache.memoize(expire=10)
-    def recur_list_res(self,
-                       kwargs=None,
-                       page_size=1000,
-                       limit=0):
+    def recur_list_res(
+        self,
+        kwargs=None,
+        page_size=1000,
+        limit=0,
+    ):
         """
         Some list_resource API requires paginator to retrieve many items.
 
