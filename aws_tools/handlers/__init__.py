@@ -37,6 +37,8 @@ reg.check_in(aws_profile_handlers.mh_select_aws_profile_to_set_as_aws_tools_defa
 reg.check_in(aws_profile_handlers.mh_set_aws_profile_as_aws_tools_default)
 reg.check_in(aws_profile_handlers.mh_select_aws_region_to_set_as_aws_tools_default)
 reg.check_in(aws_profile_handlers.mh_set_aws_region_as_aws_tools_default)
+reg.check_in(aws_profile_handlers.mh_select_aws_profile_to_set_as_default_for_everything)
+reg.check_in(aws_profile_handlers.mh_set_default_aws_profile_for_everything)
 
 # --- aws
 reg.check_in(aws_handlers.mh_aws)
