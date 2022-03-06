@@ -105,7 +105,6 @@ class Test:
             ("p3", "us-east-3"),
         ]
 
-
     # def test_set_named_profile_as_default(self):
     #     set_named_profile_as_default("aws_data_lab_sanhe")
 

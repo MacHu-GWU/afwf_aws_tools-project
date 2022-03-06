@@ -24,9 +24,10 @@ class TestAWSProfileForEverythingHandlers(object):
     def test_mh_select_aws_profile_to_set_as_default_for_everything(self):
         aws_profile_handlers.mh_select_aws_profile_to_set_as_default_for_everything(
             self.wf, query_str="")
-        for item in self.wf._items:
-            print(item.title)
-            print(item.title)
+        # for item in self.wf._items:
+        #     print(item.title)
+        #     print(item.subtitle)
+        #     print(item.arg)
 
 
 if __name__ == "__main__":

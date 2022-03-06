@@ -4,7 +4,7 @@ Release and Version History
 ==============================================================================
 
 
-1.0.7 (TODO)
+1.0.8 (TODO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
@@ -13,6 +13,13 @@ Release and Version History
 **Bugfixes**
 
 **Miscellaneous**
+
+
+1.0.7 (TODO)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- add ``aws-set-profile-for-everything`` workflow, you can choose a named aws profile from your ``~/.aws/config`` for AWS Tool workflow to use and also update the ``~/.aws/config`` and ``~/.aws/credential`` file
 
 
 1.0.6 (2022-02-06)
