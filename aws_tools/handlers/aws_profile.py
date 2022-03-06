@@ -255,8 +255,8 @@ class AWSProfileHandlers(object):
         )
         item_builders.set_aws_profile_as_default_for_everything(
             wf=wf,
-            aws_profile_list=aws_profile_and_region_list_from_config,
-            set_default_aws_profile_handler_id=self.mh_set_default_aws_profile_for_everything.__name__,
+            aws_profile_and_region_list=aws_profile_and_region_list_from_config,
+            set_aws_profile_as_default_for_everything_handler_id=self.mh_set_default_aws_profile_for_everything.__name__,
         )
         return wf
 

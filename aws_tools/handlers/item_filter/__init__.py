@@ -88,7 +88,7 @@ class ItemFilters(object):
                 for aws_profile in filtered_aws_profile_list
             ]
         else:
-            filtered_aws_profile_and_region_list = aws_profile_list_from_config
+            filtered_aws_profile_and_region_list = aws_profile_and_region_list_from_config
 
         return filtered_aws_profile_and_region_list
 
