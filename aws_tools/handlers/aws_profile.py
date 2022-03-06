@@ -224,4 +224,41 @@ class AWSProfileHandlers(object):
         )
         return wf
 
+    # ------ aws-set-profile-for-everything script filter implementation ------
+    def mh_set_default_aws_profile_for_everything(self, wf, query_str):
+        """
+        :type wf: Workflow3
+        :type query_str: str
+        """
+        aws_profile, region = query_str.split("____")
+        set_named_profile_as_default(
+            aws_profile=aws_profile,
+            aws_config_file=self.aws_config_file.abspath,
+            aws_credentials_file=self.aws_credentials_file.abspath,
+        )
+        settings[SettingKeys.aws_profile] = aws_profile
+        settings[SettingKeys.aws_region] = region
+        return wf
+
+    def mh_select_aws_profile_to_set_as_default_for_everything(self, wf, query_str):
+        """
+        Return list of available aws named profile to select.
+
+        Return profile name as argument.
+
+        :type wf: Workflow3
+        :type query_str: str
+        """
+        aws_profile_and_region_list_from_config = item_filters.aws_profile_and_region(
+            query_str=query_str,
+            aws_config_file=self.aws_config_file.abspath,
+        )
+        item_builders.set_aws_profile_as_default_for_everything(
+            wf=wf,
+            aws_profile_list=aws_profile_and_region_list_from_config,
+            set_default_aws_profile_handler_id=self.mh_set_default_aws_profile_for_everything.__name__,
+        )
+        return wf
+
+
 aws_profile_handlers = AWSProfileHandlers()

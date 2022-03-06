@@ -145,7 +145,7 @@ class ItemBuilders(object):
         for aws_profile, region in aws_profile_and_region_list:
             cmd = "/usr/bin/python main.py '{} {}'".format(
                 set_aws_profile_as_default_for_everything_handler_id,
-                aws_profile,
+                "{}____{}".format(aws_profile, region),
             )
             item_arg = ItemArgs(
                 title="{} {}".format(aws_profile, region),
