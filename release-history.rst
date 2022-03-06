@@ -21,6 +21,11 @@ Release and Version History
 
 - add ``aws-set-profile-for-everything`` workflow, you can choose a named aws profile from your ``~/.aws/config`` for AWS Tool workflow to use and also update the ``~/.aws/config`` and ``~/.aws/credential`` file
 
+**Minor Improvements**
+
+- add AWS Augmented ai sub service navigator
+- add AWS IAM create role / create policy navigator
+
 
 1.0.6 (2022-02-06)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
