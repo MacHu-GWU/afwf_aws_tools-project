@@ -88,7 +88,18 @@
   name: Augmented AI
   description: Easy implement human review of machine learning predictions
   url: /a2i/home?region={region}#
-  sub_services: []
+  search_terms:
+    - a2i
+  sub_services:
+    - id: workflows
+      name: Human review workflows
+      url: /a2i/home?region={region}#/human-review-workflows
+    - id: task
+      name: Worker task template
+      url: /a2i/home?region={region}#/worker-task-templates
+    - id: workforces
+      name: Human review workforces
+      url: /a2i/home?region={region}#/human-review-workforces
 - id: autoscaling
   name: Auto Scaling
   description: AWS Auto Scaling enables you to quickly scale your entire application
@@ -1422,6 +1433,14 @@
       name: Users
       url: /iamv2/home?region={region}#/users
       weight: 7
+    - id: newrole
+      name: Create New IAM Role
+      url: /iamv2/home#/roles/create?step=selectEntities
+      weight: 6
+    - id: newpolicy
+      name: Create New IAM Policy
+      url: /iam/home#/policies$new?step=edit
+      weight: 6
 - id: inspector
   name: Inspector
   description: Analyze Application Security
