@@ -87,6 +87,59 @@
 				<false/>
 			</dict>
 		</array>
+		<key>47AB5230-E8F5-41EC-A796-B845CA214E22</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>96772024-B60F-491F-AE7C-D0D8707CD4A9</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>0A24D963-DF2A-4CE6-AA05-4BE5CCBC7B56</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>733E16DD-1336-4C61-86EE-2BFDDE4BA510</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>D4EF0212-328D-4698-BE99-E412063BC3F3</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>00BBD318-3A27-4B5E-ACBE-F793201F949D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>726C9FDB-4F39-4970-BDC9-5D9A66FF60EE</key>
 		<array>
 			<dict>
@@ -1198,6 +1251,55 @@
 				<key>escaping</key>
 				<integer>68</integer>
 				<key>keyword</key>
+				<string>aws-set-profile-for-everything</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>2</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>please wait ...</string>
+				<key>script</key>
+				<string>/usr/bin/python main.py 'mh_select_aws_profile_to_set_as_default_for_everything {query}'</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Set one of named profile in ~/.aws/credentials as DEFAULT for everything</string>
+				<key>title</key>
+				<string>aws-set-profile-for-everything</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>47AB5230-E8F5-41EC-A796-B845CA214E22</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>2</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>keyword</key>
 				<string>aws</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
@@ -1270,6 +1372,13 @@
 			<integer>10</integer>
 			<key>ypos</key>
 			<integer>10</integer>
+		</dict>
+		<key>47AB5230-E8F5-41EC-A796-B845CA214E22</key>
+		<dict>
+			<key>xpos</key>
+			<integer>10</integer>
+			<key>ypos</key>
+			<integer>850</integer>
 		</dict>
 		<key>4902434F-2AB6-44F5-95B9-2A904364296C</key>
 		<dict>
@@ -1381,7 +1490,7 @@
 			<key>xpos</key>
 			<integer>10</integer>
 			<key>ypos</key>
-			<integer>850</integer>
+			<integer>955</integer>
 		</dict>
 		<key>F303C71E-0767-4FDE-AFD9-0F1B52B016E5</key>
 		<dict>
@@ -1394,7 +1503,7 @@
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.0.5</string>
+	<string>1.0.6</string>
 	<key>webaddress</key>
 	<string>https://github.com/MacHu-GWU/afwf_aws_tools-project</string>
 </dict>
