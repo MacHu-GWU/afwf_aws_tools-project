@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from typing import List, Tuple
 from workflow.workflow3 import Workflow3
 from ...alfred import ItemArgs
 from ...icons import HotIcons
 
 
 class ItemBuilders(object):
+    """
+    This class take some parameter as input, and return list of ``ItemArgs`` as output.
+    """
     def __init__(self):
         self.kwargs = dict()
 
@@ -76,7 +80,7 @@ class ItemBuilders(object):
     ):
         """
         :type wf: Workflow3
-        :type aws_profile_list: list[str]
+        :type aws_profile_list: List[str]
         :type set_aws_profile_as_aws_tools_default_handler_id: str
         :rtype: Workflow3
         """
@@ -123,6 +127,38 @@ class ItemBuilders(object):
             )
             item_arg.run_script(cmd)
             item_arg.notify(title="now AWS Tools default region is", subtitle=short_name)
+            item_arg.add_to_wf(wf)
+        return wf
+
+    def set_aws_profile_as_default_for_everything(
+        self,
+        wf,
+        aws_profile_and_region_list,
+        set_aws_profile_as_default_for_everything_handler_id,
+    ):
+        """
+        :type wf: Workflow3
+        :type aws_profile_and_region_list: List[Tuple[str, str]]
+        :type set_aws_profile_as_default_for_everything_handler_id: str
+        :rtype: Workflow3
+        """
+        for aws_profile, region in aws_profile_and_region_list:
+            cmd = "/usr/bin/python main.py '{} {}'".format(
+                set_aws_profile_as_default_for_everything_handler_id,
+                aws_profile,
+            )
+            item_arg = ItemArgs(
+                title="{} {}".format(aws_profile, region),
+                subtitle="set default profile as [{}] for everything".format(aws_profile),
+                autocomplete=aws_profile,
+                icon=HotIcons.iam,
+                valid=True,
+            )
+            item_arg.run_script(cmd)
+            item_arg.notify(
+                title="now default profile and region is",
+                subtitle="{} {}".format(aws_profile, region),
+            )
             item_arg.add_to_wf(wf)
         return wf
 
