@@ -163,7 +163,7 @@ def replace_section(
 
             # encounter next section after the target_section_name
             if is_in_target_section_flag and (line.startswith("[") and line.endswith("]")) and (
-                    line != target_section_line):
+                line != target_section_line):
                 new_lines.append("")  # add an empty line
                 is_in_target_section_flag = False
                 append_flag = True
@@ -245,7 +245,7 @@ def overwrite_section(
 
             # encounter next section after the target_section_name
             if is_in_section_flag and (line.startswith("[") and line.endswith("]")) and (
-                    line != section_line):
+                line != section_line):
                 new_lines.append("")  # add an empty line
                 is_in_section_flag = False
                 append_flag = True
@@ -269,6 +269,8 @@ def read_aws_profile_list_from_config(
 ):
     """
     :type aws_config_file: str
+
+    :type expire: typing.List[str]
     """
     aws_profile_list_from_config = read_all_section_name(aws_config_file)
     aws_profile_list_from_config = [
@@ -278,6 +280,23 @@ def read_aws_profile_list_from_config(
     return aws_profile_list_from_config
 
 
+def read_aws_profile_and_region_list_from_config(
+    aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
+):
+    """
+    :type aws_config_file: str
+
+    :type expire: typing.List[typing.Tuple[str, str]]
+    """
+    aws_profile_and_region_list_from_config = list()
+    config = load_config(aws_config_file)
+    for sec_name in config.sections():
+        aws_profile = sec_name[8:] if sec_name.startswith("profile ") else sec_name
+        region = config.get(sec_name, "region")
+        aws_profile_and_region_list_from_config.append((aws_profile, region))
+    return aws_profile_and_region_list_from_config
+
+
 def read_aws_profile_list_from_config_with_cache(
     aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
     expire=1,
@@ -285,10 +304,32 @@ def read_aws_profile_list_from_config_with_cache(
     """
     :type aws_config_file: str
     :type expire: int
+
+    :rtype: typing.List[str]
     """
     return cache.fast_get(
         key=CacheKeys.aws_profile_list_from_config,
         callable=read_aws_profile_list_from_config,
+        kwargs=dict(
+            aws_config_file=aws_config_file,
+        ),
+        expire=expire,
+    )
+
+
+def read_aws_profile_and_region_list_from_config_with_cache(
+    aws_config_file=PATH_DEFAULT_AWS_CONFIG_FILE.abspath,
+    expire=1,
+):
+    """
+    :type aws_config_file: str
+    :type expire: int
+
+    :rtype: typing.List[typing.Tuple[str, str]]
+    """
+    return cache.fast_get(
+        key=CacheKeys.aws_profile_and_region_list_from_config,
+        callable=read_aws_profile_and_region_list_from_config,
         kwargs=dict(
             aws_config_file=aws_config_file,
         ),

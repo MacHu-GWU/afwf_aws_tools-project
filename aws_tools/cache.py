@@ -25,6 +25,7 @@ cache = CustomCache(PATH_CACHE_DIR.abspath)
 
 class CacheKeys:
     aws_profile_list_from_config = None
+    aws_profile_and_region_list_from_config = None
 
 
 for k in CacheKeys.__dict__.keys():
