@@ -27,7 +27,7 @@ class ItemBuilders(object):
         :rtype: Workflow3
         """
         for aws_profile in aws_profile_list:
-            cmd = "/usr/bin/python main.py '{} {}'".format(
+            cmd = "~/.pyenv/shims/python2.7 main.py '{} {}'".format(
                 set_default_aws_profile_handler_id,
                 aws_profile,
             )
@@ -56,7 +56,7 @@ class ItemBuilders(object):
         :rtype: Workflow3
         """
         for aws_profile in aws_profile_list:
-            cmd = "/usr/bin/python main.py '{} {}'".format(
+            cmd = "~/.pyenv/shims/python2.7 main.py '{} {}'".format(
                 execute_mfa_auth_handler_id,
                 aws_profile,
             )
@@ -85,7 +85,7 @@ class ItemBuilders(object):
         :rtype: Workflow3
         """
         for aws_profile in aws_profile_list:
-            cmd = "/usr/bin/python main.py '{} {}'".format(
+            cmd = "~/.pyenv/shims/python2.7 main.py '{} {}'".format(
                 set_aws_profile_as_aws_tools_default_handler_id,
                 aws_profile,
             )
@@ -114,7 +114,7 @@ class ItemBuilders(object):
         :rtype: Workflow3
         """
         for long_name, short_name in all_regions:
-            cmd = "/usr/bin/python main.py '{} {}'".format(
+            cmd = "~/.pyenv/shims/python2.7 main.py '{} {}'".format(
                 set_aws_region_as_aws_tools_default_handler_id,
                 short_name,
             )
@@ -143,12 +143,12 @@ class ItemBuilders(object):
         :rtype: Workflow3
         """
         for aws_profile, region in aws_profile_and_region_list:
-            cmd = "/usr/bin/python main.py '{} {}'".format(
+            cmd = "~/.pyenv/shims/python2.7 main.py '{} {}'".format(
                 set_aws_profile_as_default_for_everything_handler_id,
                 "{}____{}".format(aws_profile, region),
             )
             item_arg = ItemArgs(
-                title="{} {}".format(aws_profile, region),
+                title="{} | {}".format(aws_profile, region),
                 subtitle="set default profile as [{}] for everything".format(aws_profile),
                 autocomplete=aws_profile,
                 icon=HotIcons.iam,

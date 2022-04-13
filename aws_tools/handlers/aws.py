@@ -144,7 +144,7 @@ class AwsHandlers(object):
                 icon=HotIcons.info,
                 valid=True,
             )
-            cmd = "/usr/bin/python main.py '{} {}'".format("mh_rebuild_index", "do-build-index")
+            cmd = "~/.pyenv/shims/python2.7 main.py '{} {}'".format("mh_rebuild_index", "do-build-index")
             item_arg.run_script(cmd)
             item_arg.open_file(path=DIR_AWS_TOOL_USER_DATA.abspath)
             item_arg.notify(title="AWS Console url index is rebuilt!")

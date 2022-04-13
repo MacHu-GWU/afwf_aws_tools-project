@@ -592,7 +592,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>/usr/bin/python main.py 'mh_select_aws_profile_to_set_as_default {query}'</string>
+				<string>~/.pyenv/shims/python2.7 main.py 'mh_select_aws_profile_to_set_as_default {query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -656,7 +656,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>/usr/bin/python main.py 'mh_info {query}'</string>
+				<string> ~/.pyenv/shims/python2.7 main.py 'mh_info {query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -743,7 +743,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>/usr/bin/python main.py 'mh_select_aws_profile_for_mfa_auth {query}'</string>
+				<string>~/.pyenv/shims/python2.7 main.py 'mh_select_aws_profile_for_mfa_auth {query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -811,7 +811,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>/usr/bin/python main.py 'mh_clear_aws_tools_cache {query}'</string>
+				<string>~/.pyenv/shims/python2.7 main.py 'mh_clear_aws_tools_cache {query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -902,7 +902,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>/usr/bin/python main.py 'mh_select_aws_profile_to_set_as_aws_tools_default {query}'</string>
+				<string>~/.pyenv/shims/python2.7 main.py 'mh_select_aws_profile_to_set_as_aws_tools_default {query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -1010,7 +1010,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>/usr/bin/python main.py 'mh_select_aws_region_to_set_as_aws_tools_default {query}'</string>
+				<string>~/.pyenv/shims/python2.7 main.py 'mh_select_aws_region_to_set_as_aws_tools_default {query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -1097,7 +1097,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>/usr/bin/python main.py 'mh_set {query}'</string>
+				<string>~/.pyenv/shims/python2.7 main.py 'mh_set {query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -1146,7 +1146,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>/usr/bin/python main.py 'mh_rebuild_index {query}'</string>
+				<string>~/.pyenv/shims/python2.7 main.py 'mh_rebuild_index {query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -1214,7 +1214,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>/usr/bin/python main.py 'mh_clear_log {query}'</string>
+				<string>~/.pyenv/shims/python2.7 main.py 'mh_clear_log {query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -1263,7 +1263,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>/usr/bin/python main.py 'mh_select_aws_profile_to_set_as_default_for_everything {query}'</string>
+				<string>~/.pyenv/shims/python2.7 main.py 'mh_select_aws_profile_to_set_as_default_for_everything {query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -1312,7 +1312,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>/usr/bin/python main.py 'mh_aws {query}'</string>
+				<string>~/.pyenv/shims/python2.7 main.py 'mh_aws {query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -1503,7 +1503,7 @@
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.0.6</string>
+	<string>1.0.8</string>
 	<key>webaddress</key>
 	<string>https://github.com/MacHu-GWU/afwf_aws_tools-project</string>
 </dict>

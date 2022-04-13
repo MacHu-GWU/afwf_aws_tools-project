@@ -4,7 +4,7 @@ Release and Version History
 ==============================================================================
 
 
-1.0.8 (TODO)
+1.0.9 (TODO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
@@ -15,7 +15,14 @@ Release and Version History
 **Miscellaneous**
 
 
-1.0.7 (TODO)
+1.0.8 (2022-04-13)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- MacOS may not support system Python2 anymore after 12.3. Now user has to install their own Python2 using `pyenv <https://github.com/pyenv/pyenv>`_. Please follow the installation guide and use this command ``pyenv install 2.7.18`` to install the python2 and make sure ``~/.pyenv/shims/python2.7``
+
+
+1.0.7 (2022-03-06)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 

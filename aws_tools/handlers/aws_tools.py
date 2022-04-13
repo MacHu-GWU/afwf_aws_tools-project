@@ -31,7 +31,7 @@ class AWSToolsHandlers(object):
         if query_str == magic_command:
             cache.clear()
             return wf
-        cmd = "/usr/bin/python main.py '{} {}'".format(self.mh_clear_aws_tools_cache.__name__, magic_command)
+        cmd = "~/.pyenv/shims/python2.7 main.py '{} {}'".format(self.mh_clear_aws_tools_cache.__name__, magic_command)
         item_arg = ItemArgs(
             title="Clear AWS tools workflow cache data",
             subtitle="hit 'Enter' to clear cache",
@@ -143,7 +143,7 @@ class AWSToolsHandlers(object):
                     icon=HotIcons.run,
                     valid=True,
                 )
-                cmd = "/usr/bin/python main.py '{} {} {}'".format(
+                cmd = "~/.pyenv/shims/python2.7 main.py '{} {} {}'".format(
                     self.mh_set_value.__name__,
                     st_key,
                     st_value,
@@ -165,7 +165,7 @@ class AWSToolsHandlers(object):
             main_service_searcher.build_index(force_rebuild=True)
             sub_service_searcher.build_index(force_rebuild=True)
             return wf
-        cmd = "/usr/bin/python main.py '{} {}'".format(self.mh_rebuild_index.__name__, magic_command)
+        cmd = "~/.pyenv/shims/python2.7 main.py '{} {}'".format(self.mh_rebuild_index.__name__, magic_command)
         item_arg = ItemArgs(
             title="Rebuild AWS console url index",
             subtitle="hit 'Enter' to rebuild the index",
@@ -183,7 +183,7 @@ class AWSToolsHandlers(object):
         if query_str == magic_command:
             clear_log()
             return wf
-        cmd = "/usr/bin/python main.py '{} {}'".format(self.mh_clear_log.__name__, magic_command)
+        cmd = "~/.pyenv/shims/python2.7 main.py '{} {}'".format(self.mh_clear_log.__name__, magic_command)
         item_arg = ItemArgs(
             title="Clear all log files",
             subtitle="hit 'Enter' to clear the log",
