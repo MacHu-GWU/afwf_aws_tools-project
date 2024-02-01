@@ -1,6 +1,17 @@
 Alfred Workflow - AWS Tools
 ==============================================================================
 
+**NOTICE**
+
+This project are originally based on Python2 because the Alfred Python package are Python2 only. Since the Alfred author stopped maintaining that package, I created my own `Alfred Python package afwf <https://github.com/MacHu-GWU/afwf-project>`_ and fully adapted Python3. This project has been completely re-worked in Python 3.
+
+This project has been broken down to four more maintainable projects:
+
+- `aws_resource_search <https://github.com/MacHu-GWU/aws_resource_search-project>`_: The cross platform CLI version of aws resource search. No Alfred needed.
+- `afwf_aws_resource_search <https://github.com/MacHu-GWU/afwf_aws_resource_search-project>`_: Alfred version of aws_resource_search.
+- `aws_console_url_search <https://github.com/MacHu-GWU/aws_console_url_search-project>`_: The cross platform CLI version to search aws console only. No Alfred needed.
+- `afwf_aws_console <https://github.com/MacHu-GWU/afwf_aws_console-project>`_: Alfred version of ``aws_console_url_search``.
+
 .. contents::
     :depth: 1
     :local:
