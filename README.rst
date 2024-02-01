@@ -12,6 +12,8 @@ This project has been broken down to four more maintainable projects:
 - `aws_console_url_search <https://github.com/MacHu-GWU/aws_console_url_search-project>`_: The cross platform CLI version to search aws console only. No Alfred needed.
 - `afwf_aws_console <https://github.com/MacHu-GWU/afwf_aws_console-project>`_: Alfred version of ``aws_console_url_search``.
 
+**Table of Content**
+
 .. contents::
     :depth: 1
     :local:
